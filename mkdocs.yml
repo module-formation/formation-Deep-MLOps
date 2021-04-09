@@ -1,0 +1,97 @@
+site_name: Formation Deep Learning
+site_author: Mathieu Klimczak
+theme:
+  name: material
+  logo: images/noun_Robot_1955251.svg
+  language: fr
+  features:
+    - navigation.instant
+    - navigation.tabs
+
+
+plugins:
+  - search:
+      lang: fr
+  #- mkdocs-jupyter
+  - mknotebooks
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Acceuil: index.md
+  - Deep Learning:
+    - Module 1:
+      - Théorie: module1/Module1.md
+      - Pratique: module1/tp1.md
+    - Module 2:
+      - Théorie: module2/Module2.md
+      - Annexe: module2/module2_annexe.md
+      - Pratique: module2/tp2.md
+    - Module 3:
+    #   - Théorie:
+      - Pratique: module3/Module3.ipynb
+    - Module 4:
+      - Théorie: module4/Module4.md
+      - Pratique: module4/Module4_2.ipynb
+    - Module 5:
+      - Théorie: module5/Module5.md
+      - Pratique: module5/Module5_2.ipynb
+    - Module 6:
+      - Pratique: module6/Module6_2.ipynb
+    - Module 7:
+      - Pratique: module7/Module7_2.ipynb
+    - Module 9:
+      - Théorie: module9/module9.md
+      - Pratique, l'élagage: module9/Module9_Prune.ipynb
+      - Pratique, TFLite: module9/Module9_TFLite.ipynb
+      - Pratique, TFTRT: module9/Module9_TFTRT.ipynb
+  - MLOps:
+    - Data versioning: mlops/DVC.md
+    - Monitoring: mlops/neptune.md
+    - Optimisation: mlops/optuna.md
+    - Hydra: mlops/hydra.md
+    - Docker: mlops/docker.md
+  - Guidelines:
+    - IDE vscode:
+      - Configuration: ide_vscode/conf.md
+    - Documentation:
+      - MkDocs: doc_redaction/mkdocs.md
+      - Diagrammes: doc_redaction/diagrammes.md
+    - Formating, Linting, Type Hinting:
+      - Formating: format_lint_hint/format.md
+      - Linting: format_lint_hint/lint.md
+      - Hint: format_lint_hint/hint.md
+    - Tests:
+      - Test unitaire: testing/unittests.md
+    - CI/CD:
+      - Pre-commit: cicd/precommit.md
+    - Docker:
+      - Environnement de dev: docker/dev_env.md
+    - Code quality:
+      - Radon: code_quality/radon.md
+    - Code security:
+      - Bandit: code_security/bandit.md
+
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.superfences
+  - def_list
+  - attr_list
+
+  # config pour latex
+  - pymdownx.arithmatex:
+      generic: true
+
+
+# config pour latex
+extra_javascript:
+  - javascripts/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
