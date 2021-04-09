@@ -20,27 +20,27 @@ extra_css:
 nav:
   - Accueil: index.md
   - Deep Learning:
-    - Module 1:
+    - Introduction au deep learning, prise en main de Tensorflow et Keras:
       - Théorie: module1/Module1.md
       - Pratique: module1/tp1.md
-    - Module 2:
+    - Les réseaux de neurones convolutifs:
       - Théorie: module2/Module2.md
       - Annexe: module2/module2_annexe.md
       - Pratique: module2/tp2.md
-    - Module 3:
+    - Preprocessing des données avec l'API tf.data:
     #   - Théorie:
       - Pratique: module3/Module3.ipynb
-    - Module 4:
+    - Optimisation et régularisation des réseaux de neurones:
       - Théorie: module4/Module4.md
       - Pratique: module4/Module4_2.ipynb
-    - Module 5:
+    - Personnaliser son réseau de neurones:
       - Théorie: module5/Module5.md
       - Pratique: module5/Module5_2.ipynb
-    - Module 6:
+    - La segmentation:
       - Pratique: module6/Module6_2.ipynb
-    - Module 7:
+    - Les modèles générateurs:
       - Pratique: module7/Module7_2.ipynb
-    - Module 9:
+    - Déployer son réseau de neurones sur de l'embarqué:
       - Théorie: module9/module9.md
       - Pratique, l'élagage: module9/Module9_Prune.ipynb
       - Pratique, TFLite: module9/Module9_TFLite.ipynb

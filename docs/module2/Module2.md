@@ -1,4 +1,4 @@
-# Module : 2 Les réseaux de neurones convolutifs
+# Module 2 : Les réseaux de neurones convolutifs
 
 ## Les neurosciences toujours : La vision chez l'être humain
 

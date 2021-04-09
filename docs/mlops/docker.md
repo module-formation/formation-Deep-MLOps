@@ -62,6 +62,8 @@ Un Dockerfile est une suite d'instruction, chaque instruction étant une couche 
 
     Cette première couche commence toujours par un `FROM`, pour dire à partir de quelle image de base vous allez construire votre Dockerfile.
 
+    Pourquoi `FROM` ? Il existe ce que l'on appelle des "registres dockers" (docker registry), où de manière similaire à github, gitlab, etc sont recensés les images docker de façon la plupart du temps open source, le plus connu étant [docker hub](https://hub.docker.com/). Pour récupérer une image, la commande similaire au "git clone *adresse*" est "docker pull *adresse*", et donc d'où vient votre image de base pour votre Dockerfile ? En anglais, "it has been pulled FROM *address*".
+
 `COPY` est la commande permettant de copier des dossiers depuis votre machine locale vers votre conteneur Docker. Ici `COPY requirements.txt .` copie le fichier `requirements.txt` vers `.`, ie à la racine définie dans l'image `nvcr.io/nvidia/tensorflow:21.02-tf2-py3`.
 
 !!! note "Syntaxe"
@@ -144,14 +146,38 @@ où les instructions de construction à l'intérieur du Dockerfile seraient diff
     ```
 
 Enfin, `-t project_ai` définit le nom que prendra l'image, ici "project_ai".
-[Documentation sur les options de construction](https://docs.docker.com/engine/reference/commandline/build/#options)
+
+!!! note "Remarque"
+
+    Beaucoup d'autres options sont disponibles, n'hésitez pas à regarder la [documentation sur les options de construction](https://docs.docker.com/engine/reference/commandline/build/#options).
 
 ### Lancement du conteneur
+
+!!! docker "Docker run"
+
+    ```docker
+    docker run \
+    --gpus all \
+    --shm-size=1g \
+    --ulimit memlock=-1 \
+    --ulimit stack=67108864 \
+    -it \
+    --rm \
+    -P \
+    --mount type=bind,source=$(PWD),target=/media/vorph/datas/cracks_defect \
+    -e TF_FORCE_GPU_ALLOW_GROWTH=true \
+    -e XLA_FLAGS='--xla_gpu_autotune_level=2' \
+    project_ai
+    ```
 
 `-it` : commande pour que le conteneur soit interactif.
 
 `-rm` : supprime le conteneur une fois qu'il est stoppé.
 
+
+!!! note "Remarque"
+
+    Beaucoup d'autres options sont disponibles, n'hésitez pas à regarder la [documentation sur les options de lancement](https://docs.docker.com/engine/reference/commandline/run/).
 
 ### Environnement de développement docker dans vscode
 ## Docker pour déployer
