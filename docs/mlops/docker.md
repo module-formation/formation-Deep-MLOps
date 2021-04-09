@@ -27,7 +27,7 @@ Dans docker, tout commence par la rédaction d'un `Dockerfile`, c'est un simple 
 
 Le langage docker est simple à comprendre, les tâches les plus communes ont leur propres commandes, et pour tout le reste vous pouvez utiliser les commandes shell standards (Bash sur Linux, ou PowerShell sur Windows par exemple).
 
-Pour voir comment s'écrit un Dockerfile, comment construire l'image et lancer le conteneur, prenons l'exemple suivant.
+Pour voir comment s'écrit un Dockerfile, comment construire l'image et lancer le conteneur, prenons l'exemple suivant. C'est le Dockerfile standard que j'utilise pour entraîner des modèles de deep learning.
 
 !!! docker "Dockerfile"
 
@@ -56,7 +56,97 @@ Pour voir comment s'écrit un Dockerfile, comment construire l'image et lancer l
     EXPOSE 8001
     ```
 
+Un Dockerfile est une suite d'instruction, chaque instruction étant une couche (layer) du Dockerfile. La toute première instruction est toujours la même, **elle détermine quelle sera la base de votre conteneur**, est-ce que votre conteneur sera construit sur une base d'OS Ubuntu 18.02, 20.04, sur une base Python 3.8, etc. Chaque image doit commencer d'une autre image. Ici l'image en question est `nvcr.io/nvidia/tensorflow:21.02-tf2-py3` une image de TensorFlow 2.4 faite par NVidia, ce qui permet de ne pas avoir à se soucier des problèmes d'installation ou de dépendances.
 
+!!! note "La première couche"
+
+    Cette première couche commence toujours par un `FROM`, pour dire à partir de quelle image de base vous allez construire votre Dockerfile.
+
+`COPY` est la commande permettant de copier des dossiers depuis votre machine locale vers votre conteneur Docker. Ici `COPY requirements.txt .` copie le fichier `requirements.txt` vers `.`, ie à la racine définie dans l'image `nvcr.io/nvidia/tensorflow:21.02-tf2-py3`.
+
+!!! note "Syntaxe"
+
+    La syntaxe est `COPY dossier_source dossier_cible`.
+
+
+Par défaut, toutes les instructions lancées dans un conteneur docker se font en mode super-admin. Certaines application ayant besoin d'un répertoire `/home/`, il est souvent nécessaire de créer un utilisateur, ce qui est fait dans les lignes suivantes.
+
+!!! docker "Création d'un utilisateur"
+
+    ```docker
+    ARG USERNAME=vorph
+    ARG USER_UID=1000
+    ARG USER_GID=1000
+
+    RUN groupadd -g $USER_GID -o $USERNAME
+    RUN useradd -m -u $USER_UID -g $USER_GID -o -s /bin/bash $USERNAME
+
+    USER $USERNAME
+    ```
+
+La commande `ARG` permet de définir des variables d'environnement qui ne seront disponibles que durant la construction de l'image, ici les identifiants d'un utilisateur. On a ensuite besoin d'ajouter cet utilisateur et ce group dans les utilisateurs du conteneur, ce qui ce fait via la commande `RUN` qui permet de lancer des commandes shell.
+
+Enfin on spécifie qui sera l'utilisateur de ce conteneur, que sera l'utilisateur que l'on vient de créer. Cela se fait via la commande `USER`.
+
+
+A la différence de `ARG`, `ENV` définit lui des variables d'environnements qui seront toujours disponibles après la construction de l'image, et donc lorsque le conteneur sera lancé. Ici on définit un chemin `PATH "$PATH:/home/vorph/.local/bin"` qui est nécessaire pour certaines librairies python dans les fichiers `requirements.txt` et `requirements-dev.txt`.
+
+Si vous voulez que votre conteneur docker communique vers l'extérieur autre que via le terminal, il faut lui en donner les droits. Cela peut dire exposer certains des ports du conteneur vers votre machine locale. Ici on en expose deux qui sont nécessaires pour les librairies *mlflow* et *mkdocs*, via les commandes `EXPOSE`.
+
+### Construction de l'image
+
+Maintenant que votre Dockerfile est rédigé, vous pouvez construire votre image. Le départ est toujours le même : `sudo docker build`, suivi d'argument.
+
+!!! note "Remarque"
+
+    les commandes docker dans le terminal ont besoin d'être passé en super-admin, si vous souhaitez ne plus avoir à taper `sudo docker build` mais simplement `docker build`, `docker run`, etc vous devez créer un groupe docker et vous ajouter en tant qu'utilisateur dedans. Pour cela, suivez les instructions de la doc officielle. [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+
+!!! docker "docker build"
+
+    ```docker
+    docker build \
+    --build-arg USER_UID=$(id -u) \
+    --build-arg USER_GID=$(id -g) \
+    --rm \
+    -f Dockerfile \
+    -t project_ai .
+    ```
+Les deux arguments `--build-arg` correspondent aux mêmes arguments `ARG` dans le Dockerfile, `ARG USER_UID=1000` signifiant que la valeur par défaut de USER_ID est 1000, `--build-arg` permet de réécrire au dessus pour être sur d'avoir les bonnes valeurs correspondant au couple `uid:gid` de votre machine locale.
+
+`--rm` permet de supprimer les conteneurs intermédiaires utilisés uniquement durant la construction.
+
+`-f Dockerfile` spécifie quel Dockerfile doit être utilisé pour la construction, ici celui nommé simplement `Dockerfile`. Le nommage des Dockerfile se fait de la façon suivante : `Dockerfile.suffixe`, par exemple vous pourriez avoir deux Dockerfiles différents
+
+- `Dockerfile.cpu`,
+- `Dockerfile.gpu`,
+
+où les instructions de construction à l'intérieur du Dockerfile seraient différentes que vous utilisiez le gpu ou non. Dans ce cas vous pourriez avoir les commandes suivantes.
+
+!!! docker "docker build"
+
+    ```docker
+    docker build \
+    --build-arg USER_UID=$(id -u) \
+    --build-arg USER_GID=$(id -g) \
+    --rm \
+    -f Dockerfile.cpu \
+    -t project_ai .
+    ```
+    ou
+
+    ```docker
+    docker build \
+    --build-arg USER_UID=$(id -u) \
+    --build-arg USER_GID=$(id -g) \
+    --rm \
+    -f Dockerfile.gpu \
+    -t project_ai .
+    ```
+
+Enfin, `-t project_ai` définit le nom que prendra l'image, ici "project_ai".
+[Documentation sur les options de construction](https://docs.docker.com/engine/reference/commandline/build/#options)
+
+### Lancement du conteneur
 
 `-it` : commande pour que le conteneur soit interactif.
 
@@ -67,8 +157,6 @@ Pour voir comment s'écrit un Dockerfile, comment construire l'image et lancer l
 ## Docker pour déployer
 
 ## Docker et OpenCV
-
-Si vous voulez que votre conteneur docker communique vers l'extérieur autre que via le terminal, il faut lui en donner les droits.
 
 La plupart du temps, lorsque l'on utilise OpenCV, on souhaite avoir un retour vidéo. Pour avoir ce retour, il faut que docker en ait les droits.
 

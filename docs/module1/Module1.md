@@ -3,7 +3,7 @@
 
 ## Préliminaires, notations et conventions
 
-!!! python "Python"
+<!-- !!! python "Python"
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
     nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
     massa, nec semper lorem quam in massa.
@@ -11,7 +11,7 @@
 ??? tf "TensorFlow"
     test Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
     nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
-    massa, nec semper lorem quam in massa.
+    massa, nec semper lorem quam in massa. -->
 
 
 Dans la suite de ces modules, on se place de le cadre d'un **apprentissage** dit **supervisé**, on considérera donc la problématique suivante :

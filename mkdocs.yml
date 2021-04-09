@@ -12,14 +12,13 @@ theme:
 plugins:
   - search:
       lang: fr
-  #- mkdocs-jupyter
   - mknotebooks
 
 extra_css:
   - stylesheets/extra.css
 
 nav:
-  - Acceuil: index.md
+  - Accueil: index.md
   - Deep Learning:
     - Module 1:
       - Théorie: module1/Module1.md
@@ -47,11 +46,11 @@ nav:
       - Pratique, TFLite: module9/Module9_TFLite.ipynb
       - Pratique, TFTRT: module9/Module9_TFTRT.ipynb
   - MLOps:
+    - Docker: mlops/docker.md
     - Data versioning: mlops/DVC.md
+    - Hydra: mlops/hydra.md
     - Monitoring: mlops/neptune.md
     - Optimisation: mlops/optuna.md
-    - Hydra: mlops/hydra.md
-    - Docker: mlops/docker.md
   - Guidelines:
     - IDE vscode:
       - Configuration: ide_vscode/conf.md
