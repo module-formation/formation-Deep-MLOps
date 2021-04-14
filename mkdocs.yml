@@ -36,9 +36,11 @@ nav:
     - Personnaliser son réseau de neurones:
       - Théorie: module5/Module5.md
       - Pratique: module5/Module5_2.ipynb
-    - La segmentation:
+    - La segmentation d'images:
+      - Théorie: module6/module6.md
       - Pratique: module6/Module6_2.ipynb
     - Les modèles générateurs:
+      #- Théorie: module7/module7.md
       - Pratique: module7/Module7_2.ipynb
     - Déployer son réseau de neurones sur de l'embarqué:
       - Théorie: module9/module9.md
@@ -49,7 +51,7 @@ nav:
     - Docker: mlops/docker.md
     - Data versioning: mlops/DVC.md
     - Hydra: mlops/hydra.md
-    - Monitoring: mlops/neptune.md
+    - Monitoring: mlops/monitoring.md
     - Optimisation: mlops/optuna.md
   - Guidelines:
     - IDE vscode:

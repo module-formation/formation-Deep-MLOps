@@ -20,6 +20,8 @@ Ce sont des objets logiques qui sont gérés par Docker, et ils sont tous réuni
 
 L'application à l'intérieur du conteneur ne peut rien voir à l'extérieur du conteneur, mais la boîte est exécutée sur un ordinateur, et cet ordinateur peut également exécuter de nombreux autres conteneurs. Les applications dans ces conteneurs ont leurs propres environnements distincts (gérés par Docker), mais elles partagent toutes le CPU, GPU, et la mémoire de l'ordinateur, et elles partagent toutes le système d'exploitation de l'ordinateur.
 
+![screen](./images/docker.svg)
+
 ### Les commandes de base et les Dockerfile
 
 
@@ -181,6 +183,9 @@ Enfin, `-t project_ai` définit le nom que prendra l'image, ici "project_ai".
 
 ### Environnement de développement docker dans vscode
 ## Docker pour déployer
+
+### Conteneuriser son application
+### TensorFlow Serving
 
 ## Docker et OpenCV
 
