@@ -7,6 +7,21 @@ theme:
   features:
     - navigation.instant
     - navigation.tabs
+    - navigation.top
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Basculer en mode sombre
+    - scheme: slate
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/toggle-switch
+        name: Basculer en mode clair
+
 
 
 plugins:
@@ -78,14 +93,15 @@ nav:
 markdown_extensions:
   - admonition
   - codehilite
-  - pymdownx.highlight:
-      linenums: true
   - pymdownx.inlinehilite
   - pymdownx.details
   - pymdownx.superfences
   - def_list
   - attr_list
-
+  - pymdownx.highlight:
+      linenums: true
+  - pymdownx.betterem:
+      smart_enable: all
   # config pour latex
   - pymdownx.arithmatex:
       generic: true

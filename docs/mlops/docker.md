@@ -149,6 +149,8 @@ où les instructions de construction à l'intérieur du Dockerfile seraient diff
 
 Enfin, `-t project_ai` définit le nom que prendra l'image, ici "project_ai".
 
+Le point `.` à la fin de la commande docker build signifie à docker qu'il doit chercher le Dockerfile dans le répertoire actuel.
+
 !!! note "Remarque"
 
     Beaucoup d'autres options sont disponibles, n'hésitez pas à regarder la [documentation sur les options de construction](https://docs.docker.com/engine/reference/commandline/build/#options).
@@ -186,6 +188,8 @@ Enfin, `-t project_ai` définit le nom que prendra l'image, ici "project_ai".
 
 ### Conteneuriser son application
 ### TensorFlow Serving
+
+[Docuementation Officielle](https://www.tensorflow.org/tfx/serving/api_rest#start_modelserver_with_the_rest_api_endpoint)
 
 ## Docker et OpenCV
 
@@ -327,3 +331,10 @@ Le suite est maintenant un peu plus compliquée. Il faut faire un fichier d'auth
     ```
 
 Maintenant, le conteneur est isolé avec seulement un accès en lecture et écriture à l'authentification X11 et au socket. L'inconvénient de tout cela est que certaines configurations spécifiques à l'utilisateur résident maintenant dans l'image elle-même, ce qui la rend moins portable. Si un autre utilisateur, même sur la même machine hôte, souhaite utiliser la même image, il devra : démarrer une session de terminal interactif avec le conteneur, changer l'`uid` et le `gid` pour qu'ils correspondent aux siens, livrer le conteneur à une nouvelle image, et lancer le conteneur désiré à partir de celle-ci. Faire ce va-et-vient ajoute également des couches inutiles à votre image.
+
+## Autres ressources
+
+- [Running GUI apps with Docker](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/)
+- [Running a graphical app in a Docker container, on a remote server](https://blog.yadutaf.fr/2017/09/10/running-a-graphical-app-in-a-docker-container-on-a-remote-server/)
+- [Real-time and video processing object detection using Tensorflow, OpenCV and Docker.](https://towardsdatascience.com/real-time-and-video-processing-object-detection-using-tensorflow-opencv-and-docker-2be1694726e5)
+- [Access webcam using OpenCV (Python) in Docker?](https://stackoverflow.com/questions/44852484/access-webcam-using-opencv-python-in-docker)

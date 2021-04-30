@@ -70,20 +70,20 @@ Pour une segmentation binaire (deux classes) ou multi-classes, la valeur moyenne
 
 Si l'on se concentre sur le cas d'une seule classe à chaque fois, on peut réexprimer ces métriques en terme de matrice de confusion.
 
-+---------------+-------------------+----------------------------+
-|               | $\hat{y}=1$ | $\hat{y}=0$          |
-+---------------+-------------------+----------------------------+
-| $y=1$   | TP                | FN                         |
-+---------------+-------------------+----------------------------+
-| $y=0$   | FP                | TN                         |
-+---------------+-------------------+----------------------------+
+
+|       | $\hat{y}=1$ | $\hat{y}=0$ |
+| :---: | :---------: | ----------: |
+| $y=1$ |     TP      |          FN |
+| $y=0$ |     FP      |          TN |
 
 On obtient alors les formules suivantes.
 
 \[
-    \text{Dice}(y, \hat{y}) = \frac{2TP}{2TP+FP+FN} \\
+    \mathrm{Dice}(y, \hat{y}) = \frac{2TP}{2TP+FP+FN}
+\]
 
-    \text{IoU}(y, \hat{y}) = \frac{TP}{TP+FP+FN}
+\[
+    \mathrm{IoU}(y, \hat{y}) = \frac{TP}{TP+FP+FN}
 \]
 
 Ainsi, ces deux métriques vérifient l'inégalité suivante.
@@ -107,9 +107,11 @@ En général, $\text{IoU}$ pénalise plus les observations mal classifiées que 
     Si une image ne comporte qu'un seul pixel d'une certaine classe, que le classifieur le détecte ainsi qu'un autre pixel, alors
 
     \[
-    \text{Dice} = \frac{2}{3} \\
+        \mathrm{Dice} = \frac{2}{3}
+    \]
 
-    \text{IoU} = \frac{1}{2}
+    \[
+        \mathrm{IoU} = \frac{1}{2}
     \]
 
     Ainsi, même si la précision n'est que de $50 \%$ le score $\text{Dice}$ est plus élevé.
