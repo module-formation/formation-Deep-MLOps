@@ -59,7 +59,7 @@ nav:
       - Pratique: module7/Module7_2.ipynb
     - Déployer son réseau de neurones sur de l'embarqué:
       - Théorie: module9/module9.md
-      - Pratique, l'élagage: module9/Module9_Prune.ipynb
+      - Pratique, l'élagage: module9/tp9_elaguage.md
       - Pratique, TFLite: module9/Module9_TFLite.ipynb
       - Pratique, TFTRT: module9/Module9_TFTRT.ipynb
   - MLOps:

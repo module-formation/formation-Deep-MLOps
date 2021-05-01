@@ -1,5 +1,157 @@
 # Module9 : Déployer son réseau de neurones sur de l'embarqué
 
+But de l'optimisation des modèles :
+
+- Réduire la taille du modèle.
+- Accélérer le temps d'inférence.
+- Réduire la consommation énergétique du modèle.
+
+Quelles sont les différentes façon d'optimiser une modèle ?
+
+- Tous les paramètres contribuent ils à la performance du modèle ? **Pruning**
+- Réduire sa précision numérique : les paramètres et fonctions d'activations d'un modèle sont le plus souvent représentées en `float32`. Est-ce nécessaire ? **Quantification**
+- Toutes les opérations du graphe d'un modèle sont elles nécéssaires durant l'inférence ? **Fusion des couches**
+- Améliorer les allers-retours entre GPU et CPU.
+## Elagage
+
+!!! info "TLDR"
+
+    Une des première alternatives lors de l'optimisation des modèles et de se poser la question des paramètres (ie poids & biais). Tous les paramètres n'ont pas la même importance.
+
+    L'idée ici est qu'un réseau entraîné peut être réduit à un réseau plus petit en supprimant les poids inutiles. En pratique, cela signifie que les pondérations "inutiles" sont fixées à zéro. En mettant les pondérations inutiles à zéro, l'inférence ou la prédiction peut être accélérée.
+
+    De plus, les modèles élagués peuvent être compressés en modèles de taille plus petite, car des pondérations peu nombreuses entraînent des taux de compression plus élevés.
+
+    Dans le cas de modèle créés via Tensoflow, cela se fait via la librairie **Tensorflow model optimization**.
+
+
+La dernière décennie a montré qu'en général, les grands réseaux de neurones donnent de meilleurs résultats (avec par exemple l'arrivée des architetcures de type ResNet & les connexions résiduelles, qui ont complètement changé les méthodes de création des modèles). Mais les grands modèles d'apprentissage profond ont un coût énorme. Par exemple, pour entraîner le modèle GPT-3 d'OpenAI, qui compte 175 milliards de paramètres, il faut avoir accès à d'énormes grappes de serveurs dotés de cartes graphiques très puissantes, et les coûts peuvent atteindre plusieurs millions de dollars. En outre, vous avez besoin de centaines de gigaoctets de VRAM et d'un serveur puissant pour exécuter le modèle.
+
+https://blog.dataiku.com/making-neural-networks-smaller-for-better-deployment-solving-the-size-problem-of-cnns-using-network-pruning-with-keras
+
+L'élagage des réseaux de neurones est une vieille idée qui remonte à 1990 (avec les travaux de Yan Lecun sur les lésions cérébrales optimales) et avant. L'idée est que parmi les nombreux paramètres du réseau, certains sont redondants et ne contribuent pas beaucoup à la sortie.
+
+Si vous pouviez classer les neurones du réseau en fonction de leur contribution, vous pourriez alors supprimer les neurones de rang inférieur du réseau, ce qui permettrait d'obtenir un réseau plus petit et plus rapide.
+
+**L'obtention de réseaux plus rapides/petits est importante pour l'exécution de ces réseaux d'apprentissage profond sur les appareils mobiles.**
+
+Le classement peut être effectué en fonction de la moyenne $L_1$/$L_2$ des poids des neurones, de leurs activations moyennes, du nombre de fois où un neurone n'était pas nul sur un ensemble de validation, et d'autres méthodes créatives. Après l'élagage, la précision diminue (pas trop, espérons-le, si le classement est intelligent) et le réseau est généralement entraîné davantage pour récupérer.
+
+
+!!! question "Question"
+
+    Eh bien on n'a qu'à élaguer GPT-3 après son entraînement et il tournera sur un smartphone non ?
+
+
+Le problème de l'élagage des réseaux de neurones après l'entraînement est qu'il ne réduit pas les coûts de réglage de tous les paramètres excessifs. Même si vous parvenez à comprimer un réseau neuronal formé en une fraction de sa taille d'origine, vous devrez toujours payer les coûts complets de son entraînement.
+
+La question est de savoir si vous pouvez trouver le sous-réseau optimal sans former le réseau neuronal complet.
+
+En 2018, Jonathan Frankle et Michael Carbin, deux chercheurs en IA au MIT CSAIL et coauteurs, ont publié un article intitulé ["The Lottery Ticket Hypothesis"](https://arxiv.org/pdf/1803.03635.pdf), qui prouve que pour de nombreux modèles d'apprentissage profond, il existe de petits sous-ensembles qui peuvent être formés avec une précision totale.
+
+Un autre article [To prune, or not to prune: exploring the efficacy of pruning for model compression](https://arxiv.org/abs/1710.01878) montre alors qu'élaguer les réseaux de neurones est généralement pertinent.
+
+L'éfficacité de l'élagage suggère que la plupart des modèles sont sur-paramétrés et que seul un petit nombre de paramètres possède un impact sur lmes performances du modèle. Les autres paramètres ne faisant que *prendre de la place*.
+
+
+!!! quote "Citation"
+
+    **we find large-sparse models to consistently outperform small-dense models and achieve up to 10x reduction in number of non-zero parameters with minimal loss in accuracy.**
+
+Les modèles de deep learning sont de plus en plus gros et gourmands en ressources. Si cela ne pose pas de problèmes lorsque que le modèle est hébergé dans des datacenters, cela peut poser un problème lorsque que l'on souhaite le déployer sur des environnements contraints en ressource : IoT, smartphone, MCU.
+
+!!! quote "Citation"
+
+    **Within the realm of model  compression techniques, pruning away (forcing to zero) the less salient connections (parameters) in the neural network has been shown to reduce the number of nonzero parameters in the model with little to no loss in the final model quality.**
+
+### Idée
+
+Transformer les matrices utilisées dans les opérations de produit matriciel ou de convolution en matrice creuse.
+
+Une matrice creuse est une matrice qui possède beaucoup de zéros.
+
+\[
+    \begin{pmatrix}0 & 2 & 3 & 0 & 0 & 6\\ 0 & -1 & 3 & 0 & 0 & 6 \\ 0 & 4 & 3 & 0 & 0 & 8 \\ 0 & 2 & 6 & 9 & 0 & 0\end{pmatrix}
+\]
+
+L'article cherche à répondre à la qestion suivante :
+
+- Du point de vue de l'inférence, étant donnée une borne maximale pour l'empreinte mémoire du modèle, comment obtenir le plus précis ?
+
+Deux méthodes sont testées :
+
+  - large-sparse : commencer avec un modèle large classique (Inception, ResNet...), mais élagué de façon à obtenir un modèle creux (sparse model) avec un petit nombre de paramètres non-nuls.
+  - small-dense : entraîner de façon classique un petit modèle avec une taille similaire au modèle large-sparse.
+
+!!! quote "Citation"
+
+    **While pruning focuses on reducing the number of non-zero parameters, in principle, model pruning can be used in conjunction with other techniques to further reduce model size. Quantization techniques aim to reduce the number of bits required to represent each parameter from 32-bit floats to 8 bits or fewer**
+
+
+### Méthode
+
+\[
+\begin{align}
+W &=
+\begin{bmatrix}
+    W_{1,1} & W_{1,2} & \cdots & W_{1,n}\\
+    W_{2,1} & W_{2,2} & \cdots & W_{2,n}\\
+    \vdots & \vdots & \ddots & \vdots \\
+    W_{m,1} & W_{m,2} & \cdots & W_{m,n}\\
+\end{bmatrix} \nonumber\\
+\end{align}
+\]
+
+Pour chaque couche choisie pour être élaguée, un masque binaire est construit de la même dimension que le tenseur de poids de la couche et il détermine quels poids participent à l'étape de feedforward.
+
+Les poids sont ordonnés suivant leur valeurs absolues et l'on masque les poids de plus petite valeur absolue jusqu'à ce qu'un certain seuil $0 < s <1$ de valeurs masquées soit atteint.
+
+i.e, au lieu d'avoir l'équation suivante
+
+\[
+\mathbf{x}_{2, i} = \sum_{j = 1}^{m} \mathbf{W}_{i, j} \mathbf{x}_{1, j} + \mathbf{b}_{i}
+\]
+
+durant l'étape de feeforward, on a l'équation suivante
+
+\[
+\mathbf{x}_{2, i} = \left( \sum_{j = 1}^{m} (\mathbf{W}_{i, j} \mathbf{M}_{i, j}) \mathbf{x}_{1, j} \right) + (\mathbf{b}_{i} \odot \mathbf{m}_{i}) \\
+\]
+
+où $\mathbf{M}$ et $\mathbf{m}$ sont des masques binaires :
+
+\[
+\begin{align}
+\mathbf{M}_{i, j} =
+  \begin{cases}
+  0 & \text{if $|\mathbf{W}_{i, j}| < \lambda$} \\
+  1 & \text{sinon} \\
+  \end{cases}
+\end{align}
+\]
+
+et
+
+\[
+\begin{align}
+\mathbf{m}_{i} =
+  \begin{cases}
+  0 & \text{if $|\mathbf{b}_{i}| < \lambda$} \\
+  1 & \text{sinon.} \\
+  \end{cases}
+\end{align}
+\]
+
+Lors de l'étape de rétropropagation, le gradient passant par les masque binaires seuls les poids non masquées sont mis à jour.
+
+### Remarques
+
+Au fur et à mesure que le taux d'apprentissage baisse, il a été observé que les poids élaguées alors que ce dernier est très petit sont difficilement compensés par les autres. Il est donc important de choisir le bon LRD et de ne pas élaguer tout le long de l'entraînement.
+
+!!! quote "Citation"
+
+    **Also note that since the weights are initialized randomly, the sparsity in the weight tensors does not exhibit any specific structure. Furthermore, the pruning method described here does not depend on any specific property of the network or the constituent layers, and can be extended directly to a wide-range of neural network architectures**.
+
 ## Travailler en basse précision
 
 **Les ordinateurs ne peuvent utiliser qu'un nombre fini de bits pour représenter des nombres réels infinis.**
@@ -60,85 +212,6 @@ La quantification en entier 8 bits n'est qu'un des schémas d'optimisation, Tens
 
 [Source](https://www.tensorflow.org/lite/performance/model_optimization#types_of_optimization)
 
-## Elagage
-
-https://blog.dataiku.com/making-neural-networks-smaller-for-better-deployment-solving-the-size-problem-of-cnns-using-network-pruning-with-keras
-
-L'élagage des réseaux de neurones est une vieille idée qui remonte à 1990 (avec les travaux de Yan Lecun sur les lésions cérébrales optimales) et avant. L'idée est que parmi les nombreux paramètres du réseau, certains sont redondants et ne contribuent pas beaucoup à la sortie.
-
-Si vous pouviez classer les neurones du réseau en fonction de leur contribution, vous pourriez alors supprimer les neurones de rang inférieur du réseau, ce qui permettrait d'obtenir un réseau plus petit et plus rapide.
-
-**L'obtention de réseaux plus rapides/petits est importante pour l'exécution de ces réseaux d'apprentissage profond sur les appareils mobiles.**
-
-Le classement peut être effectué en fonction de la moyenne $L_1$/$L_2$ des poids des neurones, de leurs activations moyennes, du nombre de fois où un neurone n'était pas nul sur un ensemble de validation, et d'autres méthodes créatives. Après l'élagage, la précision diminue (pas trop, espérons-le, si le classement est intelligent) et le réseau est généralement entraîné davantage pour récupérer.
-
-La dernière décennie a montré qu'en général, les grands réseaux de neurones donnent de meilleurs résultats (avec par exemple l'arrivée des architetcures de type ResNet & les connexions résiduelles, qui ont complètement changé les méthodes de création des modèles). Mais les grands modèles d'apprentissage profond ont un coût énorme. Par exemple, pour entraîner le modèle GPT-3 d'OpenAI, qui compte 175 milliards de paramètres, il faut avoir accès à d'énormes grappes de serveurs dotés de cartes graphiques très puissantes, et les coûts peuvent atteindre plusieurs millions de dollars. En outre, vous avez besoin de centaines de gigaoctets de VRAM et d'un serveur puissant pour exécuter le modèle.
-
-!!! question "Question"
-
-    Eh bien on n'a qu'à élaguer GPT-3 après son entraînement et il tournera sur un smartphone non ?
-
-
-Le problème de l'élagage des réseaux de neurones après l'entraînement est qu'il ne réduit pas les coûts de réglage de tous les paramètres excessifs. Même si vous parvenez à comprimer un réseau neuronal formé en une fraction de sa taille d'origine, vous devrez toujours payer les coûts complets de son entraînement.
-
-La question est de savoir si vous pouvez trouver le sous-réseau optimal sans former le réseau neuronal complet.
-
-En 2018, Jonathan Frankle et Michael Carbin, deux chercheurs en IA au MIT CSAIL et coauteurs, ont publié un article intitulé ["The Lottery Ticket Hypothesis"](https://arxiv.org/pdf/1803.03635.pdf), qui prouve que pour de nombreux modèles d'apprentissage profond, il existe de petits sous-ensembles qui peuvent être formés avec une précision totale.
-
-Un autre article [To prune, or not to prune: exploring the efficacy of pruning for model compression](https://arxiv.org/abs/1710.01878) montre alors qu'élaguer les réseaux de neurones est généralement pertinent.
-
-L'éfficacité de l'élagage suggère que la plupart des modèles sont sur-paramétrés et que seul un petit nombre de paramètres possède un impact sur lmes performances du modèle. Les autres paramètres ne faisant que *prendre de la place*.
-
-
-!!! quote "Citation"
-
-    **we find large-sparse models to consistently outperform small-dense models and achieve up to 10x reduction in number of non-zero parameters with minimal loss in accuracy.**
-
-Les modèles de deep learning sont de plus en plus gros et gourmands en ressources. Si cela ne pose pas de problèmes lorsque que le modèle est hébergé dans des datacenters, cela peut poser un problème lorsque que l'on souhaite le déployer sur des environnements contraints en ressource : IoT, smartphone, MCU.
-
-!!! quote "Citation"
-
-    **Within the realm of model  compression techniques, pruning away (forcing to zero) the less salient connections (parameters) in the neural network has been shown to reduce the number of nonzero parameters in the model with little to no loss in the final model quality.**
-
-### Idée
-
-Transformer les matrices utilisées dans les opérations de produit matriciel ou de convolution en matrice creuse.
-
-Une matrice creuse est une matrice qui possède beaucoup de zéros.
-
-\[
-    \begin{pmatrix}0 & 2 & 3 & 0 & 0 & 6\\ 0 & -1 & 3 & 0 & 0 & 6 \\ 0 & 4 & 3 & 0 & 0 & 8 \\ 0 & 2 & 6 & 9 & 0 & 0\end{pmatrix}
-\]
-
-L'article cherche à répondre à la qestion suivante :
-
-- Du point de vue de l'inférence, étant donnée une borne maximale pour l'empreinte mémoire du modèle, comment obtenir le plus précis ?
-
-Deux méthodes sont testées :
-
-  - large-sparse : commencer avec un modèle large classique (Inception, ResNet...), mais élagué de façon à obtenir un modèle creux (sparse model) avec un petit nombre de paramètres non-nuls.
-  - small-dense : entraîner de façon classique un petit modèle avec une taille similaire au modèle large-sparse.
-
-!!! quote "Citation"
-
-    **While pruning focuses on reducing the number of non-zero parameters, in principle, model pruning can be used in conjunction with other techniques to further reduce model size. Quantization techniques aim to reduce the number of bits required to represent each parameter from 32-bit floats to 8 bits or fewer**
-
-
-### Méthode
-
-Pour chaque couche choisie pour être élaguée, un masque binaire est construit de la même dimension que le tenseur de poids de la couche et il détermine quels poids participent à l'étape de feedforward.
-
-Les poids sont ordonnés suivant leur valeurs absolues et l'on masque les poids de plus petite valeur absolue jusqu'à ce qu'un certain seuil $0 < s <1$ de valeurs masquées soit atteint.
-
-Lors de l'étape de rétropropagation, le gradient passant par le masque binaire seuls les poids non masquées sont mis à jour.
-
-### Remarques
-
-Au fur et à mesure que le taux d'apprentissage baisse, il a été observé que les poids élaguées alors que ce dernier est très petit sont difficilement compensés par les autres. Il est donc important de choisir le bon LRD et de ne pas élaguer tout le long de l'entraînement.
-
-!!! quote "Citation"
-
-    **Also note that since the weights are initialized randomly, the sparsity in the weight tensors does not exhibit any specific structure. Furthermore, the pruning method described here does not depend on any specific property of the network or the constituent layers, and can be extended directly to a wide-range of neural network architectures**.
 
 ## ONNX
 
