@@ -371,7 +371,6 @@ but then plateaus slowly to the target sparsity. The function applied is
     }
     ```
 
-
 Tout concorde avec la définition de l'article, sauf $n\Delta t$ et `end_step - begin_step`. On a
 
 - initial_sparsity = $s_i$,
@@ -387,11 +386,9 @@ Reste à déterminer
 Regardons le code source, les lignes intéressantes sont les lignes $247-248$, où l'on a le code :
 
 ```python
-self._should_prune_in_step(step, self.begin_step, self.end_step,
-                                       self.frequency),
+self._should_prune_in_step(step, self.begin_step, self.end_step, self.frequency),
 ```
-
-La fonction[PolynomialDecay](https://github.com/tensorflow/model-optimization/blob/v0.5.0/tensorflow_model_optimization/python/core/sparsity/keras/pruning_schedule.py#L183-L262) demande en fait à une autre fonction de contrôle si elle doit pratiquer un élagage ou non. Cette fonction, `self._should_prune_in_step`, est définie [ici](https://github.com/tensorflow/model-optimization/blob/973f5b394a99b0a775e3b9f7178c865509a7d559/tensorflow_model_optimization/python/core/sparsity/keras/pruning_schedule.py#L41).
+La fonction [PolynomialDecay](https://github.com/tensorflow/model-optimization/blob/v0.5.0/tensorflow_model_optimization/python/core/sparsity/keras/pruning_schedule.py#L183-L262) demande en fait à une autre fonction de contrôle si elle doit pratiquer un élagage ou non. Cette fonction, `self._should_prune_in_step`, est définie [ici](https://github.com/tensorflow/model-optimization/blob/973f5b394a99b0a775e3b9f7178c865509a7d559/tensorflow_model_optimization/python/core/sparsity/keras/pruning_schedule.py#L41).
 
 Les lignes intéressantes sont les lignes $62-65$ :
 
@@ -401,7 +398,7 @@ is_pruning_turn = tf.math.equal(
 
 return tf.math.logical_and(is_in_pruning_range, is_pruning_turn)
 ```
-Les deux premières lignes demandent si $t-t_{0} \equiv 0 \, \mathrm{mod} f$, en d'autres termes si $t-t_{0}$ est un multiple du paramètre $f$, `frequency`, et retroune un booléen. De plus la fonction vérifie que l'on est bien dans l'intervalle $[$`begin_step`, `end_step`$]$ pour élaguer.
+Les deux premières lignes demandent si $t-t_{0} \equiv 0 \, \mathrm{mod} \Delta t$, en d'autres termes si $t-t_{0}$ est un multiple du paramètre $\Delta t$, `frequency`, et retroune un booléen. De plus la fonction vérifie que l'on est bien dans l'intervalle $[$`begin_step`, `end_step`$]$ pour élaguer.
 
 Ce qui veut dire que **durant la période d'entraînement $[$`begin_step`, `end_step`$]$, on ne peut élaguer que si $t-t_{0}$ est un multiple de la fréquence**, ce qui concorde avec la formule de l'article.
 
