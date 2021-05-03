@@ -338,3 +338,4 @@ Maintenant, le conteneur est isolé avec seulement un accès en lecture et écri
 - [Running a graphical app in a Docker container, on a remote server](https://blog.yadutaf.fr/2017/09/10/running-a-graphical-app-in-a-docker-container-on-a-remote-server/)
 - [Real-time and video processing object detection using Tensorflow, OpenCV and Docker.](https://towardsdatascience.com/real-time-and-video-processing-object-detection-using-tensorflow-opencv-and-docker-2be1694726e5)
 - [Access webcam using OpenCV (Python) in Docker?](https://stackoverflow.com/questions/44852484/access-webcam-using-opencv-python-in-docker)
+- [How to Perform Basic ML Scoring With Scikit-Learn, Docker, Kubernetes](https://blog.dataiku.com/how-to-perform-basic-ml-scoring-with-scikit-learn-docker-kubernetes)

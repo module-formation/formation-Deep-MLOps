@@ -60,7 +60,7 @@ nav:
     - Déployer son réseau de neurones sur de l'embarqué:
       - Théorie: module9/module9.md
       - Pratique, l'élagage: module9/tp9_elaguage.md
-      - Pratique, TFLite: module9/Module9_TFLite.ipynb
+      - Pratique, TFLite: module9/tp9_tflite.md
       - Pratique, TFTRT: module9/Module9_TFTRT.ipynb
   - MLOps:
     - Docker: mlops/docker.md

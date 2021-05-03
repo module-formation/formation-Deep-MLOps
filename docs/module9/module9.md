@@ -22,14 +22,21 @@ Quelles sont les différentes façon d'optimiser une modèle ?
 
     De plus, les modèles élagués peuvent être compressés en modèles de taille plus petite, car des pondérations peu nombreuses entraînent des taux de compression plus élevés.
 
-    Dans le cas de modèle créés via Tensoflow, cela se fait via la librairie **Tensorflow model optimization**.
+    Dans le cas de modèles créés via Tensoflow, cela se fait via la librairie **Tensorflow model optimization**.
 
 
 La dernière décennie a montré qu'en général, les grands réseaux de neurones donnent de meilleurs résultats (avec par exemple l'arrivée des architetcures de type ResNet & les connexions résiduelles, qui ont complètement changé les méthodes de création des modèles). Mais les grands modèles d'apprentissage profond ont un coût énorme. Par exemple, pour entraîner le modèle GPT-3 d'OpenAI, qui compte 175 milliards de paramètres, il faut avoir accès à d'énormes grappes de serveurs dotés de cartes graphiques très puissantes, et les coûts peuvent atteindre plusieurs millions de dollars. En outre, vous avez besoin de centaines de gigaoctets de VRAM et d'un serveur puissant pour exécuter le modèle.
 
 https://blog.dataiku.com/making-neural-networks-smaller-for-better-deployment-solving-the-size-problem-of-cnns-using-network-pruning-with-keras
 
-L'élagage des réseaux de neurones est une vieille idée qui remonte à 1990 (avec les travaux de Yan Lecun sur les lésions cérébrales optimales) et avant. L'idée est que parmi les nombreux paramètres du réseau, certains sont redondants et ne contribuent pas beaucoup à la sortie.
+L'élagage des réseaux de neurones est une vieille idée qui remonte à 1990 (avec les travaux de Yan Lecun sur les lésions cérébrales optimales)
+et avant. L'idée est que parmi les nombreux paramètres du réseau, certains sont redondants et ne contribuent pas beaucoup à la sortie.
+
+!!! info "Optimal Brain Damage"
+
+    [Article](http://yann.lecun.com/exdb/publis/pdf/lecun-90b.pdf)
+
+    We have used information-theoretic ideas to derive a  class of practical and nearly optimal schemes for adapting the size of a  neural network. By removing unimportant weights from a  network, several improvements can be expected: better generalization, fewer training examples required, and improved speed of learning and/or classification. The basic idea is to use second-derivative information to make a  tradeoff between network complexity and training set error. Experiments confirm the usefulness of the methods on a real-world application.
 
 Si vous pouviez classer les neurones du réseau en fonction de leur contribution, vous pourriez alors supprimer les neurones de rang inférieur du réseau, ce qui permettrait d'obtenir un réseau plus petit et plus rapide.
 
@@ -217,7 +224,9 @@ La quantification en entier 8 bits n'est qu'un des schémas d'optimisation, Tens
 
 Il existe de nombreux frameworks pour entraîner un modèle d'apprentissage profond. Les plus populaires sont Tensorflow et PyTorch. Cependant, un modèle entraîné par Tensorflow ne peut pas être utilisé avec PyTorch et vice-versa.
 
-ONNX est l'abréviation de Open Neural Network Exchange. Il s'agit d'un format ouvert conçu pour représenter les modèles d'apprentissage automatique.
+Fruit d’une collaboration entre AWS, Facebook et Microsoft, ONNX permet le transfert des modèles de deep learning entre différents frameworks.
+
+ONNX est l'abréviation de Open Neural Network Exchange.
 
 ![onnx](./images/onnx-horizontal-color.svg)
 
@@ -237,7 +246,9 @@ L'intérêt d'ONNX est l'inter-opérabilité : ONNX supporte un nombre impressio
 !!! info "Ce qu'il faut retenir"
 
     ONNX est aux modèles d'apprentissage automatique ce que JPEG est aux images ou MPEG aux vidéos.
-### tf2ONNX & Pytorch
+### tf2ONNX
+
+[Repo Github de tf2onnx](https://github.com/onnx/tensorflow-onnx)
 
 ## TensorRT
 
@@ -247,9 +258,9 @@ Il fournit des API pour effectuer l'inférence de modèles pré-entraînés et g
 
 Cette optimisation s'effectue de différentes manières. Par exemple, TensorRT nous permet d'utiliser l'arithmétique INT8 (entier de 8 bits) ou FP16 (virgule flottante de 16 bits) au lieu de l'habituelle FP32. Cette diminution de la précision arithmétique peut accélérer de manière significative l'inférence avec une diminution minime de la précision du modèle.
 
-## Les architectures dédiées.
+## Les architectures dédiées
 
-### MobileNet
+### MobileNetV2
 
 #### Separables DepthWise Convolutions
 
@@ -259,8 +270,8 @@ Cette optimisation s'effectue de différentes manières. Par exemple, TensorRT n
 
 
 
-https://bdtechtalks.com/2020/10/12/deep-learning-neural-network-pruning/
-https://github.com/BenWhetton/keras-surgeon
-https://jacobgil.github.io/deeplearning/pruning-deep-learning
-https://heartbeat.fritz.ai/research-guide-pruning-techniques-for-neural-networks-d9b8440ab10d
-https://blog.dataiku.com/making-neural-networks-smaller-for-better-deployment-solving-the-size-problem-of-cnns-using-network-pruning-with-keras
+- https://bdtechtalks.com/2020/10/12/deep-learning-neural-network-pruning/
+- https://github.com/BenWhetton/keras-surgeon
+- https://jacobgil.github.io/deeplearning/pruning-deep-learning
+- https://heartbeat.fritz.ai/research-guide-pruning-techniques-for-neural-networks-d9b8440ab10d
+- https://blog.dataiku.com/making-neural-networks-smaller-for-better-deployment-solving-the-size-problem-of-cnns-using-network-pruning-with-keras
