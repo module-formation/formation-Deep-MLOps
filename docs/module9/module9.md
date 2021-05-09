@@ -25,7 +25,7 @@ Quelles sont les différentes façon d'optimiser une modèle ?
     Dans le cas de modèles créés via Tensoflow, cela se fait via la librairie **Tensorflow model optimization**.
 
 
-La dernière décennie a montré qu'en général, les grands réseaux de neurones donnent de meilleurs résultats (avec par exemple l'arrivée des architetcures de type ResNet & les connexions résiduelles, qui ont complètement changé les méthodes de création des modèles). Mais les grands modèles d'apprentissage profond ont un coût énorme. Par exemple, pour entraîner le modèle GPT-3 d'OpenAI, qui compte 175 milliards de paramètres, il faut avoir accès à d'énormes grappes de serveurs dotés de cartes graphiques très puissantes, et les coûts peuvent atteindre plusieurs millions de dollars. En outre, vous avez besoin de centaines de gigaoctets de VRAM et d'un serveur puissant pour exécuter le modèle.
+La dernière décennie a montré qu'en général, les grands réseaux de neurones donnent de meilleurs résultats (avec par exemple l'arrivée des architetcures de type ResNet & les connexions résiduelles, qui ont complètement changé les méthodes de création des modèles). Mais les grands modèles d'apprentissage profond ont un coût énorme. Par exemple, pour entraîner le modèle GPT-3 d'OpenAI, qui compte 175 milliards de paramètres (700Go pour des poids en Float32), il faut avoir accès à d'énormes grappes de serveurs dotés de cartes graphiques très puissantes, et les coûts peuvent atteindre plusieurs millions de dollars. En outre, vous avez besoin de centaines de gigaoctets de VRAM et d'un serveur puissant pour exécuter le modèle.
 
 https://blog.dataiku.com/making-neural-networks-smaller-for-better-deployment-solving-the-size-problem-of-cnns-using-network-pruning-with-keras
 
@@ -260,13 +260,420 @@ Cette optimisation s'effectue de différentes manières. Par exemple, TensorRT n
 
 ## Les architectures dédiées
 
-### MobileNetV2
+### MobileNet
 
-#### Separables DepthWise Convolutions
+MobileNet est une série d'architectures de CNN, démarrée en 2017 :
 
+- [MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications](https://arxiv.org/abs/1704.04861)
+- [MobileNetV2: Inverted Residuals and Linear Bottlenecks](https://arxiv.org/abs/1801.04381)
+- [Searching for MobileNetV3](https://arxiv.org/abs/1905.02244)
+
+Alors que MobileNetV3 utilise les méthodes de "recherche architecturale neuronale" (NAS : Neural Architecture Search), ie un algorithme de deep learning cherche des architectures de deep learning optimale (votre serviteur ici présent n'en connait pas encore assez pour expliquer ça de façon plus claire); les modèles MobileNetV1 et MobileNetV2 reposent principalement sur les couches que l'on appelle les **Separable DepthWise Convolutions**. Ce sont ces nouvelles couches là qui nous intéressent.
+
+Pour comprendre l'intérêt de ces dernières, il faut se replonger d'abord dans les convolutions classiques.
+#### Separable DepthWise Convolutions
+
+Lorsque l'on fait de l'analyse numérique, ou de l'algorithmie, une notion très importante est la "compléxité algorithmique" qui détermine un ordre de grandeur du nombre d'opérations (additions et multiplications) nécéssaires pour arriver au résultat voulu. De façon plus général, le coût calculatoire peut être important à prendre en compte.
+
+Supposons que l'on a en entrée une feature map de dimensions $(h_{\mathrm{in}}, w_{\mathrm{in}},c_{\mathrm{in}})$, selon la convention (Height, Width, Channels). Appliquer alors un noyau de convolution de dimensions $(k,k,c_{\mathrm{in}},c_{\mathrm{out}})$ pour produire une feature map en sortie de dimensions $(h_{\mathrm{in}}, w_{\mathrm{in}},c_{\mathrm{out}})$ demande le nombre d'opérations suivant.
+
+\[
+h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}} \cdot k^{2} \cdot c_{\mathrm{out}}
+\]
+
+Chaque pixel de la feature map d'entrée est le centre d'un filtre de convolution de taille $(k,k)$, comme on a $h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}}$ pixels en tout en entrée on a $h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}} \cdot k^{2}$ opérations pour **une** feature map en sortie. On souhaite $c_{\mathrm{out}}$ feature maps en sortie, donc le coût total est bien le dernier cité.
+
+![screen](./images/conv.svg)
+
+
+!!! info "Remarque"
+
+    Comme vous le voyez ici, les dimensions spatiales des feature maps (hauteur, largeur) n'ont pas changées. On est donc dans le cas où la convolution ne réduit pas les dimensions spatiales, par exemple dans TensorFlow on a fixé le paramêtre `padding="same"`.
+
+La différence majeure avec une convolution 2d classique, est qu'une separable depthWise convolution est divisée en deux opérations.
+
+1. Une première opération, qui produit une nombre de fature map identique au nombre de feature maps d'entrées.
+2. Une convolution $1\times1$, qui elle est responsable de générer le nombre de feature maps nécéssaires en sortie.
+
+![](./images/conv1.png)
+
+!!! example "Application d'une convolution $1\times1$"
+
+    ![](./images/conv1_final.svg)
+
+    Notons $p_{i,j}(F_{k})$ le pixel à la coordonée $(i,j)$ dans la feature map $F_{k}$.
+
+    Chacun des pixels obtenus dans la feature map en sortie est alors une combinaison linéaire des pixels aux mêmes coordonnées dans les features maps d'entrée. Les coefficients de la combinaison linéaire étant **appris** par le réseau et les mêmes pour tous les pixels de la feature map de sorite, ce sont les coefficients $(w_{1}^{1}, w_{2}^{1}, w_{3}^{1})$ du filtre de la convolution $1\times1$.
+
+
+![screen](./images/depthwise_conv.svg)
+
+On se retrouve donc avec le nombre d'opérations suivant.
+
+\[
+h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}} (k^{2} + c_{\mathrm{out}}).
+\]
+
+Si l'on fait le rapport du nombre d'opérations nécessaires pour ces deux couches, on obtient :
+
+\[
+\frac{h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}} (k^{2} + c_{\mathrm{out}})}{h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}} \cdot k^{2} \cdot c_{\mathrm{out}}} = \frac{1}{k^{2}}+\frac{1}{c_{\mathrm{out}}}
+\]
+
+Généralement, on a $k \geq 3$ et $c_{\mathrm{out}} >> 1$, ce qui nous donne $\frac{1}{k^{2}}+\frac{1}{c_{\mathrm{out}}} < 1$. Ce qui veut dire que pour produire le même nombre de feature maps en sortie, une separable depthwise convolution est beaucoup plus efficace noveau nombre d'opérations.
 ### RepVGG
 
+[RepVGG: Making VGG-style ConvNets Great Again](https://arxiv.org/abs/2101.03697) est un article sorti en Mars 2021 arguant que si les connexions résiduelles des architectures de type ResNet sont très efficaces pour l'entraînement des modèles en leur permettant d'atteindre de très hautes performances, c'est en frein lorsque l'on doit déployer de telles architectures sur de l'embarqué, car les connexions résiduelles consomment de la mémoire inutile lors de l'inférence, et réduisent donc la vitesse d'inférence.
+
+L'idée de l'article est alors la suivante : **avoir deux topologies de modèles différentes**.
+
+1. Une topologie avec des connexions résiduelles et des architectures de types ResNet.
+2. Une topologie linéaire avec une architecture du style VGG de lors du déploiement du modèle.
+
+!!! question "Question"
+
+    Comment passer d'une architetcure à une autre ?
+
+L'article s'appuie sur une des techniques classiques d'optimisation des modèles : la fusion Convolution-Batchnormalization.
+
+!!! quote "Abstract"
+
+    We present a simple but powerful architecture of convolutional neural network, which has a VGG-like inference-time body composed of nothing but a stack of $3\times3$ convolution and ReLU, while the training-time model has a multi-branch topology. Such decoupling of the training-time and inference-time architecture is realized by a structural re-parameterization technique so that the model is named RepVGG. On ImageNet, RepVGG reaches over $80\%$ top-1 accuracy, which is the first time for a plain model, to the best of our knowledge. On NVIDIA 1080Ti GPU, RepVGG models run $83\%$ faster than ResNet-$50$ or $101\%$ faster than ResNet-$101$ with higher accuracy and show favorable accuracy-speed trade-off compared to the state-of-the-art models like EfficientNet and RegNet.
+
+![screen](./images/repvgg.svg)
+
+
+![screen](./images/repvgg2.svg)
 #### La fusion Convolution-Batchnorm
+
+La fusion d'une couche de convolution avec une couche de batchnorm ressort les poids et biais d'une nouvelle couche de convolution avec les noyaux de convolutions de même dimension.
+
+Etant donné le tenseur $W$ de poids des noyaux de convolution d'une couche convolutive et le tenseur de $4$ paramètres $B=(\gamma, \beta, \mu, \sigma)$ d'une couche de batchnormalization, on obtient les nouveaux poids et poids de la nouvelle couche convolutive via les formules suivantes.
+
+
+\[
+\widehat{W}_{:,:,:,j} := \frac{\gamma_{j} \cdot W_{:,:,:,j}}{\sqrt{\sigma_{j} + \epsilon}}
+\]
+
+
+\[
+b_{j} = \beta_{j} - \frac{\mu_{j}\cdot\gamma_{j}}{\sqrt{\sigma_{j} + \epsilon}}
+\]
+
+On remarque ici que le biais de la nouvelle couche de convolution ne dépend que des paramètres de la couche de batchnorm. **Ce qui est cohérent avec la pratique de ne jamais mettre de biais dans une couche de convolution lorsqu'elle est suivie par une couche de batchnorm**.
+
+
+!!! info "Remarque"
+
+    Le $\epsilon$ présent ici est pour s'assurer que l'on ne divise jamais pas zéro, dans la pratique il est fixé à $0,001$.
+
+Ce qui nous donne, dans la pratique la fonction suivante.
+
+!!! python "Fusion Conv-BN"
+
+    ```python
+    # https://scortex.io/batch-norm-folding-an-easy-way-to-improve-your-network-speed/
+    # https://github.com/DingXiaoH/RepVGG/blob/4da799e33c890c624bfb484b2c35abafd327ba40/repvgg.py#L68
+
+    def fuse_bn_conv(weights_conv, weights_bn, eps=0.001):
+        gamma = np.reshape(weights_bn[0], (1,1,1,weights_bn[0].shape[0]))
+        beta = weights_bn[1]
+        mean = weights_bn[2]
+        variance = np.reshape(weights_bn[3], (1,1,1,weights_bn[3].shape[0]))
+
+        new_weights = (weights_conv[0]*gamma) / np.sqrt(variance + eps)
+        new_bias = beta - mean*gamma/np.sqrt(variance+eps)
+
+        new_bias = np.reshape(new_bias, weights_bn[3].shape[0])
+
+        return new_weights, new_bias
+    # In the code above, the reshaping is necessary to prevent a mistake if the dimension of the output O was the same as the dimension of the input I.
+    ```
+
+Détaillons.
+
+Pour cela, définissons un modèle dummy qui nous servira pour nos explications.
+
+!!! tf "Modèle dummy"
+
+    ```python
+    img_shape = 32, 32, 3
+    input = Input(img_shape)
+    x= Conv2D(filters = 16,
+              kernel_size=3,
+              padding='same',
+              use_bias=True,
+              kernel_initializer='he_uniform',
+              name='testing_conv_init')(input)
+    x= BatchNormalization(name=f'testing_bn_init')(x)
+    model = Model(input, x)
+    model.summary()
+    ```
+
+##### Etude de la couche convolutive
+
+!!! tf "Modèle dummy"
+
+    ```python
+    weights_conv = model.get_layer("testing_conv_init").get_weights()
+    ```
+    ```python
+    type(weights_conv)
+    ```
+    list
+
+    ```python
+    len(weights_conv)
+    ```
+    2
+
+Les poids dans une couche convolutive sont une liste de deux éléments :
+
+- `weights[0]` correspond aux poids des noyaux de convolution,
+- `weights[1]` correspond aux biais.
+
+
+```python
+type(weights_conv[0])
+```
+numpy.ndarray
+
+```python
+weights_conv[0].shape
+```
+(3, 3, 3, 16)
+
+Les axes du tenseur de poids suivent les dimensions suivantes :
+
+- kernel_size1 : hauteur du kernel,
+- kernel_size2 : largeur du kernel,
+- channels_in : nombre des feature maps en entrée,
+- channels_out : nombres de features maps (filters) en sortie.
+
+`channels_out` est définie dans la couche convolutive via le paramètres `filters`, alors que la valeur `channels_in` est elle directement déterminée par le tenseur en entrée. C'est une différence de TensorFlow par rapport à Pytorch où `channels_in` et `channels_out` sont tous les deux des paramètres des couches convolutives.
+
+Ainsi, si l'on veut voir les poids du noyau de convolution par rapport au canal $0$ en la feature map de sortie $5$, on les obtient en regardant :
+
+```python
+weights_conv[0][:,:,0,5]
+```
+
+Par défaut, les biais des couches de convolutions sont tous initialisés à zéro.
+
+##### Etude de la batchnorm
+
+!!! tf "Modèle dummy"
+
+    ```python
+    weights_bn = model.get_layer('testing_bn_init').get_weights()
+    ```
+    ```python
+    type(weights_bn)
+    ```
+    list
+
+    ```python
+    len(weights_bn)
+    ```
+    4
+
+Dans une couche de BatchNormalization, on a 4 types de poids.
+
+- Les deux paramètres de scaling $\gamma$ et de biais $\beta$.
+- Les deux paramètres correspondant à la moyenne $\mu$ et la variance $\sigma$.
+
+Tous ces paramètres ne sont pas entraînables, comme on peut le voir dans la liste suivante.
+
+```python
+[(var.name, var.trainable) for var in model.get_layer('testing_bn_init').variables]
+```
+
+```bash
+[('testing_bn_init/gamma:0', True),
+ ('testing_bn_init/beta:0', True),
+ ('testing_bn_init/moving_mean:0', False),
+ ('testing_bn_init/moving_variance:0', False)]
+```
+
+```python
+backend.shape(model.get_layer('testing_bn_init').get_weights())
+```
+Les $4$ paramètres sont tous des vecteurs de dimension $16$, ce qui correspond au nombre de feature maps en sortie de la couche convolutive.
+##### Nouveau tenseur de poids
+
+Discutons premièrement de la formulation du nouveau tenseur de poids, et voyons pourquoi on modifie la forme de vecteurs $\gamma$ et $\sigma$.
+
+$W_{:,:,:,j}$ correspond dans la formule au noyau de convolution complet de la $j$-ième feature map de sortie.
+
+```python
+weights_conv = model.get_layer("testing_conv_init").get_weights()
+weights_conv[0].shape
+```
+
+```bash
+(3, 3, 3, 16)
+```
+
+On a $16$ noyaux de convolution, chacun de dimensions $(3,3,3)$. Par exemple, pour $j=1$.
+
+```python
+weights_conv[0][:,:,:,1].shape
+```
+
+```bash
+(3, 3, 3)
+```
+Les vecteur $\gamma$ et $\sigma$ étant des vecteurs de dimension $16$, on va les "transformer en tenseur" de dimensions $(1,1,1,16)$ pour bien faire correspondre le produit suivant chaque axe.
+
+```python
+variance = np.reshape(weights_bn[3], (1,1,1,weights_bn[3].shape[0]))
+variance.shape
+```
+
+```bash
+(1, 1, 1, 16)
+```
+```python
+gamma = np.reshape(weights_bn[0], (1,1,1,weights_bn[0].shape[0]))
+gamma.shape
+```
+
+```bash
+(1, 1, 1, 16)
+```
+
+![screen](images/fuse_conv_bn.svg)
+
+Au final, la formule
+
+```python
+new_weights = (weights_conv[0]*gamma) / np.sqrt(variance + eps)
+```
+
+résume tout cela, tous les tenseurs ayant le mêmbre nombre d'axes, les opérations sont vectorisées et se font axe par axe.
+##### Nouveau tenseur de biais
+
+Le opérations de `reshape` n'ont pas ajouter de nouveaux scalaires, juste des axes, le calcul du biais se fait alors élément par élément pour tout $j$.
+
+
+##### Vérification via les développements limités
+
+Créons un tenseur de poids $W$ repéresentatif du noyau d'une convolution et un tenseur de poids $B=(\gamma, \beta, \mu, \sigma)$ représentatif des coefficients d'une batchnormalization.
+
+Pour vérifier si tout marche bien, fixons volontairement le tenseur poids comme un tenseur de dimensions $(3,3,4,5)$, la dimension du noyau est toujours fixé à $(3,3)$ dans RepVGG, seules les dimensions `channels_in` et `channels_out` peuvent changer.
+
+Tous les coefficients du tenseur de poids seront fixés à $1$.
+
+```python
+conv_weights = np.ones(3*3*4*5).reshape((3,3,4,5))
+conv_weights.shape
+```
+
+```bash
+(3,3,4,5)
+```
+La dimension `channels_out` ayant été fixée à $5$, les vecteurs de la batchnormalization seront tous des vecteurs de dimension $5$. Fixons les coefficients suivants.
+
+```python
+def batchnorm_variables(gamma_coef: float, beta_coef: float, mu_coef: float, sigma_coef: float, channels: int):
+    gamma = gamma_coef*np.ones(channels)
+    beta = beta_coef*np.ones(channels)
+    mu = mu_coef*np.ones(channels)
+    sigma = sigma_coef*np.ones(channels)
+
+    return [gamma, beta, mu, sigma]
+```
+
+```python
+conv, bn = fuse_bn_conv([conv_weights], batchnorm_variables(1,2,1,4,5))
+```
+
+Par définition, le nouveau tenseur de poids $\widehat{W}$ de la convolution résultant de la fusion de l'ancienne convolution et de la batchnorm est donné par formule suivante.
+
+\[
+\widehat{W}_{:,:,:,j} := \frac{\gamma_{j} \cdot W_{:,:,:,j}}{\sqrt{\sigma_{j} + \epsilon}}
+\]
+
+De façon générale, pour $\gamma_{j}, \sigma_{j}$, on a le développement limité suivant.
+
+\[
+\widehat{W}_{:,:,:,j} := \frac{\gamma_{j} \cdot W_{:,:,:,j}}{\sqrt{\sigma_{j} + \epsilon}} = \frac{\gamma_{j}}{\sqrt{\sigma_{j}}}\left[1- \frac{1}{2\sigma_{j}}\epsilon + o(\epsilon^{2})\right]W_{:,:,:,j}
+\]
+
+Dans notre cas, $\forall j, \gamma_{j} = 1, \sigma_{j} = 4$ d'où
+
+\[
+\widehat{W}_{:,:,:,j} := \frac{W_{:,:,:,j}}{\sqrt{4 + \epsilon}} = \left[\frac{1}{2}- \frac{1}{16}\epsilon + o(\epsilon^{2})\right]W_{:,:,:,j} \simeq \left[\frac{1}{2}- \frac{1}{16}\epsilon\right]W_{:,:,:,j}
+\]
+
+
+```python
+def compute_scaling_weight_factor(gamma, sigma):
+    return gamma/np.sqrt(sigma)*(1-0.001/(2*sigma))
+
+scale = compute_scaling_weight_factor(1,4)
+scale
+```
+
+```python
+conv[:,:,:,4]
+```
+
+```bash
+array([[[0.49993751, 0.49993751, 0.49993751, 0.49993751],
+        [0.49993751, 0.49993751, 0.49993751, 0.49993751],
+        [0.49993751, 0.49993751, 0.49993751, 0.49993751]],
+
+       [[0.49993751, 0.49993751, 0.49993751, 0.49993751],
+        [0.49993751, 0.49993751, 0.49993751, 0.49993751],
+        [0.49993751, 0.49993751, 0.49993751, 0.49993751]],
+
+       [[0.49993751, 0.49993751, 0.49993751, 0.49993751],
+        [0.49993751, 0.49993751, 0.49993751, 0.49993751],
+        [0.49993751, 0.49993751, 0.49993751, 0.49993751]]])
+```
+
+Ce qui correspond bien à l'approximation obtenue par développement limité. On peut par exemple vérifier si $\widehat{W}$ est approximativement égal à `conv` à $10^{-3}$ avec la commande `np.isclose`. Si `np.mean(...)` $< 1$ alors le calcul est faux.
+
+```python
+conv_weights_real = scale*np.ones(3*3*4*5).reshape((3,3,4,5))
+np.mean(np.isclose(conv, conv_weights_real, rtol=1e-3))
+```
+
+```bash
+1.0
+```
+
+Pour le biais, on a la formule suivante.
+
+\[
+b_{j} = \beta_{j} - \frac{\mu_{j}\cdot\gamma_{j}}{\sqrt{\sigma_{j} + \epsilon}} = \beta_{j} - \frac{\mu_{j}\cdot\gamma_{j}}{\sqrt{\sigma_{j}}}\left[1- \frac{1}{2\sigma_{j}}\epsilon + o(\epsilon^{2})\right]
+\]
+
+dans notre cas, on a :
+
+- $\beta_{j} = 2$,
+- $\gamma_{j} = 1$,
+- $\mu_{j} = 1$,
+- $\sigma_{j} = 4$.
+
+\[
+b_{j} = 2 - \frac{1}{2}\left[1- \frac{1}{8}\epsilon + o(\epsilon^{2})\right] \simeq 2 - \frac{1}{2} - \frac{1}{16}\epsilon
+\]
+
+```python
+def compute_scaling_bias_factor(gamma, beta, mu, sigma):
+    a = (mu*gamma)/np.sqrt(sigma)
+    b = 1 - 0.001/(2*sigma)
+
+    return beta-a*b
+```
+
+```python
+bias_scale = compute_scaling_bias_factor(1,2,1,4)
+bn_real = bias_scale*np.ones(5)
+np.mean(np.isclose(bn_real, bn, rtol=1e-3))
+```
 
 
 
