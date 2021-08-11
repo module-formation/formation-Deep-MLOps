@@ -38,6 +38,7 @@ Les différentes section et ressources utilisées pour rédiger ce guide sont le
 
 - [Code. Simply. Clearly. Calmly.](https://calmcode.io/)
 - [Gestion sémantique de version](https://semver.org/lang/fr/)
+- [Use Bash Strict Mode (Unless You Love Debugging)](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
 
 ## Guidelines générales : ressources
 ### Rédaction documentation Python

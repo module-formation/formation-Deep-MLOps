@@ -193,7 +193,7 @@ La précision avec laquelle nous pouvons les représenter dépend du nombre de b
 
     ![screen](./images/quant.svg)
 
-    Source :[Quantization and Training of Neural Networks for EfficientInteger-Arithmetic-Only Inference](https://arxiv.org/pdf/1712.05877.pdf)
+    Source :[Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference](https://arxiv.org/pdf/1712.05877.pdf)
 
     Lorsque l'on utilise les méthodes de "Quantization aware training" avec TensorFlow, c'est ce schéma là qui est utilisé.
 

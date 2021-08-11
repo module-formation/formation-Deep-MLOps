@@ -20,10 +20,24 @@ Ce sont des objets logiques qui sont gérés par Docker, et ils sont tous réuni
 
 L'application à l'intérieur du conteneur ne peut rien voir à l'extérieur du conteneur, mais la boîte est exécutée sur un ordinateur, et cet ordinateur peut également exécuter de nombreux autres conteneurs. Les applications dans ces conteneurs ont leurs propres environnements distincts (gérés par Docker), mais elles partagent toutes le CPU, GPU, et la mémoire de l'ordinateur, et elles partagent toutes le système d'exploitation de l'ordinateur.
 
+!!! info "Remarque"
+
+    Notez ici que les conteneurs sont différents des machines virtuelles.
+
+    - Les machines virtuelles nécessitent que l'hyperviseur virtualise une pile matérielle complète. Il y a également plusieurs systèmes d'exploitation invités, ce qui les rend plus grands et plus étendus à démarrer. C'est ce que sont les instances de cloud AWS / GCP / Azure.
+
+    - Les conteneurs, quant à eux, ne nécessitent aucune virtualisation de l'hyperviseur ou du matériel. Tous les conteneurs partagent le même noyau hôte. Il existe des environnements d'espace utilisateur isolés et dédiés, ce qui les rend beaucoup plus petits en taille et plus rapides à démarrer.
+
+
 ![screen](./images/docker.svg)
 
-### Les commandes de base et les Dockerfile
+!!! info "TLDR"
 
+    1. Un Dockerfile définit comment construire une image.
+    2. Une image est un environnement packagé contruit par un Dockerfile.
+    3. Le conteneur Docker est l'endroit où l'image est lancée.
+
+### Les commandes de base et les Dockerfile
 
 Dans docker, tout commence par la rédaction d'un `Dockerfile`, c'est un simple script que vous écrivez pour dire comment vous allez monter et faire fonctionner votre conteneur docker.
 
