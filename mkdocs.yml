@@ -1,4 +1,4 @@
-site_name: Formation Deep Learning
+site_name: Deep Learning
 site_author: Mathieu Klimczak
 theme:
   name: material
@@ -88,6 +88,8 @@ nav:
       - Radon: code_quality/radon.md
     - Code security:
       - Bandit: code_security/bandit.md
+  - Lectures:
+      - Gradient Centralization: lectures/gradient_centralization.md
 
 
 markdown_extensions:
