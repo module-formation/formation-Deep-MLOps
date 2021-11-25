@@ -62,6 +62,11 @@ nav:
       - Pratique, l'élagage: module9/tp9_elaguage.md
       - Pratique, TFLite: module9/tp9_tflite.md
       - Pratique, TFTRT: module9/Module9_TFTRT.ipynb
+      - Annexe, RepVGG: module9/fusion.ipynb
+      - Les BNN: module9/bnn.md
+    - Algèbre tensorielle:
+      - Les tenseurs : algebra/algebra.md
+      - L'attention: algebra/attn.md
   - MLOps:
     - Docker: mlops/docker.md
     - Data versioning: mlops/DVC.md
