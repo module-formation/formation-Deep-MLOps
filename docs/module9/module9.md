@@ -29,8 +29,7 @@ La dernière décennie a montré qu'en général, les grands réseaux de neurone
 
 https://blog.dataiku.com/making-neural-networks-smaller-for-better-deployment-solving-the-size-problem-of-cnns-using-network-pruning-with-keras
 
-L'élagage des réseaux de neurones est une vieille idée qui remonte à 1990 (avec les travaux de Yan Lecun sur les lésions cérébrales optimales)
-et avant. L'idée est que parmi les nombreux paramètres du réseau, certains sont redondants et ne contribuent pas beaucoup à la sortie.
+L'élagage des réseaux de neurones est une vieille idée qui remonte à 1990 (avec les travaux de Yan LeCun sur les lésions cérébrales optimales) et avant. L'idée est que parmi les nombreux paramètres du réseau, certains sont redondants et ne contribuent pas beaucoup à la sortie.
 
 !!! info "Optimal Brain Damage"
 
@@ -193,7 +192,7 @@ La précision avec laquelle nous pouvons les représenter dépend du nombre de b
 
     ![screen](./images/quant.svg)
 
-    Source :[Quantization and Training of Neural Networks for EfficientInteger-Arithmetic-Only Inference](https://arxiv.org/pdf/1712.05877.pdf)
+    Source :[Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference](https://arxiv.org/pdf/1712.05877.pdf)
 
     Lorsque l'on utilise les méthodes de "Quantization aware training" avec TensorFlow, c'est ce schéma là qui est utilisé.
 

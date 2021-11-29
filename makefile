@@ -1,10 +1,11 @@
+.PHONY: docs
 docs:
 	mkdocs serve
 
-.PHONY: docs
-
+.PHONY: build
 build:
 	mkdocs build
 
+.PHONY: deploy
 deploy:
 	mkdocs gh-deploy

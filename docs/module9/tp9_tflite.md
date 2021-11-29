@@ -396,7 +396,7 @@ print(f'val_images : {len(val_images)}, val_labels : {len(val_labels)}')
         return accuracy
     ```
 
-### Quantification "classique"
+### Quantification post-entraînement (PTQ)
 
 Vous commencez par charger votre modèle dans une classe de convertisseur TFLiteConverter, puis vous spécifiez une politique d'optimisation, et enfin, vous demandez à TFLite de convertir votre modèle avec la politique d'optimisation.
 
@@ -427,7 +427,7 @@ Cette forme de quantification est également appelée **quantification post-entr
     print(accuracy)
     ```
 
-### Quantization Aware training
+### Quantization Aware training (QAT)
 
 Une bonne première approche consiste à entraîner votre modèle de manière à ce qu'il apprenne à compenser la perte d'informations qui pourrait être induite par la quantification. C'est précisément ce que nous pouvons faire avec un entraînement conscient de la quantification. Pour former notre réseau à la quantification, il suffit d'ajouter les lignes de code suivantes
 
