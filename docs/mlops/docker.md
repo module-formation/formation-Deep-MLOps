@@ -168,28 +168,28 @@ Le point `.` à la fin de la commande docker build signifie à docker qu'il doit
     -it \
     --rm \
     -P \
-    --mount type=bind,source=$(PWD),target=/media/vorph/datas/cracks_defect \
+    --mount type=bind,source=$(PWD),target=/media/vorph/datas/project_ai \
     -e TF_FORCE_GPU_ALLOW_GROWTH=true \
     -e XLA_FLAGS='--xla_gpu_autotune_level=2' \
     project_ai
     ```
 
-`-it` : commande pour que le conteneur soit interactif.
-
-`-rm` : supprime le conteneur une fois qu'il est stoppé.
-
+- `-it` : commande pour que le conteneur soit interactif.
+- `--rm` : supprime le conteneur une fois qu'il est stoppé.
+- `-P` : publie tous les ports exposés dans le Dockerfile sur l'interface hôte
+- `--shm-size` : taille de /dev/shm, /dev/shm est l’implémentation d’un système de fichier temporaire. Il est monté comme un disque dur mais les données sont écrites en RAM. Le nom shm vient de SHared Memory car souvent utilisé pour l’échange de données entre process.
 
 !!! note "Remarque"
 
     Beaucoup d'autres options sont disponibles, n'hésitez pas à regarder la [documentation sur les options de lancement](https://docs.docker.com/engine/reference/commandline/run/).
 
-### Environnement de développement docker dans vscode
+<!-- ### Environnement de développement docker dans vscode
 ## Docker pour déployer
 
 ### Conteneuriser son application
 ### TensorFlow Serving
 
-[Docuementation Officielle](https://www.tensorflow.org/tfx/serving/api_rest#start_modelserver_with_the_rest_api_endpoint)
+[Docuementation Officielle](https://www.tensorflow.org/tfx/serving/api_rest#start_modelserver_with_the_rest_api_endpoint) -->
 
 ## Docker et OpenCV
 
