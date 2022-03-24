@@ -264,7 +264,7 @@ En d'autres termes, si on a un ensemble de points que l'on sait linéairement s�
 
 Conceptuellement c'est un résultat important. Cependant, ce résultat a deux difficultées :
 
-1. Il est nécéssaire de savoir qu'ne  solution $(\vartheta^{\ast}, w_{1}^{\ast}, \dots, w_{n}^{\ast}) \in \mathbf{R}^{n+1}$ existe. En effet, il existe des problèmes pour lesquels aucune solution par le Perceptron n'existe.
+1. Il est nécéssaire de savoir qu'une  solution $(\vartheta^{\ast}, w_{1}^{\ast}, \dots, w_{n}^{\ast}) \in \mathbf{R}^{n+1}$ existe. En effet, il existe des problèmes pour lesquels aucune solution par le Perceptron n'existe.
 2. La seconde diffcultée est que, même si l'on sait que le Perceptron trouvera une solution en un nombre fini d'itérations, il nous est impossible de calculer $h_{\mathrm{max}}$ car il dépend du vecteur de solution $(\vartheta^{\ast}, w_{1}^{\ast}, \dots, w_{n}^{\ast}) \in \mathbf{R}^{n+1}$, qui nous est inconnu.
 
 !!! danger "Attention"
