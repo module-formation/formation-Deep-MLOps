@@ -1,5 +1,5 @@
 diagrams==0.20.0
 mkdocs==1.2.3
 mkdocs-material==7.2.0
-mkdocstrings==0.15.0
+mkdocstrings==0.18.1
 mknotebooks==0.7.1
