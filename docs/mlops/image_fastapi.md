@@ -1,0 +1,1 @@
+# How to deal with images in FastAPI for computer vision
