@@ -1,15 +1,6 @@
-# Bienvenu sur la formation Deep Learning du CITC
+# Welcome into my Arctic Vault !
 
-<p align="center">
-  <a href="https://iotcluster.fr/"><img src="https://iotcluster.fr/wp-content/uploads/2019/04/LogoCITCHeaderGris-1.png
-" alt="CITC1"></a>
-</p>
-
-<p align="center">
-  <a href="https://iotcluster.fr/"><img src="https://iotcluster.fr/wp-content/uploads/2020/07/Icone_A.png" alt="CITC2"></a>
-</p>
-
-La formation est une formation au **deep learning** axée **Computer Vision**.
+Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes pensées, sur le deep learning, le DevOps, le MLOps, etc.
 
 ## Ressources
 
