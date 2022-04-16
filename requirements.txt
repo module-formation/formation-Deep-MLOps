@@ -1,4 +1,4 @@
-diagrams==0.20.0
+diagrams==0.21.1
 mkdocs==1.2.3
 mkdocs-material==8.2.9
 mkdocstrings==0.18.1
