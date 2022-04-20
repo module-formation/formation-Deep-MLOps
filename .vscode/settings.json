@@ -9,6 +9,8 @@
       "workbench.colorCustomizations": {
         "editorRuler.foreground": "#750917"
       },
+      "editor.detectIndentation": true,
+      "editor.tabSize": 2,
       "editor.fontLigatures": true,
       "editor.fontFamily": "JetBrains Mono Medium",
       "editor.fontSize": 16,
@@ -17,6 +19,10 @@
       "terminal.integrated.fontFamily": "MesloLGS NF",
       "git.autofetch": true,
       "trailing-spaces.trimOnSave": true,
+      "python.formatting.provider": "black",
+      "[yaml]": {
+        "editor.autoIndent": "advanced"
+      },
     // config python
     // "python.languageServer": "Pylance",
     // "python.analysis.extraPaths": [
@@ -47,7 +53,7 @@
     // "python.linting.mypyEnabled": true,
     // "python.linting.mypyPath": "mypy",
     // "python.testing.pytestEnabled" : true,
-    // "editor.formatOnSave": true,
-    // "editor.formatOnPaste": false,
-    // "editor.formatOnType": false,
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false,
     }

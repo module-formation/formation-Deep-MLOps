@@ -1,0 +1,4 @@
+{"rule":"PAS_D_ELISION","sentence":"^\\QPour pouvoir l'utiliser correctement et lancer des commandes vers le cloud Azure depuis le SDK Azure installé sur votre environnement local, il doit être relié à un abonnement Azure, ce qui peut se faire via l'installation de l'\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q, nous y reviendrons plus tard.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qinfo \"Remarque\"\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qpython \"Workspace\"\\E$"}
+{"rule":"FR_SPELLING_RULE","sentence":"^\\Qquote\\E$"}

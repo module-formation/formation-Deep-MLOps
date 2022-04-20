@@ -2,7 +2,7 @@
 
 Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes pensées, sur le deep learning, le DevOps, le MLOps, etc.
 
-## Ressources
+## Ressources générales
 
 * [The Matrix Calculus You Need For Deep Learning](https://explained.ai/matrix-calculus/index.html)
 * [Statisticians say the darndest things](https://explained.ai/statspeak/index.html)
@@ -17,21 +17,10 @@ Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes p
 * [Yann Le Cun Deep Learning printemps 2020](https://atcold.github.io/pytorch-Deep-Learning/)
 * [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/2020/)
 * [Great Practical Ideas in Computer Science](https://www.cs.cmu.edu/~07131/f20/)
+* [Code. Simply. Clearly. Calmly.](https://calmcode.io/)
+* [Gestion sémantique de version](https://semver.org/lang/fr/)
+* [Use Bash Strict Mode (Unless You Love Debugging)](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
 
-# Guide des bonnes pratiques Python
-
-Le but est de créer un guide des bonnes pratiques pour pouvoir uniformiser le code des différents programmeurs python en se mettant d'accord sur des règles communes.
-
-Ce guide pourra être enrichi par la suite de template de base pour les dossiers ou autre.
-## Ressources générales
-
-Les différentes section et ressources utilisées pour rédiger ce guide sont les suivantes.
-
-- [Code. Simply. Clearly. Calmly.](https://calmcode.io/)
-- [Gestion sémantique de version](https://semver.org/lang/fr/)
-- [Use Bash Strict Mode (Unless You Love Debugging)](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
-
-## Guidelines générales : ressources
 ### Rédaction documentation Python
 - [MkDocs](https://www.mkdocs.org/)
 - [MkDocs-Material](https://squidfunk.github.io/mkdocs-material/)
@@ -108,8 +97,22 @@ Les différentes section et ressources utilisées pour rédiger ce guide sont le
 
 ## Guidelines machine learning, MLOps : ressources
 
-- [Awesome MLOps](https://github.com/visenger/awesome-mlops#mlops-infra)
-- [Full Stack Deep Learning](https://fullstackdeeplearning.com/)
+### Deep Learning tips and tricks
+
+* [Encoding Cyclical Features for Deep Learning](https://www.avanwyk.com/encoding-cyclical-features-for-deep-learning/)
+* [2D Convolution as a Doubly Block Circulant Matrix Operating on a Vector](https://dsp.stackexchange.com/questions/35373/2d-convolution-as-a-doubly-block-circulant-matrix-operating-on-a-vector)
+* [Tuning the $\varepsilon$ parameter](http://zna.do/epsilon)
+* [Super-convergence in Tensorflow 2 with the 1Cycle Policy](https://www.avanwyk.com/tensorflow-2-super-convergence-with-the-1cycle-policy/)
+* [The Mathematical Engineering of Deep Learning](https://deeplearningmath.org/)
+
+
+### MLOps
+
+* [Awesome MLOps](https://github.com/visenger/awesome-mlops#mlops-infra)
+* [Full Stack Deep Learning](https://fullstackdeeplearning.com/)
+* [A Guide to Terraform for Data Scientists](https://www.verypossible.com/insights/a-guide-to-terraform-for-data-scientists)
+* [From Training to Serving: Machine Learning Models with Terraform](https://github.com/jzonthemtn/hashitalks2021-terraform-nlp)
+* [Manage Azure Machine Learning workspaces using Terraform](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-manage-workspace-terraform?tabs=publicworkspace)
 
 ### Data Versioning
 
@@ -129,3 +132,12 @@ Les différentes section et ressources utilisées pour rédiger ce guide sont le
 
 - [Airflow](https://airflow.apache.org/)
 - [Prefect](https://www.prefect.io/core/)
+
+## Ressources AzureML
+
+* [Azure Machine Learning Deployment using Terraform](https://clemenssiebler.com/azure-machine-learning-deployment-using-terraform/)
+* [Introduction to the Azure ML-Ops Project Accelerator](https://microsoft.github.io/azureml-ops-accelerator/)
+* [Manages a Azure Machine Learning Workspace](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/machine_learning_workspace)
+* [Azure Terraform QuickStart Templates](https://github.com/Azure/terraform/tree/master/quickstart)
+* [MLOps on Azure](https://github.com/microsoft/MLOps)
+* [MLOps with Azure ML](https://github.com/Microsoft/MLOpsPython)
