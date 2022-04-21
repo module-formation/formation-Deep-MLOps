@@ -6,7 +6,7 @@ On parlera ici de la configuration de vscode, c'est l'un des IDE standards et il
 - la possibilité d'avoir un IDE lors d'une connexion ssh,
 - la possibilité de travailler directement dans un environnement de dev Docker depuis vscode...
 
-D'autres ide existent et sont très bien : Atom, PyCharm, Sublime text, le choix de l'IDE pourrait ne pas être fixé.
+D'autres IDE existent et sont très bien : Atom, PyCharm, Sublime text, le choix de l'IDE pourrait ne pas être fixé.
 
 !!! question
     Doit on fixer le choix de l'IDE, afin d'avoir le même pour tout le monde ? Même si je pense que tout le monde utilise déjà vscode.

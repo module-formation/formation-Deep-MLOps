@@ -2,6 +2,9 @@
 
 Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes pensées, sur le deep learning, le DevOps, le MLOps, etc.
 
+* [Status of GPU-Determinism in TensorFlow](https://github.com/NVIDIA/framework-determinism/blob/master/doc/tensorflow_status.md#enable_op_determinism)
+* [Status of GPU-Determinism in PyTorch](https://pytorch.org/docs/stable/notes/randomness.html)
+
 ## Ressources générales
 
 * [The Matrix Calculus You Need For Deep Learning](https://explained.ai/matrix-calculus/index.html)
@@ -20,6 +23,12 @@ Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes p
 * [Code. Simply. Clearly. Calmly.](https://calmcode.io/)
 * [Gestion sémantique de version](https://semver.org/lang/fr/)
 * [Use Bash Strict Mode (Unless You Love Debugging)](http://redsymbol.net/articles/unofficial-bash-strict-mode/)
+* [Understanding the Fourier Transform by example](https://www.ritchievink.com/blog/2017/04/23/understanding-the-fourier-transform-by-example/)
+* [ML Notebooks](https://github.com/dair-ai/ML-Notebooks)
+* [srsly: Modern high-performance serialization utilities for Python](https://github.com/explosion/srsly)
+* [Radically efficient machine teaching. An annotation tool powered by active learning.](https://prodi.gy/)
+* [A refreshing functional take on deep learning, compatible with your favorite libraries.](https://thinc.ai/)
+
 
 ### Rédaction documentation Python
 - [MkDocs](https://www.mkdocs.org/)
@@ -58,6 +67,8 @@ Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes p
 - [GoCD User Documentation](https://docs.gocd.org/current/)
 - [GitHub Actions for perfect Python Continuous Integration](https://sourcery.ai/blog/github-actions/)
 - [Build Bot](https://buildbot.net/)
+- [How to Add Domains](https://docs.digitalocean.com/products/networking/dns/how-to/add-domains/)
+- [How to Create, Edit, and Delete DNS Records](https://docs.digitalocean.com/products/networking/dns/how-to/manage-records/)
 
 ### Docker
 - [Dockerize your Development Environment](https://www.youtube.com/watch?v=fPtGgOJykTM)
@@ -66,6 +77,8 @@ Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes p
 - [Advanced Container Configuration](https://code.visualstudio.com/docs/remote/containers-advanced#_adding-a-nonroot-user-to-your-dev-container)
 - [Creating an API with FastAPI and Docker](https://levelup.gitconnected.com/creating-an-api-with-fastapi-and-docker-809429d778e6)
 - [Faster Docker builds with pipenv, poetry, or pip-tools](https://pythonspeed.com/articles/pipenv-docker/)
+- [Publishing Docker images](https://docs.github.com/en/actions/publishing-packages/publishing-docker-images)
+
 ### Code quality
 - [Radon and code metrics](https://radon.readthedocs.io/en/latest/index.html)
 - [Métriques d'Halstead](https://fr.wikipedia.org/wiki/M%C3%A9triques_d%27Halstead)
@@ -79,7 +92,6 @@ Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes p
 - [Safety](https://github.com/pyupio/safety)
 
 ### A trier
-
 - [How to set up a perfect Python project](https://sourcery.ai/blog/python-best-practices/)
 - [The Magical Number Seven, Plus or Minus Two](https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two)
 - [Key Kubernetes Concepts](https://towardsdatascience.com/key-kubernetes-concepts-62939f4bc08e)

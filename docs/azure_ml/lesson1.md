@@ -236,9 +236,9 @@ Main Steps for Tuning with HyperDrive
 
     Note that to use HyperDrive, you must have a custom-coded machine learning model. Otherwise, HyperDrive won't know what model to optimize the parameters for!
 
-!!! question "TODO"
+!!! todo "TODO"
 
-    A comparer avec AutoKeras.
+    A comparer avec KerasTuner.
 
 ### Controlling HyperDrive with the SDK
 
@@ -289,6 +289,11 @@ print('\n batch size:',parameter_values[7])
 The ultimate result is that we are able to choose the best tuning and use it in our final machine learning model.
 
 ## AutoML vs traditionnal ML
+
+!!! todo "TODO"
+
+    A comparer avec AutoKeras.
+
 
 ### Traditional ML
 

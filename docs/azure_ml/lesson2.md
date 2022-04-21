@@ -166,7 +166,7 @@ There are multiple things you can expect to go wrong. When you submit HTTP reque
 
 When an error code shows up, one thing you can do is retrieving the logs output. Logs output is always useful to debug problems in deployed containers. Showing below is an extract of what you should see in a successful response to a scoring request.
 
-```
+```shell
 Validation Request Content-Type
 Received input: {'data': [{'instant': 1, 'date': '2011-01-01 00:00:00,000000', 'season': 1, 'yr': 0, 'mnth': 1, 'weekday': 6, 'weathersit': 2, 'temp': 0.344167, 'atemp': 0.363625, 'hum': 0.805833, 'windspeed': 0.160446, 'casual': 331, 'registered': 654 }]}
 Headers passed in (total 12):
@@ -186,19 +186,19 @@ Scoring Timer is set to 60.0 seconds
 200
 ```
 
-### Glossary
+!!! info "Définition"
 
-    ACI: Azure Container Instance
-    AKS: Azure Kubernetes Service
-    Application Insights: A special Azure service which provides key facts about an application
-    CI/CD: Continuous Integration and Continuous Delivery platform. Jenkins, CircleCI, and Github Actions, are a few examples
-    Cloud-based workstation: Sometimes, compute instances are referred to as a cloud-based workstation, because it is ready to start developing
-    Compute Instance: A distinct type of a compute offering from Azure
-    DevOps: A set of best practices that helps provide continuous delivery of software at the highest quality with a constant feedback loop
-    Deployment: A way to deliver work into production
-    Endpoint: A part of an HTTP API. Either a full URL or a partial URL identifying a part
-    HTTP API: A URL that exposes logic to interact with software, in this case, a trained model
-    HTTP Status code: A number that represents a status when an HTTP server responds. Error conditions in the server side start at 500
-    Logging: Informational output produced by software, usually in the form of text
-    Shipping into production: The most important aspect of a Machine Learning specialist
-    Webservice: One of the most used Python classes from Azure's Python SDK
+    * ACI: Azure Container Instance
+    * AKS: Azure Kubernetes Service
+    * Application Insights: A special Azure service which provides key facts about an application
+    * CI/CD: Continuous Integration and Continuous Delivery platform. Jenkins, CircleCI, and Github Actions, are a few examples
+    * Cloud-based workstation: Sometimes, compute instances are referred to as a cloud-based workstation, because it is ready to start developing
+    * Compute Instance: A distinct type of a compute offering from Azure
+    * DevOps: A set of best practices that helps provide continuous delivery of software at the highest quality with a constant feedback loop
+    * Deployment: A way to deliver work into production
+    * Endpoint: A part of an HTTP API. Either a full URL or a partial URL identifying a part
+    * HTTP API: A URL that exposes logic to interact with software, in this case, a trained model
+    * HTTP Status code: A number that represents a status when an HTTP server responds. Error conditions in the server side start at 500
+    * Logging: Informational output produced by software, usually in the form of text
+    * Shipping into production: The most important aspect of a Machine Learning specialist
+    * Webservice: One of the most used Python classes from Azure's Python SDK
