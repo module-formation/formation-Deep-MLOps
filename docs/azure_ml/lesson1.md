@@ -311,8 +311,7 @@ Automated ML can help with all of the above problems. Essentially, AutoML involv
 
 This creates a quicker feedback loop and allows us to bring ideas to market much sooner. Overall, it reduces the time that we have to spend on technical details, allowing for more effort to be put into solving the underlying business problems.
 
-
-Configuring AutoML from the SDK
+#### Configuring AutoML from the SDK
 
 We can easily leverage AutoML from the SDK to automate many aspects of our pipeline, including:
 

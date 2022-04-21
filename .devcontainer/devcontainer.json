@@ -40,7 +40,7 @@
 	],
 	//Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
-		8001
+		8000
 	],
 	//The path of the workspace folder inside the container.
 	"workspaceFolder": "${localEnv:HOME}${localEnv:USERPROFILE}/formationML",

@@ -2,53 +2,35 @@
 
 ## Enable Security and Authentication
 
-Summary
+!!! summary "Summary"
 
-Authentication is crucial for the continuous flow of operations. Continuous Integration and Delivery system (CI/CD) rely on uninterrupted flows. When authentication is not set properly, it requires human interaction and thus, the flow is interrupted. An ideal scenario is that the system doesn't stop waiting for a user to input a password. So whenever possible, it's good to use authentication with automation.
-Authentication types
-Key- based
+    **Authentication is crucial for the continuous flow of operations**. Continuous Integration and Delivery system (CI/CD) rely on uninterrupted flows. When authentication is not set properly, it requires human interaction and thus, the flow is interrupted. An ideal scenario is that the system doesn't stop waiting for a user to input a password. So whenever possible, it's good to use authentication with automation.
 
-* Azure Kubernetes service enabled by default
-* Azure Container Instances service disabled by default
+|                                | Key-based Authentication                    | Token-based Authentication                   | Interactive Authentication                                                 |
+|          :----------:          | :----------------------------------- :      |    :-----------------------------------:     |                                    :-:                                     |
+| Azure Kubernetes Service (AKS) | Azure Kubernetes service enabled by default | Azure Kubernetes service disabled by default |                                                                            |
+| Azure Container Instance (ACI) | Not support Azure Container Instances       | Disabled by default                          | Used by local deployment and experimentation (e.g. using Jupyter notebook) |
+|                                |                                             |                                              |                                                                            |
 
-Token- based
 
-* Azure Kubernetes service disabled by default
-* Not support Azure Container Instances
-
-Interactive
-
-* Used by local deployment and experimentation (e.g. using Jupyter notebook)
-
-Service Principal
+### Service Principal
 
 A “Service Principal” is a user role with controlled permissions to access specific resources. Using a service principal is a great way to allow authentication while reducing the scope of permissions, which enhances security.
 
-New terms
-
-* CI/CD: Continuous Integration and Continuous Delivery platform. Jenkins, CircleCI, and Github Actions are a few examples.
-
-Further reading
-
-Both the Jenkins and Github Actions websites have good information about their CI/CD platforms and why they are compelling the CI/CD platform.
-
-| Azure Service | Key-based Authorization|
-| Azure Kubernetes Service (AKS) | Enabled by default|
-| Azure Container Instance (ACI)| Disabled by default|
-
-## Azure cli installation
+#### Azure cli installation
 
 [see here](https://docs.microsoft.com/fr-fr/cli/azure/install-azure-cli-linux?pivots=apt#option-1-install-with-one-command)
 
-* Add azureml extension for cli
+
+* Add azureml extension for cli.
 
 ```
 az extension add -n azure-cli-ml
 ```
 
-* create the service principal
+*2.* create the service principal.
 
-https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals
+[Référence](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals)
 
 command that interact with the Active Directory.
 
@@ -56,12 +38,14 @@ command that interact with the Active Directory.
 az ad sp create-for-rbac --sdk-auth --name ml-auth
 ```
 
-ml-auth can be changed to whatever name you want, it's just the name used in the Azure doc.
+`ml-auth` can be changed to whatever name you want, it's just the name used in the Azure doc.
 
-rbac : Role-Based Access Control
+!!! info "Définition"
+
+    RBAC : Role-Based Access Control
 
 
-* After running az ad sp create-for-rbac --sdk-auth --name ml-auth, Azure responds with output similar to this:
+* After running `az ad sp create-for-rbac --sdk-auth --name ml-auth`, Azure responds with output similar to this:
 
 ```shell
 Changing "ml-auth" to a valid URI of "http://ml-auth", which is the required format used for service principal names
@@ -100,33 +84,34 @@ Note: This command should complete without any output
 
 ### Configure Deployment Settings
 
-Deployment is about delivering a trained model into production so that it can be consumed by others. Configuring deployment settings means making choices on cluster settings and other types of interaction with a deployment. Having a good grasp on configuring production environments in Azure ML Studio and the Python SDK is the key to get robust deployments.
+**Deployment is about delivering a trained model into production so that it can be consumed by others.** Configuring deployment settings means making choices on cluster settings and other types of interaction with a deployment. Having a good grasp on configuring production environments in Azure ML Studio and the Python SDK is the key to get robust deployments.
 ACI and AKS
 
-Both ACI and AKS are available in the Azure ML platform as deployment options for models.
+**Both ACI and AKS are available in the Azure ML platform as deployment options for models.**
 
 ACI is a container offering from Azure, which uses container technology to quickly deploy compute instances. The flexibility of ACI is reduced as to what AKS offers, but it is far simpler to use.
 
 AKS, on the other hand, is a Kubernetes offering. The Kubernetes service is a cluster that can expand and contract given on demand, and it does take more effort than the container instance to configure and setup.
-New terms
 
-* ACI: Azure Container Instance
-* AKS: Azure Kubernetes Service
-* Deployment: A way to deliver work into production
-* Concurrent Operations: Also referred to as "concurrency", it is the number of operations to run at the same time
+!!! info "Définition"
+
+    * ACI: Azure Container Instance
+    * AKS: Azure Kubernetes Service
+    * Deployment: A way to deliver work into production
+    * Concurrent Operations: Also referred to as "concurrency", it is the number of operations to run at the same time
 
 ## Deploy an Azure Machine Learning model
 
-Summary
+!!! summary "Summary"
 
-The primary task as a Machine Learning engineer is to ship models into production. Constant evaluation allows identifying potential issues and creating a baseline so that adapting or updating is possible.
+    The primary task as a Machine Learning engineer is to ship models into production. Constant evaluation allows identifying potential issues and creating a baseline so that adapting or updating is possible.
 
-Some key steps to deploy a model are:
+    Some key steps to deploy a model are:
 
-* A previously trained model
-* Complete the deployment form
-* Enable authentication
-* Select or create a new compute cluster
+    * A previously trained model
+    * Complete the deployment form
+    * Enable authentication
+    * Select or create a new compute cluster
 
 ### Enable Application Insights
 
@@ -137,24 +122,24 @@ In this section, we discussed Application Insights that is a very useful tool to
 service.update(enable_app_insights=True)
 ```
 
-New terms
+!!! info "Définition"
 
-    Logging: Informational output produced by the software, usually in the form of text
-    Application Insights: A special Azure service which provides key facts about an application
-    Webservice: One of the most used Python classes from Azure's Python SDK
+    * Logging: Informational output produced by the software, usually in the form of text
+    * Application Insights: A special Azure service which provides key facts about an application
+    * Webservice: One of the most used Python classes from Azure's Python SDK
 
 ### Troubleshoot Deployment Issues
 
-Summary
+!!! summary "Summary"
 
-In this section, we covered different techniques and diagnosis that you can use to identify potential issues like unhandled exceptions from a deployed service. Using local deployment is a special technique, which makes it easier to identify some of these potential issues.
-Common HTTP errors:
+    In this section, we covered different techniques and diagnosis that you can use to identify potential issues like unhandled exceptions from a deployed service. Using local deployment is a special technique, which makes it easier to identify some of these potential issues.
+    Common HTTP errors:
 
     502: the application crashes because of an unhandled exception.
     503: there are large spikes in requests and the system is not able to cope with all of them.
     504: request timed out.
 
-Deploy Locally
+### Deploy Locally
 
 To deploy locally using the Python SDK you will need to use the LocalWebService class and configure it for a local deployment
 

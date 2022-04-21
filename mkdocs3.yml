@@ -1,0 +1,125 @@
+site_name: Arctic Vault
+site_author: Mathieu Klimczak
+theme:
+        name: material
+        logo: images/noun_Robot_1955251.svg
+        language: fr
+        features:
+                - navigation.instant
+                - navigation.tabs
+                - navigation.top
+        palette:
+                - scheme: default
+                  primary: indigo
+                  accent: indigo
+                  toggle:
+                          icon: material/toggle-switch-off-outline
+                          name: Basculer en mode sombre
+                - scheme: slate
+                  primary: teal
+                  accent: deep orange
+                  toggle:
+                          icon: material/toggle-switch
+                          name: Basculer en mode clair
+
+plugins:
+        - search:
+                  lang: fr
+        - mknotebooks
+
+extra_css:
+        - stylesheets/extra.css
+
+nav:
+        - Accueil: index.md
+        - Deep Learning:
+                  - Introduction au deep learning, prise en main de Tensorflow et Keras:
+                      - Théorie: module1/Module1.md
+                      - Pratique: module1/tp1.md
+                  - Les réseaux de neurones convolutifs:
+                            - Théorie: module2/Module2.md
+                            - Annexe: module2/module2_annexe.md
+                            - Pratique: module2/tp2.md
+                  - Preprocessing des données avec l'API tf.data:
+                            #   - Théorie:
+                            - Pratique: module3/Module3.ipynb
+                  - Optimisation et régularisation des réseaux de neurones:
+                            - Théorie: module4/Module4.md
+                            - Pratique: module4/Module4_2.ipynb
+                  - Personnaliser son réseau de neurones:
+                            - Théorie: module5/Module5.md
+                            - Pratique: module5/Module5_2.ipynb
+                  - La segmentation d'images:
+                            - Théorie: module6/module6.md
+                            - Pratique: module6/Module6_2.ipynb
+                  - Les modèles générateurs:
+                            #- Théorie: module7/module7.md
+                            - Pratique: module7/Module7_2.ipynb
+                  - Déployer son réseau de neurones sur de l'embarqué:
+                            - Théorie: module9/module9.md
+                            - Pratique, l'élagage: module9/tp9_elaguage.md
+                            - Pratique, TFLite: module9/tp9_tflite.md
+                            - Pratique, TFTRT: module9/Module9_TFTRT.ipynb
+                            - Annexe, RepVGG: module9/fusion.ipynb
+                            - Les BNN: module9/bnn.md
+                  - Algèbre tensorielle:
+                            - Les tenseurs: algebra/algebra.md
+                            - L'attention: algebra/attn.md
+        - MLOps:
+                  - Docker: mlops/docker.md
+                  - Data versioning: mlops/DVC.md
+                  - Feature store: mlops/featurestore.md
+                  - Hydra: mlops/hydra.md
+                  - Monitoring: mlops/monitoring.md
+                  - Optimisation: mlops/optuna.md
+        - AzureML:
+                  - SDK Azure: azure_ml/lesson1.md
+                  - Déployer un modèle: azure_ml/lesson2.md
+                  - Utilisation du modèle déployé: azure_ml/lesson3.md
+                  - Pipelines: azure_ml/lesson4.md
+                  - Azure et Traefik: azure_ml/annex1.md
+                  - Azure et Caddy: azure_ml/annex2.md
+        - Guidelines:
+                  - IDE vscode:
+                            - Configuration: ide_vscode/conf.md
+                  - Documentation:
+                            - MkDocs: doc_redaction/mkdocs.md
+                            - Diagrammes: doc_redaction/diagrammes.md
+                  - Formating, Linting, Type Hinting:
+                            - Formating: format_lint_hint/format.md
+                            - Linting: format_lint_hint/lint.md
+                            - Hint: format_lint_hint/hint.md
+                  - Tests:
+                            - Test unitaire: testing/unittests.md
+                  - CI/CD:
+                            - Pre-commit: cicd/precommit.md
+                  - Docker:
+                            - Environnement de dev: docker/dev_env.md
+                  - Code quality:
+                            - Radon: code_quality/radon.md
+                  - Code security:
+                            - Bandit: code_security/bandit.md
+        - Lectures:
+                  - Gradient Centralization: lectures/gradient_centralization.md
+
+markdown_extensions:
+        - admonition
+        - codehilite
+        - pymdownx.inlinehilite
+        - pymdownx.details
+        - pymdownx.superfences
+        - def_list
+        - attr_list
+        - pymdownx.highlight:
+                  linenums: true
+        - pymdownx.betterem:
+                  smart_enable: all
+        # config pour latex
+        - pymdownx.arithmatex:
+                  generic: true
+
+# config pour latex
+extra_javascript:
+        - javascripts/config.js
+        - https://polyfill.io/v3/polyfill.min.js?features=es6
+        - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

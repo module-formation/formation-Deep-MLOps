@@ -22,4 +22,4 @@ COPY requirements.txt .
 
 RUN /bin/bash -c "python -m pip install -r requirements.txt"
 # 8001 for mkdocs
-EXPOSE 8001
+EXPOSE 8000
