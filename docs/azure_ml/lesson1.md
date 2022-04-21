@@ -353,29 +353,23 @@ from azureml.core.experiment import Experiment
 experiment = Experiment(ws, "automl_test_experiment")
 run = experiment.submit(config=automl_config, show_output=True)
 ```
-### AutoML Notebook
+### AutoML Example
 
 ```python
 from azureml.core import Workspace, Dataset
+from azureml.core.experiment import Experiment
+from azureml.core.workspace import Workspace
+from azureml.core.compute import ComputeTarget, AmlCompute
+from azureml.core.compute_target import ComputeTargetException
+from azureml.train.automl import AutoMLConfig
+import pandas as pd
+
 subscription_id = '6971f5ac-8af1-446e-8034-05acea24681f'
 resource_group = 'aml-quickstarts-190413'
 workspace_name = 'quick-starts-ws-190413'
 
 workspace = Workspace(subscription_id, resource_group, workspace_name)
-
-dataset = Dataset.get_by_name(workspace, name='Nba-Dataset')
-dataset.to_pandas_dataframe()
-
-from azureml.core.experiment import Experiment
-from azureml.core.workspace import Workspace
-import pandas as pd
-
 ws = Workspace.from_config()
-
-# choose a name for experiment
-experiment_name = 'automl-nba-position'
-
-experiment=Experiment(ws, experiment_name)
 
 output = {}
 output['Subscription ID'] = ws.subscription_id
@@ -387,8 +381,9 @@ pd.set_option('display.max_colwidth', -1)
 outputDf = pd.DataFrame(data = output, index = [''])
 outputDf.T
 
-from azureml.core.compute import ComputeTarget, AmlCompute
-from azureml.core.compute_target import ComputeTargetException
+# choose a name for experiment
+experiment_name = 'automl-nba-position'
+experiment=Experiment(ws, experiment_name)
 
 # Choose a name for your CPU cluster
 cpu_cluster_name = "auto-ml"
@@ -404,15 +399,16 @@ except ComputeTargetException:
 
 compute_target.wait_for_completion(show_output=True)
 
+dataset = Dataset.get_by_name(workspace, name='Nba-Dataset')
+dataset.to_pandas_dataframe()
 
-from azureml.train.automl import AutoMLConfig
 automl_settings = {
     "experiment_timeout_hours" : 0.3,
     "enable_early_stopping" : True,
     "iteration_timeout_minutes": 5,
     "max_concurrent_iterations": 4,
     "max_cores_per_iteration": -1,
-    #"n_cross_validations": 2,
+    "n_cross_validations": 2,
     "primary_metric": 'AUC_weighted',
     "featurization": 'auto',
     "verbosity": logging.INFO,

@@ -117,7 +117,9 @@ First, create a pipeline using the Python SDK. (This is the part that up until t
 
 It is optional, you can copy and run cells in Examine Results section to test the pipeline and retrieve the best model. This step involves running an Automated ML experiment so it will take about 30 min to complete. Please keep track of the remaining time before you run these cells.
 
-!!! atention "Attention" Make sure you update cells to match your dataset and other variables. These are noted in comments like this:
+!!! attention "Attention"
+
+    Make sure you update cells to match your dataset and other variables. These are noted in comments like this:
 
 
     ```python

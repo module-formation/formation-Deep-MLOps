@@ -80,7 +80,7 @@ nav:
   - AzureML:
     - Introduction: azure_ml/intro.md
     - SDK Azure: azure_ml/lesson1.md
-    - HyperDrive et AutoML: azure_ml/udacity-project.ipynb
+    - HyperDrive et AutoML: azure_ml/lesson1_project.md
     - Déployer un modèle: azure_ml/lesson2.md
     - Utilisation du modèle déployé: azure_ml/lesson3.md
     - Pipelines: azure_ml/lesson4.md
