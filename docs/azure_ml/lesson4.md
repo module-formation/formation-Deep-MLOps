@@ -103,7 +103,7 @@ pipeline = Pipeline(workspace=ws, steps=[parallerun_step])
 
 ## Exercise
 
-### Create a Pipeline
+### Step 1 : Create a Pipeline
 
 !!! summary "Summary"
 
@@ -142,8 +142,179 @@ automl_settings = {
 
 Create and run the pipelines using the Python SDK.
 
-### Publish a pipeline
+### Step 2 : Publish a pipeline
 
 In this part, you need to publish a pipeline using the both Azure ML studio and the Python SDK. Please re-use the Pipeline created in the previous part.
 
 You are recommended to write your own code to publish the pipeline. If you get stuck, review the first a few cells in the **Publish and run from REST endpoint** section in the provided notebook.
+
+### Azure Machine Learning Pipeline with AutoMLStep
+This notebook demonstrates the use of AutoMLStep in Azure Machine Learning Pipeline.
+
+#### Introduction
+In this example we showcase how you can use AzureML Dataset to load data for AutoML via AML Pipeline.
+
+If you are using an Azure Machine Learning Notebook VM, you are all set. Otherwise, make sure you have executed the [configuration](https://aka.ms/pl-config) before running this notebook.
+
+In this notebook you will learn how to:
+
+1. Create an `Experiment` in an existing `Workspace`.
+2. Create or Attach existing AmlCompute to a workspace.
+3. Define data loading in a `TabularDataset`.
+4. Configure AutoML using `AutoMLConfig`.
+5. Use AutoMLStep
+6. Train the model using AmlCompute
+7. Explore the results.
+8. Test the best fitted model.
+
+
+#### Initialize Workspace
+
+Initialize a workspace object from persisted configuration. Make sure the config file is present at `.\config.json`.
+
+#### Create an Azure ML experiment
+Let's create an experiment named "automlstep-classification" and a folder to hold the training scripts. The script runs will be recorded under the experiment in Azure.
+
+The best practice is to use separate folders for scripts and its dependent files for each step and specify that folder as the `source_directory` for the step. This helps reduce the size of the snapshot created for the step (only the specific folder is snapshotted). Since changes in any files in the `source_directory` would trigger a re-upload of the snapshot, this helps keep the reuse of the step when there are no changes in the `source_directory` of the step.
+
+```py
+# Choose a name for the run history container in the workspace.
+# NOTE: update these to match your existing experiment name
+experiment_name = "automlstep-regression"
+project_folder = './pipeline-project'
+
+experiment = Experiment(ws, experiment_name)
+experiment
+```
+
+
+##### Create or Attach an AmlCompute cluster
+You will need to create a [compute target](https://docs.microsoft.com/azure/machine-learning/service/concept-azure-machine-learning-architecture#compute-target) for your AutoML run. In this tutorial, you get the default `AmlCompute` as your training compute resource.
+
+```py
+from azureml.core.compute import AmlCompute
+from azureml.core.compute import ComputeTarget
+from azureml.core.compute_target import ComputeTargetException
+
+# NOTE: update the cluster name to match the existing cluster
+# Choose a name for your CPU cluster
+amlcompute_cluster_name = "cpu-cluster"
+
+# Verify that cluster does not exist already
+try:
+    compute_target = ComputeTarget(workspace=ws, name=amlcompute_cluster_name)
+    print('Found existing cluster, use it.')
+except ComputeTargetException:
+    compute_config = AmlCompute.provisioning_configuration(vm_size='STANDARD_D2_V2',# for GPU, use "STANDARD_NC6"
+                                                           #vm_priority = 'lowpriority', # optional
+                                                           max_nodes=4)
+    compute_target = ComputeTarget.create(ws, amlcompute_cluster_name, compute_config)
+
+compute_target.wait_for_completion(show_output=True, min_node_count = 1, timeout_in_minutes = 10)
+# For a more detailed view of current AmlCompute status, use get_status().
+```
+
+#### Data
+
+
+```py
+# Try to load the dataset from the Workspace. Otherwise, create it from the file
+# NOTE: update the key to match the dataset name
+found = False
+key = "bike-no-aci-deployment"
+description_text = "dataset used for testing ACI deployment in udacity nanodegree"
+
+if key in ws.datasets.keys():
+        found = True
+        dataset = ws.datasets[key]
+
+if not found:
+        # Create AML Dataset and register it into Workspace
+        example_data = "your_csv_url.csv"
+        dataset = Dataset.Tabular.from_delimited_files(example_data)
+        #Register Dataset in Workspace
+        dataset = dataset.register(workspace=ws,
+                                   name=key,
+                                   description=description_text)
+
+
+df = dataset.to_pandas_dataframe()
+df.head()
+```
+
+
+#### Train
+
+This creates a general AutoML settings object.
+
+```py
+automl_settings = {
+    "experiment_timeout_minutes": 20,
+    "max_concurrent_iterations": 4,
+    "primary_metric" : 'normalized_root_mean_squared_error',
+    "n_cross_validations": 5
+}
+
+automl_config = AutoMLConfig(compute_target=compute_target,
+                             task = "regression",
+                             training_data=dataset,
+                             label_column_name="cnt",
+                             path = project_folder,
+                             enable_early_stopping= True,
+                             featurization= 'auto',
+                             debug_log = "automl_errors.log",
+                             **automl_settings
+                            )
+```
+
+##### Create Pipeline and AutoMLStep
+
+You can define outputs for the AutoMLStep using TrainingOutput.
+
+```py
+from azureml.pipeline.core import PipelineData, TrainingOutput
+
+ds = ws.get_default_datastore()
+metrics_output_name = 'metrics_output'
+best_model_output_name = 'best_model_output'
+
+metrics_data = PipelineData(name='metrics_data',
+                           datastore=ds,
+                           pipeline_output_name=metrics_output_name,
+                           training_output=TrainingOutput(type='Metrics'))
+
+model_data = PipelineData(name='model_data',
+                           datastore=ds,
+                           pipeline_output_name=best_model_output_name,
+                           training_output=TrainingOutput(type='Model'))
+```
+
+Create an AutoMLStep.
+
+```py
+automl_step = AutoMLStep(
+    name='automl_module',
+    automl_config=automl_config,
+    outputs=[metrics_data, model_data],
+    allow_reuse=True)
+```
+
+```py
+from azureml.pipeline.core import Pipeline
+pipeline = Pipeline(
+    description="pipeline_with_automlstep",
+    workspace=ws,
+    steps=[automl_step])
+```
+
+```py
+pipeline_run = experiment.submit(pipeline)
+from azureml.widgets import RunDetails
+RunDetails(pipeline_run).show()
+pipeline_run.wait_for_completion()
+```
+
+#### Examine Results
+
+##### Retrieve the metrics of all child runs
+Outputs of above run can be used as inputs of other steps in pipeline. In this tutorial, we will examine the outputs by retrieve output data and running some tests.
