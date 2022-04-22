@@ -1,6 +1,6 @@
 # Welcome into my Arctic Vault !
 
-Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes pensées, sur le deep learning, le DevOps, le MLOps, etc.
+Mon idée ici est de regrouper tout ce qui peut m'être utile, et de formaliser mes pensées, sur le deep learning, le DevOps, le MLOps, etc.
 
 * [Status of GPU-Determinism in TensorFlow](https://github.com/NVIDIA/framework-determinism/blob/master/doc/tensorflow_status.md#enable_op_determinism)
 * [Status of GPU-Determinism in PyTorch](https://pytorch.org/docs/stable/notes/randomness.html)
@@ -78,6 +78,7 @@ Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes p
 - [Creating an API with FastAPI and Docker](https://levelup.gitconnected.com/creating-an-api-with-fastapi-and-docker-809429d778e6)
 - [Faster Docker builds with pipenv, poetry, or pip-tools](https://pythonspeed.com/articles/pipenv-docker/)
 - [Publishing Docker images](https://docs.github.com/en/actions/publishing-packages/publishing-docker-images)
+- [Awesome Docker Compose samples](https://github.com/docker/awesome-compose)
 
 ### Code quality
 - [Radon and code metrics](https://radon.readthedocs.io/en/latest/index.html)
@@ -92,6 +93,7 @@ Mon idée ici est de regrouper tout ce qui m'être utile, et de formaliser mes p
 - [Safety](https://github.com/pyupio/safety)
 
 ### A trier
+
 - [How to set up a perfect Python project](https://sourcery.ai/blog/python-best-practices/)
 - [The Magical Number Seven, Plus or Minus Two](https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two)
 - [Key Kubernetes Concepts](https://towardsdatascience.com/key-kubernetes-concepts-62939f4bc08e)

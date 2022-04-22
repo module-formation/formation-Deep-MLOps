@@ -1,6 +1,10 @@
 
 # Lesson 4 : Pipeline automation
 
+https://stackoverflow.com/questions/61391963/best-practices-for-azure-machine-learning-pipelines
+
+https://thenewstack.io/tutorial-create-training-and-inferencing-pipelines-with-azure-ml-designer/
+
 ## Create a Pipeline
 
 !!! summary "Summary"
@@ -149,21 +153,22 @@ In this part, you need to publish a pipeline using the both Azure ML studio and 
 You are recommended to write your own code to publish the pipeline. If you get stuck, review the first a few cells in the **Publish and run from REST endpoint** section in the provided notebook.
 
 ### Azure Machine Learning Pipeline with AutoMLStep
-This notebook demonstrates the use of AutoMLStep in Azure Machine Learning Pipeline.
+
+We demonstrate the use of AutoMLStep in Azure Machine Learning Pipeline.
 
 #### Introduction
 In this example we showcase how you can use AzureML Dataset to load data for AutoML via AML Pipeline.
 
 If you are using an Azure Machine Learning Notebook VM, you are all set. Otherwise, make sure you have executed the [configuration](https://aka.ms/pl-config) before running this notebook.
 
-In this notebook you will learn how to:
+Here, you will learn how to:
 
 1. Create an `Experiment` in an existing `Workspace`.
 2. Create or Attach existing AmlCompute to a workspace.
 3. Define data loading in a `TabularDataset`.
 4. Configure AutoML using `AutoMLConfig`.
-5. Use AutoMLStep
-6. Train the model using AmlCompute
+5. Use `AutoMLStep`.
+6. Train the model using AmlCompute.
 7. Explore the results.
 8. Test the best fitted model.
 
@@ -175,7 +180,9 @@ Initialize a workspace object from persisted configuration. Make sure the config
 #### Create an Azure ML experiment
 Let's create an experiment named "automlstep-classification" and a folder to hold the training scripts. The script runs will be recorded under the experiment in Azure.
 
-The best practice is to use separate folders for scripts and its dependent files for each step and specify that folder as the `source_directory` for the step. This helps reduce the size of the snapshot created for the step (only the specific folder is snapshotted). Since changes in any files in the `source_directory` would trigger a re-upload of the snapshot, this helps keep the reuse of the step when there are no changes in the `source_directory` of the step.
+**The best practice is to use separate folders for scripts and its dependent files for each step and specify that folder as the `source_directory` for the step.**
+
+This helps reduce the size of the snapshot created for the step (only the specific folder is snapshotted). Since changes in any files in the `source_directory` would trigger a re-upload of the snapshot, this helps keep the reuse of the step when there are no changes in the `source_directory` of the step.
 
 ```py
 # Choose a name for the run history container in the workspace.
@@ -209,8 +216,7 @@ except ComputeTargetException:
                                                            #vm_priority = 'lowpriority', # optional
                                                            max_nodes=4)
     compute_target = ComputeTarget.create(ws, amlcompute_cluster_name, compute_config)
-
-compute_target.wait_for_completion(show_output=True, min_node_count = 1, timeout_in_minutes = 10)
+    compute_target.wait_for_completion(show_output=True, min_node_count = 1, timeout_in_minutes = 10)
 # For a more detailed view of current AmlCompute status, use get_status().
 ```
 
@@ -269,7 +275,9 @@ automl_config = AutoMLConfig(compute_target=compute_target,
 
 ##### Create Pipeline and AutoMLStep
 
-You can define outputs for the AutoMLStep using TrainingOutput.
+###### Define outputs
+
+You can define outputs for the AutoMLStep using `TrainingOutput`.
 
 ```py
 from azureml.pipeline.core import PipelineData, TrainingOutput
@@ -289,7 +297,30 @@ model_data = PipelineData(name='model_data',
                            training_output=TrainingOutput(type='Model'))
 ```
 
-Create an AutoMLStep.
+[`PipelineData` Class](https://docs.microsoft.com/en-us/python/api/azureml-pipeline-core/azureml.pipeline.core.pipelinedata?view=azure-ml-py).
+
+!!! info "`name` (str, Required)"
+
+    The name of the `PipelineData` object, which can contain only letters, digits, and underscores.
+
+    `PipelineData` names are used to identify the outputs of a step. After a pipeline run has completed, you can use the step name with an output name to access a particular output. Names should be unique within a single step in a pipeline.
+
+!!! info "`pipeline_output_name` (Required)"
+
+    If provided this output will be available by using `PipelineRun.get_pipeline_output()`. Pipeline output names must be unique in the pipeline.
+
+More on [`TrainingOutput`](https://docs.microsoft.com/en-us/python/api/azureml-pipeline-core/azureml.pipeline.core.trainingoutput?view=azure-ml-py).
+
+!!! info "Définition"
+
+    Defines a specialized output of certain `PipelineSteps` for use in a pipeline.
+
+    `TrainingOutput` enables an automated machine learning metric or model to be made available as a step output to be consumed by another step in an Azure Machine Learning Pipeline. Can be used with `AutoMLStep` or `HyperDriveStep`.
+
+    `TrainingOutput` is used with `PipelineData` when constructing a Pipeline **to enable other steps to consume the metrics or models generated** by an `AutoMLStep` or `HyperDriveStep`.
+
+
+###### Create an AutoMLStep
 
 ```py
 automl_step = AutoMLStep(
@@ -299,6 +330,8 @@ automl_step = AutoMLStep(
     allow_reuse=True)
 ```
 
+###### Define the pipeline
+
 ```py
 from azureml.pipeline.core import Pipeline
 pipeline = Pipeline(
@@ -307,9 +340,11 @@ pipeline = Pipeline(
     steps=[automl_step])
 ```
 
+###### Run the pipeline
+
 ```py
-pipeline_run = experiment.submit(pipeline)
 from azureml.widgets import RunDetails
+pipeline_run = experiment.submit(pipeline)
 RunDetails(pipeline_run).show()
 pipeline_run.wait_for_completion()
 ```

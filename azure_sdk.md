@@ -1284,3 +1284,253 @@ Conclusion
 
 In this technical guide, I demonstrated how you can overcome one of the shortcomings of ACI when it comes to managing TLS certificates for an HTTPS connection.
 
+
+
+
+
+##############################################################################
+
+https://towardsdatascience.com/hidden-tricks-for-running-automl-experiment-from-azure-machine-learning-sdk-915d4e3f840e
+
+
+Hidden tricks for running AutoML experiment from Azure Machine Learning SDK
+
+Automated Machine Learning is an fast-growing field in Machine Learning community that enables users to try multiple algorithms and pre-processing transformations with their data. Combined with scalable cloud-based compute makes it possible to find the best performing model for data without the huge amount of time-consuming manual trial and error that would otherwise be required.
+
+This blog provides a brief overview of how to run an AutoML experiment from Azure Machine Learning SDK.
+Automated machine learning tasks and algorithms
+
+Azure Machine Learning includes support for automated machine learning known as AutoML as one of Azure cloud offerings through visual interface in Azure Machine Learning studio or submit an experiment using the SDK. The SDK gives data scientists greater control over the settings for the automated machine learning experiment, whereas the visual interface is easier to use for users with less or no-code experience.
+
+Azure Machine Learning trains models for the following types of machine learning task:
+
+    Classification
+    Regression
+    Time Series Forecasting
+
+In addition, Azure AutoML includes support for numerous commonly used algorithms for these tasks, including:
+Classification Algorithms
+
+    Logistic Regression
+    Light Gradient Boosting Machine (GBM)
+    Decision Tree
+    Random Forest
+    Naive Bayes
+    Linear Support Vector Machine (SVM)
+    XGBoost
+    Deep Neural Network (DNN) Classifier
+    Others…
+
+Regression Algorithms
+
+    Linear Regression
+    Light Gradient Boosting Machine (GBM)
+    Decision Tree
+    Random Forest
+    Elastic Net
+    LARS Lasso
+    XGBoost
+    Others…
+
+Forecasting Algorithms
+
+    Linear Regression
+    Light Gradient Boosting Machine (GBM)
+    Decision Tree
+    Random Forest
+    Elastic Net
+    LARS Lasso
+    XGBoost
+    Others…
+
+For a full list of supported algorithms, see How to define a machine learning task in the documentation.
+Configuring an Automated Machine Learning Experiment using SDK
+
+While user interface provides an intuitive way to select options for your automated machine learning experiment, using the SDK gives user greater flexibility to setup the experiments and monitor the runs. Here, I have listed seven steps that guides the users to run AutoML via SDK.
+Step 1: Create Compute Target
+
+In Azure Machine Learning, Compute Targets are physical or virtual computers on which experiments are run.
+
+The ability to assign experiment runs to specific compute targets helps you implement a flexible data science ecosystem in the following ways:
+
+    Code can be developed and tested on local or low-cost compute, and then moved to more scalable compute for production workloads.
+    You can run individual processes on the compute target that best fits its needs. For example, by using GPU-based compute to train deep learning models, and switching to lower-cost CPU-only compute to test and register the trained model.
+
+One of the core benefits of cloud computing is the ability to manage costs by paying only for what you use. In Azure Machine Learning, you can take advantage of this principle by defining compute targets that:
+
+    Start on-demand and stop automatically when no longer required.
+    Scale automatically based on workload processing needs.
+
+For complete documentation on Compute Targets look at here:
+
+Azure Machine Learning includes the ability to create Compute Instances in a workspace to provide a development environment (Jupyter Notebook, Jupyer Lab, RStudio and SSH) that is managed with all of the other assets in the workspace.
+Overview of Azure Machine Learning (Microsoft Official Documentation)
+Step 2: Installing the Azure Machine Learning SDK for Python
+
+pip install azureml-sdk
+
+The SDK includes optional extras that aren’t required for core operations, but can be useful in some scenarios. For example, the notebooks extra include widgets for displaying detailed output in Jupyter Notebooks, the automl extra includes packages for automated machine learning training, and the explain extra includes packages for generating model explanations. To install extras, specify them in brackets as shown here:
+
+pip install azureml-sdk[notebooks, automl,explain]
+
+More Information: For more information about installing the Azure Machine Learning SDK for Python, see the SDK documentation. Also, you should be aware that the SDK is updated on a regular basis, and review the release notes for the latest release.
+Step 3:Specifying Data for Training
+
+Automated machine learning is designed to enable you to simply bring your data, and have Azure Machine Learning figure out how best to train a model from it.
+
+When using the Automated Machine Learning user interface in Azure Machine Learning studio, you can create or select an Azure Machine Learning dataset to be used as the input for your automated machine learning experiment.
+
+When using the SDK to run an automated machine learning experiment, you can submit the data in the following ways:
+
+    Specify a dataset or dataframe of training data that includes features and the label to be predicted.
+    Optionally, specify a second validation data dataset or dataframe that will be used to validate the trained model. if this is not provided, Azure Machine Learning will apply cross-validation using the training data.
+
+Alternatively:
+
+    Specify a dataset, dataframe, or numpy array of X values containing the training features, with a corresponding y array of label values.
+    Optionally, specify X_valid and y_valid datasets, dataframes, or numpy arrays of X_valid values to be used for validation.
+
+Hint1: AML has an embed feature of data profiling that allows users to explore their registered datasets:
+How to monitor datasets in AML (Microsoft Official Documentation)
+
+If you want to have this feature in your SDK experiment, you can use the actual python package(pandas_profiling ) and after installing the package, to generate the [profile report, run:
+
+profile = ProfileReport(df, title="Pandas Profiling Report")
+
+This is achieved by simply displaying the report. In the Jupyter Notebook, run:
+
+profile.to_widgets()
+
+The HTML report can be included in a Jupyter notebook:
+Package pandas_profiling (Official Github Repo)
+
+Run the following code:
+
+profile.to_notebook_iframe()
+
+Package pandas_profiling (Official Github Repo)
+Saving the report
+
+If you want to generate a HTML report file, save the ProfileReport to an object and use the to_file() function:
+
+profile.to_file("your_report.html")
+
+Alternatively, you can obtain the data as json:
+
+# As a string
+json_data = profile.to_json()# As a file
+profile.to_file("your_report.json")
+
+Package pandas_profiling (Official Github Repo)
+Step 4: Connecting to a Workspace
+
+After installing the SDK package in your Python environment, you can write code to connect to your workspace and perform machine learning operations. The easiest way to connect to a workspace is to use a workspace configuration file, which includes the Azure subscription, resource group, and workspace details as shown here:
+
+{
+      "subscription_id": "<subscription-id>",
+      "resource_group": "<resource-group>",
+      "workspace_name": "<workspace-name>"
+}
+
+To connect to the workspace using the configuration file, you can use the from_config method of the Workspace class in the SDK, as shown here:
+
+from azureml.core import Workspacesubscription_id = '<subscription-id>'
+resource_group  = '<resource-group>'
+workspace_name  = '<workspace-name>'try:
+    ws = Workspace(subscription_id = subscription_id, resource_group = resource_group, workspace_name = workspace_name)
+    ws.write_config()
+    print('Library configuration succeeded')
+except:
+    print('Workspace not found')
+
+Step5: Configuring an Automated Machine Learning Experiment
+
+The user interface provides an intuitive way to select options for your automated machine learning experiment. When using the SDK, you have greater flexibility, and you can set experiment options using the AutoMLConfig class, as shown in the following example:
+
+automl_settings = {
+    "n_cross_validations": 3,
+    "primary_metric": 'average_precision_score_weighted',
+    "enable_early_stopping": True,
+    "max_concurrent_iterations": 2, # This is a limit for testing purpose, please increase it as per cluster size
+    "experiment_timeout_hours": 0.25, # This is a time limit for testing purposes, remove it for real use cases, this will drastically limit ablity to find the best model possible
+    "verbosity": logging.INFO,
+}
+
+automl_config = AutoMLConfig(task = 'classification',
+                             debug_log = 'automl_errors.log',
+                             compute_target = compute_target,
+                             training_data = training_data,
+                             label_column_name = label_column_name,
+                             **automl_settings
+                            )
+
+Step 6: Submitting an Automated Machine Learning Experiment
+
+Like any scientific discipline, data science involves running experiments; typically to explore data or to build and evaluate predictive models. In Azure Machine Learning, an experiment is a named process, usually the running of a script or a pipeline, that can generate metrics and outputs and be tracked in the Azure Machine Learning workspace.
+
+An experiment can be run multiple times, with different data, code, or settings; and Azure Machine Learning tracks each run, enabling you to view run history and compare results for each run.
+
+You can submit an automated machine learning experiment like any other SDK-based experiment:
+
+from azureml.core.experiment import Experiment
+
+automl_experiment = experiment(ws,'automl_experiment')
+automl_run = automl_experiment.submit(automl_config)
+automl_run.wait_for_completion(show_output=True)
+
+Step 7: Retrieving the Best Run and its Model
+
+You can easily identify the best run in Azure Machine Learning studio, and download or deploy the model it generated. To accomplish this programmatically with the SDK, you can use code like the following example:
+
+best_run, fitted_model = automl_run.get_output()
+print(best_run)
+print(fitted_model)
+
+Hint 2: The Experiment Run Context
+
+In addition to the best model, when you submit an experiment, you use its run context to initialize and end the experiment run that is tracked in Azure Machine Learning, as shown in the following code sample:
+
+automl_run = experiment.start_logging()run = automl_run.get_context() # allow_offline=True by default, so can be run locally as well
+...
+run.log("Accuracy", 0.98)
+run.log_row("Performance", epoch=e, error=err)
+
+Logging Metrics
+
+Every experiment generates log files that include the messages that would be written to the terminal during interactive execution. This enables you to use simple print statements to write messages to the log. However, if you want to record named metrics for comparison across runs, you can do so by using the Run object; which provides a range of logging functions specifically for this purpose. These include:
+
+    log: Record a single named value.
+    log_list: Record a named list of values.
+    log_row: Record a row with multiple columns.
+    log_table: Record a dictionary as a table.
+    log_image: Record an image file or a plot.
+
+    More Information: For more information about logging metrics during experiment runs, see Monitor Azure ML experiment runs and metrics in the Azure Machine Learning documentation.
+
+Retrieving and Viewing Logged Metrics
+
+You can view the metrics logged by an experiment run in Azure Machine Learning studio or by using the RunDetails widget in a notebook, as shown here:
+
+from azureml.widgets import RunDetails
+RunDetails(automl_run).show()
+
+You can also retrieve the metrics using the Run object’s get_metrics method, which returns a JSON representation of the metrics, as shown here:
+
+best_run_metrics = best_run.get_metrics() # or other runs with runID
+for metric_name in best_run_metrics:
+     metric = best_run_metrics[metric_name]
+     print(metric_name, metric)
+
+Another good method for run is get_properties that allows you that fetches the latest properties of the run from the service and the return a dict type that can be query for particular properties such as iteration, algorithm name, class name, and many other useful features that needs to be extracted.
+
+Another useful method get_status that returns common values returned include “Running”, “Completed”, and “Failed”.
+
+while automl_run.get_status() not in ['Completed','Failed']:
+    print('Run {} not in terminal state'.format(atoml_run.id))
+    time.sleep(10)
+
+The following code example shows some uses of the list method.
+
+favorite_completed_runs = automl_run.list(experiment, status='Completed', tags = 'favorite')all_distinc_runs = automl_run.list(experiment)and_their_children = automl_run.list(experiment, include_children=True)only_script_runs = Run.list(experiment,, type=ScriptRun.RUN_TYPE)
+
+For the complete list of methods see the Azure ML API documentation.
