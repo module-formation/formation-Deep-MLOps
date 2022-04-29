@@ -86,6 +86,8 @@ nav:
     - Pipelines: azure_ml/lesson4.md
     - Azure et Traefik: azure_ml/annex1.md
     - Azure et Caddy: azure_ml/annex2.md
+  - DevOps 101:
+    - Linux: devops/linux.md
   - Guidelines:
     - IDE vscode: ide_vscode/conf.md
     - Documentation:

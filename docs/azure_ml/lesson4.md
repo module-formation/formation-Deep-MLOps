@@ -353,3 +353,162 @@ pipeline_run.wait_for_completion()
 
 ##### Retrieve the metrics of all child runs
 Outputs of above run can be used as inputs of other steps in pipeline. In this tutorial, we will examine the outputs by retrieve output data and running some tests.
+
+```py
+metrics_output = pipeline_run.get_pipeline_output(metrics_output_name)
+num_file_downloaded = metrics_output.download('.', show_progress=True)
+```
+
+```py
+import json
+with open(metrics_output._path_on_datastore) as f:
+    metrics_output_result = f.read()
+
+deserialized_metrics_output = json.loads(metrics_output_result)
+df = pd.DataFrame(deserialized_metrics_output)
+df
+```
+
+##### Retrieve the Best Model
+
+```py
+# Retrieve best model from Pipeline Run
+best_model_output = pipeline_run.get_pipeline_output(best_model_output_name)
+num_file_downloaded = best_model_output.download('.', show_progress=True)
+```
+
+```py
+import pickle
+
+model_filename = best_model_output._path_on_datastore
+# model_filename = path to downloaded file
+model_filename
+```
+
+
+```py
+with open(model_filename, "rb" ) as f:
+    best_model = pickle.load(f)
+
+best_model.steps
+```
+##### Test the Model
+###### Load Test Data
+For the test data, it should have the same preparation step as the train data. Otherwise it might get failed at the preprocessing step.
+
+
+```py
+dataset_test = Dataset.Tabular.from_delimited_files(path='https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_test.csv')
+df_test = dataset_test.to_pandas_dataframe()
+df_test = df_test[pd.notnull(df_test['y'])]
+
+y_test = df_test['y']
+X_test = df_test.drop(['y'], axis=1)
+```
+
+###### Testing Our Best Fitted Model
+
+We will use confusion matrix to see how our model works.
+
+```py
+from sklearn.metrics import confusion_matrix
+ypred = best_model.predict(X_test)
+cm = confusion_matrix(y_test, ypred)
+# Visualize the confusion matrix
+pd.DataFrame(cm).style.background_gradient(cmap='Blues', low=0, high=0.9)
+```
+
+#### Publish and run from REST endpoint
+
+Run the following code to publish the pipeline to your workspace. In your workspace in the portal, you can see metadata for the pipeline including run history and durations. You can also run the pipeline manually from the portal.
+
+Additionally, publishing the pipeline enables a REST endpoint to rerun the pipeline from any HTTP library on any platform.
+
+```py
+published_pipeline = pipeline_run.publish_pipeline(
+    name="Bike sharing Train", description="Training bike sharing pipeline", version="1.0")
+
+published_pipeline
+```
+
+Authenticate once again, to retrieve the `auth_header` so that the endpoint can be used.
+
+```py
+from azureml.core.authentication import InteractiveLoginAuthentication
+
+interactive_auth = InteractiveLoginAuthentication()
+auth_header = interactive_auth.get_authentication_header()
+```
+
+Get the REST url from the endpoint property of the published pipeline object. You can also find the REST url in your workspace in the portal. Build an HTTP POST request to the endpoint, specifying your authentication header. Additionally, add a JSON payload object with the experiment name and the batch size parameter. As a reminder, the process_count_per_node is passed through to ParallelRunStep because you defined it is defined as a PipelineParameter object in the step configuration.
+
+Make the request to trigger the run. Access the Id key from the response dict to get the value of the run id.
+
+```py
+import requests
+
+rest_endpoint = published_pipeline.endpoint
+response = requests.post(rest_endpoint,
+                         headers=auth_header,
+                         json={"ExperimentName": "pipeline-rest-endpoint"}
+                        )
+```
+
+```py
+try:
+    response.raise_for_status()
+except Exception:
+    raise Exception("Received bad response from the endpoint: {}\n"
+                    "Response Code: {}\n"
+                    "Headers: {}\n"
+                    "Content: {}".format(rest_endpoint, response.status_code, response.headers, response.content))
+
+run_id = response.json().get('Id')
+print('Submitted pipeline run: ', run_id)
+```
+
+Use the run id to monitor the status of the new run. This will take another 10-15 min to run and will look similar to the previous pipeline run, so if you don't need to see another pipeline run, you can skip watching the full output.
+
+```py
+from azureml.pipeline.core.run import PipelineRun
+from azureml.widgets import RunDetails
+
+published_pipeline_run = PipelineRun(ws.experiments["pipeline-rest-endpoint"], run_id)
+RunDetails(published_pipeline_run).show()
+```
+
+
+#### Consume Pipeline Endpoint (API)
+
+!!! summary "Summary"
+
+    Pipeline endpoints can be consumed via HTTP, but it is also possible to do so via the Python SDK. Since there are different ways to interact with published Pipelines, this makes the whole pipeline environment very flexible.
+
+    It is key to find and use the correct HTTP endpoint to interact with a published pipeline. Sending a request over HTTP to a pipeline endpoint will require authentication in the request headers. We will talk more about it later.
+
+    Pipelines can perform several other tasks aside from training a model. Some of these tasks, or steps are:
+
+    * Data Preparation
+    * Validation
+    * Deployment
+    * Combined tasks
+
+
+!!! info "Définition"
+
+    * **Pipeline endpoint**: The URL of the published Pipeline
+    * **HTTP Headers**: Part of the HTTP specification, where a request can attach extra information, like authentication
+    * Automation: A core pillar of DevOps which is applicable to Machine Learning
+    * **Batch inference**: The process of doing predictions using parallelism. In a pipeline, it will usually be on a recurring schedule
+    * **HTTP trigger**: With configuration, a service can create an HTTP request based on certain conditions
+    * **Pipeline parameters**: Like variables in a Python script, these can be passed into a script argument
+    * **Publishing a Pipeline**: Allowing external access to a Pipeline over an HTTP endpoint
+    * **Recurring schedule**: A way to schedule pipelines to run at a given interval
+
+
+
+### Documentation
+
+* [PipelineEndpoint Class](https://docs.microsoft.com/en-us/python/api/azureml-pipeline-core/azureml.pipeline.core.pipeline_endpoint.pipelineendpoint?view=azure-ml-py).
+* [Create and run machine learning pipelines with Azure Machine Learning SDK](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-create-machine-learning-pipelines)
+* [What are Azure Machine Learning pipelines?](https://docs.microsoft.com/en-us/azure/machine-learning/concept-ml-pipelines)
