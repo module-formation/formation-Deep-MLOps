@@ -1,9 +1,15 @@
 
 # Lesson 4 : Pipeline automation
 
-https://stackoverflow.com/questions/61391963/best-practices-for-azure-machine-learning-pipelines
+https://docs.microsoft.com/fr-fr/azure/machine-learning/how-to-use-automlstep-in-pipelines#configure-and-create-the-automated-ml-pipeline-step
 
-https://thenewstack.io/tutorial-create-training-and-inferencing-pipelines-with-azure-ml-designer/
+https://docs.microsoft.com/fr-fr/python/api/azureml-core/azureml.core.model.model?view=azure-ml-py
+
+https://docs.microsoft.com/fr-fr/python/api/azureml-pipeline-core/azureml.pipeline.core.portdatareference?view=azure-ml-py#azureml-pipeline-core-portdatareference-path-on-datastore
+
+https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-azure-container-instance
+
+https://docs.microsoft.com/en-us/azure/machine-learning/how-to-secure-web-service
 
 ## Create a Pipeline
 
@@ -512,3 +518,84 @@ RunDetails(published_pipeline_run).show()
 * [PipelineEndpoint Class](https://docs.microsoft.com/en-us/python/api/azureml-pipeline-core/azureml.pipeline.core.pipeline_endpoint.pipelineendpoint?view=azure-ml-py).
 * [Create and run machine learning pipelines with Azure Machine Learning SDK](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-create-machine-learning-pipelines)
 * [What are Azure Machine Learning pipelines?](https://docs.microsoft.com/en-us/azure/machine-learning/concept-ml-pipelines)
+
+* [Tutorial: Create Training and Inferencing Pipelines with Azure ML Designer](https://thenewstack.io/tutorial-create-training-and-inferencing-pipelines-with-azure-ml-designer/)
+* [Build Repeatable ML Workflows with Azure Machine Learning Pipelines](https://thenewstack.io/build-repeatable-ml-workflows-with-azure-machine-learning-pipelines/)
+* [Tutorial: Build an End-to-End Azure ML Pipeline with the Python SDK](https://thenewstack.io/tutorial-build-an-end-to-end-azure-ml-pipeline-with-the-python-sdk/)
+* [Tutorial: Train Machine Learning Models with Automated ML Feature of Azure ML](https://thenewstack.io/tutorial-train-machine-learning-models-with-automated-ml-feature-of-azure-ml/)
+
+
+
+#### [Best Practices for Azure Machine Learning Pipelines](https://stackoverflow.com/questions/61391963/best-practices-for-azure-machine-learning-pipelines)
+
+!!! attention "Attention"
+
+    Rephrasing of the StackOverflow answer, go check it for complete anwsers.
+
+Most of the time, a pipeline has at least 4 steps.
+
+* Input data
+* Data transformation step
+* Model Training step
+* Model scoring step
+
+There are a bunch of things that are completely unclear from the documentation and the examples and I'm struggling to fully grasp the concept.
+
+1. When I look at `batch scoring` examples, it is implemented as a Pipeline Step. This raises the question:
+
+!!! question "Question"
+
+    Does this mean that the `predicting part` is part of the same pipeline as the `training part`, or should there be separate 2 separate pipelines for this ?
+
+Making 1 pipeline that combines both steps seems odd to me, because you don't want to run your predicting part every time you change something to the training part (and vice versa).
+
+A pipeline architecture depends on if:
+
+* you need to predict live (else batch prediction is sufficient), and
+* your data is already transformed and ready for scoring.
+
+If you need live scoring, you should deploy your model. If batch scoring, is fine. You could either have:
+
+* a training pipeline at the end of which you register a model that is then used in a scoring pipeline, or
+* have one pipeline that can be configured to do either using script arguments.
+
+!!! attention "Attention"
+
+    **From March 2021.** PipelineData is no longer a preferred way: ["PipelineData use DataReference underlying which is no longer the recommended approach for data access and delivery, please use OutputFileDatasetConfig instead"](https://docs.microsoft.com/en-us/python/api/azureml-pipeline-core/azureml.pipeline.core.pipelinedata?view=azure-ml-py).
+
+In the batch scoring examples, the assumption is that there is already a trained model, which could be coming from another pipeline, or in the case of the notebook, it's a pre-trained model not built in a pipeline at all.
+
+However, **running both training and prediction in the same pipeline is a valid use-case**. Use the `allow_reuse` param and set to `True`, which will cache the step output in the pipeline to prevent unnecessary reruns.
+
+Take a model training step for example, and consider the following input to that step:
+
+* training script
+* input data
+* additional step params
+
+If you set `allow_reuse=True`, and your training script, input data, and other step params are the same as the last time the pipeline ran, it will not rerun that step, it will use the cached output from the last time the pipeline ran. But let's say your data input changed, then the step would rerun.
+
+In general, pipelines are pretty modular and you can build them how you see fit. You could maintain separate pipelines for training and scoring, or **bundle everything in one pipeline but leverage the automatic caching**.
+
+2. What parts should be implemented as a Pipeline Step and what parts shouldn't? Should the creation of the Datastore and Dataset be implemented as a step? Should registering a model be implemented as a step?
+
+All transformations you do to your data (munging, featurization, training, scoring) should take place inside of `PipelineStep`'s. The inputs and outputs of which should be `PipelineData`'s.
+
+Azure ML artifacts should be:
+
+* created in the pipeline control plane using `PipelineData`, and
+* registered either ad-hoc, as opposed to with every run, or
+* when you need to pass artifacts between pipelines.
+
+In this way `PipelineData` is the glue that connects pipeline steps directly rather than being indirectly connected with `.register()` and `.download()`
+
+`PipelineData`'s are ultimately just ephemeral directories that can also be used as placeholders before steps are run to create and register artifacts.
+
+`Dataset`'s are abstractions of `PipelineData`s in that they make things easier to pass to `AutoMLStep` and `HyperDriveStep`, and `DataDrift`.
+
+
+3. What isn't shown anywhere is how to deal with model registry. I create the model in the training step and then write it to the output folder as a pickle file. Then what? How do I get the model in the next step? Should I pass it on as a `PipelineData` object? Should `train.py` itself be responsible for registering the trained model?
+
+During development, I recommend that you don't register your model and that the scoring step receives your model via a PipelineData as a pickled file.
+
+In production, the scoring step should use a previously registered model. The registration of the new model should be done via comparison of the metrics and then trigger the registration if needed.

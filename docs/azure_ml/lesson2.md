@@ -13,9 +13,44 @@
 |                                |                                             |                                              |                                                                            |
 
 
-### Service Principal
+### What is Azure Service Principal?
+
+* [Authenticate your Azure deployment pipeline by using service principals](https://docs.microsoft.com/en-us/learn/modules/authenticate-azure-deployment-pipeline-service-principals/)
 
 A “Service Principal” is a user role with controlled permissions to access specific resources. Using a service principal is a great way to allow authentication while reducing the scope of permissions, which enhances security.
+
+If you want to deploy resources to Azure, you need create a sp and give it owner role, of course you could give custom role that only could create public IP and gateway.
+
+When you login Azure with cli 2.0. appid is user name. It also called client id. password called client secret.
+
+When you have an application that needs to access or modify resources, you must set up an Azure Active Directory (AD) application and assign the required permissions to it. This approach is preferable to running the app under your own credentials because:
+
+* You can assign permissions to the app identity that are different than your own permissions. Typically, these permissions are restricted to exactly what the app needs to do.
+* You do not have to change the app's credentials if your responsibilities change.
+* You can use a certificate to automate authentication when executing an unattended script.
+
+* [Demystifying Service Principals – Managed Identities](https://devblogs.microsoft.com/devops/demystifying-service-principals-managed-identities/)
+
+#### Azure AD Identity
+
+Azure AD is the trusted Identity Object store, in which you can create different Identity Object types. The most common ones are Users and Groups, but you can also have Applications in there, also known as Enterprise Apps.
+
+An example for each could be:
+
+* **Users**: you create a user object in Azure AD, and from there allow the user to authenticate to the Azure Portal, to start using Office 365,…
+* **Groups**: you define a security group in Azure AD, which can be used to specify permissions to SharePoint sites for example
+* **Enterprise Apps**: using *OpenIDConnect* and *OAuth*, you allow a cloud-based application to trust your Azure AD for user authentication; the trusting app is known as an enterprise app object in Azure AD.
+
+#### Service Principal
+
+Most relevant to Service Principal, is the Enterprise apps; according to the formal definition, a service principal is “…An application whose tokens can be used to authenticate and grant access to specific Azure resources from a user-app, service or automation tool, when an organization is using Azure Active Directory…”
+
+In essence, by using a Service Principal, you avoid creating "**fake users**" (we would call them service account in on-premises Active Directory…) in Azure AD to manage authentication when you need to access Azure Resources.
+
+Typical use cases where you would rely on a Service Principal is for example when running *Terraform IAC* (Infrastructure as Code) deployments, or when using *Azure DevOps* for example, where you define a Service Connection from DevOps Pipelines to Azure; or basically any other 3rd party application requiring an authentication token to connect to Azure resources.
+
+An Azure Service Principal can be created using "any" traditional way like the Azure Portal, Azure PowerShell, Rest API or Azure CLI.
+
 
 #### Azure cli installation
 
@@ -66,21 +101,40 @@ Creating a role assignment under the scope of "/subscriptions/xxxxxxxx-2cb7-4cc5
 }
 ```
 
-* Capture the "objectId" using the clientID:
+* Capture the `objectId` using the `clientId`:
 
 ```
 az ad sp show --id xxxxxxxx-3af0-4065-8e14-xxxxxxxxxxxx
 ```
 
-This step will output some information and you will find the objectID to assign the role.
+Where `xxxxxxxx-3af0-4065-8e14-xxxxxxxxxxxx` corresponds to the `clientId` value. This step will output some information and you will find the `objectId` to assign the role.
 
-* Finally, allow the Service Principal access to the workspace. You will need to change the code to match your workspace, subscription, and the objectId value retrieved from the previous step.
+* Finally, allow the Service Principal access to the workspace. You will need to change the code to match your workspace, subscription, and the `objectId` value retrieved from the previous step.
 
 ```
 az ml worskspace share -w Demo -g demo --user xxxxxxxx-cbdb-4cfd-089f-xxxxxxxxxxxx --role owner
 ```
 
+Where `xxxxxxxx-cbdb-4cfd-089f-xxxxxxxxxxxx` corresponds to the `objectId` value.
+
 Note: This command should complete without any output
+
+
+```shell
+❯ az ad sp show --id 4f9ebbd3-c840-4900-97d6-e4b0e3329b61 | jq ".oauth2Permissions[0]"
+
+{
+  "adminConsentDescription": "Allow the application to access ml-auth on behalf of the signed-in user.",
+  "adminConsentDisplayName": "Access ml-auth",
+  "id": "xxxxxxxx-27da-xxxxxxx-989c-xxxxxxxxx",
+  "isEnabled": true,
+  "type": "User",
+  "userConsentDescription": "Allow the application to access ml-auth on your behalf.",
+  "userConsentDisplayName": "Access ml-auth",
+  "value": "user_impersonation"
+}
+```
+
 
 ### Configure Deployment Settings
 
@@ -95,10 +149,10 @@ AKS, on the other hand, is a Kubernetes offering. The Kubernetes service is a cl
 
 !!! info "Définition"
 
-    * ACI: Azure Container Instance
-    * AKS: Azure Kubernetes Service
-    * Deployment: A way to deliver work into production
-    * Concurrent Operations: Also referred to as "concurrency", it is the number of operations to run at the same time
+    * **ACI**: Azure Container Instance
+    * **AKS**: Azure Kubernetes Service
+    * **Deployment**: A way to deliver work into production
+    * **Concurrent Operations**: Also referred to as "concurrency", it is the number of operations to run at the same time
 
 ## Deploy an Azure Machine Learning model
 
@@ -124,9 +178,9 @@ service.update(enable_app_insights=True)
 
 !!! info "Définition"
 
-    * Logging: Informational output produced by the software, usually in the form of text
-    * Application Insights: A special Azure service which provides key facts about an application
-    * Webservice: One of the most used Python classes from Azure's Python SDK
+    * **Logging**: Informational output produced by the software, usually in the form of text
+    * **Application Insights**: A special Azure service which provides key facts about an application
+    * **Webservice**: One of the most used Python classes from Azure's Python SDK
 
 ### Troubleshoot Deployment Issues
 
@@ -135,9 +189,9 @@ service.update(enable_app_insights=True)
     In this section, we covered different techniques and diagnosis that you can use to identify potential issues like unhandled exceptions from a deployed service. Using local deployment is a special technique, which makes it easier to identify some of these potential issues.
     Common HTTP errors:
 
-    502: the application crashes because of an unhandled exception.
-    503: there are large spikes in requests and the system is not able to cope with all of them.
-    504: request timed out.
+    * **502**: the application crashes because of an unhandled exception.
+    * **503**: there are large spikes in requests and the system is not able to cope with all of them.
+    * **504**: request timed out.
 
 ### Deploy Locally
 
@@ -154,15 +208,16 @@ print(service.run(input_data=json_data))
 ```
 
 Deploying locally has some benefits. First, it is easier and faster to verify unhandled exceptions from the scoring script since you don't have to wait for deployment in Azure. Also, many people or teams can debug at the same time.
-New terms
 
-    HTTP Status code: A number that represents a status when an HTTP server responds. Error conditions in the server side start at 500
+!!! info "Définition"
+
+    **HTTP Status code**: A number that represents a status when an HTTP server responds. Error conditions in the server side start at 500
 
 There are multiple things you can expect to go wrong. When you submit HTTP requests to a deployed model, there are three HTTP codes that you may encounter:
 
-    HTTP STATUS 502: After a deployment, the application crashes because of an unhandled exception.
-    HTTP STATUS 503: When there are large spikes in requests, the system may not be able to cope with all of them and some clients may see this code.
-    HTTP STATUS 504: The request timed out. In Azure, the requests time out after 1 minute. If the score.py script is taking longer than a minute, this error code will be produced.
+* **HTTP STATUS 502**: After a deployment, the application crashes because of an unhandled exception.
+* **HTTP STATUS 503**: When there are large spikes in requests, the system may not be able to cope with all of them and some clients may see this code.
+* **HTTP STATUS 504**: The request timed out. In Azure, the requests time out after 1 minute. If the score.py script is taking longer than a minute, this error code will be produced.
 
 When an error code shows up, one thing you can do is retrieving the logs output. Logs output is always useful to debug problems in deployed containers. Showing below is an extract of what you should see in a successful response to a scoring request.
 
@@ -188,17 +243,17 @@ Scoring Timer is set to 60.0 seconds
 
 !!! info "Définition"
 
-    * ACI: Azure Container Instance
-    * AKS: Azure Kubernetes Service
-    * Application Insights: A special Azure service which provides key facts about an application
-    * CI/CD: Continuous Integration and Continuous Delivery platform. Jenkins, CircleCI, and Github Actions, are a few examples
-    * Cloud-based workstation: Sometimes, compute instances are referred to as a cloud-based workstation, because it is ready to start developing
-    * Compute Instance: A distinct type of a compute offering from Azure
-    * DevOps: A set of best practices that helps provide continuous delivery of software at the highest quality with a constant feedback loop
-    * Deployment: A way to deliver work into production
-    * Endpoint: A part of an HTTP API. Either a full URL or a partial URL identifying a part
-    * HTTP API: A URL that exposes logic to interact with software, in this case, a trained model
-    * HTTP Status code: A number that represents a status when an HTTP server responds. Error conditions in the server side start at 500
-    * Logging: Informational output produced by software, usually in the form of text
-    * Shipping into production: The most important aspect of a Machine Learning specialist
-    * Webservice: One of the most used Python classes from Azure's Python SDK
+    * **ACI**: Azure Container Instance
+    * **AKS**: Azure Kubernetes Service
+    * **Application Insights**: A special Azure service which provides key facts about an application
+    * **CI/CD**: Continuous Integration and Continuous Delivery platform. Jenkins, CircleCI, and Github Actions, are a few examples
+    * **Cloud-based workstation**: Sometimes, compute instances are referred to as a cloud-based workstation, because it is ready to start developing
+    * **Compute Instance**: A distinct type of a compute offering from Azure
+    * **DevOps**: A set of best practices that helps provide continuous delivery of software at the highest quality with a constant feedback loop
+    * **Deployment**: A way to deliver work into production
+    * **Endpoint**: A part of an HTTP API. Either a full URL or a partial URL identifying a part
+    * **HTTP API**: A URL that exposes logic to interact with software, in this case, a trained model
+    * **HTTP Status code**: A number that represents a status when an HTTP server responds. Error conditions in the server side start at 500
+    * **Logging**: Informational output produced by software, usually in the form of text
+    * **Shipping into production**: The most important aspect of a Machine Learning specialist
+    * **Webservice**: One of the most used Python classes from Azure's Python SDK
