@@ -31,9 +31,43 @@ plugins:
   - search:
       lang: fr
   - mknotebooks
+  - neoteroi.mkdocsoad:
+      use_pymdownx: true
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/mkdocsoad.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      linenums: true
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - codehilite
+  - pymdownx.details
+  - def_list
+  - attr_list
+  - md_in_html
+  - pymdownx.betterem:
+      smart_enable: all
+  # config pour latex
+  - pymdownx.arithmatex:
+      generic: true
+
+# config pour latex
+extra_javascript:
+  - javascripts/config.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 nav:
   - Accueil: index.md
@@ -87,7 +121,8 @@ nav:
     - Azure et Traefik: azure_ml/annex1.md
     - Azure et Caddy: azure_ml/annex2.md
   - DevOps 101:
-    - Linux: devops/linux.md
+    - Linux Basics: devops/linux.md
+    - Networking: devops/network.md
   - Guidelines:
     - IDE vscode: ide_vscode/conf.md
     - Documentation:
@@ -112,27 +147,3 @@ nav:
 
 
 
-markdown_extensions:
-  - pymdownx.highlight:
-      linenums: true
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.superfences
-  - pymdownx.snippets
-  - admonition
-  - codehilite
-  - pymdownx.details
-  - def_list
-  - attr_list
-  - md_in_html
-  - pymdownx.betterem:
-      smart_enable: all
-  # config pour latex
-  - pymdownx.arithmatex:
-      generic: true
-
-# config pour latex
-extra_javascript:
-  - javascripts/config.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

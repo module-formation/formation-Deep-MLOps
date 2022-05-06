@@ -26,17 +26,17 @@ There are some interesting details you need to be aware of when trying to use HT
 
 Summary
 
-In the Swagger.sh file, it has a command line:
+In the `swagger.sh` file, it has a command line:
 
-docker run -p 80:8080 swaggerapi/swagger-ui
+`docker run -p 80:8080 swaggerapi/swagger-ui`
 
 This command runs the swagger UI container and makes it available on port 80. This will need to be updated in the lab because port 80 is being used already. Set the port to 9000 would be a good choice here. So the updated command will look like this:
 
-docker run -p 9000:8080 swaggerapi/swagger-ui
+`docker run -p 9000:8080 swaggerapi/swagger-ui`
 
-After the Swagger UI container is running, you can access the website on http://localhost:9000.
+After the Swagger UI container is running, you can access the website on `http://localhost:80` (or `http://localhost:9000` for example if you modified the port).
 
-Running serve.py is crucial so that the contents of swagger.json can be consumed locally by Swagger. If swagger.json is not present, or if the local server is not running, then Swagger will not be able to produce the docs.
+Running `serve.py` is crucial so that the contents of `swagger.json` can be consumed locally by Swagger. If `swagger.json` is not present, or if the local server is not running, then Swagger will not be able to produce the docs.
 
 !!! python "serve.py"
 
@@ -72,7 +72,9 @@ def end_headers(self):
 
 By default, the serve.py script will run and serve contents on `localhost:8000` - this is an important detail because **it is required as input in the Swagger UI page**. The value that is required in the Swagger UI is `http://localhost:8000/swagger.json`. Please notice that **you should use http instead of https**.
 
-Run both swagger.sh and serve.py to get Docker running locally serving Swagger so that you can interact with the deployed model Documentation. Use the `http://localhost/` and `http://localhost:8000/swagger.json`, to look at your swagger document and specifics of your model.
+**Note that since you change the port to 8080 here, the code to run `serve.py` is `python serve.py 8080`**
+
+Run first `serve.py` then `swagger.sh` to get Docker running locally serving Swagger so that you can interact with the deployed model Documentation. Use the `http://localhost:80/` and `http://localhost:8080/swagger.json`, to look at your swagger document and specifics of your model.
 
 !!! attention "Atention"
 

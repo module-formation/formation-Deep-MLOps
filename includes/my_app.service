@@ -1,0 +1,11 @@
+[Unit]
+Description=A simple API to test systemd services
+
+[Service]
+#ExecStartPre=some code to run before my_app.py
+ExecStart=/home/vorph/miniconda3/envs/api/bin/python /media/vorph/datas/formation-Deep-MLOps/includes/my_app.py
+#ExecStartPre=some code to run afters my_app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

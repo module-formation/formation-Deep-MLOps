@@ -599,3 +599,15 @@ In this way `PipelineData` is the glue that connects pipeline steps directly rat
 During development, I recommend that you don't register your model and that the scoring step receives your model via a PipelineData as a pickled file.
 
 In production, the scoring step should use a previously registered model. The registration of the new model should be done via comparison of the metrics and then trigger the registration if needed.
+
+
+
+
+```shell
+
+http -A bearer -a xxxxxxxxCPAhdOZ9Ixxxxxxxxx xxxxxx-bb55-xxxx-9ca8-xxxxxxxx.westeurope.azurecontainer.io/score < data.json
+
+http -A bearer -a xxxxxxxxCPAhdOZ9Ixxxxxxxxx xxxxxx-bb55-xxxx-9ca8-xxxxxxxx.westeurope.azurecontainer.io/score < data.json | jq .Results
+```
+
+[OAD(./includes/swagger.json)]

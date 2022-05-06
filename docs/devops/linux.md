@@ -1,4 +1,4 @@
-# Just enough Linux for DevOps
+# Just enough DevOps to shine in society
 
 Quasiment tous les outils utilisés pour DevOps ont d'abord été développés pour Linux puis porté sur Windows, souvent avec un lag important :
 
@@ -145,7 +145,7 @@ rpm -q telnet.rpm
 
 !!! example "Exemple"
 
-    `yum install ansible` installare `ansible` et l'ensemble de ses dépendances, par exemple `python`, `pyYAML`, `sshpass`.
+    `yum install ansible` installera `ansible` et l'ensemble de ses dépendances, par exemple `python`, `pyYAML`, `sshpass`.
 
 Comment `yum` sait où sont localisées, ie dans quel repo, les dépendances d'un package ? L'ensemble des dépendances classiques sont listées dans `/etc/yum.repos.d`, c'est là que `yum` cherche en premier.
 
@@ -218,7 +218,198 @@ Une méthode plus moderne de lancer un service est d'utiliser la commande `syste
     avril 27 11:50:20 vorph-maison dockerd[1719]: time="2022-04-27T11:50:20.311527346+02:00" level=info msg="metrics AP>
     avril 27 11:50:20 vorph-maison dockerd[1719]: time="2022-04-27T11:50:20.312283730+02:00" level=info msg="Daemon has>
     ```
+### Exemple
 
-Pour pouvoir lancer un script python comme un service, par exemple avec les commande `systemctl start my_app` `systemctl stop my_app`, `my_app` faisant référence à un script `my_app.py`, on doit configurer ce script comme un service `systemd` en définissant un "systemd unit file" dans `/etc/systemd/system`.
+Supposons que l'on souhaite configurer l'API suivante comme un service.
 
-Le nom du fichier sera ici `my_app.service`
+```python title="my_app.py"
+--8<-- "./includes/my_app.py"
+```
+
+si on la lance via la commande suivante.
+
+
+```shell
+/home/vorph/miniconda3/envs/api/bin/python -m my_app
+```
+On peut alors tester qu'elle marche bien en faisant une requête `GET`, par exemple avec [httpie](https://httpie.io/).
+
+```shell
+❯ http 127.0.0.1:8001/hello/
+
+HTTP/1.1 200 OK
+content-length: 9
+content-type: application/json
+date: Wed, 04 May 2022 09:00:35 GMT
+server: uvicorn
+
+"Hello !"
+```
+!!! info "Remarque"
+
+    Le fais d'utiliser un chemin absolu `/home/vorph/miniconda3/envs/api/bin/python` pour lancer python est important et sera utilisé par la suite, pour connaitre le chemin complet de votre executable python, vous pouvez utiliser la commande suivante dans un terminal.
+
+
+    ```
+    ❯ which python
+
+    /home/vorph/miniconda3/envs/api/bin/python
+    ```
+
+    Il sera aussi utile par la suite de connaître le chemin absolu de `my_app.py`, on peut le connaître en utilisant la commande [`readlink`](https://stackoverflow.com/questions/5265702/how-to-get-full-path-of-a-file).
+
+
+    ```shell
+    ❯ readlink -f my_app.py
+
+    /media/vorph/datas/formation-Deep-MLOps/includes/my_app.py
+    ```
+
+    Evidemment, la commande `readlink` nécessite que vous soyez dans le répertoire où se trouve `my_app.py` pour pouvoir lire le chemin absolu.
+
+!!! info "Remarque"
+
+    Il n'est pas nécessaire de laisser les lignes suivantes à la fin de `my_app.py`.
+
+    ```python
+    if __name__ == "__main__":
+        uvicorn.run("my_app:app", host="127.0.0.1", port=8001, log_level="info")
+    ```
+
+    On pourrait très bien les enlever, mais dans ce cas là, il faudrait activer le bon environnement virtuel puis lancer la commande suivante.
+
+    ```shell
+    uvicorn my_app:app --reload --port 8001
+    ```
+
+    Ce qui fait deux actions plutôt qu'une, cela sera plus pratique pour la suite.
+
+    Autres références :
+
+    * [Python script in systemd: virtual environment or real environment](https://stackoverflow.com/questions/60959081/python-script-in-systemd-virtual-environment-or-real-environment)
+
+
+
+L'idée de la configurer comme un service est que l'on pourra alors utiliser `systemctl` pour la lancer et l'arrêter via les commandes `systemctl start my_app` et `systemctl stop my_app`.
+
+De cette façon l'administrateur du serveur n'a pas besoin de se soucier du chemin où se trouve l'API, ou même du langage dans lequel est codée cette API, il sait que c'est un service qu'il peut lancer et stopper à sa guise. Il sera même possible de la lancer de façon automatique de début de chaque démarrage du serveur, ou de la relancer si le serveur crash.
+
+Pour pouvoir lancer un script python comme un service, par exemple avec les commande `systemctl start my_app`, `systemctl stop my_app`, `my_app` faisant référence au nom que l'on souhaite assigner au service, pour faire simple on le nommera de la même façon que le script python dont il est issu.
+
+On doit alors configurer ce script comme un service `systemd` en définissant un "*systemd unit file*" dans `/etc/systemd/system`. On définit le fichier systemd suivant.
+
+```toml title="/etc/systemd/system/my_app.serivce"
+--8<-- "./includes/my_app.service"
+```
+
+Une fois le fichier créé dans `/etc/systemd/system`, il est nécessaire de redémarrer le processus systemd en lançant la commande suivante.
+
+`systemctl daemon-reload`
+
+Seulement de cette façon le nouveau service configuré sera pris en compte dans `/etc/systemd/system`, il suffit alors de le nouveau service lancer via `systemctl start my_app` pour qu'il démarre. On peut alors vérifier qu'il fonctionne en faisant la réquête suivante.
+
+```shell
+❯ curl http://127.0.0.1:8001/hello/
+
+"Hello !"
+```
+
+!!! attention "Attention"
+
+    Les chemins utilisés dans un ficheier `.service` **doivent toujours être des chemins absolus**. Les chemins relatifs ne fonctionnent pas.
+
+
+```shell
+❯ systemctl status my_app
+● my_app.service
+     Loaded: loaded (/etc/systemd/system/my_app.service; static; vendor preset: enabled)
+     Active: active (running) since Wed 2022-05-04 14:22:11 CEST; 1min 39s ago
+   Main PID: 134295 (python)
+      Tasks: 3 (limit: 76995)
+     Memory: 1.7G
+     CGroup: /system.slice/my_app.service
+             ├─134295 /home/vorph/miniconda3/envs/api/bin/python /opt/perso/my_app.py
+             ├─134780 /home/vorph/miniconda3/envs/api/bin/python -c from multiprocessing.resource_tracker import ma>
+             └─134781 /home/vorph/miniconda3/envs/api/bin/python -c from multiprocessing.spawn import spawn_main; s>
+
+mai 04 14:22:11 vorph-maison systemd[1]: Started my_app.service.
+mai 04 14:22:11 vorph-maison python[134295]: INFO:     Will watch for changes in these directories: ['/']
+mai 04 14:22:11 vorph-maison python[134295]: INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to qu>
+mai 04 14:23:43 vorph-maison python[134295]: error walking file system: OSError [Errno 40] Too many levels of symbo>
+mai 04 14:23:43 vorph-maison python[134295]: INFO:     Started reloader process [134295] using watchgod
+mai 04 14:23:44 vorph-maison python[134781]: INFO:     Started server process [134781]
+mai 04 14:23:44 vorph-maison python[134781]: INFO:     Waiting for application startup.
+mai 04 14:23:44 vorph-maison python[134781]: INFO:     Application startup complete.
+mai 04 14:23:44 vorph-maison python[134781]: INFO:     127.0.0.1:55460 - "GET /hello/ HTTP/1.1" 200 OK
+```
+
+Pour la stopper, il suffit de lancer `systemctl stop my_app`.
+
+Comment configurer le service pour qu'il se lance automatiquement au démarrage du serveur ? C'est la partie `[Install]` du fichier `my_app.service` qui le définit. La partie `WantedBy=multi-user.target` désigne que se service doit être lancé dès le démarrage. Pour que ce paramètre soit pris en compte, il est alors nécessaire de lancer la commande suivante.
+
+`systemctl enable my_app`
+
+Approfondir :
+
+* [Why do most systemd examples contain WantedBy=multi-user.target?](https://unix.stackexchange.com/questions/506347/why-do-most-systemd-examples-contain-wantedby-multi-user-target)
+* [Systemd service - what is `multi-user.target`](https://unix.stackexchange.com/questions/404667/systemd-service-what-is-multi-user-target?noredirect=1&lq=1)
+* [Systemd Services 101](https://gist.github.com/leommoore/ea74061dc3bb086f36d42666a6153e0c)
+* [systemd 101](https://docs.google.com/presentation/d/10YwWZdBa3ffl7kVa2p21L9VqET2CRmVoWJpVBW6ujgg/htmlpresent)
+* [Systemd – Easy as 1, 2, 3](https://people.redhat.com/bbreard/presos/Systemd-101.pdf)
+* [Comment utiliser Systemctl pour gérer les services et les unités de Systemd](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units-fr)
+* [systemd.service — Service unit configuration](https://www.freedesktop.org/software/systemd/man/systemd.service.html)
+
+### Placer votre code dans `/opt/`
+
+Dans la plupart des systèmes d'exploitations Linux, il existe un répertoire nommé `/opt/`. Ici `/opt/` peut se comprendre comme "option" ou "optionnal", pour citer la réponse StackOverflow de [What does "opt" mean (as in the "opt" directory)? Is it an abbreviation?](https://stackoverflow.com/questions/12649355/what-does-opt-mean-as-in-the-opt-directory-is-it-an-abbreviation) :
+
+!!! quote
+
+
+    In the old days, `/opt` was used by UNIX vendors like AT&T, Sun, DEC and 3rd-party vendors to hold "Option" packages; i.e. packages that you might have paid extra money for. I don't recall seeing `/opt` on Berkeley BSD UNIX. They used `/usr/local` for stuff that you installed yourself.
+
+    But of course, the true "meaning" of the different directories has always been somewhat vague. That is arguably a good thing, because if these directories had precise (and rigidly enforced) meanings you'd end up with a proliferation of different directory names.
+
+    The Filesystem Hierarchy Standard says this about `/opt/*`:
+
+    * "/opt is reserved for the installation of add-on application software packages."
+
+    By contrast it says this about `/usr/local/*`:
+
+    * "The /usr/local hierarchy is for use by the system administrator when installing software locally."
+
+    These days, `/usr/local/*` is typically used for installing software that has been built locally, possibly after tweaking configuration options, etcetera.
+
+En d'autres termes :
+
+* Si votre programme est programmé dans un langage compilé, par exemple le C++ ou le Rust, et que vous le compilez, alors vous devriez le placer dans `/usr/local/*`.
+* Votre application est un binaire unique, alors vous le copierez dans /usr/local.
+* Vous voulez utiliser une alternative d'un programme système existant construit à partir des sources en utilisant `make`. Dans ce cas, vous l'installerez dans /usr/local.
+* Si vous déployez une application, et que par design, tous ses fichiers sont dans le même répertoire, alors on la déploiera dans un répertoire `/opt/my_app/`.
+
+Cela ne reste que des conventions, mais elles sont largement utilisées et cela évite de se poser trop de questions sur où est tel application.
+
+Dans le cas qui nous interesse ici, déployer notre API basique comme un service, il ne faudrait donc pas mettre
+
+`ExecStart=/home/vorph/miniconda3/envs/api/bin/python /media/vorph/datas/formation-Deep-MLOps/includes/my_app.py`
+
+Dans notre fichier `my_app.service`, mais copier notre api et toutes ses dépendances (eg Dockerfile, docker-compose, etc) dans un répertoire `/opt/code/` par exemple, et mettre
+
+`ExecStart=/home/vorph/miniconda3/envs/api/bin/python /opt/code/my_app.py`
+
+dans `my_app.service`.
+
+!!! summary "TLDR"
+
+    Pour créer un service à partir d'une application `my_app.py`:
+
+    1. Mettre l'application dans un répertoire `/opt/code/my_app.py`.
+    2. Définir un "systemd unit file" `/etc/systemd/system/my_app.service`.
+    3. Relancer le démon `systemd` via `systemctl daemon-reload`.
+    4. Lancer le service avec `systemctl start my_app`.
+    5. Faire la configuration pour le lancement du service de façon automatique, si nécessaire.
+
+
+* [What does /opt mean in Linux?](https://www.baeldung.com/linux/opt-directory)
+* [Linux : Directory /opt vs /usr/local](http://www.extradrm.com/?p=2266)
+* [What does "opt" mean (as in the "opt" directory)? Is it an abbreviation?](https://stackoverflow.com/questions/12649355/what-does-opt-mean-as-in-the-opt-directory-is-it-an-abbreviation)
