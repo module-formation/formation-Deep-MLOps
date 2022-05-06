@@ -136,8 +136,8 @@ nav:
       - Test unitaire: testing/unittests.md
     - CI/CD:
       - Pre-commit: cicd/precommit.md
-    - Docker:
-      - Environnement de dev: docker/dev_env.md
+    # - Docker:
+    #   - Environnement de dev: docker/dev_env.md
     - Code quality:
       - Radon: code_quality/radon.md
     - Code security:
