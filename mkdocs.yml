@@ -125,6 +125,10 @@ nav:
     - Networking: devops/network.md
     - Applications: devops/applications.md
     - Web Servers: devops/web_server.md
+    - Terminal: devops/terminal.md
+    - SSL et TLS: devops/tls_ssl.md
+    - YAML: devops/yaml.md
+    - JSON: devops/json.md
   - Guidelines:
     - IDE vscode: ide_vscode/conf.md
     - Documentation:
