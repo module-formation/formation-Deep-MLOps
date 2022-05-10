@@ -123,6 +123,8 @@ nav:
   - DevOps 101:
     - Linux Basics: devops/linux.md
     - Networking: devops/network.md
+    - Applications: devops/applications.md
+    - Web Servers: devops/web_server.md
   - Guidelines:
     - IDE vscode: ide_vscode/conf.md
     - Documentation:

@@ -609,5 +609,3 @@ http -A bearer -a xxxxxxxxCPAhdOZ9Ixxxxxxxxx xxxxxx-bb55-xxxx-9ca8-xxxxxxxx.west
 
 http -A bearer -a xxxxxxxxCPAhdOZ9Ixxxxxxxxx xxxxxx-bb55-xxxx-9ca8-xxxxxxxx.westeurope.azurecontainer.io/score < data.json | jq .Results
 ```
-
-[OAD(./includes/swagger.json)]
