@@ -36,7 +36,9 @@
 		"zhuangtongfa.material-theme",
 		"coenraads.bracket-pair-colorizer-2",
 		"emmanuelbeziat.vscode-great-icons",
-		"zainchen.json"
+		"zainchen.json",
+		"shuworks.vscode-table-formatter",
+		"yzhang.markdown-all-in-one"
 	],
 	//Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [

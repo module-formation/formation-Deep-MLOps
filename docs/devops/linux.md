@@ -1,4 +1,4 @@
-# Just enough DevOps to shine in society
+# Just enough Linux to shine in society
 
 Quasiment tous les outils utilisés pour DevOps ont d'abord été développés pour Linux puis porté sur Windows, souvent avec un lag important :
 
@@ -10,62 +10,471 @@ Quasiment tous les outils utilisés pour DevOps ont d'abord été développés p
     * Ansible ne tourne pas sur Windows de façon native, mais peut tourner sur WSL2.
     * Kubernetes ne tourne pas sur Windows.
 
-## Shell types
+## Working with Shell
 
-* Bourne Shell (Sh Shell)
-* C Shell (csh ou tcsh)
-* Z Shell (zsh)
-* Bourne again Shell (bash)
+### `/home/` sweet `/home/`
 
-!!! info "Info"
+Dès que l'on lance un terminal Linux, le premier répertoire dans lequel on se trouvera sera le répertoire principal, si vous avez comme nom d'utilisateur `vorphus`, votre terminal sera directmeent ouvert a répertoire `/home/vorphus`. Le répertoire `/home/user` est unique à chaque utilisateur.
 
-    Pour voir quel shell est utilisé dans un terminal : `echo $SHELL`.
+On peut taper la commande `pwd` dans le terminal pour voir dans quel répertoire l'on se trouve.
 
-* `echo` : print a line of text.
-* `ls` : list files and folders.
-* `cd` : change directory.
-* `pwd`
-* `mkdir`
-* `touch`
+On a deux types de commandes dans le Shell :
 
-Commande multiples avec le point virgule
+* **Les commandes internes** : `echo`, `cd`, `pwd`, `mkdir`, `set e.t.c`, qui sont fournies avec le Shell.
+* **Les commandes externes** : `mv`, `date`, `uptime`, `cp`, qui sont des fichiers binaires ou scripts distincts qui sont appelées par le Shell.
 
-```sh
+Pour déterminer si une commande est interne ou externe, on peut taper `type` suivi de la commande.
+
+```shell
+❯ type mv
+mv is /usr/bin/mv
+❯ type echo
+echo is a shell builtin
+```
+
+### Commandes basiques
+
+|             Commande              |                 Résultat                 |
+| :-------------------------------: | :--------------------------------------: |
+|              `echo`               |           print a line of text           |
+|               `ls`                |          list files and folders          |
+|               `cd`                |             change directory             |
+|              `mkdir`              |            create a directory            |
+|              `touch`              |              create a file               |
+| `mv new_file.txt sample_file.txt` | move `new_file.txt` to `sample_file.txt` |
+|               `pwd`               |   print the present working directory    |
+|`cat file.txt`|show the content of `file.txt`|
+
+Des commandes succéssives peuvent être lancées avec le point virgule.
+
+```sh title="Commandes succéssives"
 cd new_dir; mkdir www; pwd
 ```
+
+```sh title="Création de plusieurs répertoires en une seule fois"
+mkdir France Angleterre Belgique
+```
+
+Les commandes du type
 
 ```sh
 mkdir /tmp/europe
 mkdir /tmp/europe/france
 mkdir /tmp/europe/france/lille
 ```
+peuvent se simplifier en une seule ligne via l'argument `-p` permettant de créer de façon récurrente les parents. On a ainsi la commande suivante.
 
-peut se simplifier en une seule ligne via l'argument `-p` permettant de créer de façon récurrente les parents.
-
-```sh
+```sh title="Commande simplifée, création directe de dossiers parents"
 mkdir -p /tmp/europe/france/lille
 ```
 
-```sh
+De même pour la suppression/copie récursive des données avec `-r`.
+
+```sh title="suppression récursive"
 rm -r /tmp/europe/france/lille
 ```
 
-```sh
+```sh title="copie récursive"
 cp -r my_dir1 /tmp/my_dir1
 ```
 
-* `cat > file.txt`
-* `mv new_file.txt sample_file.txt`
 * `tree /home/vorph/test_dir`
+
+
+### Chemins absolus et relatifs
+
+* `/home/vorphus/test` est un chemin absolu. Un chemin absolu spécifie le chemin du répertoire, ou du dossier, depuis le dossier root `/`.
+
+* Si on est dans le "home directory" `/home/vorphus`, alors `test` est un chemin relatif au répertoire dans lequel on se trouve déjà.
+
+### Protip : `pushd` & `popd`
+
+La commande `pushd` permet de mettre en cache l'adresse du répertoire où l'on se trouve actuellement avant de changer de répertoire. On peut alors y revenir avec `popd`.
+
+Si l'on est dans `/home/vorph`, `pushd /etc` nous amène au répertoire `/etc`, tout en mettant `/home/vorph` en haut de la pile des répertoires.
+
+### Obtenir de l'aide sur les commandes
+
+On a plusieurs moyen d'obtenir de l'aide sur les commandes Linux et ce qu'elles sont sensées faire.
+
+* On peut utiliser la commande `whatis` pour une décription succinte.
+
+```shell
+❯ whatis mv
+mv (1)               - move (rename) files
+❯ whatis cp
+cp (1)               - copy files and directories
+```
+
+* On peut lire le manuel de la commande avec `man`.
+
+
+```shell
+❯ man mv
+MV(1)                     UserCommands                           MV(1)
+
+NAME
+       mv - move (rename) files
+
+SYNOPSIS
+       mv [OPTION]... [-T] SOURCE DEST
+       mv [OPTION]... SOURCE... DIRECTORY
+       mv [OPTION]... -t DIRECTORY SOURCE...
+
+DESCRIPTION
+       Rename SOURCE to DEST, or move SOURCE(s) to DIRECTORY.
+
+       Mandatory arguments to long options are mandatory for short options too.
+
+       --backup[=CONTROL]
+              make a backup of each existing destination file
+
+       -b     like --backup but does not accept an argument
+
+       -f, --force
+              do not prompt before overwriting
+
+       -i, --interactive
+              prompt before overwrite
+...
+```
+
+* Certaines commandes fournissent une aide via la commande `--help`.
+
+```shell
+❯ mv --help
+Utilisation : mv [OPTION]... [-T] SOURCE DEST
+         ou : mv [OPTION]... SOURCE... RÉPERTOIRE
+         ou : mv [OPTION]... -t RÉPERTOIRE SOURCE...
+Renommer SOURCE en DEST, ou déplacer le ou les SOURCEs vers RÉPERTOIRE.
+
+Les arguments obligatoires pour les options longues le sont aussi pour les
+options courtes.
+      --backup[=CONTROL]       archiver chaque fichier de destination existant
+  -b                           identique à --backup mais sans argument
+  -f, --force                  ne pas demander de confirmation avant d'écraser
+  -i, --interactive            demander confirmation avant d'écraser
+  -n, --no-clobber             ne pas écraser les fichiers existants
+...
+```
+
+* `apropos regex` fera une recherche dans toutes les pages de `man` pour trouver les commandes contenant la regex donnée.
+
+### Shell types
+
+Il existe différents types de Shell :
+
+* Bourne Shell (Sh Shell)
+* C Shell (csh ou tcsh)
+* Korn Shell (ksh)
+* Z Shell (zsh)
+* Bourne again Shell (bash)
+
+On se concentre sur Bash.
+
+!!! info "Info"
+
+    Pour voir quel shell est utilisé dans un terminal : `echo $SHELL`.
+
+* `alias dt=date`
+* `history`
+* `env`
+* `export`
+
+Pour que les variables d'environnement persistent, il faut les rentrer dans `~/.profile` ou `~/.pam_environment`.
+
+* `which`
+* `export PATH=$PATH:/opt/....`
+
+Pour customiser le bash prompt, il faut modifier la variable d'environnement `PS1`.
+
+Update Bob's prompt so that it displays the date as per the format below:
+
+Example: [Wed Apr 22]bob@caleston-lp10:~$
+Make sure the change is made persistent.
+
+Run `PS1='[\d]\u@\h:\w$'` and add this to the `~/.profile` file `echo 'PS1="[\d]\u@\h:\w$"' >> ~/.profile`.
+
+## Linux Core concepts
+
+### Le noyau Linux
+
+Le noyau Linux (Linux kernel) est la composante principale du système d'exploitation, le noyau fait l'interface princiaple entre la partie hardware et software
+
+``` mermaid
+graph LR
+
+  subgraph Software
+  B[Applications/Processus]
+  end
+
+  A[Linux Kernel]
+
+  subgraph Hardware
+  C1[Mémoire]
+
+  C2[CPU/GPU]
+
+  C3[Devices]
+  end
+
+  A<-..->B
+
+  A<-..->C1 & C2 & C3
+```
+
+Le noyau Linux est responsable des 4 tâches principales suivantes :
+
+* gestion de la mémoire,
+* gestion des processus, quel processus peut utiliser le CPU/GPU, comment, quand, et pour combien de temps,
+* drivers des périphériques,
+* sécurité et gestion des appels systèmes.
+
+**Le noyau Linux est monolithique**, ces tâches sont faites par lui même et non déléguées.
+
+**Le noyau Linux est aussi modulaire**, ces compétences peuvent être étendues par l'ajout de modules.
+
+#### Version du noyau
+
+Pour avoir le nom du noyau, on peut taper la commande `uname`, qui ne produit que peu d'informations.
+
+```shell
+❯ uname
+Linux
+```
+
+Pour voir la version du noyau utilisé, taper `uname -r` ou `uname -a`.
+
+```shell
+❯ uname -r
+5.13.0-40-generic
+❯ uname -a
+Linux vorph-maison 5.13.0-40-generic #45~20.04.1-Ubuntu SMP Mon Apr 4 09:38:31 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+```
+
+* 5 = Version du noyau,
+* 13 = Version majeure,
+* 0 = Version mineure,
+* 40 = patch release,
+* generic = information spécifique à la distribution.
+
+Pour plus d'informations, aller voir sur [kernel.org](https://kernel.org) qui recense le code source de toutes les versions du noyau Linux disponibles.
+
+### Espace kernel et espace utilisateur
+
+Voyons maintenant comment la mémoire est gérée dans un OS Linux.
+
+La mémoire est divisée est deux espaces séparés, l'espace kernel et l'espace utilisateur.
+
+L'espace kernel est la partie de la mémoire dans laquelle le noyau provisionne et éxecute ses services, un processus tournant dans l'espace noyau à un accès illimité au hardware.
+
+Tous les processus tournant hors de l'espace noyau tournent dans l'esapce utilisateur, qui a un accès restreint au CPU/GPU et à la mémoire.
+
+
+``` mermaid
+graph LR
+
+  subgraph Kernel space
+  A[Linux Kernel]
+  B[Device drivers]
+  end
+
+
+  subgraph User space
+  C[Applications/Processus]
+  end
+```
+
+kernel space :
+
+* kernel code,
+* kernel extensions,
+* devices drivers.
+
+User space :
+
+* C,
+* Java,
+* Python,
+* Ruby,
+* Docker containers,
+* etc.
+
+
+Lorsqu'une application dans l'esapce utilisateur tourne et qu'elle a besoin d'accéder au hardware pour par exemple :
+
+* ouvrir un fichier,
+* écrire dans un fichier,
+* définir une variable,
+* etc,
+
+l'esapce utilisateur produit un "system call" à l'espace kernel qui lui fournit les ressources nécessaires via les drivers.
+
+``` mermaid
+graph LR
+
+  subgraph Kernel space
+  A[Linux Kernel]
+  B[Device drivers]
+  end
+
+  subgraph User space
+  C[Applications/Processus]
+  end
+
+  D[Hardware]
+
+  C-.->|System Call|B-.->D
+```
+
+### Linux et hardware
+
+Comment Linux identifie le hardware dans son OS.
+
+Prenons l'exemple d'une clé usb branchés sur un pc avec un OS Linux.
+
+1. Dès que la clé usb est branchée, le driver correspondant dans le kernel space détecte un changement d'état et génère un évènementt, appelé `uevent`.
+2. Cet évènement est envoyé au "user space device manager daemon", appelé `udev`.
+3. `udev` crée alors de façon dynamique un noeud de device correspondant à la clé usb se trouvant dans le système de fichier `/dev` et lui assigne le nom `sdb1`.
+4. Une fois ces étapes faites, la clé usb et son contenu seront listés comme `/dev/sdb1`.
+
+!!! atention "Attention"
+
+    `/dev/sdb1` n'est pas un répertoire, c'est l'adresse que l'OS Linux assigne à la clé usb. Tenter de faire un `cd ` vous donnera l'erreur suivante.
+
+    ```shell
+    ❯ cd /dev/sdb1
+    cd: n'est pas un dossier: /dev/sdb1
+    ```
+
+``` mermaid
+graph LR
+  subgraph Extérieur
+  A[Clé USB]
+  B[PC]
+  end
+
+  subgraph Kernel space
+  C[Device driver]
+  end
+
+  subgraph User space
+  D[udev]
+  end
+
+  E[/ /dev/sdb1 /]
+
+  A-.->B-.->C
+  C-.->|uevents|D-.->E
+```
+
+Comment avoir des infos sur les composants hardware ?
+
+* `dmesg` (pour l'anglais "display message") est une commande sur les systèmes d'exploitation de type Unix qui affiche la mémoire tampon de message du noyau. Quand un système Linux boot, il y a de nombreux messages qui peuvent ou non s'afficher (suivant votre OS), ces messages contiennent des logs du hardware
+
+* `udevadm info` requète la db de `udev` pour des infos concernant les périphériques.
+
+* `udevadm monitor` est à l'écoute de nouveaux `uevent`, et les affichera dans le terminal.
+
+!!! example "Exemple"
+
+    Voici ce qui se passe avant et après avoir branché un disque usb avec `udevadm monitor`.
+
+
+    ```shell title="avant"
+    ❯ udevadm monitor
+    monitor will print the received events for:
+    UDEV - the event which udev sends out after rule processing
+    KERNEL - the kernel uevent
+    ```
+
+
+    ```shell title="après"
+    ❯ udevadm monitor
+    monitor will print the received events for:
+    UDEV - the event which udev sends out after rule processing
+    KERNEL - the kernel uevent
+
+    KERNEL[13256.354009] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1 (usb)
+    KERNEL[13256.354885] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0 (usb)
+    KERNEL[13256.355001] bind     /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1 (usb)
+    UDEV  [13256.362347] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1 (usb)
+    KERNEL[13256.366283] add      /devices/virtual/workqueue/scsi_tmf_6 (workqueue)
+    KERNEL[13256.366319] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6 (scsi)
+    KERNEL[13256.366327] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/scsi_host/host6 (scsi_host)
+    KERNEL[13256.366342] bind     /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0 (usb)
+    KERNEL[13256.366353] add      /bus/usb/drivers/usb-storage (drivers)
+    KERNEL[13256.366361] add      /module/usb_storage (module)
+    UDEV  [13256.367136] add      /devices/virtual/workqueue/scsi_tmf_6 (workqueue)
+    KERNEL[13256.367352] add      /bus/usb/drivers/uas (drivers)
+    KERNEL[13256.367364] add      /module/uas (module)
+    UDEV  [13256.367427] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0 (usb)
+    UDEV  [13256.367778] add      /bus/usb/drivers/usb-storage (drivers)
+    UDEV  [13256.367788] add      /module/usb_storage (module)
+    UDEV  [13256.367794] add      /bus/usb/drivers/uas (drivers)
+    UDEV  [13256.368248] add      /module/uas (module)
+    UDEV  [13256.370659] bind     /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1 (usb)
+    UDEV  [13256.371298] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6 (scsi)
+    UDEV  [13256.371888] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/scsi_host/host6 (scsi_host)
+    UDEV  [13256.372727] bind     /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0 (usb)
+    KERNEL[13257.370058] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0 (scsi)
+    KERNEL[13257.370127] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0 (scsi)
+    KERNEL[13257.370157] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_device/6:0:0:0 (scsi_device)
+    KERNEL[13257.370315] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_disk/6:0:0:0 (scsi_disk)
+    KERNEL[13257.370379] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_generic/sg4 (scsi_generic)
+    KERNEL[13257.370562] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/bsg/6:0:0:0 (bsg)
+    UDEV  [13257.373300] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0 (scsi)
+    UDEV  [13257.374079] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0 (scsi)
+    UDEV  [13257.374986] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_device/6:0:0:0 (scsi_device)
+    UDEV  [13257.375082] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_disk/6:0:0:0 (scsi_disk)
+    UDEV  [13257.375095] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/bsg/6:0:0:0 (bsg)
+    UDEV  [13257.375197] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_generic/sg4 (scsi_generic)
+    KERNEL[13257.392547] add      /devices/virtual/bdi/8:48 (bdi)
+    UDEV  [13257.393077] add      /devices/virtual/bdi/8:48 (bdi)
+    KERNEL[13257.426707] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/block/sdd (block)
+    KERNEL[13257.426733] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/block/sdd/sdd1 (block)
+    KERNEL[13257.482588] bind     /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0 (scsi)
+    UDEV  [13257.602272] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/block/sdd (block)
+    UDEV  [13257.851325] add      /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/block/sdd/sdd1 (block)
+    UDEV  [13257.851983] bind     /devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0 (scsi)
+    KERNEL[13266.337010] add      /devices/virtual/bdi/8:49-fuseblk (bdi)
+    UDEV  [13266.339098] add      /devices/virtual/bdi/8:49-fuseblk (bdi)
+    ```
+
+* `lspci` liste tous les périphériques du "[bus pci](https://fr.wikipedia.org/wiki/PCI_(informatique))" du pc, ie les fameuses cartes qui s'enfichent dans la carte mère (GPU, carte réseau, RAM etc.)
+
+```shell
+❯ lspci
+
+00:00.0 Host bridge: Intel Corporation Device 9b33 (rev 05)
+00:01.0 PCI bridge: Intel Corporation Xeon E3-1200 v5/E3-1500 v5/6th Gen Core Processor PCIe Controller (x16) (rev 05)
+00:08.0 System peripheral: Intel Corporation Xeon E3-1200 v5/v6 / E3-1500 v5 / 6th/7th/8th Gen Core Processor Gaussian Mixture Model
+00:12.0 Signal processing controller: Intel Corporation Comet Lake PCH Thermal Controller
+00:14.0 USB controller: Intel Corporation Comet Lake USB 3.1 xHCI Host Controller
+00:14.2 RAM memory: Intel Corporation Comet Lake PCH Shared SRAM
+00:14.3 Network controller: Intel Corporation Wi-Fi 6 AX201
+00:16.0 Communication controller: Intel Corporation Comet Lake HECI Controller
+00:17.0 SATA controller: Intel Corporation Device 06d2
+00:1c.0 PCI bridge: Intel Corporation Device 06b8 (rev f0)
+00:1c.4 PCI bridge: Intel Corporation Device 06bc (rev f0)
+00:1f.0 ISA bridge: Intel Corporation Device 0685
+00:1f.3 Audio device: Intel Corporation Comet Lake PCH cAVS
+00:1f.4 SMBus: Intel Corporation Comet Lake PCH SMBus Controller
+00:1f.5 Serial bus controller [0c80]: Intel Corporation Comet Lake PCH SPI Controller
+01:00.0 VGA compatible controller: NVIDIA Corporation Device 2204 (rev a1)
+01:00.1 Audio device: NVIDIA Corporation Device 1aef (rev a1)
+02:00.0 USB controller: ASMedia Technology Inc. Device 3241
+03:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8125 2.5GbE Controller (rev 04)
+```
 
 ## Vi
 
-Installé par défaut dans la plupart des dirtibutions Linux.
+Installé par défaut dans la plupart des distributions Linux.
 
 Deux modes :
 
-* mode commande : copier coller suppression, mais pas d'écriture possible,
-* mode insertion : nécessaire pour écrire du contenu dans un fichier.
+* **mode commande** : copier coller suppression, mais pas d'écriture possible,
+* **mode insertion** : nécessaire pour écrire du contenu dans un fichier.
 
 !!! info "Info"
 
@@ -73,21 +482,21 @@ Deux modes :
 
 ### Commandes basiques
 
-* `x` : supprime un caractère.
-* `dd` : supprime la ligne entière
-* `yy` : copie la ligne.
-* `p` : colle le ligne.
-* `ctrl + u` : scrolle ver le haut.
-* `ctrl + d` : scrolle vers le bas.
-
-* `:` : affiche l'invite de commande.
-* `:w` : sauvegarde le fichier.
-* `:w filename` : ssauvegarde le fichier sous le nom filename.
-* `:q` : quitte l'éditeur `vi`.
-* `:wq` : sauvegarder et quitter.
-
-* `/string` : recherche le `string` dans le texte.
-* `n` : va à l'occurence suivante du `string`.
+|   Commande    |                  Résultat                  |
+| :-----------: | :----------------------------------------: |
+|      `x`      |           supprime un caractère            |
+|     `dd`      |         supprime la ligne entière          |
+|     `yy`      |               copie la ligne               |
+|      `p`      |               colle le ligne               |
+|  `ctrl + u`   |            scrolle ver le haut             |
+|  `ctrl + d`   |            scrolle vers le bas             |
+|      `:`      |        affiche l'invite de commande        |
+|     `:w`      |           sauvegarde le fichier            |
+| `:w filename` | sauvegarde le fichier sous le nom filename |
+|     `:q`      |           quitte l'éditeur `vi`            |
+|     `:wq`     |           sauvegarder et quitter           |
+|   `/string`   |    recherche le `string` dans le texte     |
+|      `n`      |   va à l'occurence suivante du `string`    |
 
 ## More Linux commands
 
