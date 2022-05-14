@@ -533,6 +533,8 @@ UBUNTU_CODENAME=focal
 
 ## Package Management
 
+### CentOS
+
 CentOS utilise RPM (Red Hat Package Manager), les softwares sont alors packagés sous la forme `telnet.rpm`, pour installer un tel package on tape alors la commande suivante.
 
 ```sh
@@ -570,6 +572,8 @@ Pour l'ensemble des packages, par exemple `ansible`, disponible à l'installatio
 * `yum remove ansible` supprime le package,
 * `yum --showduplicates list ansible` pour voir les différentes versions disponibles.
 * `yum install ansible-2.4.2.0`
+
+### Ubuntu
 
 ## Services
 

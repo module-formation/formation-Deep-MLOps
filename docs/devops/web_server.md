@@ -64,11 +64,11 @@ Production grade serveurs pour Python :
 
 `gunicorn main:app -w 2` avec 2 workers.
 
-How many total process of unicorn are now running in host01?
+Pour voir le nombre total de processus `Gunicorn` qui tourne sur le serveur, on peut taper la commande suivante.
 
 `ps -ef | grep gunicorn | grep -v grep`
 
-Note that Gunicorn start new worker process so number of Gunicorn process is main process plus number of workers.
+Le nombre de processus `Gunicorn` retourné correspond au processus principal plus le nombre de worker déployés.
 
 ## NodeJS
 
@@ -208,7 +208,7 @@ thor@host01 /opt/the-example-app.nodejs$ pm2 start app.js -i 4 -f
 ## IPs et Ports
 
 * Quelle adress IP et port utiliser ?
-* localhost vs 127.0.0.1 cs IP adresse.
+* localhost vs 127.0.0.1 vs IP adresse.
 * Pourquoi est ce que je ne peux pas me connecter à mon serveur ?
 
 Une adresse IP est assignée à une interface, pas à un device. Ainsi on peut très bien avoir une IP pour se connecter en filaire, et une IP wifi.
@@ -317,11 +317,12 @@ Dans ce cas là, l'application écoute à l'adresse `http://127.0.0.1:8000`. Au 
 
 **localhost est le nom assignée à l'adresse loopback 127.0.0.1**, les deux sont interchangeables.
 
+## Lancer un application en mode background
 
-nohup python app.py &
+`nohup python app.py &`
 
 Note: Nohup stands for no hang up, which can be executed as shown below.
 
-nohup command-with-options &
+`nohup command-with-options &`
 
-Adding "&" at the end will move the process to run in background. When you execute a Unix job in the background (using &) and logout from the session, your process will get killed. You can avoid this with nohup.
+Adding `&` at the end will move the process to run in background. When you execute a Unix job in the background (using `&`) and logout from the session, **your process will get killed**. You can avoid this with nohup.
