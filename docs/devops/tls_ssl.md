@@ -1,8 +1,8 @@
 # Just enough SSL TLS certificates
 
-Un certificat est utilisé pour garantif la confiance entre deux devices pendant une transaction.
+Un certificat est utilisé pour garantir la confiance entre deux devices pendant une transaction.
 
-Par exemple, lorsqu'un utilisateur souhaite se connecter à un serveur web, les certificats TLs sont là pour assurer que la communication entre les deux est correctement chiffrée et que le serveur est là où il prétend être.
+Par exemple, lorsqu'un utilisateur souhaite se connecter à un serveur web, les certificats TLS sont là pour assurer que la communication entre les deux est correctement chiffrée et que le serveur est là où il prétend être.
 
 Il existe plusieurs méthodes de chiffrements.
 

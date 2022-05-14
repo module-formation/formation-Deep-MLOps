@@ -324,4 +324,4 @@ Note: Nohup stands for no hang up, which can be executed as shown below.
 
 nohup command-with-options &
 
-Adding "&" at the end will move the process to run in background. When you execute a Unix job in the background ( using &) and logout from the session, your process will get killed. You can avoid this with nohup.
+Adding "&" at the end will move the process to run in background. When you execute a Unix job in the background (using &) and logout from the session, your process will get killed. You can avoid this with nohup.

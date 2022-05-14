@@ -1,41 +1,6 @@
 # Docker, pour le Machine Learning
 
-## Docker, c'est quoi
 
-Une étape pour atteindre la reproductibilité consiste à déployer le code et les artefacts versionnés dans un environnement reproductible. Cela va bien au-delà de l'environnement virtuel que l'on peut configurer pour les applications Python, car il existe des spécifications au niveau du système (système d'exploitation, paquets requis, etc.) qui ne sont pa saisis par un simple environnement virtuel. Nous voulons être en mesure d'encapsuler toutes les exigences dont nous avons besoin afin qu'il n'y ait pas de dépendances externes qui empêcheraient quelqu'un d'autre de reproduire l'application de façon exacte.
-
-## Les environnements "conteneurisés"
-
-Un conteneur Docker a la même idée qu'un conteneur physique : pensez-y comme à une boîte contenant une application.
-
-À l'intérieur de la boîte, l'application semble avoir un ordinateur à elle toute seule : elle a son propre nom de machine et sa propre adresse IP, et elle a aussi son propre disque (les conteneurs Windows ont aussi leur propre registre Windows).
-
-Ces éléments sont tous des ressources virtuelles :
-
-- le nom d'hôte,
-- l'adresse IP,
-- le système de fichiers sont créés par Docker.
-
-Ce sont des objets logiques qui sont gérés par Docker, et ils sont tous réunis pour créer un environnement dans lequel une application peut s'exécuter. C'est la " boîte" du conteneur.
-
-L'application à l'intérieur du conteneur ne peut rien voir à l'extérieur du conteneur, mais la boîte est exécutée sur un ordinateur, et cet ordinateur peut également exécuter de nombreux autres conteneurs. Les applications dans ces conteneurs ont leurs propres environnements distincts (gérés par Docker), mais elles partagent toutes le CPU, GPU, et la mémoire de l'ordinateur, et elles partagent toutes le système d'exploitation de l'ordinateur.
-
-!!! info "Remarque"
-
-    Notez ici que les conteneurs sont différents des machines virtuelles.
-
-    - Les machines virtuelles nécessitent que l'hyperviseur virtualise une pile matérielle complète. Il y a également plusieurs systèmes d'exploitation invités, ce qui les rend plus grands et plus étendus à démarrer. C'est ce que sont les instances de cloud AWS / GCP / Azure.
-
-    - Les conteneurs, quant à eux, ne nécessitent aucune virtualisation de l'hyperviseur ou du matériel. Tous les conteneurs partagent le même noyau hôte. Il existe des environnements d'espace utilisateur isolés et dédiés, ce qui les rend beaucoup plus petits en taille et plus rapides à démarrer.
-
-
-![screen](./images/docker.svg)
-
-!!! info "TLDR"
-
-    1. Un Dockerfile définit comment construire une image.
-    2. Une image est un environnement packagé contruit par un Dockerfile.
-    3. Le conteneur Docker est l'endroit où l'image est lancée.
 
 ### Les commandes de base et les Dockerfile
 

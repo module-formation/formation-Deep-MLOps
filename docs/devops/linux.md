@@ -14,7 +14,7 @@ Quasiment tous les outils utilisés pour DevOps ont d'abord été développés p
 
 ### `/home/` sweet `/home/`
 
-Dès que l'on lance un terminal Linux, le premier répertoire dans lequel on se trouvera sera le répertoire principal, si vous avez comme nom d'utilisateur `vorphus`, votre terminal sera directmeent ouvert a répertoire `/home/vorphus`. Le répertoire `/home/user` est unique à chaque utilisateur.
+Dès que l'on lance un terminal Linux, le premier répertoire dans lequel on se trouvera sera le répertoire principal, si vous avez comme nom d'utilisateur `vorphus`, votre terminal sera directement ouvert au répertoire `/home/vorphus`. Le répertoire `/home/user` est unique à chaque utilisateur.
 
 On peut taper la commande `pwd` dans le terminal pour voir dans quel répertoire l'on se trouve.
 
@@ -28,6 +28,7 @@ Pour déterminer si une commande est interne ou externe, on peut taper `type` su
 ```shell
 ❯ type mv
 mv is /usr/bin/mv
+
 ❯ type echo
 echo is a shell builtin
 ```
@@ -43,7 +44,7 @@ echo is a shell builtin
 |              `touch`              |              create a file               |
 | `mv new_file.txt sample_file.txt` | move `new_file.txt` to `sample_file.txt` |
 |               `pwd`               |   print the present working directory    |
-|`cat file.txt`|show the content of `file.txt`|
+|          `cat file.txt`           |      show the content of `file.txt`      |
 
 Des commandes succéssives peuvent être lancées avec le point virgule.
 
