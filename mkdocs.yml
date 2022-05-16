@@ -122,6 +122,7 @@ nav:
     - Azure et Caddy: azure_ml/annex2.md
   - DevOps 101:
     - Linux Basics: devops/linux.md
+    - Git: devops/git.md
     - Networking: devops/network.md
     - Applications: devops/applications.md
     - Web Servers: devops/web_server.md
