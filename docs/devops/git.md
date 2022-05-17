@@ -448,4 +448,12 @@ Une différence principale est que lors d'un `merge`, les hash des commits ne ch
 
 En d'autres termes, faire un `rebase` modifie l'historique Git, alors que ce n'est pas le cas pour un `merge`.
 
+`git rebase -i HEAD~k`, permet de faire un rebase interactif des k derniers commits, pour par exemple faire du "[squash commit](https://stackoverflow.com/questions/5189560/squash-my-last-x-commits-together-using-git)".
+
+`git cherry-pick hash`
+
 ## Reset et revert
+
+* `git revert hash`
+* `git reset --soft HEAD~k`
+* `git reset --hard HEAD~k`
