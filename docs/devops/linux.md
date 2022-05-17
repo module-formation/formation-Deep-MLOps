@@ -481,6 +481,12 @@ Deux modes :
 
     Pour activer le mode insertion dans Vi, appuyez sur la touche `i`. Pour revenir au mode commande, il faut appuyer sur la touche echap `esc`.
 
+```shell title="installer Vim plutôt que Vi, pour un expérience plus user friendly"
+sudo apt update
+sudo apt install vim
+```
+
+
 ### Commandes basiques
 
 |   Commande    |                  Résultat                  |

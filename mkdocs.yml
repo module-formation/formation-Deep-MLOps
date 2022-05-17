@@ -123,6 +123,7 @@ nav:
   - DevOps 101:
     - Linux Basics: devops/linux.md
     - Git: devops/git.md
+    - Shell scripts: devops/shell.md
     - Networking: devops/network.md
     - Applications: devops/applications.md
     - Web Servers: devops/web_server.md

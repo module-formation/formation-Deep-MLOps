@@ -282,8 +282,10 @@ Un `no-fast-forward merge` se fait lorsque la branche vers laquelle on souhaite 
       commit
       branch dev
       commit id:"2-aeb8393"
-      commit id:"3-e1bb5ee"
       branch dev-mathieu
+      checkout dev
+      commit id:"3-e1bb5ee"
+      checkout dev-mathieu
       commit id:"2-6923bcf"
       commit id:"3-9038f6c"
     ```
@@ -344,7 +346,7 @@ sequenceDiagram
     deactivate Staging Area
 
     activate Committed files
-    Committed files->>Repo distant: git push origin main"
+    Committed files->>Repo distant: git push origin main
     deactivate Committed files
 ```
 
@@ -454,6 +456,355 @@ En d'autres termes, faire un `rebase` modifie l'historique Git, alors que ce n'e
 
 ## Reset et revert
 
-* `git revert hash`
+Les commandes `git reset` et `git revert` sont toutes les deux des commandes permettant de revenir en arrière dans le graphe git. Mais leurs utilisations changent.
+
+### `git revert hash`
+
+La commande `git revert` permet de supprimer toutes les modifications faites lors du commit désigné par son hash (généralement le commit précédent).
+
+En d'autres termes, si un fichier à était ajouté lors du commit précédent, appliquer `git revert` sur ce commit supprimera ce fichier.
+
+La commande `git revert` crée un nouveau commit, ce qui permet de suivre les modifications.
+
+```shell title="git revert"
+❯ cd helloworld-git
+
+❯ git status
+Sur la branche master
+Fichiers non suivis:
+  (utilisez "git add <fichier>..." pour inclure dans ce qui sera validé)
+	note.txt
+
+aucune modification ajoutée à la validation mais des fichiers non suivis sont présents (utilisez "git add" pour les suivre)
+
+❯ git add .
+
+❯ git commit -m "feat: add note.txt"
+[master 4f10f7d] feat: add note.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 note.txt
+
+❯ git revert 4f10f7d
+Suppression de note.txt
+[master 22dc824] Revert "feat: add note.txt"
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 note.txt
+
+❯ git status
+Sur la branche master
+rien à valider, la copie de travail est propre
+
+❯ git log
+
+commit 22dc824b7693ac8fc053bc0e1c8d2c23d8e8a981 (HEAD -> master)
+Author: vorph <klimczak.mathieu@pm.me>
+Date:   Tue May 17 11:03:44 2022 +0200
+
+    Revert "feat: add note.txt"
+
+    This reverts commit 4f10f7d660aa7ce4c54afb2634062733053616c6.
+
+    Test de la commande git revert
+
+commit 4f10f7d660aa7ce4c54afb2634062733053616c6
+Author: vorph <klimczak.mathieu@pm.me>
+Date:   Tue May 17 11:03:25 2022 +0200
+
+    feat: add note.txt
+```
+
+!!! info "Remarque"
+
+    Pour faire un revert sur le commit le plus récent, on peut aussi utliser la commande `git revert HEAD~0`.
+
+### `git reset`
+
+La commande `git reset` permet elle de supprimer directemnts des commit du graphe git. Selon l'argument qu'on lui assignera `--soft` ou `--hard` les modifications qui étaient présentes dans ces commits :
+
+* retourneront en zone de transit (staging area), avec l'argument `--soft`,
+* seront purement et simplement supprimées, avec l'argument `--hard`.
+
+`HEAD~k` permet de déterminer sur combien de commits on doit revenir en arrière, à partir du pointeur `HEAD`, ici on revient en arrière sur k commits.
+
 * `git reset --soft HEAD~k`
+
+```shell
+❯ cd /media/vorph/datas/perso/helloworld/helloworld-git
+
+❯ echo "test" > note.txt
+
+❯ git status
+Sur la branche master
+Fichiers non suivis:
+  (utilisez "git add <fichier>..." pour inclure dans ce qui sera validé)
+	note.txt
+
+aucune modification ajoutée à la validation mais des fichiers non suivis sont présents (utilisez "git add" pour les suivre)
+
+❯ git add note.txt
+
+❯ git commit -m "feat: add note.txt"
+[master be87880] feat: add note.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 note.txt
+
+❯ git reset --soft HEAD~1
+
+❯ git log
+commit 22dc824b7693ac8fc053bc0e1c8d2c23d8e8a981 (HEAD -> master)
+Author: vorph <klimczak.mathieu@pm.me>
+Date:   Tue May 17 11:03:44 2022 +0200
+
+    Revert "feat: add note.txt"
+
+    This reverts commit 4f10f7d660aa7ce4c54afb2634062733053616c6.
+
+    Test de la commande git revert
+
+commit 4f10f7d660aa7ce4c54afb2634062733053616c6
+Author: vorph <klimczak.mathieu@pm.me>
+Date:   Tue May 17 11:03:25 2022 +0200
+
+    feat: add note.txt
+
+commit 83153b74fbedfde6c7bb6d6845ed56149829f86a
+Author: vorph <klimczak.mathieu@pm.me>
+Date:   Mon May 16 15:35:19 2022 +0200
+
+    feat: add story.txt
+```
+
+Remarquez que le commit `be87880`, avant `git reset --soft HEAD~1`, n'apparaît pas dans les logs.
+
+```shell title="note.txt est retourné en staging area"
+❯ git status
+
+Sur la branche master
+Modifications qui seront validées :
+  (utilisez "git restore --staged <fichier>..." pour désindexer)
+	nouveau fichier : note.txt
+```
+
 * `git reset --hard HEAD~k`
+
+```shell title="note.txt est supprimé avec --hard"
+❯ git status
+
+Sur la branche master
+Modifications qui seront validées :
+  (utilisez "git restore --staged <fichier>..." pour désindexer)
+	nouveau fichier : note.txt
+
+❯ git add note.txt
+
+❯ git commit -m "feat: add note.txt"
+[master c92b48a] feat: add note.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 note.txt
+
+❯ git reset --hard HEAD~1
+HEAD est maintenant à 22dc824 Revert "feat: add note.txt"
+
+❯ git status
+Sur la branche master
+rien à valider, la copie de travail est propre
+```
+
+### `git stash`
+
+Permet de mettre en cache des documents qui sont dans la staging area pour par exemple eviter de les commit de façon accidentelle.
+
+* `git stash`
+* `git stash pop`
+* `git stash pop stash_id`
+* `git stash show stash_id`
+
+```mermaid
+sequenceDiagram
+    participant Working Area
+    participant Staging Area
+    participant Stash
+
+    Note over Working Area: travail sur story.txt
+    activate Working Area
+    Working Area->>Staging Area: git add story.txt
+    deactivate Working Area
+
+    activate Staging Area
+    Staging Area->>Stash: git stash
+    deactivate Staging Area
+```
+
+```shell title="stash met en cache les fichiers de la staging area"
+❯ cd helloworld-git
+
+❯ git status
+Sur la branche master
+Fichiers non suivis:
+  (utilisez "git add <fichier>..." pour inclure dans ce qui sera validé)
+	note.txt
+	note2.txt
+
+aucune modification ajoutée à la validation mais des fichiers non suivis sont présents (utilisez "git add" pour les suivre)
+
+❯ git add note.txt
+
+❯ git stash
+Arbre de travail et état de l index sauvegardés dans WIP on master: 22dc824 Revert "feat: add note.txt"
+
+❯ git add note2.txt
+
+❯ git stash
+Arbre de travail et état de l index sauvegardés dans WIP on master: 22dc824 Revert "feat: add note.txt"
+
+❯ git status
+Sur la branche master
+rien à valider, la copie de travail est propre
+```
+
+```shell title="Les deux fichiers sans visibles dans stash"
+git stash list
+
+stash@{0}: WIP on master: 22dc824 Revert "feat: add note.txt"
+stash@{1}: WIP on master: 22dc824 Revert "feat: add note.txt"
+```
+Pour voir quels éléments sont stockés dans un des éléments du stash, on peut utiliser la commande `git stash show`.
+
+```shell
+❯ git stash show stash@{0}
+note.txt | 1 +
+1 file changed, 1 insertion(+)
+```
+
+On peut lancer plusieurs commandes à ma suite :
+
+`git stash show stash@{0} ; git stash show stash@{1}; git stash show stash@{2}`
+
+`stash` marche comme une pile, on est en mode **LIFO** : **Last In First Out**.
+
+```shell title="LIFO"
+❯ git stash pop
+Sur la branche master
+Modifications qui seront validées :
+  (utilisez "git restore --staged <fichier>..." pour désindexer)
+	nouveau fichier : note2.txt
+
+refs/stash@{0} supprimé (f3642afe7ca5869fbc6498e693bb6745a5087db3)
+
+
+❯ git stash pop
+Sur la branche master
+Modifications qui seront validées :
+  (utilisez "git restore --staged <fichier>..." pour désindexer)
+	nouveau fichier : note.txt
+	nouveau fichier : note2.txt
+
+refs/stash@{0} supprimé (1f490abc174ac6b5089f8329ac116b6db285b0eb)
+```
+### `git reflog`
+
+```shell
+❯ git status
+Sur la branche master
+Modifications qui seront validées :
+  (utilisez "git restore --staged <fichier>..." pour désindexer)
+	nouveau fichier : note.txt
+
+Fichiers non suivis:
+  (utilisez "git add <fichier>..." pour inclure dans ce qui sera validé)
+	note2.txt
+
+❯ git commit -m "feat: add note.txt"
+[master d77fcf6] feat: add note.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 note.txt
+
+❯ git add note2.txt
+
+❯ git commit -m "feat: add note2.txt"
+[master 0f502d5] feat: add note2.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 note2.txt
+
+❯ git reflog
+
+0f502d5 (HEAD -> master) HEAD@{0}: commit: feat: add note2.txt
+d77fcf6 HEAD@{1}: commit: feat: add note.txt
+22dc824 HEAD@{2}: reset: moving to HEAD
+22dc824 HEAD@{3}: reset: moving to HEAD
+22dc824 HEAD@{4}: reset: moving to HEAD
+22dc824 HEAD@{5}: reset: moving to HEAD
+22dc824 HEAD@{6}: reset: moving to HEAD
+22dc824 HEAD@{7}: reset: moving to HEAD
+22dc824 HEAD@{8}: reset: moving to HEAD
+22dc824 HEAD@{9}: reset: moving to HEAD~1
+c92b48a HEAD@{10}: commit: feat: add note.txt
+22dc824 HEAD@{11}: reset: moving to HEAD~1
+be87880 HEAD@{12}: commit: feat: add note.txt
+22dc824 HEAD@{13}: revert: Revert "feat: add note.txt"
+4f10f7d HEAD@{14}: commit: feat: add note.txt
+83153b7 HEAD@{15}: commit (initial): feat: add story.txt
+
+❯ git reset --hard HEAD~1
+HEAD est maintenant à d77fcf6 feat: add note.txt
+
+❯ git reflog
+d77fcf6 HEAD@{1}: reset: moving to HEAD~1
+0f502d5 (HEAD -> master) HEAD@{2}: commit: feat: add note2.txt
+d77fcf6 HEAD@{3}: commit: feat: add note.txt
+22dc824 HEAD@{4}: reset: moving to HEAD
+22dc824 HEAD@{5}: reset: moving to HEAD
+22dc824 HEAD@{6}: reset: moving to HEAD
+22dc824 HEAD@{7}: reset: moving to HEAD
+22dc824 HEAD@{8}: reset: moving to HEAD
+22dc824 HEAD@{9}: reset: moving to HEAD
+22dc824 HEAD@{10}: reset: moving to HEAD
+22dc824 HEAD@{11}: reset: moving to HEAD~1
+c92b48a HEAD@{12}: commit: feat: add note.txt
+22dc824 HEAD@{13}: reset: moving to HEAD~1
+be87880 HEAD@{14}: commit: feat: add note.txt
+22dc824 HEAD@{15}: revert: Revert "feat: add note.txt"
+4f10f7d HEAD@{16}: commit: feat: add note.txt
+83153b7 HEAD@{17}: commit (initial): feat: add story.txt
+
+❯ git reset --hard 0f502d5
+HEAD est maintenant à 0f502d5 feat: add note2.txt
+
+❯ git reflog
+0f502d5 (HEAD -> master) HEAD@{0}: reset: moving to 0f502d5
+d77fcf6 HEAD@{1}: reset: moving to HEAD~1
+0f502d5 (HEAD -> master) HEAD@{2}: commit: feat: add note2.txt
+d77fcf6 HEAD@{3}: commit: feat: add note.txt
+22dc824 HEAD@{4}: reset: moving to HEAD
+22dc824 HEAD@{5}: reset: moving to HEAD
+22dc824 HEAD@{6}: reset: moving to HEAD
+22dc824 HEAD@{7}: reset: moving to HEAD
+22dc824 HEAD@{8}: reset: moving to HEAD
+22dc824 HEAD@{9}: reset: moving to HEAD
+22dc824 HEAD@{10}: reset: moving to HEAD
+22dc824 HEAD@{11}: reset: moving to HEAD~1
+c92b48a HEAD@{12}: commit: feat: add note.txt
+22dc824 HEAD@{13}: reset: moving to HEAD~1
+be87880 HEAD@{14}: commit: feat: add note.txt
+22dc824 HEAD@{15}: revert: Revert "feat: add note.txt"
+4f10f7d HEAD@{16}: commit: feat: add note.txt
+83153b7 HEAD@{17}: commit (initial): feat: add story.txt
+
+❯ ls
+ note.txt   note2.txt   story.txt
+```
+* [What's the difference between git reflog and log?](https://stackoverflow.com/questions/17857723/whats-the-difference-between-git-reflog-and-log)
+
+## tags et release
+
+## Commits Conventionnels
+
+[Voir la documentation](https://www.conventionalcommits.org/fr/v1.0.0/)
+
+Le commit contient les éléments structurels suivants, permettant de communiquer à l’intention des consommateurs de votre bibliothèque:
+
+1. `fix`: un commit de type `fix` corrige un bogue dans le code (cela est en corrélation avec `PATCH` en versioning sémantique).
+2. `feat`: un commit de type `feat` introduit une nouvelle fonctionnalité dans le code (cela est en corrélation avec `MINOR` en versioning sémantique).
+3. `BREAKING CHANGE`: un commit qui a dans le pied de page le mot clef `BREAKING CHANGE`:, ou ajoute un `!` après le type/scope, introduit un changement cassant l’API (cela est en corrélation avec `MAJOR` en versioning sémantique). Un `BREAKING CHANGE` peut faire partie des commits de n’importe quel type.
+4. Les types autre que `fix:` et `feat:` sont autorisés, par exemple [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional) (basé sur [the Angular convention](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)) recommande `build:`, `chore:`, `ci:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`, etc.
+5. Les pieds de pages autre que `BREAKING CHANGE: <description>` peuvent être fourni et suivre une convention similaire à [git trailer format.](https://git-scm.com/docs/git-interpret-trailers)
