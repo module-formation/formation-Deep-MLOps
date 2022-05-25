@@ -908,3 +908,13 @@ Pour gérer ces problèmes dans un environnement de production, on fait alors ap
 * MESOS.
 
 ## Docker et VS Code : le fichier `.devcontainer`
+
+## Softwares
+
+* [Container Management and Kubernetes on the Desktop](https://rancherdesktop.io/)
+* [The super duper Podman Desktop Companion](https://iongion.github.io/podman-desktop-companion/)
+* [Kompose](https://kompose.io/)
+* [nerdctl: Docker-compatible CLI for containerd](https://github.com/containerd/nerdctl)
+
+* [Namespaces : La brique de base des conteneurs](https://linuxembedded.fr/2020/11/namespaces-la-brique-de-base-des-conteneurs)
+* [Securing containers using Docker isolation](https://resources.infosecinstitute.com/topic/securing-containers-using-docker-isolation/)

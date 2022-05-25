@@ -23,3 +23,7 @@
 * [What is automated machine learning (AutoML)?](https://docs.microsoft.com/en-us/azure/machine-learning/concept-automated-ml#local-remote)
 * [Track ML models with MLflow and Azure Machine Learning](https://docs.microsoft.com/en-us/azure/machine-learning/v1/how-to-use-mlflow)
 * [How to Publish a Pipeline and Invoke the REST endpoint](https://github.com/Azure/MachineLearningNotebooks/blob/master/how-to-use-azureml/machine-learning-pipelines/intro-to-pipelines/aml-pipelines-publish-and-run-using-rest-endpoint.ipynb)
+
+* [Use automated ML in an Azure Machine Learning pipeline in Python **runconfig here !**](https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/machine-learning/how-to-use-automlstep-in-pipelines.md)
+* [MLOps: Model management, deployment, lineage, and monitoring with Azure Machine Learning](https://github.com/MicrosoftDocs/azure-docs/blob/main/articles/machine-learning/concept-model-management-and-deployment.md#automate-the-ml-lifecycle)
+* [Deploying a Machine Learning Model with Azure ML Pipelines](https://vladiliescu.net/deploying-models-with-azure-ml-pipelines/)

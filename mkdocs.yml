@@ -73,33 +73,33 @@ nav:
   - Accueil: index.md
   - Deep Learning:
     - Introduction au deep learning, prise en main de Tensorflow et Keras:
-      - Théorie: module1/Module1.md
-      - Pratique: module1/tp1.md
+      - Théorie: deep_learning/module1/Module1.md
+      - Pratique: deep_learning/module1/tp1.md
     - Les réseaux de neurones convolutifs:
-      - Théorie: module2/Module2.md
-      - Annexe: module2/module2_annexe.md
-      - Pratique: module2/tp2.md
+      - Théorie: deep_learning/module2/Module2.md
+      - Annexe: deep_learning/module2/module2_annexe.md
+      - Pratique: deep_learning/module2/tp2.md
     - Preprocessing des données avec l'API tf.data:
-      - Pratique: module3/Module3.ipynb
+      - Pratique: deep_learning/module3/Module3.ipynb
     - Optimisation et régularisation des réseaux de neurones:
-      - Théorie: module4/Module4.md
-      - Pratique: module4/Module4_2.ipynb
+      - Théorie: deep_learning/module4/Module4.md
+      - Pratique: deep_learning/module4/Module4_2.ipynb
     - Personnaliser son réseau de neurones:
-      - Théorie: module5/Module5.md
-      - Pratique: module5/Module5_2.ipynb
+      - Théorie: deep_learning/module5/Module5.md
+      - Pratique: deep_learning/module5/Module5_2.ipynb
     - La segmentation d'images:
-      - Théorie: module6/module6.md
-      - Pratique: module6/Module6_2.ipynb
+      - Théorie: deep_learning/module6/module6.md
+      - Pratique: deep_learning/module6/Module6_2.ipynb
     - Les modèles générateurs:
       #- Théorie: module7/module7.md
-      - Pratique: module7/Module7_2.ipynb
+      - Pratique: deep_learning/module7/Module7_2.ipynb
     - Déployer son réseau de neurones sur de l'embarqué:
-      - Théorie: module9/module9.md
-      - Pratique, l'élagage: module9/tp9_elaguage.md
-      - Pratique, TFLite: module9/tp9_tflite.md
-      - Pratique, TFTRT: module9/Module9_TFTRT.ipynb
-      - Annexe, RepVGG: module9/fusion.ipynb
-      - Les BNN: module9/bnn.md
+      - Théorie: deep_learning/module9/module9.md
+      - Pratique, l'élagage: deep_learning/module9/tp9_elaguage.md
+      - Pratique, TFLite: deep_learning/module9/tp9_tflite.md
+      - Pratique, TFTRT: deep_learning/module9/Module9_TFTRT.ipynb
+      - Annexe, RepVGG: deep_learning/module9/fusion.ipynb
+      - Les BNN: deep_learning/module9/bnn.md
     - Algèbre tensorielle:
       - Les tenseurs: algebra/algebra.md
       - L'attention: algebra/attn.md
