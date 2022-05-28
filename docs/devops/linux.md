@@ -1,6 +1,6 @@
 # Just enough Linux to shine in society
 
-Quasiment tous les outils utilisés pour DevOps ont d'abord été développés pour Linux puis porté sur Windows, souvent avec un lag important :
+Quasiment tous les outils utilisés pour le DevOps ont d'abord été développés pour Linux puis portéssur Windows, souvent avec un décalage important :
 
 * Docker Linux : 2013,
 * Docker for Windows : 2016.
@@ -14,9 +14,17 @@ Quasiment tous les outils utilisés pour DevOps ont d'abord été développés p
 
 ### `/home/` sweet `/home/`
 
-Dès que l'on lance un terminal Linux, le premier répertoire dans lequel on se trouvera sera le répertoire principal, si vous avez comme nom d'utilisateur `vorphus`, votre terminal sera directement ouvert au répertoire `/home/vorphus`. Le répertoire `/home/user` est unique à chaque utilisateur.
+Dès que l'on lance un terminal Linux, le premier répertoire dans lequel vous vous trouverez sera **le répertoire principal**.
+
+Si vous avez comme nom d'utilisateur `vorphus`, votre terminal sera directement ouvert au répertoire `/home/vorphus`.
+
+De façon générique, l'utilisateur se nomme `user` dans les docs. Pour voir le nom d'utilisateur, on peut soit taper la commande `whoami` dans le terminal, soit savoir que le nom d'utilisateur est stocké dans la variable d'environnement `USER`, on peut alors taper `echo $USER` pour afficher son contenu.
+
+Le répertoire `/home/$USER` est unique à chaque utilisateur.
 
 On peut taper la commande `pwd` dans le terminal pour voir dans quel répertoire l'on se trouve.
+
+### Commandes basiques
 
 On a deux types de commandes dans le Shell :
 
@@ -33,7 +41,6 @@ mv is /usr/bin/mv
 echo is a shell builtin
 ```
 
-### Commandes basiques
 
 |             Commande              |                 Résultat                 |
 | :-------------------------------: | :--------------------------------------: |
@@ -46,9 +53,9 @@ echo is a shell builtin
 |               `pwd`               |   print the present working directory    |
 |          `cat file.txt`           |      show the content of `file.txt`      |
 
-Des commandes succéssives peuvent être lancées avec le point virgule.
+Des commandes successives peuvent être lancées avec le point virgule.
 
-```sh title="Commandes succéssives"
+```sh title="Commandes successives"
 cd new_dir; mkdir www; pwd
 ```
 
@@ -63,9 +70,9 @@ mkdir /tmp/europe
 mkdir /tmp/europe/france
 mkdir /tmp/europe/france/lille
 ```
-peuvent se simplifier en une seule ligne via l'argument `-p` permettant de créer de façon récurrente les parents. On a ainsi la commande suivante.
+peuvent se simplifier en une seule ligne via l'argument `-p` permettant de créer de façon récurrente les répertoires parents. On a ainsi la commande suivante.
 
-```sh title="Commande simplifée, création directe de dossiers parents"
+```sh title="Commande simplifée, création directe des dossiers parents"
 mkdir -p /tmp/europe/france/lille
 ```
 
@@ -79,7 +86,7 @@ rm -r /tmp/europe/france/lille
 cp -r my_dir1 /tmp/my_dir1
 ```
 
-* `tree /home/vorph/test_dir`
+La commande `tree /home/vorph/test_dir` permet de voir toute l'arborescence de `test_dir`, ie l'ensemble des fichiers et dossiers, sous la forme d'un arbre.
 
 
 ### Chemins absolus et relatifs
@@ -93,6 +100,8 @@ cp -r my_dir1 /tmp/my_dir1
 La commande `pushd` permet de mettre en cache l'adresse du répertoire où l'on se trouve actuellement avant de changer de répertoire. On peut alors y revenir avec `popd`.
 
 Si l'on est dans `/home/vorph`, `pushd /etc` nous amène au répertoire `/etc`, tout en mettant `/home/vorph` en haut de la pile des répertoires.
+
+La commande `popd` nous permet alors de revenir au répertoire en haut de la pile, eg ici `/home/vorph`.
 
 ### Obtenir de l'aide sur les commandes
 
@@ -163,7 +172,11 @@ options courtes.
 
 ### Shell types
 
-Il existe différents types de Shell :
+!!! info "Définition"
+
+    En informatique, le terme **shell** désigne un logiciel fournissant une interface à l'utilisateur pour des composantes d'un ensemble informatique plus grand. Bien qu'il puisse aussi désigner une interface graphique, **shell est plus généralement employé pour désigner un interpréteur de lignes de commandes pouvant accéder aux services et interagir avec le noyau d'un système d'exploitation**. Dans le cas d'Ubuntu, un shell interagit avec le noyau Linux. [Source](https://doc.ubuntu-fr.org/shell)
+
+Il existe différents types de shell :
 
 * Bourne Shell (Sh Shell)
 * C Shell (csh ou tcsh)
@@ -171,22 +184,133 @@ Il existe différents types de Shell :
 * Z Shell (zsh)
 * Bourne again Shell (bash)
 
-On se concentre sur Bash.
+Si l'ensemble des shells cités au dessus ont une base de commandes communes (`cp`, `cd`, `mv`, `ls`, etc.), il existe des commandes ou des synthaxes spécifiques à chacun, comme on le verra avec le **shebang** dans [les scripts shell](shell.md). On se concentre ici sur le plus utilisé, Bash.
 
 !!! info "Info"
 
     Pour voir quel shell est utilisé dans un terminal : `echo $SHELL`.
 
-* `alias dt=date`
-* `history`
-* `env`
-* `export`
+La commande `alias` permet de créer des raccourcis permettant d'appeler d'autres commandes. Par exemple, pour renommer la commande `date` en `dt`, on utilise`alias dt=date`.
+
+La commande `history` permet elle d'avoir un historique des commandes déjà tapées dans le terminal. Commande fort utile pour se rappeler de la synthaxe de certaine commandes, à utiliser en conjonction avec `grep`.
+
+### Les variables d'environnement
+
+!!! info "Définition"
+
+    Une **variable d'environnement** est une valeur dynamique, chargée en mémoire, pouvant être utilisée par plusieurs processus fonctionnant simultanément. Sur la plupart des systèmes d'exploitation, les emplacement de certaines librairies, voire des principaux exécutables du système peuvent avoir un emplacement différent selon l'installation.
+
+    Ainsi, grâce aux variables d'environnement, il est possible, à partir d'un programme, de faire référence à un emplacement en s'appuyant sur les variables d'environnement définissant ces données. [Source](https://web.maths.unsw.edu.au/~lafaye/CCM/systemes/variables-environnement.htm)
+
+Beaucoup de softwares, par exemple lorsque l'on déploie des conteneurs, on besoin de variables d'environnement pour fonctionner. On peut citer par exemple :
+
+* L'adresse d'une DB,
+* Le mot de passe d'une DB,
+* Un port réseau;
+* etc.
+
+La commande `env` permet de lister l'ensemble des variables d'environnement définies dans votre shell. Lorsque l'on tape cette commande, on peut par exemple avoir les résultats suivants.
+
+```shell
+NAME=Laptop3080
+HOME=/home/vorph
+USER=vorph
+LOGNAME=vorph
+SHELL=/usr/bin/zsh
+WSL_DISTRO_NAME=Ubuntu-20.04
+SHLVL=1
+PWD=/home/vorph/work/perso/formation-Deep-MLOps
+```
+
+Une variable d'environnement est par convention toujours définie en majuscule.
+
+Pour en défnir une, rien de plus simple, il suffit de la définir dans le terminal, on peut alors y accéder pour la voir par exemple en tapant la commande `echo` suivant de la variable.
+
+!!! example "Exemple"
+
+    ```shell
+    ❯ MON_NOM=mathieu
+
+    ❯ echo $MON_NOM
+    mathieu
+    ```
+
+#### `export`
+
+**En fait, non.** Ce que nous avons créer là est [une variable de shell](https://doc.ubuntu-fr.org/variables_d_environnement#assigner_des_valeurs_aux_variables_d_environnement), ce qui veut dire qu'elle ne sera valable que dans le shell dans lequel vous travailler. Pour **vraiment** définir une variable d'environnement, il faut utiliser la commande `export`.
+
+
+```shell title="Différence entre variable de shell et d'environnemnt, en passant de zsh à bash"
+❯ MON_NOM=mathieu
+❯ echo $MON_NOM
+mathieu
+❯ bash
+(base) vorph@Laptop3080:~/work/perso/formation-Deep-MLOps$ echo $MON_NOM
+
+(base) vorph@Laptop3080:~/work/perso/formation-Deep-MLOps$ zsh
+❯ export MON_NOM=mathieu
+❯ bash
+(base) vorph@Laptop3080:~/work/perso/formation-Deep-MLOps$ echo $MON_NOM
+mathieu
+```
+
+Définir une variable de shell en simplement spécifiant son nom dans `zsh` ne la fera pas persister dans `bash`, alors que définir une variable d'environnement via la commande `export` la fera persister peut importe le shell que vous utiliser.
+
+!!! question "Question"
+
+    Y a-t-il une différence de lieu de stockage de stockage entre les variables de shell et les variables d'environnement ?
+
+
+!!! attention "Attention"
+
+    Les variables d'environnement définies par vos soins ne persisteront que jusqu'à ce que vous fermiez le terminal dans lequel vous les avez défini.
 
 Pour que les variables d'environnement persistent, il faut les rentrer dans `~/.profile` ou `~/.pam_environment`.
 
-* `which`
-* `export PATH=$PATH:/opt/....`
+#### La variable `PATH`
 
+Une variable d'environnement particulières est la variable `PATH`.
+
+!!! info "Définition"
+
+    La variable d'environnement PATH gouverne les chemins d'exécution des logiciels ubuntu. Cette variable PATH permet d'installer et d’utiliser en local un logiciel sans avoir fait appel à l'administration système. [Source](https://doc.ubuntu-fr.org/personnaliser_path)
+
+
+Ainsi, lorsque vous tapez par exemple la commande `python`, pour avoir accès à un terminal python, le fichier binaire éxecuté se trouve dans une adresse déterminée dans l'ensemble des chemins définies dans la variable `PATH`.
+
+Pour avoir accès à l'ensemble des chemins définis dans `PATH`, on fait comme précédemment.
+
+```shell
+❯ echo $PATH
+/home/vorph/.cargo/bin:/home/vorph/miniconda3/bin:/home/vorph/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/mathieu/AppData/Local/Microsoft/WindowsApps:/mnt/c/Programmes_tiers/MicrosoftVSCode/bin:/mnt/c/Users/mathieu/AppData/Local/GitHubDesktop/bin
+```
+Chaque chemin est délimité par un double point `:`, ainsi `/home/vorph/.cargo/bin:/home/vorph/miniconda3/bin:/home/vorph/miniconda3/condabin` constituent 3 chemins différents :
+
+* `/home/vorph/.cargo/bin`,
+* `/home/vorph/miniconda3/bin`,
+* `/home/vorph/miniconda3/condabin`.
+
+##### `which`
+
+Simplement taper `echo $PATH` ne renseigne pas beaucoup, tant il y a de chemins. Pour voir le chemin d'un logiciel spécifique on peut utiliser la commande `which`.
+
+``` title="Le chemin vers python"
+❯ which python
+/home/vorph/miniconda3/bin/python
+```
+
+Si l'on regarde attentivement le résultat de la commande `echo $PATH`, on verra que l'on ne voit pas le chemin vers `/home/vorph/miniconda3/bin/python`, en revanche on a bien le chemin vers `/home/vorph/miniconda3/bin`. **Les chemins répertoriés dans la variables PATH sont les chemins racines vers d'autres logiciels**.
+
+##### `export PATH`
+
+Pour ajouter un chemin à la variable `PATH`, on utilise la commande `export PATHH=$PATH:chemin`.
+
+Par exemple, si notre logiciel se trouve dans `/opt/...` on tape la commande suivante.
+
+```shell
+export PATH=$PATH:/opt/....
+```
+<!--
 Pour customiser le bash prompt, il faut modifier la variable d'environnement `PS1`.
 
 Update Bob's prompt so that it displays the date as per the format below:
@@ -194,13 +318,13 @@ Update Bob's prompt so that it displays the date as per the format below:
 Example: [Wed Apr 22]bob@caleston-lp10:~$
 Make sure the change is made persistent.
 
-Run `PS1='[\d]\u@\h:\w$'` and add this to the `~/.profile` file `echo 'PS1="[\d]\u@\h:\w$"' >> ~/.profile`.
+Run `PS1='[\d]\u@\h:\w$'` and add this to the `~/.profile` file `echo 'PS1="[\d]\u@\h:\w$"' >> ~/.profile`. -->
 
 ## Linux Core concepts
 
 ### Le noyau Linux
 
-Le noyau Linux (Linux kernel) est la composante principale du système d'exploitation, le noyau fait l'interface princiaple entre la partie hardware et software
+Le noyau Linux (Linux kernel) est la composante principale du système d'exploitation, le noyau fait l'interface principale entre la partie hardware et software.
 
 ``` mermaid
 graph LR
@@ -227,13 +351,32 @@ graph LR
 Le noyau Linux est responsable des 4 tâches principales suivantes :
 
 * gestion de la mémoire,
-* gestion des processus, quel processus peut utiliser le CPU/GPU, comment, quand, et pour combien de temps,
+* gestion des processus : quel processus peut utiliser le CPU/GPU, comment, quand, et pour combien de temps,
 * drivers des périphériques,
 * sécurité et gestion des appels systèmes.
 
 **Le noyau Linux est monolithique**, ces tâches sont faites par lui même et non déléguées.
 
 **Le noyau Linux est aussi modulaire**, ces compétences peuvent être étendues par l'ajout de modules.
+
+!!! info "Info"
+
+    Pour l'exemple, des kernels qui ne sont pas monolithiques sont les suivants :
+
+    * QNX,
+    * Symbian,
+    * L4Linux,
+    * Singularity,
+    * K42,
+    * Mac OS X,
+    * Integrity,
+    * PikeOS,
+    * HURD,
+    * Minix,
+    * Coyotos.
+
+    [Source : Yanice Karaouzene](https://www.linkedin.com/in/yanice-karaouzene-238929159/)
+
 
 #### Version du noyau
 
@@ -259,17 +402,38 @@ Linux vorph-maison 5.13.0-40-generic #45~20.04.1-Ubuntu SMP Mon Apr 4 09:38:31 U
 * 40 = patch release,
 * generic = information spécifique à la distribution.
 
+Pour avoir toutes les informations sur la version de l'OS qui est utilisée, on peut aller voir dans le répertoire `/etc`. A l'intérieur devrait se trouver un fichier nommé `os-release`. On peut trouver ce fichier via `ls /etc/*release*`.
+
+```sh
+❯ ls /etc/*release*
+/etc/lsb-release   /etc/os-release
+
+❯ cat /etc/os-release
+NAME="Ubuntu"
+VERSION="20.04.4 LTS (Focal Fossa)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 20.04.4 LTS"
+VERSION_ID="20.04"
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+VERSION_CODENAME=focal
+UBUNTU_CODENAME=focal
+```
+
 Pour plus d'informations, aller voir sur [kernel.org](https://kernel.org) qui recense le code source de toutes les versions du noyau Linux disponibles.
 
 ### Espace kernel et espace utilisateur
 
 Voyons maintenant comment la mémoire est gérée dans un OS Linux.
 
-La mémoire est divisée est deux espaces séparés, l'espace kernel et l'espace utilisateur.
+La mémoire est divisée en deux espaces séparés, l'espace kernel et l'espace utilisateur.
 
-L'espace kernel est la partie de la mémoire dans laquelle le noyau provisionne et éxecute ses services, un processus tournant dans l'espace noyau à un accès illimité au hardware.
+L'espace kernel est la partie de la mémoire dans laquelle le noyau provisionne et éxecute ses services, un processus tournant dans l'espace kernel à un accès illimité au hardware.
 
-Tous les processus tournant hors de l'espace noyau tournent dans l'esapce utilisateur, qui a un accès restreint au CPU/GPU et à la mémoire.
+Tous les processus tournant hors de l'espace kernel tournent dans l'espace utilisateur, qui a un accès restreint au CPU/GPU et à la mémoire.
 
 
 ``` mermaid
@@ -286,13 +450,13 @@ graph LR
   end
 ```
 
-kernel space :
+L'espace kernel contient :
 
 * kernel code,
 * kernel extensions,
 * devices drivers.
 
-User space :
+L'espace utilisateur lui contient entre autre les programmes codés dans le languages suivants :
 
 * C,
 * Java,
@@ -301,15 +465,14 @@ User space :
 * Docker containers,
 * etc.
 
-
-Lorsqu'une application dans l'esapce utilisateur tourne et qu'elle a besoin d'accéder au hardware pour par exemple :
+Lorsqu'une application dans l'espace utilisateur tourne et qu'elle a besoin d'accéder au hardware pour par exemple :
 
 * ouvrir un fichier,
 * écrire dans un fichier,
 * définir une variable,
 * etc,
 
-l'esapce utilisateur produit un "system call" à l'espace kernel qui lui fournit les ressources nécessaires via les drivers.
+l'espace utilisateur produit un "**system call**" à l'espace kernel qui lui fournit les ressources nécessaires via les drivers.
 
 ``` mermaid
 graph LR
@@ -332,11 +495,11 @@ graph LR
 
 Comment Linux identifie le hardware dans son OS.
 
-Prenons l'exemple d'une clé usb branchés sur un pc avec un OS Linux.
+Prenons l'exemple d'une clé usb branchée sur un pc avec un OS Linux.
 
-1. Dès que la clé usb est branchée, le driver correspondant dans le kernel space détecte un changement d'état et génère un évènementt, appelé `uevent`.
-2. Cet évènement est envoyé au "user space device manager daemon", appelé `udev`.
-3. `udev` crée alors de façon dynamique un noeud de device correspondant à la clé usb se trouvant dans le système de fichier `/dev` et lui assigne le nom `sdb1`.
+1. Dès que la clé usb est branchée, le driver correspondant dans l'espace kernel détecte un changement d'état et génère un évènement, appelé `uevent`.
+2. Cet évènement est envoyé au "**user space device manager daemon**", appelé `udev`.
+3. `udev` crée alors de façon dynamique un noeud de device correspondant à la clé usb se trouvant dans le système de fichier `/dev` et lui assigne le nom `sdb1` (par exemple).
 4. Une fois ces étapes faites, la clé usb et son contenu seront listés comme `/dev/sdb1`.
 
 !!! atention "Attention"
@@ -371,7 +534,7 @@ graph LR
 
 Comment avoir des infos sur les composants hardware ?
 
-* `dmesg` (pour l'anglais "display message") est une commande sur les systèmes d'exploitation de type Unix qui affiche la mémoire tampon de message du noyau. Quand un système Linux boot, il y a de nombreux messages qui peuvent ou non s'afficher (suivant votre OS), ces messages contiennent des logs du hardware
+* `dmesg` (pour l'anglais "display message") est une commande sur les systèmes d'exploitation de type Unix qui affiche la mémoire tampon des messages du noyau. Quand un système Linux boot, il y a de nombreux messages qui peuvent ou non s'afficher (suivant votre OS), ces messages contiennent des logs du hardware
 
 * `udevadm info` requète la db de `udev` pour des infos concernant les périphériques.
 
@@ -470,11 +633,11 @@ Comment avoir des infos sur les composants hardware ?
 
 ## Vi
 
-Installé par défaut dans la plupart des distributions Linux.
+Vi est un éditeur de texte minimaliste installé par défaut dans la plupart des distributions Linux.
 
-Deux modes :
+Il possède deux modes :
 
-* **mode commande** : copier coller suppression, mais pas d'écriture possible,
+* **mode commande** : copier, coller, suppression, mais pas d'écriture possible,
 * **mode insertion** : nécessaire pour écrire du contenu dans un fichier.
 
 !!! info "Info"
@@ -516,26 +679,7 @@ sudo apt install vim
 * `wget http://www.url.com/some-file.txt -O some-file.txt`
 * `curl http://www.url.com/some-file.txt -O`
 
-* `ls /etc/*release*` : check OS version
 
-```sh
-❯ ls /etc/*release*
-/etc/lsb-release   /etc/os-release
-
-❯ cat /etc/os-release
-NAME="Ubuntu"
-VERSION="20.04.4 LTS (Focal Fossa)"
-ID=ubuntu
-ID_LIKE=debian
-PRETTY_NAME="Ubuntu 20.04.4 LTS"
-VERSION_ID="20.04"
-HOME_URL="https://www.ubuntu.com/"
-SUPPORT_URL="https://help.ubuntu.com/"
-BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
-PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
-VERSION_CODENAME=focal
-UBUNTU_CODENAME=focal
-```
 
 ## Package Management
 
@@ -667,7 +811,7 @@ server: uvicorn
 ```
 !!! info "Remarque"
 
-    Le fais d'utiliser un chemin absolu `/home/vorph/miniconda3/envs/api/bin/python` pour lancer python est important et sera utilisé par la suite, pour connaitre le chemin complet de votre executable python, vous pouvez utiliser la commande suivante dans un terminal.
+    Le fais d'utiliser un chemin absolu `/home/vorph/miniconda3/envs/api/bin/python` pour lancer python est important et sera utilisé par la suite, pour connaître le chemin complet de votre éxecutable python, vous pouvez utiliser la commande suivante dans un terminal.
 
 
     ```
@@ -712,11 +856,13 @@ server: uvicorn
 
 L'idée de la configurer comme un service est que l'on pourra alors utiliser `systemctl` pour la lancer et l'arrêter via les commandes `systemctl start my_app` et `systemctl stop my_app`.
 
-De cette façon l'administrateur du serveur n'a pas besoin de se soucier du chemin où se trouve l'API, ou même du langage dans lequel est codée cette API, il sait que c'est un service qu'il peut lancer et stopper à sa guise. Il sera même possible de la lancer de façon automatique de début de chaque démarrage du serveur, ou de la relancer si le serveur crash.
+De cette façon l'administrateur du serveur n'a pas besoin de se soucier du chemin où se trouve l'API, ou même du langage dans lequel est codée cette API, il sait que c'est un service qu'il peut lancer et stopper à sa guise.
 
-Pour pouvoir lancer un script python comme un service, par exemple avec les commande `systemctl start my_app`, `systemctl stop my_app`, `my_app` faisant référence au nom que l'on souhaite assigner au service, pour faire simple on le nommera de la même façon que le script python dont il est issu.
+Il sera même possible de la lancer de façon automatique au début de chaque démarrage du serveur, ou de la relancer si le serveur crash.
 
-On doit alors configurer ce script comme un service `systemd` en définissant un "*systemd unit file*" dans `/etc/systemd/system`. On définit le fichier systemd suivant.
+Pour pouvoir lancer un script python comme un service, par exemple avec les commande `systemctl start my_app`, `systemctl stop my_app`, `my_app` faisant référence au nom que l'on souhaite assigner au service, **on doit alors configurer ce script comme un service** `systemd` en définissant un "**systemd unit file**" dans `/etc/systemd/system`.
+
+On définit le fichier systemd suivant.
 
 ```toml title="/etc/systemd/system/my_app.serivce"
 --8<-- "./includes/my_app.service"
@@ -726,7 +872,7 @@ Une fois le fichier créé dans `/etc/systemd/system`, il est nécessaire de red
 
 `systemctl daemon-reload`
 
-Seulement de cette façon le nouveau service configuré sera pris en compte dans `/etc/systemd/system`, il suffit alors de le nouveau service lancer via `systemctl start my_app` pour qu'il démarre. On peut alors vérifier qu'il fonctionne en faisant la réquête suivante.
+Seulement de cette façon le nouveau service configuré sera pris en compte dans `/etc/systemd/system`, il suffit alors de lancer le nouveau service lancer via `systemctl start my_app` pour qu'il démarre. On peut alors vérifier qu'il fonctionne en faisant la réquête suivante.
 
 ```shell
 ❯ curl http://127.0.0.1:8001/hello/
@@ -765,7 +911,9 @@ mai 04 14:23:44 vorph-maison python[134781]: INFO:     127.0.0.1:55460 - "GET /h
 
 Pour la stopper, il suffit de lancer `systemctl stop my_app`.
 
-Comment configurer le service pour qu'il se lance automatiquement au démarrage du serveur ? C'est la partie `[Install]` du fichier `my_app.service` qui le définit. La partie `WantedBy=multi-user.target` désigne que se service doit être lancé dès le démarrage. Pour que ce paramètre soit pris en compte, il est alors nécessaire de lancer la commande suivante.
+Comment configurer le service pour qu'il se lance automatiquement au démarrage du serveur ?
+
+C'est la partie `[Install]` du fichier `my_app.service` qui le définit. La partie `WantedBy=multi-user.target` désigne que se service doit être lancé dès le démarrage. Pour que ce paramètre soit pris en compte, il est alors nécessaire de lancer la commande suivante.
 
 `systemctl enable my_app`
 
@@ -781,7 +929,7 @@ Approfondir :
 
 ### Placer votre code dans `/opt/`
 
-Dans la plupart des systèmes d'exploitations Linux, il existe un répertoire nommé `/opt/`. Ici `/opt/` peut se comprendre comme "option" ou "optionnal", pour citer la réponse StackOverflow de [What does "opt" mean (as in the "opt" directory)? Is it an abbreviation?](https://stackoverflow.com/questions/12649355/what-does-opt-mean-as-in-the-opt-directory-is-it-an-abbreviation) :
+Dans la plupart des systèmes d'exploitations Linux, il existe un répertoire nommé `/opt`. Ici `/opt` peut se comprendre comme "option" ou "optionnal", pour citer la réponse StackOverflow de [What does "opt" mean (as in the "opt" directory)? Is it an abbreviation?](https://stackoverflow.com/questions/12649355/what-does-opt-mean-as-in-the-opt-directory-is-it-an-abbreviation) :
 
 !!! quote
 
@@ -803,8 +951,8 @@ Dans la plupart des systèmes d'exploitations Linux, il existe un répertoire no
 En d'autres termes :
 
 * Si votre programme est programmé dans un langage compilé, par exemple le C++ ou le Rust, et que vous le compilez, alors vous devriez le placer dans `/usr/local/*`.
-* Votre application est un binaire unique, alors vous le copierez dans /usr/local.
-* Vous voulez utiliser une alternative d'un programme système existant construit à partir des sources en utilisant `make`. Dans ce cas, vous l'installerez dans /usr/local.
+* Votre application est un binaire unique, alors vous le copierez dans `/usr/local`.
+* Vous voulez utiliser une alternative d'un programme système existant construit à partir des sources en utilisant `make`. Dans ce cas, vous l'installerez dans `/usr/local`.
 * Si vous déployez une application, et que par design, tous ses fichiers sont dans le même répertoire, alors on la déploiera dans un répertoire `/opt/my_app/`.
 
 Cela ne reste que des conventions, mais elles sont largement utilisées et cela évite de se poser trop de questions sur où est tel application.
