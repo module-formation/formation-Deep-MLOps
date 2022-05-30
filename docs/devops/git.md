@@ -6,7 +6,7 @@
 
 Git est un système de contrôle de version distribué et open source qui permet aux développeurs et aux équipes d'exploitation de collaborer et de suivre les modifications apportées à un projet.
 
-En tant qu'outil DevOps, GIT favorise la collaboration et l'accélération des cycles de publication. Toute personne désireuse de démarrer sa carrière DevOps ou de passer à un niveau supérieur doit commencer par les bases, et GIT est l'exigence la plus fondamentale de toutes.
+En tant qu'outil DevOps, Git favorise la collaboration et l'accélération des cycles de publication. Toute personne désireuse de démarrer sa carrière DevOps ou de passer à un niveau supérieur doit commencer par les bases, et Git est l'exigence la plus fondamentale de toutes.
 
 Bon nombre des projets open source les plus populaires aujourd'hui sont développés sur Github - Kubernetes, Ansible, TensorFlow, Rust, Node.js, Go, Terraform, Helm Charts étant quelques-uns des plus importants parmi les 100 millions de dépôts.
 
@@ -15,16 +15,16 @@ Bon nombre des projets open source les plus populaires aujourd'hui sont dévelop
 
 Git a 2 type de repos :
 
-* Le repo local, qui se trouve sur votre machine, et auquel vous avez un accès direct,
-* Le repo distant, qui se trouve généralement sur un serveur centralisé, et qui est optionnel.
+* **Le repo local**, qui se trouve sur votre machine, et auquel vous avez un accès direct,
+* **Le repo distant**, qui se trouve généralement sur un serveur centralisé, et qui est optionnel.
 
 Le repo distant est pensé comme un back-up de votre repo local.
 
 Le repo local est divisé en 3 sections.
 
-1. La zone de travail où sont les fichiers sur lesquels vous travaillez, git ne fait rien avec ces fichiers, il sait juste que ces fichiers sont en train d'être modifiés.
-2. La zone de transit (staging area), contient les nouveaux changements qui seront bientôt versionnés.
-3. Les fichiers versionnés (committed files).
+1. **La zone de travail** où sont les fichiers sur lesquels vous travaillez, git ne fait rien avec ces fichiers, il sait juste que ces fichiers sont en train d'être modifiés.
+2. **La zone de transit (staging area)**, contient les nouveaux changements qui seront bientôt versionnés.
+3. **Les fichiers versionnés** (committed files).
 
 ## Installer git sur ubuntu
 
@@ -87,18 +87,113 @@ sequenceDiagram
     deactivate "Staging Area"
 ```
 
-Le `-m` dans `git commit -m "commit story.txt"` et l'argument pour ajouter un message au commit.
+Le `-m` dans `git commit -m "commit story.txt"` est l'argument pour ajouter un message au commit.
+
+## Revenir en arrière
+
+Il est possible, lorsque l'on code, de vouloir revenir en arrière, soit parce que ce que l'on a écrit ne veut rien dire, ou alors parce que l'on a fait une erreur, ou autre.
+
+Pour revenir en arrière il est possible d'utiliser la commande [`git restore`](https://git-scm.com/docs/git-restore).
+
+Il est possible de restaurer à deux moments :
+
+* soit en zone de travail,
+* soit en zone de transit.
+
+### Préliminaires
+
+Définissons un répertoire suivi par git avec au moins un fichier dedans.
+
+```shell
+❯ mkdir helloworld-git
+❯ cd helloworld-git
+❯ git init
+Initialized empty Git repository in /home/vorph/work/perso/helloworld-git/.git/
+❯ touch poeme.txt
+❯ git add .
+❯ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   poeme.txt
+
+❯ git commit -m "feat: ajout poeme.txt"
+[master (root-commit) 34ac1ba] feat: ajout poeme.txt
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 poeme.txt
+```
+
+!!! info "Question"
+
+    Pourquoi au moins un fichier dedans ? Tout simplement par ce que git **ne peut pas supprimer des fichiers** d'un répertoire, la seule chose qu'il puisse faire est restaurer des fichiers à un état précedent, pourvu que ce fichier existe à l'état précédent.
+
+Maintenant que l'on a un dossier suivi, voyons comment l'on peut restaurer.
+
+#### En zone de travail
+
+Ecrivons un poême.
+
+```
+❯ echo "c'est un très joli poême n'est-ce pas ?">> poeme.txt
+❯ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   poeme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+Lorsque l'on tape la commande `git status`, on peut voir alors la phrase `(use "git restore <file>..." to discard changes in working directory)`.
+
+Lorsque les fichiers modifiés sont encore en zone de travail, il est alors possible d'utiliser la commande `git restore nom_du_fichier` pour **annuler toutes les modifications faites à ce fichier depuis le dernier commit**.
+
+```shell
+❯ cat poeme.txt
+c'est un très joli poême n'est-ca pas ?
+❯ git restore poeme.txt
+❯ cat poeme.txt
+❯
+```
+
+❯ echo "c'est un très joli poême n'est-ca pas ? C'est le premier commit">> poeme.txt
+❯ git add .
+❯ git commit -m "feat: ajout du prmier commit"
+[master eff1c35] feat: ajout du prmier commit
+ 1 file changed, 1 insertion(+)
+❯ echo "c'est un très joli poême n'est-ca pas ? C'est le deuxième commit">> poeme.txt
+❯ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   poeme.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+❯ git restore poeme.txt
+❯ cat poeme.txt
+c'est un très joli poême n'est-ca pas ? C'est le premier commit
+
 
 * `git restore`
 * `git rm --cached`
+
+## Ignorer
+
+
 * `.gitignore`
+
+## Les logs
 
 Pour voir l'ensemble des commits d'un repo git, vous pouvez taper la commande suivante.
 
 ```shell
 git log
 ```
-
 
 ```shell
 git log
