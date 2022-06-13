@@ -104,7 +104,7 @@ Il est possible de restaurer à deux moments :
 
 Définissons un répertoire suivi par git avec au moins un fichier dedans.
 
-```shell
+```shell title="Initialisation"
 ❯ mkdir helloworld-git
 ❯ cd helloworld-git
 ❯ git init
@@ -130,14 +130,14 @@ Changes to be committed:
 
     Pourquoi au moins un fichier dedans ? Tout simplement par ce que git **ne peut pas supprimer des fichiers** d'un répertoire, la seule chose qu'il puisse faire est restaurer des fichiers à un état précedent, pourvu que ce fichier existe à l'état précédent.
 
-Maintenant que l'on a un dossier suivi, voyons comment l'on peut restaurer.
+Maintenant que l'on a un dossier suivi, voyons comment et ce que l'on peut restaurer.
 
-#### En zone de travail
+### En zone de travail
 
-Ecrivons un poême.
+Ecrivons un poème.
 
-```
-❯ echo "c'est un très joli poême n'est-ce pas ?">> poeme.txt
+```shell
+❯ echo "c'est un très joli poème n'est-ce pas ?">> poeme.txt
 ❯ git status
 On branch master
 Changes not staged for commit:
@@ -150,22 +150,25 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 Lorsque l'on tape la commande `git status`, on peut voir alors la phrase `(use "git restore <file>..." to discard changes in working directory)`.
 
-Lorsque les fichiers modifiés sont encore en zone de travail, il est alors possible d'utiliser la commande `git restore nom_du_fichier` pour **annuler toutes les modifications faites à ce fichier depuis le dernier commit**.
+Lorsque les fichiers modifiés sont encore en zone de travail, il est alors possible d'utiliser la commande `git restore nom_du_fichier` pour **annuler toutes les modifications faites à ce fichier depuis le dernier commit** (ou git add ?).
 
-```shell
+```shell title="Usage du restore sans commit"
 ❯ cat poeme.txt
-c'est un très joli poême n'est-ca pas ?
+"c'est un très joli poème n'est-ca pas ?"
 ❯ git restore poeme.txt
 ❯ cat poeme.txt
 ❯
 ```
 
-❯ echo "c'est un très joli poême n'est-ca pas ? C'est le premier commit">> poeme.txt
+```shell title="S'il y a déjà un commit, restore nous y fait revenir"
+❯ echo "c'est un très joli poème n'est-ce pas ? C'est le premier ajout">> poeme.txt
 ❯ git add .
-❯ git commit -m "feat: ajout du prmier commit"
-[master eff1c35] feat: ajout du prmier commit
+❯ git commit -m "feat: ajout du premier commit"
+[master eff1c35] feat: ajout du premier commit
  1 file changed, 1 insertion(+)
-❯ echo "c'est un très joli poême n'est-ca pas ? C'est le deuxième commit">> poeme.txt
+
+
+❯ echo "c'est un très joli poême n'est-ce pas ? C'est le deuxième ajout">> poeme.txt
 ❯ git status
 On branch master
 Changes not staged for commit:
@@ -174,18 +177,70 @@ Changes not staged for commit:
         modified:   poeme.txt
 
 no changes added to commit (use "git add" and/or "git commit -a")
+
 ❯ git restore poeme.txt
 ❯ cat poeme.txt
-c'est un très joli poême n'est-ca pas ? C'est le premier commit
+"c'est un très joli poème n'est-ce pas ? C'est le premier ajout"
+```
 
+### En zone de transit
 
-* `git restore`
+Si les modifications sont déjà en "staging area", prêtes à être versionnées. Il est encore possible de restaurer les fichiers mais en ajoutant cette fois ci l'argument `--staged`.
+
+```shell title="Premier ajout"
+❯ echo "c'est un très joli poème n'est-ce pas ? C'est le premier ajout">> poeme.txt
+❯ git add .
+❯ git commit -m "feat: ajout du premier commit"
+[master 791eea7] feat: ajout du premier commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+```shell title="Deuxième ajout"
+❯ echo "c'est un très joli poême n'est-ce pas ? C'est le deuxième ajout">> poeme.txt
+❯ git add .
+❯ git status
+Sur la branche master
+Modifications qui seront validées :
+  (utilisez "git restore --staged <fichier>..." pour désindexer)
+	modifié :         poeme.txt
+```
+
+```shell title="Retour en arrière vers la zone de travail"
+❯ git restore --staged poeme.txt
+❯ cat poeme.txt
+"c'est un très joli poème n'est-ce pas ? C'est le premier ajout"
+"c'est un très joli poême n'est-ce pas ? C'est le deuxième ajout"
+
+❯ git status
+Sur la branche master
+Modifications qui ne seront pas validées :
+  (utilisez "git add <fichier>..." pour mettre à jour ce qui sera validé)
+  (utilisez "git restore <fichier>..." pour annuler les modifications dans le répertoire de travail)
+	modifié :         poeme.txt
+
+aucune modification n'a été ajoutée à la validation (utilisez "git add" ou "git commit -a")
+```
+
+!!! attention "Attention"
+
+    Comme vous le voyez ici avec `cat poeme.txt`, la commande `git restore --staged poeme.txt` n'a pas supprimée la deuxième ligne de `poeme.txt`. La commande `git restore`, ne fait que restaurer l'état des fichiers avant la dernière commande git éxecutée. Ici dans notre cas, la dernière commande git éxecutée était `git add .`, on est donc revenu à l'état d'avant cette commande, ie :
+
+    * le fichier `poeme.txt` avait 2 lignes,
+    * il était prêt à être transféré en "staging area".
+
+    Pour supprimer la deuxième ligne, il faudrait alors de nouveau appliquer une commande `git restore`.
+
+    ```shell
+    ❯ git restore poeme.txt
+    ❯ cat poeme.txt
+    "c'est un très joli poème n'est-ce pas ? C'est le premier ajout"
+    ```
+
 * `git rm --cached`
 
 ## Ignorer
 
-
-* `.gitignore`
+Il est possible de forcer git à ignorer des fichiers ou des répertoires en les ajoutant au fichier `.gitignore`.
 
 ## Les logs
 
@@ -195,7 +250,7 @@ Pour voir l'ensemble des commits d'un repo git, vous pouvez taper la commande su
 git log
 ```
 
-```shell
+```shell title="Structure d'un log git"
 git log
 
 commit 83153b74fbedfde6c7bb6d6845ed56149829f86a (HEAD -> master)
@@ -207,17 +262,20 @@ Date:   Mon May 16 15:35:19 2022 +0200
 
 Un élément de log dans Git est constitué des éléments suivants :
 
-* le hash du commit, qui est un identifiant akphanumérique unique au commit,
+* le hash du commit, qui est un identifiant alphanumérique unique au commit,
 * l'auteur du commit,
 * la date du commit,
 * le texte écrit après l'argument `-m`.
 
-`git log --oneline` permet de voir l'ensemble des ce infos au format une seule ligne.
+`git log --oneline` permet de voir l'ensemble de ces infos au format une seule ligne.
 
-Les fichiers versionnés n'apparaissent pas lorsque l'on utilise la commande `git log`, pour les faire apparaître on peut utiliser la commande `git log --name-only`
+!!! info "Remarque"
+    Les fichiers versionnés n'apparaissent pas lorsque l'on utilise la commande `git log`.
+
+Pour les faire apparaître on peut utiliser la commande `git log --name-only`
 
 ```shell
-git log
+git log --name-only
 
 commit 83153b74fbedfde6c7bb6d6845ed56149829f86a (HEAD -> master)
 Author: vorph <klimczak.mathieu@pm.me>
@@ -228,25 +286,25 @@ Date:   Mon May 16 15:35:19 2022 +0200
 story.txt
 ```
 
-* `git log -n k` limite l'affichage des logs aux k derniers commits.
+Pour limiter l'affichage des logs aux k derniers commits, on utilise la commande `git log -n k`.
 
 ## Les branches Git
 
-Da façon basique, une branche est un pointeur vers un certain commit.
+De façon basique, une branche est un pointeur vers un certain commit.
 
-```shell title="Crée une branche nommé dev"
+```shell title="Crée une branche nommée dev"
 git branch dev
 ```
 
-```shell title="Switcher sur la branche nommé dev"
+```shell title="Switcher sur la branche nommée dev"
 git checkout dev
 ```
 
-```shell title="Crée une branche nommé dev et switch dessus directement"
+```shell title="Crée une branche nommée dev et switch dessus directement"
 git checkout -b dev
 ```
 
-```shell title="Supprime une branche nommé dev"
+```shell title="Supprime une branche nommée dev"
 git branch -d dev
 ```
 
@@ -263,7 +321,7 @@ gitGraph
   branch dev-mathieu
   checkout dev
   commit
-  commit
+  commit id:"3-e2cf2c8"
   checkout dev-mathieu
   commit
   commit
@@ -278,15 +336,15 @@ gitGraph
 
 Ce terme apparaît dans chaque commit que vous faites, par exemple dans l'exemple du dessus avec `git log`, on a `commit 83153b74fbedfde6c7bb6d6845ed56149829f86a (HEAD -> master)`.
 
-`HEAD` désigne votre position actuelle dans le graphe git. En prenant le graphe ce-dessus, si vous êtes positionné au dernier commit de la branche `dev`, alors `HEAD` sera `3-e2cf2c8`.
+`HEAD` désigne votre position actuelle dans le graphe git. En prenant le graphe ci-dessus, si vous êtes positionné au dernier commit de la branche `dev`, alors `HEAD` sera `3-e2cf2c8`.
 
-Poure voir sur quel commit est positionné `HEAD`, [vous pouvez taper la commande suivante](https://stackoverflow.com/questions/1967967/git-command-to-display-head-commit-id).
+Pour voir sur quel commit est positionné `HEAD`, [vous pouvez taper la commande suivante](https://stackoverflow.com/questions/1967967/git-command-to-display-head-commit-id).
 
 ```shell title="Montre le commit où est HEAD"
 git rev-parse HEAD
 ```
 
-`HEAD -> master` désigne donc la branche dans le repo sur laquelle vous faites un `git commit`. `HEAD` pointe toujours vers le dernier commit sur la branche actuellement extraite.
+`HEAD -> master` désigne donc la branche (ici `master`) dans le repo sur laquelle vous faites un `git commit`. `HEAD` pointe toujours vers le dernier commit sur la branche actuellement extraite.
 
 `git log --graph --decorate` permet d'avoir un graphe des différents commits, branch et merge de l'historique.
 
@@ -366,7 +424,7 @@ Un `fast-forward merge` se fait lorsque la branche vers laquelle on souhaite fus
       commit id:"3-9038f6c"
     ```
 
-Un `no-fast-forward merge` se fait lorsque la branche vers laquelle on souhaite fusionner a au moins un commits en dehors de ceux présents sur la branche à fusionner. Dans ce cas là, la fusion créera un nouveau commit (un merge commit) en fusionnant les commits des deux branches.
+Un `no-fast-forward merge` se fait lorsque la branche vers laquelle on souhaite fusionner a au moins un commit en dehors de ceux présents sur la branche à fusionner. Dans ce cas là, la fusion créera un nouveau commit (un merge commit) en fusionnant les commits des deux branches.
 
 !!! example "no-fast-forward merge de dev-mathieu vers dev"
 
@@ -483,7 +541,7 @@ To http://git.example.com/vorphus/story-blog.git
 
 Lorsque l'on travaille sur une branche distincte de la branche `main` et que l'on souhaite mettre à jour sa branche avec les modifications apportées sur la branche `main`, on a deux solutions.
 
-1. Faire un `merge` de la branche `main` vers la notre branche
+1. Faire un `merge` de la branche `main` vers notre branche.
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
@@ -512,7 +570,7 @@ gitGraph
   commit id:"3-9038f6c"
   merge main
 ```
-2. Utiliser la commande `rebase`
+2. Utiliser la commande `rebase`.
 
 ```mermaid
 %%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
@@ -539,7 +597,7 @@ gitGraph
   commit id:"2-6893bcf"
   commit id:"3-908526c"
 ```
-qui va modifier base de la `dev` pour la positionner au dernier commit de la branche `main`, et donc mettre à jour les fichiers, sans pour autant modifier la position de la branche `main`.
+La commande `rebase` va modifier la base de la branche `dev` pour la positionner au dernier commit de la branche `main`, et donc mettre à jour les fichiers, sans pour autant modifier la position de la branche `main`.
 
 Une différence principale est que lors d'un `merge`, les hash des commits ne changent pas. Lors d'un rebase, comme l'on copie les fichiers à une nouvelle place, cela compte comme une opération et les hash se mettent à jour.
 
@@ -557,7 +615,7 @@ Les commandes `git reset` et `git revert` sont toutes les deux des commandes per
 
 La commande `git revert` permet de supprimer toutes les modifications faites lors du commit désigné par son hash (généralement le commit précédent).
 
-En d'autres termes, si un fichier à était ajouté lors du commit précédent, appliquer `git revert` sur ce commit supprimera ce fichier.
+En d'autres termes, si un fichier à était ajouté lors du commit précédent, appliquer `git revert` sur ce commit supprimera ce fichier du graphe git.
 
 La commande `git revert` crée un nouveau commit, ce qui permet de suivre les modifications.
 
@@ -888,6 +946,7 @@ be87880 HEAD@{14}: commit: feat: add note.txt
 ❯ ls
  note.txt   note2.txt   story.txt
 ```
+
 * [What's the difference between git reflog and log?](https://stackoverflow.com/questions/17857723/whats-the-difference-between-git-reflog-and-log)
 
 ## tags et release

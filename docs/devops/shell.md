@@ -582,4 +582,30 @@ create_dataset(){
 create_dataset $1
 ```
 
+```shell title="The function add must echo the result so that it can be captured in the result variable."
+function add(){
+  sum=$(( $1 + $2 ))
+  echo $sum
+}
+
+result=$(add 3 5)
+echo "The result is $result"
+```
+
+## Checking
+
+ShellCheck
+
+
 ## Lire un fichier CSV
+
+## Misc
+
+```shell
+cat > setup-db.sql <<-EOF
+  CREATE DATABASE ecomdb;
+  CREATE USER 'ecomuser'@'localhost' IDENTIFIED BY 'ecompassword';
+  GRANT ALL PRIVILEGES ON *.* TO 'ecomuser'@'localhost';
+  FLUSH PRIVILEGES;
+EOF
+```
