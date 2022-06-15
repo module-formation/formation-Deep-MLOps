@@ -130,6 +130,7 @@ nav:
     - Terminal: devops/terminal.md
     - SSL et TLS: devops/tls_ssl.md
     - Docker: devops/docker.md
+    - Kubernetes: devops/kubernetes.md
     - YAML: devops/yaml.md
   - Guidelines:
     - IDE vscode: ide_vscode/conf.md
