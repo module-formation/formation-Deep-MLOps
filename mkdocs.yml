@@ -132,6 +132,7 @@ nav:
     - Docker: devops/docker.md
     - Kubernetes: devops/kubernetes.md
     - YAML: devops/yaml.md
+    - Redis: devops/redis.md
   - Guidelines:
     - IDE vscode: ide_vscode/conf.md
     - Documentation:
