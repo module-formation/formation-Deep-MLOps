@@ -2,31 +2,31 @@
 
 ## Survol
 
-Qu'est ce que les conteneurs Docker ? Un conteneur est un environnement informatique complètement isolé :
+Que sont les conteneurs Docker ? Un conteneur est un environnement informatique complètement isolé :
 
 * il a son propre réseau,
 * il a ses propres processus,
 * il a ses propres volumes montés,
 
-tout comme des machines virtuelles. Vraiment ? Pas vraiment, la différence majeure avec une machine virtuelle est que l'ensemble des conteneurs partageront le même kernel.
+tout comme des machines virtuelles. **Vraiment** ? Pas vraiment, la différence majeure avec une machine virtuelle est que tous les conteneurs d'un même système partagent le même kernel.
 
-Les OS Linux (Ubuntu, Fedora, CentOS, etc) sont tous basés sur le même socle : ils possède un noyau (kernel) Linux qui est responsables de l'interaction avec le hardware, et un ensemble de softwares.
+Les OS Linux (Ubuntu, Fedora, CentOS, etc) sont tous basés sur le même socle : ils possède un noyau (le kernel Linux) qui est responsables de l'interaction avec le hardware, et un ensemble de softwares.
 
-Le noyau reste le même peu importe la distribution, c'est la collection de softwares présents qui rend Ubuntu différent de Fedora, CentOS, etc.
+Le kernel Linux reste le même peu importe la distribution, c'est la collection de softwares présents qui rend Ubuntu différent de Fedora, CentOS, etc.
 
-Donc lorsque l'on dit que l'ensemble des conteneurs partagent le même kernel, on veut dire par là que Docker se réfère directement à nouyau de l'hôte sur lequel il tourne en faisant abstraction de la couche software. Les conteneurs peuvent donc faire tourner n'importe quel software ou OS tant qu'il est basé sur le même noyau Linux.
+Donc lorsque l'on dit que l'ensemble des conteneurs partagent le même kernel, on veut dire par là que Docker utilise directement le noyau de l'hôte sur lequel il tourne en faisant abstraction de la couche software. Les conteneurs peuvent donc faire tourner n'importe quel software ou OS tant qu'il est basé sur le même noyau Linux que l'hôte.
 
 !!! attention "Attention"
 
     Quel OS n'est pas basé sur un noyau Linux ? Windows.
 
-    Cela veut donc dire que Docker ne pourra pas faire tourner des conteneurs avec un OS/software Windows sur un hôte Linux, et inversement.
+    Cela veut donc dire que Docker ne pourra pas faire tourner des conteneurs avec un OS/software Windows sur un hôte Linux, et inversement. Il faudra un serveur avec Windows Server pour faire tourner des conteneurs windows.
 
 !!! attention "Attention"
 
-    Si vous connaissez Docker, vous allez surement surement dire que c'est faux. Vous pouvez très bien installer Docker sur Windows, lancer un conteneur conteneur Ubuntu se travailler dedans sans soucis.
+    Si vous connaissez Docker, vous allez surement surement dire que c'est faux. **Vous pouvez très bien installer Docker sur Windows, lancer un conteneur Ubuntu et travailler dedans sans soucis.**
 
-    La différence est que le conteneur Ubuntu ne tourne pas directement via l'OS, comme sur un OS Linux classique, windows lance d'abord une VM Linux et ce conteneur tourner à l'intérieur de la VM Linux, ce qui rajoute une couche supplémentaire par rapport à Docker sur un OS Linux classique.
+    La différence est que le conteneur Ubuntu ne tourne pas directement sur windows, comme sur un OS Linux classique, windows lance d'abord une VM Linux et ce conteneur va alors tourner à l'intérieur de la VM Linux, ce qui rajoute une couche supplémentaire par rapport à Docker sur un OS Linux classique.
 
 ## Les environnements "conteneurisés"
 
@@ -40,17 +40,17 @@ Ces éléments sont tous des ressources virtuelles :
 - l'adresse IP,
 - le système de fichiers sont créés par Docker.
 
-Ce sont des objets logiques qui sont gérés par Docker, et ils sont tous réunis pour créer un environnement dans lequel une application peut s'exécuter. C'est la "boîte" du conteneur.
+Ce sont des objets logiques qui sont gérés et créés par Docker, et ils sont tous réunis pour créer un environnement dans lequel une application peut s'exécuter. C'est la "boîte" du conteneur.
 
-L'application à l'intérieur du conteneur ne peut rien voir à l'extérieur du conteneur, mais la boîte est exécutée sur un ordinateur, et cet ordinateur peut également exécuter de nombreux autres conteneurs. Les applications dans ces conteneurs ont leurs propres environnements distincts (gérés par Docker), mais elles partagent toutes le CPU, GPU, et la mémoire de l'ordinateur, et elles partagent toutes le système d'exploitation de l'ordinateur.
+L'application à l'intérieur du conteneur ne peut rien voir à l'extérieur du conteneur, mais le conteneur est exécutée sur un ordinateur, et cet ordinateur peut également exécuter de nombreux autres conteneurs. Les applications dans ces conteneurs ont leurs propres environnements distincts (gérés par Docker), mais elles partagent toutes le CPU, GPU, et la mémoire de l'ordinateur, et elles partagent toutes le système d'exploitation de l'ordinateur.
 
 !!! info "Remarque"
 
     Notez ici que les conteneurs sont différents des machines virtuelles.
 
-    * Les machines virtuelles nécessitent que l'hyperviseur virtualise une pile matérielle complète. Il y a également plusieurs systèmes d'exploitation invités, ce qui les rend plus grands et plus étendus à démarrer. C'est ce que sont les instances de cloud AWS / GCP / Azure.
+    * Les machines virtuelles nécessitent que l'hyperviseur virtualise une pile matérielle complète. Il y a également plusieurs systèmes d'exploitation invités, ce qui les rend plus grands et plus étendus à démarrer. C'est ce que sont les instances de cloud AWS/GCP/Azure.
 
-    * Les conteneurs, quant à eux, ne nécessitent aucune virtualisation de l'hyperviseur ou du matériel. Tous les conteneurs partagent le même noyau hôte. Il existe des environnements d'espace utilisateur isolés et dédiés, ce qui les rend beaucoup plus petits en taille et plus rapides à démarrer.
+    * Les conteneurs, quant à eux, ne nécessitent aucune virtualisation de l'hyperviseur ou du matériel. Tous les conteneurs partagent le même noyau hôte. Ils existent comme des environnements d'espace utilisateur isolés et dédiés, ce qui les rend beaucoup plus petits en taille et plus rapides à démarrer.
 
 
 ![screen](./images/docker.svg)
@@ -63,6 +63,7 @@ Les conteneurs font tourner des instances "d'images" définies chacunes par un `
     2. Une image est un environnement packagé contruit par un Dockerfile.
     3. Le conteneur Docker est l'endroit où l'image est lancée.
 
+Docker possède une api qui lui est propre et qui permet de lancer, gérer, stopper des conteneurs, avant de voir la rédaction d'un Dockerfile, voyons les commandes de base de cette api.
 
 ## Les commandes de base
 
@@ -73,20 +74,35 @@ Les conteneurs font tourner des instances "d'images" définies chacunes par un `
 |                         `docker ps -a`                         |                liste l'ensemble des conteneurs présents sur l'hôte, qu'ils soient lancés ou non.                |                                                           |
 |   `docker stop container_id` ou `docker stop container_name`   |                                stoppe le conteneur avec l'id ou le nom associé.                                 | `docker stop 57ff613a495d`  `docker stop blissful_leakey` |
 |                   `docker rm container_name`                   |                                        supprime un conteneur **stoppé**                                         |                `docker rm blissful_leakey`                |
-|                        `docker images`                         |                                liste l'ensemble des images présentes sur l'hôte                                 |         move `new_file.txt` to `sample_file.txt`          |
+|              `docker images` ou `docker image ls`              |                                liste l'ensemble des images présentes sur l'hôte                                 |                                                           |
 |                    `docker rmi image_name`                     |                                           supprime localement l'image                                           |                    `docker rmi ubuntu`                    |
 |                    `docker pull image_name`                    |                          télécharge l'image depuis le registre associé sans la lancer                           |                   `docker pull ubuntu`                    |
 |              `docker exec container_name command`              |                           exécute une commande à l'intérieur d'un **conteneur lancé**                           |        `docker exec pedantic_boyd cat /etc/hosts`         |
 |                   `docker run image_name -d`                   | lance un conteneur portant le nom `image_name` en mode détaché (ou démon), permet de ne pas bloquer le terminal |                  `docker run ubuntu -d`                   |
-| `docker attach container_id` ou `docker attach container_name` |                                se rattache à un conteneur lancé en mode détaché                                 |                                                           |
+| `docker attach container_id` ou `docker attach container_name` |                           permet de se rattacher à un conteneur lancé en mode détaché                           |                                                           |
 |                    `docker pull image_name`                    |                          télécharge l'image depuis le registre associé sans la lancer                           |                   `docker pull ubuntu`                    |
-|                    `docker pull image_name`                    |                          télécharge l'image depuis le registre associé sans la lancer                           |                   `docker pull ubuntu`                    |
 
 
+* `docker run` : si l'image permettant de lancer le conteneur n'est pas disponible localement, Docker se chargera de la télécharger via le **registre de conteneur (container registry)** auquel l'image est assigné (la plupart du temps ce registre est Docker hub, mais ça peut aussi être nvcr (NVidia Container Registry), ghcr (GitHub Container Registry), etc.). Le téléchargement n'est fait qu'une seule fois, **tant que l'image n'est pas supprimée localement**.
 
-* `docker run` : si l'image permettant de l'ancer le conteneur n'est pas disponible localement, Docker se chargera de la télécharger via le **registre de conteneur (container registry)** auquel il est assigné. Le téléchargement n'est fait qu'une seule fois, tant que l'image n'est pas supprimée localement.
+* `docker ps` : chaque conteneur se voit attribuer une id et un nom uniques par Docker au moment où ils sont lancés.
 
-* `docker ps` : chanque conteneur se voit attribuer une id et un nom uniques par Docker au moment où ils sont lancés.
+La commande Linux `ps` affiche des informations sur une sélection de processus actifs.
+
+Par défaut, ps sélectionne tous les processus ayant le même ID utilisateur effectif (euid=EUID) que l'utilisateur actuel et associés au même terminal que l'invocateur.
+
+Il affiche l'ID du processus (pid=PID), le terminal associé au processus (tname=TTY), le temps CPU cumulé au format [DD-]hh:mm:ss (time=TIME), et le nom de l'exécutable (ucmd=CMD).
+
+La commande `docker ps` fait alors la même chose mais pour les conteneurs qui sont lancés, la commande affiche :
+
+1. l'id du conteneur,
+2. le nom de l'image associée (s'il y en a une),
+3. la dernière commande lancée au démarrage du conteneur,
+4. quand il a été créé,
+5. depuis quand il est lancé,
+6. les ports sur lesquels il est ouvert
+7. son nom, qui est définit de façon aléatoire par Docker si on ne le spécifie pas.
+
 
 ```shell
 ❯ docker ps
@@ -94,6 +110,8 @@ Les conteneurs font tourner des instances "d'images" définies chacunes par un `
 CONTAINER ID   IMAGE                                                           COMMAND                  CREATED       STATUS       PORTS                                         NAMES
 57ff613a495d   vsc-formation-deep-mlops-9214107b363d7791a4e04f86ccc94a41-uid   "/bin/sh -c 'echo Co…"   2 hours ago   Up 2 hours   0.0.0.0:49153->8000/tcp, :::49153->8000/tcp   funny_volhard
 ```
+
+Il est alors aussi possible de voir **l'ensemble des conteneurs présents sur l'hôte**, **qu'ils soient lancés ou non** en rajoutant le paramètre `-a`.
 
 ```shell
 ❯ docker ps -a
@@ -107,9 +125,10 @@ a504962076cd   swaggerapi/swagger-ui                                           "
 
 * `docker rmi` : l'ensemble des conteneurs dépendants de cette image doivent être stoppés avant de pouvoir supprimer l'image.
 
+
 !!! attention "Attention"
 
-    Un conteneur ne "vit" que tant que le processus qui est censé être lancé à l'intérieur tourne. Lancer `docker run ubuntu`, ne lancera pas un conteneur avec ubuntu, **car on a définit aucun processus que ce conteneur devrait héberger** ! Comme on le voir dans les lignes suivantes, notre conteneur ubuntu s'est stoppé tout de suite.
+    Un conteneur ne "vit" que tant que le processus qui est censé être lancé à l'intérieur tourne. Lancer `docker run ubuntu`, ne lancera pas un conteneur avec ubuntu, **car on a définit aucun processus que ce conteneur devrait héberger** ! Comme on peut le voir dans les lignes suivantes, notre conteneur ubuntu s'est stoppé tout de suite.
 
     ```shell
     ❯ docker run ubuntu
@@ -123,13 +142,12 @@ a504962076cd   swaggerapi/swagger-ui                                           "
     ❯ docker ps
 
     CONTAINER ID   IMAGE                                                           COMMAND                  CREATED       STATUS       PORTS                                         NAMES
-    57ff613a495d   vsc-formation-deep-mlops-9214107b363d7791a4e04f86ccc94a41-uid   "/bin/sh -c 'echo Co…"   2 hours ago   Up 2 hours   0.0.0.0:49153->8000/tcp, :::49153->8000/tcp   funny_volhard
+
 
     ❯ docker ps -a
 
     CONTAINER ID   IMAGE                                                           COMMAND                  CREATED         STATUS                     PORTS                                         NAMES
     9a74f900a9ef   ubuntu                                                          "bash"                   7 seconds ago   Exited (0) 6 seconds ago                                                 pedantic_boyd
-    57ff613a495d   vsc-formation-deep-mlops-9214107b363d7791a4e04f86ccc94a41-uid   "/bin/sh -c 'echo Co…"   2 hours ago     Up 2 hours                 0.0.0.0:49153->8000/tcp, :::49153->8000/tcp   funny_volhard
     ```
 
     Si le processus lancé à l'intérieur du conteneur crash ou s'arrête, le conteneur s'arrêtera aussi.
@@ -141,7 +159,6 @@ a504962076cd   swaggerapi/swagger-ui                                           "
 
 CONTAINER ID   IMAGE                                                           COMMAND                  CREATED          STATUS          PORTS                                         NAMES
 5c1204184739   ubuntu                                                          "sleep 50"               11 seconds ago   Up 10 seconds                                                 suspicious_almeida
-57ff613a495d   vsc-formation-deep-mlops-9214107b363d7791a4e04f86ccc94a41-uid   "/bin/sh -c 'echo Co…"   2 hours ago      Up 2 hours      0.0.0.0:49153->8000/tcp, :::49153->8000/tcp   funny_volhard
 
 ❯ docker exec suspicious_almeida cat /etc/hosts
 
@@ -154,7 +171,7 @@ ff02::2	ip6-allrouters
 172.17.0.3	5c1204184739
 ```
 
-Un conteneur lancé comme `ubuntu` s'arrêtera tout de suite car il n'y a aucun processus de lancer dedans, cependant on peut quand même lancer ce conteneur et travaillant dedans en le rendant interactif via la commande suivante.
+Un conteneur lancé comme `ubuntu` s'arrêtera tout de suite car il n'y a aucun processus de lancer dedans, cependant on peut quand même lancer ce conteneur et travailler dedans en le rendant interactif via la commande suivante.
 
 ```shell title="it pour interactif"
 ❯ docker run -it ubuntu
@@ -182,13 +199,15 @@ exit
 
 * `docker container rm $(docker ps -aq)` : supprime tous les conteneurs présents sur l'hôte.
 
+le paramètre `-aq` présent ici est l'abbréviation de `-a -q`, `-q` étant le paramètre pour le mode "quiet", qui ne renvoie que l'id des conteneurs, par exemple dans la commande `docker ps -q`.
+
 ## `docker run`
 
 Voyons maintenant d'autres commandes de la famille `docker run`.
 
 ### `-it`
 
-Par défaut, le conteneur docker n'écoute pas `stdin`, il n'a pas de terminal depuis lequel le lire. Il faut le lancer en mode interactif avec le paramètre `-i`, pour faire apparaitre le prompteur du terminal il faut rajouter le paramètre `-t`, comme dans la commande `-it` vue un peu plus haut.
+Par défaut, le conteneur docker n'écoute pas `stdin`, il n'a pas de terminal depuis lequel le lire. Il faut le lancer en mode interactif avec le paramètre `-i`. Pour faire apparaitre le prompteur du terminal il faut rajouter le paramètre `-t`, comme dans la commande `-it` vue un peu plus haut.
 
 !!! info "Remarque"
 
@@ -214,11 +233,11 @@ INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:80 (Press CTRL+C to quit)
 ```
-Si j'essaye de me connecter `http://0.0.0.0:80` pour essayer d'aller voir par exemple la documentation de l'api, la seule chose sur laquelle je vais tomber est la chose suivante.
+Si j'essaye de me connecter à `http://0.0.0.0:80` pour essayer d'aller voir par exemple la documentation de l'api, la seule chose sur laquelle je vais tomber est la chose suivante.
 
 ![oups](./images/oups.png)
 
-Pourquoi ? Comme dis plus haut, un conteneur docker est par définition totalement isolé du reste de l'environnement dans lequel il tourne. Si on veut qu'un sonteneur communique avec l'extérieur, il faut le dire explicitement.
+Pourquoi ? Comme dis plus haut, un conteneur docker est par définition totalement isolé du reste de l'environnement dans lequel il tourne. Si on veut qu'un conteneur communique avec l'extérieur, il faut le dire explicitement.
 
 
 ``` mermaid
@@ -241,9 +260,18 @@ Une combinaison de `docker inspect` et de `jq` permet de trouver l'adresse IP du
 "172.17.0.3:80"
 ```
 
-Sauf que cette adresse IP est une adresse IP interne au docker host, et que donc on ne peut pas l'utiliser de l'extérieur. De même pour le port 80 défini plus haut lorsque l'on a lancé le conteneur : on ne peut pas accéder à `172.17.0.3:80` depuis l'extérieur du docker host.
+Sauf que **cette adresse IP est une adresse IP interne au docker host**, et que donc on ne peut pas l'utiliser de l'extérieur. De même pour le port 80 défini plus haut lorsque l'on a lancé le conteneur : **on ne peut pas accéder à** `172.17.0.3:80` **depuis l'extérieur du docker host.**
 
-La solution est alors de définir un point de passage en joignant un port du réseau extérieur au port du docker host concerné, cela se fait via la commande suivante.
+La seule façon (pour l'instant) pour communiquer avec l'api serait alors d'utiliser la commande `docker exec` pour lancer une requête via `curl` depuis l'intérieur du conteneur.
+
+```shell
+❯ docker exec helloworld-api curl 172.17.0.3:80/hello/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    17  100    17    0     0  17000      0 --:--:-- --:--:-- --:--:-- 17000
+{"Hello":"World"}%
+```
+Pas évident hein ? La solution est alors de définir un point de passage **en joignant un port du réseau extérieur au port du docker host concerné**, cela se fait via la commande suivante.
 
 `-p oustide_port:inside_docker_host_port`
 
@@ -266,6 +294,8 @@ graph LR
     A-.-B
 ```
 
+On peut alors accéder à l'api depuis l'extérieur du conteneur.
+
 ```shell
 ❯ http 172.17.0.3:80/hello/
 
@@ -284,11 +314,117 @@ server: uvicorn
 
 {"Hello":"World"}%
 ```
+De la même façon, en se rendant à l'adresse `0.0.0.0:80` depuis notre navigateur internet, on arrive sur la doc de l'api.
+
 ![nice](./images/nice.png)
 
 ### Volumes
 
-`-v outside_path:inside_container_path`
+Pour faire persister de la donnée, ou pour en récupérer depuis un conteneur, on peut utiliser des volumes, il en existe de deux types :
+* les répertoires montés,
+* les volumes nommés.
+
+Les répertoires montés ont une fonctionnalité limitée par rapport aux volumes. Lorsque vous utilisez un répertoire monté, **un fichier ou un répertoire sur la machine hôte** est monté dans un conteneur. Le fichier ou le répertoire est référencé par **son chemin absolu sur la machine hôte**. En revanche, lorsque vous utilisez un volume nommé, un nouveau répertoire est créé dans le répertoire de stockage de Docker sur la machine hôte, et **Docker gère le contenu de ce répertoire**.
+
+Il n'est pas nécessaire que le fichier ou le répertoire existe déjà sur l'hôte Docker. Il est créé à la demande s'il n'existe pas encore. Les répertoires montés sont très performants, mais ils dépendent du fait que le système de fichiers de la machine hôte dispose d'une structure de répertoire spécifique. Si vous développez de nouvelles applications Docker, envisagez plutôt d'utiliser des volumes nommés. Vous ne pouvez pas utiliser les commandes Docker CLI pour gérer directement les répertoires montés.
+
+Les volumes nommés sont le mécanisme privilégié pour la persistance des données générées et utilisées par les conteneurs Docker. Alors que les répertoires montés dépendent de la structure des répertoires et du système d'exploitation de la machine hôte, les volumes sont entièrement gérés par Docker. Les volumes présentent plusieurs avantages par rapport aux répertoires montés :
+
+* Les volumes nommés sont plus faciles à sauvegarder ou à migrer que les répertoires montés.
+* Vous pouvez gérer les volumes nommés à l'aide des commandes Docker CLI ou de l'API Docker.
+* Les volumes nommés fonctionnent sur les conteneurs Linux et Windows.
+* Les volumes nommés peuvent être partagés de manière plus sûre entre plusieurs conteneurs.
+* Les pilotes de volume vous permettent de stocker des volumes nommés sur des hôtes ou des fournisseurs de clouds distants, de chiffrer le contenu des volumes ou d'ajouter d'autres fonctionnalités.
+* Les nouveaux volumes nommés peuvent avoir leur contenu pré-rempli par un conteneur.
+* Les volumes nommés sur Docker Desktop sont beaucoup plus performants que les répertoires montés des hôtes Mac et Windows.
+
+En outre, les volumes nommés sont souvent un meilleur choix que la persistance des données dans la couche inscriptible d'un conteneur, car un volume nommés n'augmente pas la taille des conteneurs qui l'utilisent et le contenu du volume existe en dehors du cycle de vie d'un conteneur donné.
+
+l'api docker permet :
+1. de créer des volumes : `docker volume create my-volume`,
+2. de lister ceux présent : `docker volume ls`,
+3. d'inspecter un volume : `docker volume inspect my-volume`,
+4. de supprimer un volume : `docker volume rm my-volume`,
+
+Pour utiliser un volume avec un conteneur on ajoute alors la commande `-v my-volume:inside_container_path` à la commande docker run `inside_container_path` est le chemin vers le répertoire dans le conteneur correspondant aux volume, s'il n'existe pas, il sera créé. Certaines images possèdent des chemins spécifiques, par exemple le conteneur pour la [db postgres](https://hub.docker.com/_/postgres) définit `/var/lib/postgresql/data` comme chemin par défaut vers lequel le volume qui contiendra les tables de la db doit pointer.
+
+Voyons un exemple.
+
+!!! example "Volume nommé"
+
+    Créons un volume.
+
+    ```shell title="Création du volume"
+    ❯ docker volume create my-volume
+    my-volume
+    ```
+
+    Nous allons monter ce volume sur un conteneur ubuntu:20.04.
+
+    ```shell title="Association du volume"
+    ❯ docker run --rm -it --name ubuntu -v my-volume:/opt/data ubuntu:20.04 bash
+    Unable to find image 'ubuntu:20.04' locally
+    20.04: Pulling from library/ubuntu
+    d7bfe07ed847: Pull complete
+    Digest: sha256:fd92c36d3cb9b1d027c4d2a72c6bf0125da82425fc2ca37c414d4f010180dc19
+    Status: Downloaded newer image for ubuntu:20.04
+    root@79fbf58313b5:/# cd /opt/data/
+    ```
+    Une fois dans `/opt/data/`, créons un fichier `test.txt`.
+
+    ```shell title="Création du fichier"
+    root@79fbf58313b5:/opt/data# touch test.txt
+    ```
+
+    Installons `vim`.
+
+    ```shell title="Installation de Vim"
+    root@79fbf58313b5:/opt/data# apt update
+    ...
+    root@79fbf58313b5:/opt/data# apt install vim
+    Reading package lists... Done
+    Building dependency tree
+    Reading state information... Done
+    The following additional packages will be installed:
+      alsa-topology-conf alsa-ucm-conf file libasound2 libasound2-data libcanberra0 libexpat1 libgpm2 libltdl7 libmagic-mgc libmagic1 libmpdec2 libogg0 libpython3.8 libpython3.8-minimal libpython3.8-stdlib libreadline8 libsqlite3-0
+      libssl1.1 libtdb1 libvorbis0a libvorbisfile3 mime-support readline-common sound-theme-freedesktop vim-common vim-runtime xxd xz-utils
+    Suggested packages:
+      libasound2-plugins alsa-utils libcanberra-gtk0 libcanberra-pulse gpm readline-doc ctags vim-doc vim-scripts
+    The following NEW packages will be installed:
+      alsa-topology-conf alsa-ucm-conf file libasound2 libasound2-data libcanberra0 libexpat1 libgpm2 libltdl7 libmagic-mgc libmagic1 libmpdec2 libogg0 libpython3.8 libpython3.8-minimal libpython3.8-stdlib libreadline8 libsqlite3-0
+      libssl1.1 libtdb1 libvorbis0a libvorbisfile3 mime-support readline-common sound-theme-freedesktop vim vim-common vim-runtime xxd xz-utils
+    0 upgraded, 30 newly installed, 0 to remove and 7 not upgraded.
+    Need to get 14.9 MB of archives.
+    After this operation, 70.6 MB of additional disk space will be used.
+    Do you want to continue? [Y/n]
+    ...
+    ```
+    Et écrivons dedans `Bonjour, comment ça va ?`.
+
+    ```shell title="Ecriture du prochain prix Nobel de littérature"
+    root@79fbf58313b5:/opt/data# vim test.txt
+    root@79fbf58313b5:/opt/data# exit
+    exit
+    ```
+
+    Quittons le conteneur, de par la commande `--rm` ajoutée dans le `docker run ...`, le conteneur est automatiquement supprimé une fois qu'il est stoppé. Pour montrer la persistence des données, remontons ce volume mais cette fois ci sur un conteneur ubuntu:18.04
+
+    ```shell
+    ❯ docker run --rm -it --name ubuntu2 -v my-volume:/opt/data ubuntu:18.04 bash
+    Unable to find image 'ubuntu:18.04' locally
+    18.04: Pulling from library/ubuntu
+    09db6f815738: Pull complete
+    Digest: sha256:478caf1bec1afd54a58435ec681c8755883b7eb843a8630091890130b15a79af
+    Status: Downloaded newer image for ubuntu:18.04
+
+    root@830c7585cb75:/# cd /opt/data/
+    root@830c7585cb75:/opt/data# ls
+    test.txt
+    root@830c7585cb75:/opt/data# cat test.txt
+    Bonjour, comment a va ?
+    ```
+
+    On retrouve bien notre texte alors que notre conteneur n'existe plus.
 
 ### Inspection
 
