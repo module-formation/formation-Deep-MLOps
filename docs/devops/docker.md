@@ -428,8 +428,293 @@ Voyons un exemple.
 
 ### Inspection
 
+Il est possible d'inspecter un conteneur, inspecter veut ici dire avoir accès aux caractéristiques de ce conteneur : son adresse IP, son id, ses variables d'environnements, son état.
+
 * `docker inspect container_id`,
 * `docker inspect container_name`.
+
+```shell
+❯ docker inspect priceless_johnson | jq .
+[
+  {
+    "Id": "8e9ec6183d98510cd7735b5ea9fd3ee818a1a6c2c83b20f2aad4fc7427f4f56d",
+    "Created": "2022-06-22T20:00:33.826646629Z",
+    "Path": "/bin/sh",
+    "Args": [
+      "-c",
+      "echo Container started\ntrap \"exit 0\" 15\n\nexec \"$@\"\nwhile sleep 1 & wait $!; do :; done",
+      "-"
+    ],
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 57036,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2022-06-22T20:00:34.09197443Z",
+      "FinishedAt": "0001-01-01T00:00:00Z"
+    },
+    "Image": "sha256:f31c209a4471e0244fedefc92cd8257fbf5d67b6b8bb5c38a1e6a24e257ba12e",
+    "ResolvConfPath": "/var/lib/docker/containers/8e9ec6183d98510cd7735b5ea9fd3ee818a1a6c2c83b20f2aad4fc7427f4f56d/resolv.conf",
+    "HostnamePath": "/var/lib/docker/containers/8e9ec6183d98510cd7735b5ea9fd3ee818a1a6c2c83b20f2aad4fc7427f4f56d/hostname",
+    "HostsPath": "/var/lib/docker/containers/8e9ec6183d98510cd7735b5ea9fd3ee818a1a6c2c83b20f2aad4fc7427f4f56d/hosts",
+    "LogPath": "/var/lib/docker/containers/8e9ec6183d98510cd7735b5ea9fd3ee818a1a6c2c83b20f2aad4fc7427f4f56d/8e9ec6183d98510cd7735b5ea9fd3ee818a1a6c2c83b20f2aad4fc7427f4f56d-json.log",
+    "Name": "/priceless_johnson",
+    "RestartCount": 0,
+    "Driver": "overlay2",
+    "Platform": "linux",
+    "MountLabel": "",
+    "ProcessLabel": "",
+    "AppArmorProfile": "docker-default",
+    "ExecIDs": [
+      "f0a524885bb5176b7cc0562688a3eddd3cc1ef08839670faef2d15d7c2f6ecce",
+      "953d55745a72ef924ecc72a3854e30704a1c49406997546c7e4eb5cb5fba754f",
+      "917aa2253c9d114f100aee1757c6f9f14e05e63c4d1c78318021280a93d9a739",
+      "ffdac6da8b352c2e3761e23ecc455809e5b741a0374f2980367cd1559d360cfc",
+      "866fd97e494db76f65ac041f55d1ee99192fdcee2a0950483cd48bd95ba2f2a6",
+      "3ac3c930d2530f7a600684963ff98d0271b01f98eea63d85a3ff0359dd40e3a7",
+      "b328fdaf15d0faa92b5473264836fb4d206119a147611e65b0114946490a7ce4"
+    ],
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "json-file",
+        "Config": {}
+      },
+      "NetworkMode": "default",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": true,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "CapAdd": null,
+      "CapDrop": null,
+      "CgroupnsMode": "host",
+      "Dns": [],
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": true,
+      "ReadonlyRootfs": false,
+      "SecurityOpt": null,
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 67108864,
+      "Runtime": "runc",
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 0,
+      "NanoCpus": 0,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": null,
+      "BlkioDeviceWriteBps": null,
+      "BlkioDeviceReadIOps": null,
+      "BlkioDeviceWriteIOps": null,
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "KernelMemory": 0,
+      "KernelMemoryTCP": 0,
+      "MemoryReservation": 0,
+      "MemorySwap": 0,
+      "MemorySwappiness": null,
+      "OomKillDisable": false,
+      "PidsLimit": null,
+      "Ulimits": null,
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/media/vorph/datas/perso/formation-Deep-MLOps",
+          "Target": "/workspaces/formation-Deep-MLOps"
+        },
+        {
+          "Type": "bind",
+          "Source": "/media/vorph/datas/perso/formation-Deep-MLOps",
+          "Target": "/home/vorph/ArcticVault"
+        },
+        {
+          "Type": "volume",
+          "Source": "vscode",
+          "Target": "/vscode"
+        }
+      ],
+      "MaskedPaths": [
+        "/proc/asound",
+        "/proc/acpi",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "GraphDriver": {
+      "Data": {
+        "LowerDir": "/var/lib/docker/overlay2/42cf1cd0e9e587b734a7dff5625e645142c665f383b87493b89555e94aaa7af1-init/diff:/var/lib/docker/overlay2/hnzq7cm6a2z2ohte6hho1h78t/diff:/var/lib/docker/overlay2/9kh5w9j7eyh85l5ipfhafow9o/diff:/var/lib/docker/overlay2/qfigtsio5azazz9e9lxj169fb/diff:/var/lib/docker/overlay2/87ksokwg6u08fi92v1moc014w/diff:/var/lib/docker/overlay2/6oqivtmk6c9txf77ak4z8rc97/diff:/var/lib/docker/overlay2/rk1z51dk5y3x08bpfs3wmgvz5/diff:/var/lib/docker/overlay2/ad56072d4bd05786d0cb51ccbae18dabb5301a0aab8a69ff45dae1eda5416650/diff:/var/lib/docker/overlay2/1d1ac677fca430ebd79ea8026d2e6f9e9361102694ac7c5bd45e483c68e058d1/diff:/var/lib/docker/overlay2/977ef22a55ad57077a5589b66376f4a1ce31de4bea199c33fa3b23d93adfd7a7/diff:/var/lib/docker/overlay2/c4c194d65ca3d69f354910d8ef452332137b93290dd8fb5fe6be23ec56dae577/diff:/var/lib/docker/overlay2/9278cccac45602c698dbb875772c52194474e53dfb4c88e6f56405997c51e116/diff",
+        "MergedDir": "/var/lib/docker/overlay2/42cf1cd0e9e587b734a7dff5625e645142c665f383b87493b89555e94aaa7af1/merged",
+        "UpperDir": "/var/lib/docker/overlay2/42cf1cd0e9e587b734a7dff5625e645142c665f383b87493b89555e94aaa7af1/diff",
+        "WorkDir": "/var/lib/docker/overlay2/42cf1cd0e9e587b734a7dff5625e645142c665f383b87493b89555e94aaa7af1/work"
+      },
+      "Name": "overlay2"
+    },
+    "Mounts": [
+      {
+        "Type": "bind",
+        "Source": "/media/vorph/datas/perso/formation-Deep-MLOps",
+        "Destination": "/workspaces/formation-Deep-MLOps",
+        "Mode": "",
+        "RW": true,
+        "Propagation": "rprivate"
+      },
+      {
+        "Type": "bind",
+        "Source": "/media/vorph/datas/perso/formation-Deep-MLOps",
+        "Destination": "/home/vorph/ArcticVault",
+        "Mode": "",
+        "RW": true,
+        "Propagation": "rprivate"
+      },
+      {
+        "Type": "volume",
+        "Name": "vscode",
+        "Source": "/var/lib/docker/volumes/vscode/_data",
+        "Destination": "/vscode",
+        "Driver": "local",
+        "Mode": "z",
+        "RW": true,
+        "Propagation": ""
+      }
+    ],
+    "Config": {
+      "Hostname": "8e9ec6183d98",
+      "Domainname": "",
+      "User": "vorph",
+      "AttachStdin": true,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "ExposedPorts": {
+        "8000/tcp": {}
+      },
+      "Tty": true,
+      "OpenStdin": true,
+      "StdinOnce": true,
+      "Env": [
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/vorph/.local/bin:/usr/lib/python3.9/dist-packages",
+        "LANG=C.UTF-8",
+        "GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568",
+        "PYTHON_VERSION=3.9.10",
+        "PYTHON_PIP_VERSION=21.2.4",
+        "PYTHON_SETUPTOOLS_VERSION=58.1.0",
+        "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/2caf84b14febcda8077e59e9b8a6ef9a680aa392/public/get-pip.py",
+        "PYTHON_GET_PIP_SHA256=7c5239cea323cadae36083079a5ee6b2b3d56f25762a0c060d2867b89e5e06c5"
+      ],
+      "Cmd": [
+        "-c",
+        "echo Container started\ntrap \"exit 0\" 15\n\nexec \"$@\"\nwhile sleep 1 & wait $!; do :; done",
+        "-"
+      ],
+      "Image": "vsc-formation-deep-mlops-13dc5d37553ea9bead783e4d89aa65ee-uid",
+      "Volumes": null,
+      "WorkingDir": "/home/vorph",
+      "Entrypoint": [
+        "/bin/sh"
+      ],
+      "OnBuild": null,
+      "Labels": {
+        "devcontainer.local_folder": "/media/vorph/datas/perso/formation-Deep-MLOps"
+      }
+    },
+    "NetworkSettings": {
+      "Bridge": "",
+      "SandboxID": "44c6218be441ba34c2169970c77d6982a5143b466dec06cc909fb3c376cd987d",
+      "HairpinMode": false,
+      "LinkLocalIPv6Address": "",
+      "LinkLocalIPv6PrefixLen": 0,
+      "Ports": {
+        "8000/tcp": [
+          {
+            "HostIp": "0.0.0.0",
+            "HostPort": "49153"
+          },
+          {
+            "HostIp": "::",
+            "HostPort": "49153"
+          }
+        ]
+      },
+      "SandboxKey": "/var/run/docker/netns/44c6218be441",
+      "SecondaryIPAddresses": null,
+      "SecondaryIPv6Addresses": null,
+      "EndpointID": "80f81b68db4b033695a0b2e08799f61c4c80571f53a52fcb65b53f1a68c3bc75",
+      "Gateway": "172.17.0.1",
+      "GlobalIPv6Address": "",
+      "GlobalIPv6PrefixLen": 0,
+      "IPAddress": "172.17.0.2",
+      "IPPrefixLen": 16,
+      "IPv6Gateway": "",
+      "MacAddress": "02:42:ac:11:00:02",
+      "Networks": {
+        "bridge": {
+          "IPAMConfig": null,
+          "Links": null,
+          "Aliases": null,
+          "NetworkID": "d494ba95927d5944c6a7bab44aa41fc10842997700429378d0f8b982499a5dcf",
+          "EndpointID": "80f81b68db4b033695a0b2e08799f61c4c80571f53a52fcb65b53f1a68c3bc75",
+          "Gateway": "172.17.0.1",
+          "IPAddress": "172.17.0.2",
+          "IPPrefixLen": 16,
+          "IPv6Gateway": "",
+          "GlobalIPv6Address": "",
+          "GlobalIPv6PrefixLen": 0,
+          "MacAddress": "02:42:ac:11:00:02",
+          "DriverOpts": null
+        }
+      }
+    }
+  }
+]
+```
 
 ### logs
 
@@ -447,7 +732,7 @@ Ces commandes ne fournirons les logs qu'à l'instant t, si l'on souhaite voir le
 
 ### Pourquoi conteneuriser ?
 
-Une étape pour atteindre la reproductibilité consiste à déployer le code et les artefacts versionnés dans un environnement reproductible. Cela va bien au-delà de l'environnement virtuel que l'on peut configurer pour les applications Python, car il existe des spécifications au niveau du système (système d'exploitation, paquets requis, etc.) qui ne sont pa saisis par un simple environnement virtuel. Nous voulons être en mesure d'encapsuler toutes les exigences dont nous avons besoin afin qu'il n'y ait pas de dépendances externes qui empêcheraient quelqu'un d'autre de reproduire l'application de façon exacte.
+Une étape pour atteindre la reproductibilité consiste à déployer le code et les artefacts versionnés dans un environnement reproductible. Cela va bien au-delà de l'environnement virtuel que l'on peut configurer pour les applications Python, car il existe des spécifications au niveau du système (système d'exploitation, paquets requis, etc.) qui ne sont pas prises en compte par un simple environnement virtuel. Nous voulons être en mesure d'encapsuler toutes les exigences dont nous avons besoin afin qu'il n'y ait pas de dépendances externes qui empêcheraient quelqu'un d'autre de reproduire l'application de façon exacte.
 
 ### Comment créer sa propre image ?
 
@@ -455,7 +740,7 @@ Dans docker, tout commence par la rédaction d'un `Dockerfile`, c'est un simple 
 
 Le langage docker est simple à comprendre, les tâches les plus communes ont leur propres commandes, et pour tout le reste vous pouvez utiliser les commandes shell standards (Bash sur Linux, ou PowerShell sur Windows par exemple).
 
-Pour voir comment s'écrit un `Dockerfile`, comment construire l'image et lancer le conteneur, prenons l'exemple suivant. C'est le `Dockerfile` standard que j'utilise pour entraîner des modèles de deep learning.
+Pour voir comment s'écrit un `Dockerfile`, comment construire l'image et lancer le conteneur, prenons l'exemple suivant. C'est un `Dockerfile` standard que l'on peut utiliser pour entraîner des modèles de deep learning.
 
 !!! docker "Dockerfile"
 
@@ -486,13 +771,13 @@ Pour voir comment s'écrit un `Dockerfile`, comment construire l'image et lancer
 
 Un `Dockerfile` est une suite d'instructions suivies de l'argument correspondant, chaque instruction étant une couche (layer) du `Dockerfile`.
 
-La toute première instruction est toujours la même, **elle détermine quelle sera la base de votre conteneur**, est-ce que votre conteneur sera construit sur une base d'OS Ubuntu 18.02, 20.04, sur une base Python 3.8, etc. Chaque image doit commencer d'une autre image. Ici l'image en question est `nvcr.io/nvidia/tensorflow:21.02-tf2-py3` une image de TensorFlow 2.4 faite par NVidia, ce qui permet de ne pas avoir à se soucier des problèmes d'installation ou de dépendances.
+La toute première instruction est toujours la même, **elle détermine quelle sera l'image de base de votre conteneur**, est-ce que votre conteneur sera construit sur une base d'OS Ubuntu 18.02, 20.04, sur une base Python 3.8, etc. Ici l'image en question est `nvcr.io/nvidia/tensorflow:21.02-tf2-py3` une image de TensorFlow 2.4 faite par NVidia, ce qui permet de ne pas avoir à se soucier des problèmes d'installation ou de dépendances (cuda, cudnn, etc).
 
 !!! note "La première couche"
 
     Cette première couche commence toujours par un `FROM`, pour dire à partir de quelle image de base vous allez construire votre Dockerfile.
 
-    Pourquoi `FROM` ? Il existe ce que l'on appelle des "registres dockers" (docker registry), où de manière similaire à github, gitlab, etc sont recensés les images docker de façon la plupart du temps open source, le plus connu étant [docker hub](https://hub.docker.com/). Pour récupérer une image, la commande similaire au "git clone *adresse*" est "docker pull *adresse*", et donc d'où vient votre image de base pour votre Dockerfile ? En anglais, "it has been pulled FROM *address*".
+    Il existe ce que l'on appelle des "registres dockers" (docker registry), où de manière similaire à github, gitlab, etc sont recensés les images docker de façon la plupart du temps open source, le plus connu étant [docker hub](https://hub.docker.com/). Pour récupérer une image, la commande similaire au "git clone *adresse*" est "docker pull *adresse*", et donc d'où vient votre image de base pour votre Dockerfile ?
 
 `COPY` est la commande permettant de copier des dossiers depuis votre machine locale vers votre conteneur Docker. Ici `COPY requirements.txt .` copie le fichier `requirements.txt` vers `.`, ie à la racine définie dans l'image `nvcr.io/nvidia/tensorflow:21.02-tf2-py3`.
 
@@ -575,6 +860,10 @@ Le point `.` à la fin de la commande docker build signifie à docker qu'il doit
 
 ### Une architecture en couches
 
+Comme on l'a vu précédement, un Dockerfile est une suite d'instructions, pour réduire l'accès mémoire et améliorer la vitesse de construction des conteneurs, chaque instruction est gardée en mémoire cache. Une même instruction peut alors être utilisée plusieurs fois par plusieurs conteneurs, de plus docker ne relance une instruction que s'il détecte une modification dans cette denière. **Si docker détecte une modification dans une couche, il relancera alors aussi toutes les couches suivantes**.
+
+Prenons pour exemple l'api suivante, très simple.
+
 ```python
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -606,6 +895,8 @@ async def get_hello():
     return {"Hello": "World"}
 ```
 
+Pour la déployer facilement où l'on veux, on rédige le Dockerfile suivant.
+
 ```docker
 FROM python:3.9
 
@@ -620,28 +911,42 @@ COPY ./app /code/app
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
 ```
 
+Si par exemple suite à une pull request de [dependabot](https://github.com/dependabot), je mets à jour le fichier `requirements.txt`, lorsque je relancerai la construction de l'image, les deux premières instructions ne seront pas exécutées (tant que l'on garde l'image `python:3.9` en local), par contre l'instruction `COPY` ainsi que toutes celles en dessous seront automatiquement relancées pour prendre en compte les modifications.
+
 ### Les variables d'environnement
 
 La commande `ARG` permet de définir des variables d'environnement qui ne seront disponibles que durant la construction de l'image, ici les identifiants d'un utilisateur. On a ensuite besoin d'ajouter cet utilisateur et ce groupe dans les utilisateurs du conteneur, ce qui ce fait via la commande `RUN` qui permet de lancer des commandes shell.
 
 Enfin on spécifie qui sera l'utilisateur de ce conteneur, que sera l'utilisateur que l'on vient de créer. Cela se fait via la commande `USER`.
 
-A la différence de `ARG`, `ENV` définit lui des variables d'environnements qui seront toujours disponibles après la construction de l'image, et donc lorsque le conteneur sera lancé. Ici on définit un chemin `PATH "$PATH:/home/vorph/.local/bin"` qui est nécessaire pour certaines librairies python dans les fichiers `requirements.txt` et `requirements-dev.txt`.
+A la différence de `ARG`, `ENV` définit lui des variables d'environnements qui seront toujours disponibles après la construction de l'image, et donc lorsque le conteneur sera lancé. On peut comme précédemment définir un chemin `PATH "$PATH:/home/vorph/.local/bin"` qui est nécessaire pour certaines librairies python dans les fichiers `requirements.txt` et `requirements-dev.txt`.
+
+si l'on souhaite définir une variable d'environnement via l'interface en ligne de commande, cela se fait via l'argument `-e`.
 
 `docker run -p 38282:8080 --name blue-app -e APP_COLOR=blue -d kodekloud/simple-webapp`
 
-To know the env field from within a webapp container, run `docker exec -it webapp env`
+Dans un OS Linux, pour savoir quelles sont les variables d'environnement qui été définies, on utilise la commande `env`. Dans un conteneur c'est identique, pour pouvoir passer cette commande au conteneur il faut toutefois utiliser la commande `docker exec`.
 
-Deploy a mysql database using the mysql image and name it mysql-db.
+!!! example "Exemple"
 
-Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the correct environment variable to use for setting the root password.
-
-Run the command: docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db mysql
-To know the env field from within a mysql-db container, run docker exec -it mysql-db env
+    ```shell title="env"
+    ❯ docker exec -it wizardly_swartz env
+    PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/vorph/.local/bin:/usr/lib/python3.9/dist-packages
+    HOSTNAME=a4e4accc5032
+    TERM=xterm
+    LANG=C.UTF-8
+    GPG_KEY=E3FF2839C048B25C084DEBE9B26995E310250568
+    PYTHON_VERSION=3.9.10
+    PYTHON_PIP_VERSION=21.2.4
+    PYTHON_SETUPTOOLS_VERSION=58.1.0
+    PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/2caf84b14febcda8077e59e9b8a6ef9a680aa392/public/get-pip.py
+    PYTHON_GET_PIP_SHA256=7c5239cea323cadae36083079a5ee6b2b3d56f25762a0c060d2867b89e5e06c5
+    HOME=/home/vorph
+    ```
 
 ### CMD versus ENTRYPOINT
 
-`ENTRYPOINT` et `CMD` permettent de spécifier une commande qui sera éxécutée lorsque l'image sera lancée en tant que conteneur.
+`ENTRYPOINT` et `CMD` permettent de spécifier une commande qui sera éxecutée lorsque l'image sera lancée en tant que conteneur.
 
 La différence provient dans comment les arguments dans les commandes peuvent être surchargées.
 
@@ -667,6 +972,7 @@ ENTRYPOINT ["sleep"]
 
 CMD ["5"] #argument par défaut pour l'entrypoint
 ```
+Les commandes éxecutées par `CMD` peuvent être complètement surchargées lors de la commande `docker run`, ce qui n'est pas le cas avec `ENTRYPOINT`.
 
 ## docker compose
 
@@ -679,9 +985,7 @@ Compose fonctionne dans tous les environnements : production, staging, développ
 L'utilisation de Compose se résume à un processus en trois étapes :
 
 1. Définissez l'environnement de votre application à l'aide d'un `Dockerfile` afin qu'il puisse être reproduit partout.
-
 2. Définissez les services qui composent votre application dans `docker-compose.yml` afin qu'ils puissent être exécutés ensemble dans un environnement isolé.
-
 3. Exécutez docker compose up et la commande Docker compose démarre et exécute votre application entière. Vous pouvez également exécuter docker-compose up en utilisant le binaire docker-compose.
 
 Un `docker-compose.yml` ressemble à ceci :
@@ -712,7 +1016,7 @@ volumes:
 
 Le Docker Engine est composé de 3 parties :
 
-* le docker daemon, qui gère le service Docker, et gère les images, conteneurs, volumes etc,
+* le docker daemon, qui gère le service Docker, les images, conteneurs, volumes etc,
 * l'API REST, qui fait la liaison entre le docker daemon et les autres programmes,
 * la cli Dcoker (`docker build`, `docker run`, etc).
 
@@ -768,9 +1072,9 @@ Une fois que le système est complpètement démarré, on a tout une famille de 
 ```
 Maintenant, lorsque l'on lance un conteneur, que l'on peut considérer comme un sous-système, le sous-système a besoin de se considérer comme un système indépendant isolé du reste, et qu'il a ses propres processus, provenant d'un processus root de PID 1.
 
-Docker partageant l'OS de l'hôte, une isolation complète comme cela n'est pas possible, et les processus du sous-système ne sont des des autres processus du processus root du système Linux.
+Docker partageant l'OS de l'hôte, une isolation complète comme cela n'est pas possible, et les processus du sous-système ne sont que des autres processus du processus root du système Linux.
 
-Mais à l'intérieur du conteneur, le fait d'avoir son propre namesapce permet de faire en sorte que les processus sont vu
+Mais à l'intérieur du conteneur, le fait d'avoir son propre namespace permet de faire en sorte que les processus sont vu comme complètement isolés, il y a donc "virtuellement" un processus de PID 1 dans chaque conteneur.
 
 ``` mermaid
 graph LR
@@ -816,7 +1120,7 @@ Lorsque Docker est installé, il crée automatiquement 3 réseaux :
 * `docker run ubuntu --network=none`
 * `docker run ubuntu --network=host`
 
-`bridge` est une réseau privé isolé dans le docker host, chaque conteneur tournant se voit alors attribué une adresse ip sur ce réseau.
+`bridge` est un réseau privé isolé dans le docker host, chaque conteneur tournant se voit alors attribué une adresse ip sur ce réseau.
 
 
 ``` mermaid
@@ -851,8 +1155,7 @@ docker network create \
 
 !!! example "Exemple"
 
-    1. `docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db --network custom-isolated-network mysql:5.6`
-    2. `docker run --network=wp-mysql-network -e DB_Host=mysql-db -e DB_Password=db_pass123 -p 38080:8080 --name webapp --link mysql-db:mysql-db -d kodekloud/simple-webapp-mysql`
+    `docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db --network custom-isolated-network mysql:5.6`
 
 
 ``` mermaid
@@ -986,7 +1289,6 @@ Remarquons que la commande `docker inspect` ne marche pas uniquement sur les con
 ]
 ```
 
-
 Le docker host possède aussi un serveur DNS embarqué pour la résolution des noms. Il est donc possible de se connecter à un conteneur uniquement via son nom.
 
 ## Docker registry
@@ -1029,7 +1331,7 @@ il est possible d'avoir un registre docker personnel sur par exemple [docker hub
 
 Avec une commande `docker run`, on est capable de déployer une instance d'un conteneur, par exemple une api.
 
-Mais que se passe-t-il si le nombre de requêtes envoyées à cette api et trop important ? On aimerait déployer une seconde instance de cette api pour gérer le flux supplémentaire.
+Mais que se passe-t-il si le nombre de requêtes envoyées à cette api est trop important ? On aimerait déployer une seconde instance de cette api pour gérer le flux supplémentaire.
 
 On pourrait le faire en relançant une commande `docker run`, mais cela demande de le faire de façon manuelle et de surveiller à chaque fois comment cela se passe.
 
