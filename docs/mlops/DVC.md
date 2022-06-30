@@ -196,3 +196,118 @@ Dans le cas où l'on passe par l'interface en ligne de commande, un fichier `yam
             outs:
             - data/prepared
     ```
+
+
+## Some Q&A from DVC website
+
+
+### When I run `dvc repro` on a stage, does it automatically push any outputs to my remote ?
+
+The `dvc repro` command **doesn't automatically push any outputs or data to your remote**. The outputs are stored in the cache until you run `dvc push`, which then pushes them from your cache to your remote.
+
+### Is there a way to get DVC to import from a private repository ?
+
+You can use SSH to handle this and run the following command `dvc import git@gitlab.com:<reposiotry location> <data_path>`.
+
+### What is the difference between `dvc pull` and `dvc checkout` ?
+
+Here are some explanations around how `dvc pull` and `dvc checkout` work. They're comparable to `git pull` and `git checkout`.
+
+  * `dvc pull` fetches data from your remote cache to your local cache and syncs it to your workspace,
+  * `dvc checkout` syncs data from your local cache to your workspace.
+
+### Is there a way to version and move data from one cloud storage to another with DVC remotes ?
+
+There are a couple of ways you can do this. One approach is to use `dvc add --to-remote`.
+
+The other approach is to use the `import-url --to-remote` functionality. The main difference between these approaches is that `dvc import-url` has the added benefit of keeping a connection to the data source so it can be updated later with `dvc update`.
+
+You can see an example of how to do this in the docs. Just make sure that you have your remotes set up!
+
+### How can I run a DVC pipeline in a Docker container ?
+
+Here's an example of a Dockerfile with a simple DVC setup.
+
+```docker
+FROM ubuntu:latest
+RUN apt-get update && apt install -y python-is-python3 python3-pip
+WORKDIR /dvc_project
+
+COPY . .
+pip install -r requirements.txt # assuming your requirements, including dvc, are here
+CMD dvc pull && dvc exp run
+```
+You would save this file and then run the following commands in your terminal.
+
+1. `docker build -t "myproject-dvc-exp-run" .`
+2. `docker run myproject-dvc-exp-run`
+
+You could also use the `dvc repro` command or any of the other DVC commands.
+
+### What is the difference between using `dvc exp run` and `dvc repro` ?
+
+When you use `dvc exp run`, DVC automatically tracks each experiment run. Using `dvc repro` leaves it to the user to track each experiment.
+
+### What is a good way to debug DVC stages in VSCode ?
+
+You can debug in VSCode by following the steps below:
+
+1. Install the `debugpy` package.
+2. Navigate to "Run and Debug" > "Remote Attach" > localhost > someport.
+3. In a terminal in VSCode, `python -m debugpy --listen someport --wait-for-client -m dvc mycommand`
+
+### Is it possible to stream objects to and from remote caches?
+
+You can stream files using the DVC API. There are two methods that you'll likely want to check out. First there's `dvc.api.open()`. This opens a file tracked by DVC and generates a corresponding file object. Here's a quick example:
+
+```python
+import dvc.api
+
+with dvc.api.open(
+        'get-started/data.xml',
+        repo='https://github.com/iterative/dataset-registry'
+        ) as fd:
+        # do things with the file object here
+```
+
+The simplest way to return the contents from a DVC tracked file would be to use `dvc.api.read()`. The returned content can be a bytearray or string. Here's a little example of this being used:
+
+```python
+import pickle
+import dvc.api
+
+model = pickle.loads(
+    dvc.api.read(
+        'model.pkl',
+        repo='https://github.com/iterative/example-get-started'
+        mode='rb'
+        )
+    )
+```
+
+### Does DVC save dependencies which are in the `dvc.yaml` pipeline to the cache?
+
+**DVC doesn't track the pipeline dependencies** in the cache or storage, only the outputs. If you want DVC to track a pure data dependency that's not an output of a different stage, you need to track it with `dvc add`.
+
+The output of a pipeline might be something like `data.dvc`, while a pure dependency might be a file that's just a part of the project, like `script.py`. That's why you'll need to use the dvc add command to track this.
+
+### How do I use DVC if I use a separate drive to store the data and a small/fast SSD to run computations? I don’t have enough space to bring data to my working space.
+
+An excellent question! The short answer is:
+
+```bash
+# To move your data cache to a big partition
+
+dvc cache dir --local /path/to/an/external/partition
+
+# To enable symlinks/harldinks to avoid actual copying
+
+dvc config cache.type reflink, hardlink, symlink, copy
+
+# To protect the cache
+
+dvc config cache.protected true
+```
+
+
+dvc config core.hardlink_lock false

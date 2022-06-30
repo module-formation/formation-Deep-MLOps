@@ -106,6 +106,7 @@ nav:
   - MLOps:
     - Docker: mlops/docker.md
     - Data versioning: mlops/DVC.md
+    - Model Registry: mlops/mlem.md
     - Feature store: mlops/featurestore.md
     - Hydra: mlops/hydra.md
     - Monitoring: mlops/monitoring.md
