@@ -534,6 +534,14 @@ Pour voir l'objet `ReplicaSet` on tape la commande suivante.
 ```shell
 kubectl get replicaset
 ```
+```shell
+kubectl get rs
+```
+
+```shell
+kubectl describre replicaset replicaset-name
+```
+
 On peut bien sur voir les pods créés avec la commande suivante.
 
 ```shell
@@ -544,7 +552,9 @@ Enfin, pour le détruire, on utilise la commande suivante.
 ```shell
 kubectl delete replicaset myapp-replicaset
 ```
-
+```shell
+kubectl edit replicaset myapp-replicaset
+```
 Dans l'optique où le `ReplicaSet` est créé **après** que les pods avec les bons labels ont été créés, le `ReplicaSet` a tout de même besoin de la section `template`. Comme il est censé monitorer les pods et s'assurer que tous sont dispos, si des pods monitorés crashe, le `ReplicaSet` a besoin de connaître le `template` sur lequel il doit se baser pour recréer un nouveau pod.
 
 #### Augmenter le nombre de répliques
