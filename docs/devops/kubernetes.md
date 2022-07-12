@@ -397,6 +397,8 @@ Pour créer et gérer des réplications, il y a deux méthodes dans k8s :
 `ReplicaSet` est la façon la plus moderne de définir des réplications dans k8s, mais les deux sont valides et sont sensiblement similaires dans leur écriture.
 
 
+##### `ReplicationController`
+
 Pour définir un `ReplicationController`, on utilise la méthode suivante.
 
 ```yaml title="rc-definition.yml"
@@ -465,30 +467,100 @@ est exactement celle qui est définie, en dehors de `apiVersion` et `kind`, dans
 
 Si l'on veut créer 3 répliques, on spécifit dans la partie `replicas` le nombre 3.
 
+On peut alors le créer avec la commande suivante.
+
 ```shell
 kubectl create -f rc-definition.yml
 ```
+
+Pour voir l'objet `ReplicationController` on tape la commande suivante.
 
 ```shell
 kubectl get replicationcontroller
 ```
 
+On peut bien sur voir les pods créés avec la commande suivante.
+
 ```shell
 kubectl get pods
 ```
+
+Enfin, pour le détruire, on utilise la commande suivante.
+
+```shell
+kubectl delete replicationcontroller myapp-rc
+```
+
+##### `ReplicaSet`
+
+Pour définir un `ReplicaSet`, on utilise la méthode suivante.
 
 ```yaml title="replicaset-definition.yml"
 --8<-- "./includes/k8s/replicaset-definition.yml"
 ```
 
+Peu de choses changent par rapport au fichier d'un `ReplicationController`.
+
+1. On doit changer la version : `apps/v1`.
+2. Le `kind` change : `ReplicaSet`
+3. La partie `template` a exactement la même fonction que pour `ReplicationController`.
+
+La partie que change vraiment dans `spec` est la clé `selector`. C'est cette partie qui permet au `ReplicaSet` d'identifier quels sont les pods dont il doit se charger.
+
+!!! question "Question"
+
+    Pourquoi définir quels sont les pods dont il doit se charger si l'on a déjà défini un template de pods dans le `ReplicaSet` ?
+
+C'est parce que les `ReplicaSet` sont aussi capables de gérer des pods qui n'ont pas été créés en même temps que le `ReplicaSet`, même si ces pods ne sont pas dans le même noeud.
+
+Une des façons d'identifier les pods que le `ReplicaSet` doit prendre en compte est de filtrer sur les labels définis dans les `metadata` des pods. Pour cela on utilise la clé `matchLabels`.
+
+```yaml title="ReplicaSet va gérer tous les pods avec le label type: front-end"
+    selector:
+        matchLabels:
+            type: front-end
+```
+
+Le `selector` est la différence majeure entre `ReplicationController` et `ReplicaSet`.
+
+On peut alors le créer avec la commande suivante.
+
 ```shell
 kubectl create -f replicaset-definition.yml
 ```
 
+Pour voir l'objet `ReplicaSet` on tape la commande suivante.
+
 ```shell
 kubectl get replicaset
 ```
+On peut bien sur voir les pods créés avec la commande suivante.
 
 ```shell
 kubectl get pods
+```
+Enfin, pour le détruire, on utilise la commande suivante.
+
+```shell
+kubectl delete replicaset myapp-replicaset
+```
+
+Dans l'optique où le `ReplicaSet` est créé **après** que les pods avec les bons labels ont été créés, le `ReplicaSet` a tout de même besoin de la section `template`. Comme il est censé monitorer les pods et s'assurer que tous sont dispos, si des pods monitorés crashe, le `ReplicaSet` a besoin de connaître le `template` sur lequel il doit se baser pour recréer un nouveau pod.
+
+#### Augmenter le nombre de répliques
+
+Si l'on souhaite augmenter le nombre de répliques d'un pod, dans un `ReplicaSet` ou un `ReplicationController`, une des solutions est de modifier en conséquence la section `replicas` de ces fichiers et de lancer une misa à jour avec la commande suivante.
+
+```shell
+kubectl replace -f file.yml
+```
+
+Une autre méthode est d'utiliser la commande `kubectl scale` :
+
+```shell
+kubectl scale --replicas=6 -f file.yml
+```
+
+```shell
+kubectl scale --replicas=6 replicaset myapp-replicaset
 ```
