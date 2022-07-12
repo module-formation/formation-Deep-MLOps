@@ -47,7 +47,7 @@
 	//The path of the workspace folder inside the container.
 	"workspaceFolder": "${localEnv:HOME}${localEnv:USERPROFILE}/ArcticVault",
 	// Uncomment the next line to run commands after the container is created - for example installing curl.
-	// "postCreateCommand": "apt-get update && apt-get install -y curl",
+	"postCreateCommand": "pre-commit install",
 	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
 	"runArgs": [
 		"-it",

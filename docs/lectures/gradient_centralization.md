@@ -292,4 +292,3 @@ Notons $W^{t}$ la matrice des poids à l'itération $t$ pour une couche fixée. 
 \[
     \mathcal{H} := \left\{ -w \in \mathbb{R}^{M} \, : \, \mathbf{e}_{W}^{T} \cdot w  = 0 \right\}
 \]
-

@@ -208,7 +208,7 @@ Pour $G$, $G_{\ell}$ correspond aux 4 fonctions suivants : $g_{0,0}, g_{0,1}, g_
 \end{equation*}
 \]
 
-En appliquant cette formule, on peut calculer les gradient locaux $\frac{\partial g_{r,s}}{\partial f_{i,j}}$ grâce aux formules de l'équation 
+En appliquant cette formule, on peut calculer les gradient locaux $\frac{\partial g_{r,s}}{\partial f_{i,j}}$ grâce aux formules de l'équation
 
 \[
 \begin{align*}
@@ -342,4 +342,3 @@ Remarquez que le fait d'avoir fait une convolution complète n'apparaît pas dan
 	La transposée de la matrice définissant le noyau de convolution détermine comment se propage le gradient dans les couches en amont.
 
 	En d'autres termes, l'erreur $\frac{\partial \mathcal{L}}{\partial G}$ est rétro-propagée en la multipliant par $k_{\mathrm{Mat}}^{T}$.
-

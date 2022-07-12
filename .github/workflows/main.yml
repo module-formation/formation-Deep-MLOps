@@ -1,23 +1,24 @@
+---
 name: Build & Deploy
 on: [push, workflow_call]
 
 jobs:
-  build-docs:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-      - name: Set up Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.9"
-      - name: Caching
-        uses: actions/cache@v3
-        with:
-          path: ${{ env.pythonLocation }}
-          key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
-      - name: Install dependencies
-        run: |
-          python -m pip install -r requirements.txt --no-cache-dir
-      - name: Deploy documentation
-        run: mkdocs gh-deploy --force
+    build-docs:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+            - name: Set up Python
+              uses: actions/setup-python@v3
+              with:
+                  python-version: '3.9'
+            - name: Caching
+              uses: actions/cache@v3
+              with:
+                  path: ${{ env.pythonLocation }}
+                  key: ${{ env.pythonLocation }}-${{ hashFiles('setup.py') }}-${{ hashFiles('requirements.txt') }}
+            - name: Install dependencies
+              run: |
+                  python -m pip install -r requirements.txt --no-cache-dir
+            - name: Deploy documentation
+              run: mkdocs gh-deploy --force

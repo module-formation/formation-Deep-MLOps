@@ -427,8 +427,3 @@ automl_config = AutoMLConfig(task = 'classification',
 
 remote_run = experiment.submit(automl_config, show_output = False)
 ```
-
-
-
-
-

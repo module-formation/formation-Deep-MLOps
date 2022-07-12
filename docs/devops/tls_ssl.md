@@ -168,7 +168,6 @@ En réalité, le serveur n'envoie pas que la clé `ma_cle.pem`, il envoie aussi 
 
 Pour vérifier la légitimité d'un certificat, **il est nécessaire qu'il soit signé**, cela se fait par **des autorités de certifications** (CA) publiques tierces. Il est aussi possible d'avoir des autorités des certifications privées, par exemple pour chiffer le réseau interne d'une entreprise.
 
-
 PKI : Public Key Infrastructure.
 
 Certificats générés pour une clé publique :
@@ -186,31 +185,25 @@ Certificats générés pour une clé privée :
 * `client-key.pem`
 
 
- create a CSR (certificate signing request) /etc/httpd/csr/app01.csr (key name should be app01.key). Below are the required details which should be used while creating CSR.
+## Exemple
 
-a. Country Name = SG
+Create a CSR (certificate signing request) `/etc/httpd/csr/app01.csr` (key name should be `app01.key`). Below are the required details which should be used while creating CSR.
 
-b. State or Province Name = Capital Tower
+1. Country Name = SG
+2. State or Province Name = Capital Tower
+3. Locality Name = CT
+4. Organization Name = KodeKloud
+5. Organizational Unit Name = Education
+6. Common Name = app01.com
+7. Email Address = admin@kodekloud.com
+8. Keep challenge password blank.
+9. Keep optional company name blank.
 
-c. Locality Name = CT
-
-d. Organization Name = KodeKloud
-
-e. Organizational Unit Name = Education
-
-f. Common Name = app01.com
-
-g. Email Address = admin@kodekloud.com
-
-h. Keep challenge password blank.
-
-i. Keep optional company name blank.
-
-cd into /etc/httpd/csr directory and run command sudo openssl req -new -newkey rsa:2048 -nodes -keyout app01.key -out app01.csr to generate a CSR file.
+cd into `/etc/httpd/csr` directory and run command `sudo openssl req -new -newkey rsa:2048 -nodes -keyout app01.key -out app01.csr` to generate a CSR file.
 
 To verify the entries we used to create a CSR, run the command:
 
-openssl req -noout -text -in app01.csr
+`openssl req -noout -text -in app01.csr`
 
 ```shell
 $ openssl req -noout -text -in app01.csr
@@ -263,36 +256,28 @@ Certificate Request:
          3b:ab:d7:9e
 ```
 
-Great! We have now generated the CSR. We must now send it to a CA to get it signed. However there is no CA available for this lab, so we will create our own self signed certificate.
+Great! We have now generated the CSR. We must now send it to a CA to get it signed. However there is no CA available, so **we will create our own self signed certificate**.
 
-On app01 create a self signed certificate /etc/httpd/certs/app01.crt (key name should app01.key). Below are the required details which should be used while creating the certificate.
+On app01 create a self signed certificate `/etc/httpd/certs/app01.crt` (key name should `app01.key`). Below are the required details which should be used while creating the certificate.
 
-a. Country Name = SG
-
-b. State or Province Name = Capital Tower
-
-c. Locality Name = CT
-
-d. Organization Name = KodeKloud
-
-e. Organizational Unit Name = Education
-
-f. Common Name = app01.com
-
-g. Email Address = admin@kodekloud.com
+1. Country Name = SG
+2. State or Province Name = Capital Tower
+3. Locality Name = CT
+4. Organization Name = KodeKloud
+5. Organizational Unit Name = Education
+6. Common Name = app01.com
+7. Email Address = admin@kodekloud.com
 
 
-cd into /etc/httpd/certs directory and run command sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout app01.key -out app01.crt and then pass in the details given above.
+cd into `/etc/httpd/certs` directory and run command `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout app01.key -out app01.crt` and then pass in the details given above.
 
+On app01 server we have an Apache web server already installed and configured and ssl mode is already enabled. In the `/etc/httpd/conf.d/ssl.conf` file update the SSL certificate and key to use your `app01.crt` and `app01.key` files. After making changes remember to restart Apache config.
 
-On app01 server we have an Apache web server already installed and configured and ssl mode is already enabled. In the /etc/httpd/conf.d/ssl.conf file update the SSL certificate and key to use your app01.crt and app01.key files. After making changes remember to restart Apache config.
+For your reference the certificate you created in the previous steps is at `/etc/httpd/certs/app01.crt` and the key is at `/etc/httpd/certs/app01.key`. The properties in the file are SSLCertificateFile and SSLCertificateKeyFile. To test if server is using correct certificate or not run this command and check if it returns your certificate:
 
-For your reference the certificate you created in the previous steps is at /etc/httpd/certs/app01.crt and the key is at /etc/httpd/certs/app01.key. The properties in the file are SSLCertificateFile and SSLCertificateKeyFile. To test if server is using correct certificate or not run this command and check if it returns your certificate:
+`echo | openssl s_client -showcerts -servername app01.com -connect app01:443 2>/dev/null | openssl x509 -inform pem`
 
-echo | openssl s_client -showcerts -servername app01.com -connect app01:443 2>/dev/null | openssl x509 -inform pem
-
-
-Modify the settings in the file /etc/httpd/conf.d/ssl.conf to point to the self signed cert and key you created. Then restart httpd service using the command sudo service httpd restart.
+Modify the settings in the file `/etc/httpd/conf.d/ssl.conf` to point to the self signed cert and key you created. Then restart httpd service using the command `sudo service httpd restart`.
 
 ```
 Listen 443 https

@@ -210,4 +210,3 @@ There are some restrictions you need to be aware of: First, for each service you
 Conclusion
 
 In this technical guide, I demonstrated how you can overcome one of the shortcomings of ACI when it comes to managing TLS certificates for an HTTPS connection.
-
