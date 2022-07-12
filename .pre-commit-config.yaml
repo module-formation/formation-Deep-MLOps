@@ -23,6 +23,7 @@ repos:
       rev: 0.2.1 # or other specific tag
       hooks:
           - id: yamlfmt
+            exclude: mkdocs.yml
 
     - repo: https://github.com/sirosen/check-jsonschema
       rev: 0.17.0
