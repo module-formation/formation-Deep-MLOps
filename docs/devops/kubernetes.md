@@ -353,7 +353,7 @@ If you used a pod definition file then update the image from redis123 to redis i
 
 `kubectl apply -f redis-definition.yaml`
 
-### ReplicaSet, contrôleur de réplications
+### Réplications
 
 Les contrôleurs sont les systèmes sous jacents qui gèrent les objets de kubernetes. En particulier les réplications.
 
@@ -386,3 +386,109 @@ graph LR
 Notez que le contrôleur de réplications se place au niveau du noeud, et pas du cluster. Le contrôleur s'assure que le nombre de pods spécifiés est présent tout le temps, même si ce nombre est 1.
 
 Le contrôleur s'occupe aussi du load balancing et du scaling des pods via les différents noeuds du cluster.
+
+#### ReplicaSet, contrôleur de réplications
+
+Pour créer et gérer des réplications, il y a deux méthodes dans k8s :
+
+* Définir un `ReplicationController`.
+* Définir un `ReplicaSet`.
+
+`ReplicaSet` est la façon la plus moderne de définir des réplications dans k8s, mais les deux sont valides et sont sensiblement similaires dans leur écriture.
+
+
+Pour définir un `ReplicationController`, on utilise la méthode suivante.
+
+```yaml title="rc-definition.yml"
+--8<-- "./includes/k8s/rc-definition.yml"
+```
+
+La première partie :
+
+```yaml
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: myapp-rc
+  labels:
+    app: myapp
+    type: front-end
+```
+est identique à celle définie dans la rédaction d'un pod : `Pod` et `ReplicationController` utilise la même version de l'api et les `metadata` ont la même signification dans les deux cas.
+
+La deuxième partie elle est spécifique au choix `ReplicationController`. La partie `spec` définit quel type d'objet le `ReplicationController` doit générer. Pour cela il a besoin :
+
+1. du `template` de l'objet qu'il va générer
+2. du nombre de répliques qu'il doit générer (`replicas`).
+
+```yaml
+spec:
+  template:
+
+  replicas: n
+```
+
+Dans notre cas, l'objet que l'on souhaite gérer avec le `ReplicationController` étant un `Pod`, la partie `template` devra donc contenir les `spec` caractéristiques d'un pod.
+
+
+```yaml
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+
+  replicas: 3
+```
+
+Remarquez que la partie
+
+```yaml
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+```
+
+est exactement celle qui est définie, en dehors de `apiVersion` et `kind`, dans un fichier yaml pour créer un pod.
+
+Si l'on veut créer 3 répliques, on spécifit dans la partie `replicas` le nombre 3.
+
+```shell
+kubectl create -f rc-definition.yml
+```
+
+```shell
+kubectl get replicationcontroller
+```
+
+```shell
+kubectl get pods
+```
+
+```yaml title="replicaset-definition.yml"
+--8<-- "./includes/k8s/replicaset-definition.yml"
+```
+
+```shell
+kubectl create -f replicaset-definition.yml
+```
+
+```shell
+kubectl get replicaset
+```
+
+```shell
+kubectl get pods
+```
