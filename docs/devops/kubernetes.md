@@ -1,4 +1,4 @@
-# Kubernetes for the beginner
+# :material-kubernetes: Kubernetes for the beginner
 
 Aussi dénommé k8s, kubernetes a été développé par Google, capitalisant sur leur expérience des conteneurs en production.
 
@@ -573,4 +573,140 @@ kubectl scale --replicas=6 -f file.yml
 
 ```shell
 kubectl scale --replicas=6 replicaset myapp-replicaset
+```
+
+## `Deployments`
+
+Comment déployer son application dans un environnement de production ? En particulier on souhaite les caractéristiques suivantes.
+
+1. Déployer des instances de pods dans un `ReplicaSet` de façon simple.
+2. Mettre à jour les conteneurs depuis le registre de façon automatisée.
+3. Faire des mises à jour glissante pour éviter de rendre l'application complètement inaccessible au moment du déploiement de la maj.
+4. Faire un rollback si nécessaire.
+5. Mettre en pause les changements.
+6. Les relancer.
+
+Tout ça se fait grâce à l'objet `Deployment` de k8s, qui est un objet de plus haut niveau que `ReplicaSet`.
+
+``` mermaid
+graph TD
+    subgraph Deployment
+        subgraph ReplicaSet
+                A1[pod <br/> conteneur python:3.8]
+                A2[pod <br/> conteneur python:3.8]
+                A3[pod <br/> conteneur python:3.8]
+                A4[pod <br/> conteneur python:3.8]
+                A5[pod <br/> conteneur python:3.8]
+        end
+    end
+```
+
+
+```yaml title="deployment-definition.yml"
+--8<-- "./includes/k8s/deployment-definition.yml"
+```
+On peut alors le créer avec la commande suivante.
+
+```shell
+kubectl create -f deployment-definition.yml
+```
+
+```shell
+kubectl create -f deployment-definition.yml --record
+```
+permet d'enregistrer les causes de changement.
+
+Pour voir l'objet `Deployment` on tape la commande suivante.
+
+```shell
+kubectl get deployment
+```
+
+```shell
+kubectl describre deployment deployment-name
+```
+
+Un `Deployment` crée un `ReplicaSet`, que l'on peut voir avec la commande suivante.
+
+```shell
+kubectl get replicasets
+```
+
+Qui lui même crée des pods que l'on peut voir avec la commande suivante.
+
+```shell
+kubectl get pods
+```
+Enfin, pour le détruire, on utilise la commande suivante.
+
+```shell
+kubectl delete deployment myapp-deployment
+```
+```shell
+kubectl edit deployment myapp-deployment
+```
+
+Pour voir tous les objets k8s d'un même namespace, il est possible de d'utiliser la commande suivante.
+
+```shell
+kubectl get all
+```
+
+### Updates et Rollback
+
+Un `Deployment` déclenche un `rollout`. Chaque nouveau `rollout` crée une "Révision de déploiement".
+
+
+``` mermaid
+graph TD
+    subgraph Deployment Revision 1
+        subgraph ReplicaSet1
+                A1[pod <br/> conteneur python:3.8]
+                A2[pod <br/> conteneur python:3.8]
+                A3[pod <br/> conteneur python:3.8]
+                A4[pod <br/> conteneur python:3.8]
+                A5[pod <br/> conteneur python:3.8]
+        end
+    end
+
+```
+
+Lorsque que l'application est mise à jour, eg le conteneur change de version, un nouveau `rollout` est déclenché et crée une nouvelle "Révision de déploiement".
+
+``` mermaid
+graph TD
+    subgraph Deployment Revision 2
+        subgraph ReplicaSet2
+                B1[pod <br/> conteneur python:3.9]
+                B2[pod <br/> conteneur python:3.9]
+                B3[pod <br/> conteneur python:3.9]
+                B4[pod <br/> conteneur python:3.9]
+                B5[pod <br/> conteneur python:3.9]
+        end
+    end
+```
+
+C'est ce qui permet de monitorer les déploiements et de revenir en arrière si nécessaire.
+
+On peut voir le status du rollout avec la commande suivante.
+
+```shell
+kubectl rollout status deployment_name
+```
+```shell
+kubectl rollout history deployment_name
+```
+
+La stratégie par défaut pour mettre à jour le déploiement est de mettre à jour les pods un par un au fur et à mesure de leur disponibilité, plutôt que de tous les supprimer d'un coup et de rendre l'application incaccessible. C'est ce que k8s appelle un "rolling update".
+
+Pratiquement, comment on fait la mise à jour ? Une fois les modifications faites dans le fichier de configuration `.yml`, on utilise la commande suivante.
+
+```shell
+kubectl apply -f deployment_file.yml
+```
+
+Pour annuler la mise à jour et faire un rollback, on utilise la commande suivante.
+
+```shell
+kubectl rollout undo deployment/deployment_name
 ```

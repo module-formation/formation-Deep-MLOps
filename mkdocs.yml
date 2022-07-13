@@ -58,11 +58,15 @@ markdown_extensions:
     - def_list
     - attr_list
     - md_in_html
+    - meta
     - pymdownx.betterem:
           smart_enable: all
   # config pour latex
     - pymdownx.arithmatex:
           generic: true
+    - pymdownx.emoji:
+          emoji_index: !!python/name:materialx.emoji.twemoji
+          emoji_generator: !!python/name:materialx.emoji.to_svg
 
 # config pour latex
 extra_javascript:
