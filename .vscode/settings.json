@@ -13,7 +13,7 @@
       "editor.tabSize": 2,
       "editor.fontLigatures": true,
       "editor.fontFamily": "JetBrains Mono Medium",
-      "editor.fontSize": 16,
+      "editor.fontSize": 14,
       "terminal.integrated.cursorStyle": "line",
       "terminal.integrated.cursorWidth": 2,
       "terminal.integrated.fontFamily": "MesloLGS NF",

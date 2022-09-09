@@ -139,6 +139,8 @@ nav:
           - Kubernetes: devops/kubernetes.md
           - YAML: devops/yaml.md
           - Redis: devops/redis.md
+    - AZ-104:
+          - Managing Azure Active Directory: az104/az-ad.md
     - Guidelines:
           - IDE vscode: ide_vscode/conf.md
           - Documentation:
