@@ -141,6 +141,7 @@ nav:
           - Redis: devops/redis.md
     - AZ-104:
           - Managing Azure Active Directory: az104/az-ad.md
+          - Subscription and Governance: az104/sub_and_gov.md
     - Guidelines:
           - IDE vscode: ide_vscode/conf.md
           - Documentation:

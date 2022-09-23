@@ -13,7 +13,7 @@
       "editor.tabSize": 2,
       "editor.fontLigatures": true,
       "editor.fontFamily": "JetBrains Mono Medium",
-      "editor.fontSize": 14,
+      "editor.fontSize": 12,
       "terminal.integrated.cursorStyle": "line",
       "terminal.integrated.cursorWidth": 2,
       "terminal.integrated.fontFamily": "MesloLGS NF",
@@ -23,37 +23,28 @@
       "[yaml]": {
         "editor.autoIndent": "advanced"
       },
-    // config python
-    // "python.languageServer": "Pylance",
-    // "python.analysis.extraPaths": [
-    //   "./src",
-    // ],
-    // "python.sortImports.path": "isort",
-    // "python.sortImports.args": [
-    //     "-sp setup.cfg"
-    // ],
-    // "[python]": {
-    //   "editor.codeActionsOnSave": {
-    //       "source.organizeImports": true
-    //   }
-    // },
-    // "python.linting.flake8Enabled": true,
-    // "python.linting.pylintEnabled": false,
-    // "python.linting.flake8Path": "flake8",
-    // "python.linting.ignorePatterns": [
-    //     ".vscode/*.py",
-    //     "**/site-packages/**/*.py",
-    //     ".venv/**/*.py",
-    //     "**.pytest_cache/**/*.py"
-    //   ],
-    // "python.formatting.provider": "black",
-    // "python.formatting.blackArgs": [
-    //   "--line-length=88"
-    // ],
-    // "python.linting.mypyEnabled": true,
-    // "python.linting.mypyPath": "mypy",
-    // "python.testing.pytestEnabled" : true,
+    "python.languageServer": "Pylance",
+    "[python]": {
+      "editor.codeActionsOnSave": {
+          "source.organizeImports": true
+      }
+    },
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Path": "flake8",
+    "python.linting.ignorePatterns": [
+        ".vscode/*.py",
+        "**/site-packages/**/*.py",
+        ".venv/**/*.py",
+        "**.pytest_cache/**/*.py"
+      ],
+    "python.formatting.blackArgs": [
+      "--line-length=88"
+    ],
+    "python.linting.mypyEnabled": true,
+    "python.linting.mypyPath": "mypy",
+    "python.testing.pytestEnabled" : true,
     "editor.formatOnSave": false,
     "editor.formatOnPaste": false,
     "editor.formatOnType": false,
-    }
+}

@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-RUN apt-get update && apt-get install make git -y --no-install-recommends
+RUN apt-get update && apt-get install make git graphviz -y --no-install-recommends
 
 ARG USERNAME=vorph
 ARG USER_UID=1000
