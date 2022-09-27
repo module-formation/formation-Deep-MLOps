@@ -139,6 +139,7 @@ nav:
           - Kubernetes: devops/kubernetes.md
           - YAML: devops/yaml.md
           - Redis: devops/redis.md
+          - AzDevOps pipelines: devops/az_devops.md
     - AZ-104:
           - Managing Azure Active Directory: az104/az-ad.md
           - Subscription and Governance: az104/sub_and_gov.md
