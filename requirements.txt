@@ -1,6 +1,6 @@
 diagrams==0.22.0
 mkdocs==1.4.2
-mkdocs-material==8.5.3
+mkdocs-material==8.5.9
 mkdocstrings==0.19.0
 mkdocstrings-python==0.7.1
 mknotebooks==0.7.1.post0.dev2
