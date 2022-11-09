@@ -41,7 +41,32 @@ il existe 4 types de souscriptions différentes.
 
 ## Comprendre la hiérarchie
 
+![screen](./../images/az104/hierarchy.svg)
+
+* Les `management groups` offrent un niveau de vision au dessus des `resource groups`, ce qui permet de grouper ces derniers ensembles.
+* Un `management group` racine est créé par défaut, et l'on peut avoir jusque 6 niveaux de `management group` en dehors du groupe racine.
+* Chaque souscription peut contenir un ou plusieurs `resource groups` permettant de grouper logiquement les ressources telles que les machines virtuelles, les base de données, etc.
+* Cette hiérarchie permet d'implémenter les politiques d'accès, de gérer les coûts, etc.
+
+$$
+\text{Resource} \subset \text {Resource Group} \subset \text {Subscription} \subset \text {Management Group}
+$$
+
 ## Travailler avec le mode RBAC
+
+RBAC : Role Based Access Control
+
+Permet aux administrateurs des donner l'accès aux ressources Azure et de séparer les responsabilités dans l'équipe.
+
+* **Qui** : N'importe quelle identité demandant un accès. Ca peut être un utilisateur, un groupe, un service principal ou une identité managée.
+* **Quoi** : Définition du rôle, ensemble d'opérations que l'identité pourra effectuer. Ecrit au format JSON.
+* **Où** : Définir les limites de l'accès.
+
+Ces 3 points définissent un rôle, qui peut alors être assignée à l'identité.
+
+On peut avoir au maximum jusque 2000 rôles par souscription.
+
+**Principe du moindre privilège**.
 
 ## Built-in-roles et Custom Roles
 

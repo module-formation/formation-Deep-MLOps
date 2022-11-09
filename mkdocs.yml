@@ -32,8 +32,15 @@ plugins:
     - search:
           lang: fr
     - mknotebooks
-  # - neoteroi.mkdocsoad:
-  #     use_pymdownx: true
+    - mkdocstrings:
+          default_handler: python
+          handlers:
+              python:
+                  setup_commands:
+                      - import sys
+                  #     - sys.path.append("")
+                  rendering:
+                      show_source: true
 
 extra_css:
     - stylesheets/extra.css

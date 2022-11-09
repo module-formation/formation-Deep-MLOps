@@ -1,0 +1,14 @@
+---
+parameters:
+    - name: job_name
+      default: job
+    - name: vmImage
+      default: ubuntu-latest
+
+jobs:
+    - job: ${{ parameters.job_name }}
+      pool:
+          vmImage: ${{ parameters.vmImage }}
+
+      steps:
+          - script: echo "This is from the job ${{ parameters.job_name }} in VM ${{ parameters.vmImage }}"

@@ -1,0 +1,12 @@
+---
+steps:
+    - script: echo This the first step of the template !
+      displayName: Script from Template
+
+    - script: dir
+      displayName: Dir from Template
+
+    - task: UsePythonVersion@0
+      inputs:
+          versionSpec: '3.8'
+      displayName: Use Python
