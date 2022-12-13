@@ -1,6 +1,7 @@
 ---
 site_name: Arctic Vault
 site_author: Mathieu Klimczak
+dev_addr: "127.0.0.1:8001"
 theme:
     name: material
     logo: images/noun_Robot_1955251.svg

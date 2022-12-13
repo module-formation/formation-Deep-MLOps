@@ -12,4 +12,4 @@ deploy:
 
 .PHONY: dac
 dac:
-	python diagrams/dependencies.py
+	python diagrams/archi.py

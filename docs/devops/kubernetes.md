@@ -2,23 +2,19 @@
 
 Aussi dénommé k8s, kubernetes a été développé par Google, capitalisant sur leur expérience des conteneurs en production.
 
-k8s est un système d'orchestration de conteneurs. Pour les conteneurs on se réfère à la section prcédente, parlons de l'orchestration.
+k8s est un système d'orchestration de conteneurs. Pour les conteneurs on se réfère à la section précédente, parlons de l'orchestration.
 
 ## Orchestration
 
 Avec une commande `docker run`, on est capable de déployer une instance d'un conteneur, par exemple une api.
 
-Mais que se passe-t-il si le nombre de requêtes envoyées à cette api et trop important ? On pourrait déployer une seconde instance de cette api pour gérer le flux supplémentaire.
+* Mais que se passe-t-il si le nombre de requêtes envoyées à cette api est trop important ? On pourrait déployer une seconde instance de cette api pour gérer le flux supplémentaire.
+* On pourrait le faire en relançant une commande `docker run`, mais cela demande de le faire de façon manuelle et de surveiller à chaque fois comment cela se passe.
+* De la même façon, un fois le pic de requête passé, on pourrait alors vouloir supprimer certaines instances, pour récupérer des ressources.
+* Si le conteneur crashe, on devrait pouvoir le détecter et relancer une image automatiquement.
+* Si le docker host crashe, tous les conteneurs lancés s'arrêteront aussi.
 
-On pourrait le faire en relançant une commande `docker run`, mais cela demande de le faire de façon manuelle et de surveiller à chaque fois comment cela se passe.
-
-De la même façon, le pique de requête sera passé, on pourrait alors vouloir supprimer certaines instances, pour récupérer des ressources.
-
-Si le conteneur crashe, on devrait pouvoir le détecter et relancer une image automatiquement.
-
-Si le docker host crashe, tous les conteneurs lancés s'arrêterons aussi.
-
-Pour gérer ces problèmes dans un environnement de production, on fait alors appel à des systèmes d'orchestrations des conteneurs :
+Pour gérer ces problèmes dans un environnement de production, on fait alors appel à des systèmes **d'orchestrations des conteneurs** :
 
 * docker-swarm,
 * kubernetes,
@@ -26,15 +22,15 @@ Pour gérer ces problèmes dans un environnement de production, on fait alors ap
 
 On se concentre ici sur kubernetes.
 
-**Les avantages d'un orchestrateur sont alors que vos applications sont facilement et toujours disponibles, un crash étant alors automatiquement détecté et une nouvelle instance lancée. Plusieurs instance d'une même application peuvent être lancées en même temps, ce que permet d'équilibrer le traffic.**
+**Les avantages d'un orchestrateur sont alors que vos applications sont facilement et toujours disponibles, un crash étant alors automatiquement détecté et une nouvelle instance lancée. Plusieurs instance d'une même application peuvent être lancées en même temps, ce qui permet d'équilibrer le traffic.**
 
 ## Architecture kubernetes
 
 Quand on parle de k8s, on d'un cluster kubernetes, de la même façon qu'on parlerait d'un cluster de cpu travaillant de façon conjointe.
 
-L'atome d'un cluster k8s est une **node** (noeud), un noeud est une machine, qu'elle soit physique ou virtuelle, sur laquelle est installé k8s. C'est sur  un noeud que se lance les conteneurs que k8s orchestre. Evidemment, si l'on a qu'un seul noeud et qu'il crashe, k8s ne pourra rien faire et donc vos conteneurs ne seront plus accessibles. C'est là tout l'intérêt d'un cluster centralisant plusieurs noeuds.
+L'atome d'un cluster k8s est un **node** (noeud), un noeud est une machine, qu'elle soit physique ou virtuelle, sur laquelle est installé k8s. C'est sur  un noeud que se lance les conteneurs que k8s orchestre. Evidemment, si l'on a qu'un seul noeud et qu'il crashe, k8s ne pourra rien faire et donc vos conteneurs ne seront plus accessibles. C'est là tout l'intérêt d'un cluster centralisant plusieurs noeuds.
 
-Dans un cluster k8s, il y a toujours un noeud principal, le **Master node**, c'est sur lui que k8s est installé, et qui gère l'ensemble des noeuds du cluster qui sont des **workers nodes**. C'est le noeud principal qui est responsable de l'orchestration en tant que tel.
+Dans un cluster k8s, il y a toujours un noeud principal, le **Master node**, c'est sur lui que k8s est installé, et qui gère l'ensemble des noeuds du cluster qui sont des **workers nodes**. **C'est le noeud principal qui est responsable de l'orchestration en tant que tel.**
 
 Lorsque l'on installe kubernetes, on installe en fait une suite de composants :
 
@@ -51,13 +47,13 @@ L'api est l'interface principale avec laquelle l'utilisateur interagit, les lign
 
 Le scheduler est celui qui distribue le travail, ou les conteneurs, aux différents noeuds du cluster. Il assigne les conteneurs nouvellments créés aux noeuds.
 
-Le controlleur est le cerveau de l'orchestration il est responsable de la surveillance des noeuds et des contneeurs qui crashent. C'est lui qui décide de recréer un nouveau conteneur si nécessaire.
+Le controlleur est le cerveau de l'orchestration, il est responsable de la surveillance des noeuds et des contneeurs qui crashent. C'est lui qui décide de recréer un nouveau conteneur si nécessaire.
 
-Le `container runtime` est le software sous-jacent permettant de faire tourner les conteneurs, dans la plupart du temps, c'est Docker.
+Le `container runtime` est le software sous-jacent permettant de faire tourner les conteneurs, dans la plupart du temps, c'est [containerd](https://containerd.io/).
 
 !!! info "Remarque"
 
-    Il existe d'autres container runtime, on peut citer par exemple [cri-o](https://cri-o.io/)
+    Il existe d'autres container runtime, on peut citer par exemple [cri-o](https://cri-o.io/).
 
 `kubelet` est l'agent qui tourne sur chaque noeud, et qui surveille que les conteneurs présents sur le noeud fonctionnent comme prévu.
 
@@ -77,36 +73,38 @@ kubectl cluster-info
 kubectl get nodes
 ```
 
-## Setup kubernetes
+## Installer kubernetes
+
+Pour installer k8s sur sa propre machine, il est possible d'utiliser l'une des solutions suivantes.
 
 * Minikube
 * k3s
 * MicroK8s
 * Kubeadm
 
+Dans tous les cas, on ne pourra avoir qu'un seul noeud, et il sera aussi nécessaire d'installer un software de machine virtuelle. Sur les systèmes Linux, l'outil de vistualisation installé de base est [KVM](https://www.redhat.com/fr/topics/virtualization/what-is-KVM).
+
+Pour vérifier si KVM est correctement installé sur votre système, vous pouvez vérifier avec la commande `kvm-ok`.
+
+```sh
+❯ kvm-ok
+
+INFO: /dev/kvm exists
+KVM acceleration can be used
+```
 
 ### References
 
-* Install and set up the kubectl tool: –
+* Install and set up the kubectl tool: https://kubernetes.io/docs/tasks/tools/
 
-https://kubernetes.io/docs/tasks/tools/
+* Install Minikube: https://minikube.sigs.k8s.io/docs/start/ https://kubernetes.io/fr/docs/tasks/tools/install-minikube/
 
-* Install Minikube: –
+* Install VirtualBox: https://www.virtualbox.org/wiki/Downloads https://www.virtualbox.org/wiki/Linux_Downloads
 
-https://minikube.sigs.k8s.io/docs/start/
-
-* Install VirtualBox: –
-
-https://www.virtualbox.org/wiki/Downloads
-
-https://www.virtualbox.org/wiki/Linux_Downloads
-
-* Minikube Tutorial: –
-
-https://kubernetes.io/docs/tutorials/hello-minikube/
+* Minikube Tutorial: https://kubernetes.io/docs/tutorials/hello-minikube/
 
 
-## Concept de base : les PODs
+## Concept de base : les Pods
 
 Avec k8s, le but ultime est de déployer une application sous la forme de conteneurs sur un ensemble de machines configurées comme des noeuds de travail sur un cluster.
 
@@ -122,7 +120,7 @@ graph LR
     end
 ```
 
-Cependant, k8s ne déploie pas directement les conteneurs sur les noeuds de travail, les conteneurs sont encapsulés dans un objet k8s connu sous le nom de **pod**.
+Cependant, k8s ne déploie pas directement les conteneurs sur les noeuds de travail, **les conteneurs sont encapsulés dans un objet k8s connu sous le nom de pod**.
 
 ``` mermaid
 graph LR
@@ -142,11 +140,11 @@ graph LR
     end
 ```
 
-Un pod est une instance d'une application. C'est le plus petit objet que l'on puisse créer dans k8s.
+Un pod est une instance d'une application. **C'est le plus petit objet que l'on puisse créer dans k8s.**
 
 !!! example "Exemple"
 
-    Exemple de config la plus simple, un cluter avec un noeud unique, contenant un unique pod, faisant tourner un conteneur avec python 3.8 dessus.
+    Exemple de configuration la plus simple, un cluter avec un noeud unique, contenant un unique pod, faisant tourner un conteneur avec python 3.8 dessus.
 
     ``` mermaid
     graph LR
@@ -207,7 +205,7 @@ D[User3] & E[User4] -.-> A2
 F[User5] & G[User6] -.-> A3
 ```
 
-La plupart du temps, les pods sont en correspondance bijective avec les conteneurs faisant tourner les applications. Pour augmenter la charge on augmente le nombre de pods, pour la baisser on en supprime.
+**La plupart du temps, les pods sont en correspondance bijective avec les conteneurs faisant tourner les applications**. En d'autres termes, un pod = un conteneur. Pour augmenter la charge on augmente le nombre de pods, pour la baisser on en supprime.
 
 ### POD multi-conteneur
 
@@ -280,10 +278,9 @@ Events:
   Normal  Started    17m   kubelet            Started container helloworld-api
 ```
 
+Pour créer un déploiement utilisant la méthode impérative, on utilise la commande `kubectl create`.
 
-To create a deployment using imperative command, use kubectl create:
-
-kubectl create deployment nginx --image=nginx
+`kubectl create deployment nginx --image=nginx`
 
 * Kubernetes Concepts – https://kubernetes.io/docs/concepts/
 
@@ -302,7 +299,7 @@ Il y a 4 entrée de niveau maximal (root), et ces entrées sont **nécessaires**
 --8<-- "./includes/k8s/pod-definition.yml"
 ```
 
-* `apiVersion` correspond à la version de l'api k8s utilisée pour créer les objets. En fonction de ce que l'on souhaite créer, il faut utiliser la bnne version. Pour créer des pods, on utilise la version `v1`.
+* `apiVersion` correspond à la version de l'api k8s utilisée pour créer les objets. En fonction de ce que l'on souhaite créer, il faut utiliser la bonne version. **Pour créer des pods, on utilise la version `v1`.**
 
 * `kind` correspond au type d'objet que l'on essaye de créer. On a la correspondance suivante entre `apiVersion` et `kind`.
 
@@ -314,9 +311,13 @@ Il y a 4 entrée de niveau maximal (root), et ces entrées sont **nécessaires**
 | Deployment |  apps/v1   |
 
 
-* `metadata` correspond aux données qui sont rattachées à l'objet lui même, comme son nom, es labels, etc. Par définition, `metadata` attend comme valeur un dictionnaire `yml`, alors que `apiVersion` et `kind` attendent un `string` comme valeur. Les jeux clé/valeur sous la clé `labels` sont complètement libre et à la discrétion de l'administrateur, ces labels servent à créer des tags pour filtrer les pods.
+* `metadata` correspond aux données qui sont rattachées à l'objet lui même, comme son nom, ses labels, etc. Par définition, `metadata` **attend comme valeur un dictionnaire** `yml`, **alors que** `apiVersion` **et** `kind` **attendent un** `string` comme valeur.
 
-* `spec` contient les spécifications techniques de l'objet que l'on crée, ici comme on crée un pod, on s'attend aux spécifications du ou des conteneurs adjoints au pod. **Comme un pod peut contenir plusieurs conteneurs**, on s'attend à une liste sous la clé `containers`.
+!!! info "Remarque"
+
+    Les jeux clé/valeur sous la clé `labels` **sont complètement libre et à la discrétion de l'administrateur**, ces labels servent à créer des tags pour filtrer les pods.
+
+* `spec` contient les spécifications techniques de l'objet que l'on crée, ici comme on crée un pod, on s'attend aux spécifications du ou des conteneurs adjoints au pod. **Comme un pod peut contenir plusieurs conteneurs, on s'attend à une liste sous la clé** `containers`.
 
 Pour créer le pod à partir de ce fichier de configuration, on utilise a commande suivante.
 
@@ -345,11 +346,12 @@ kubectl run redis --image=redis --dry-run=client -o yaml > redis-definition.yaml
 ```
 kubectl create -f redis-definition.yaml
 ```
-Use the kubectl edit command to update the image of the pod to redis.
+
+Pour mettre à jour l'image d'un pod définie via la méthode impérative, on peut utiliser la commande `kubectl edit`.
 
 `kubectl edit pod redis`
 
-If you used a pod definition file then update the image from redis123 to redis in the definition file via Vi or Nano editor and then run kubectl apply command to update the image :-
+Si l'on a utilisé un fichier yaml, puis qu'on l'a édité via Vim, Nano, ou autre, pour mettre à jour le pod on utilise la commande `kubectl apply`.
 
 `kubectl apply -f redis-definition.yaml`
 
@@ -575,7 +577,7 @@ kubectl scale --replicas=6 -f file.yml
 kubectl scale --replicas=6 replicaset myapp-replicaset
 ```
 
-## `Deployments`
+## `Deployment`
 
 Comment déployer son application dans un environnement de production ? En particulier on souhaite les caractéristiques suivantes.
 
@@ -710,3 +712,341 @@ Pour annuler la mise à jour et faire un rollback, on utilise la commande suivan
 ```shell
 kubectl rollout undo deployment/deployment_name
 ```
+
+## Notion de réseaux dans kubernetes
+
+### Cas d'un noeud unique
+
+Commençons simplement, un cluster avec un unique noeud contenant un unique pod python3.8.
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node
+            A[pod <br/> conteneur python:3.8]
+        end
+    end
+```
+
+Ce noeud possède une adresse ip, `192.168.1.2`, que l'on utilise pour accéder au noeud kubernetes. Par exemple via ssh.
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node
+            A[pod <br/> conteneur python:3.8]
+            B{{192.168.1.2}}
+        end
+    end
+```
+
+!!! info "Remarque"
+
+    Dans le cas de Minikube, l'adresse ip dont on parle ici est l'adresse ip du noeud Minikube à l'intérieur de l'hyperviseur. Votre système (Linux, Windows, etc) peut avoir une autre adresse.
+
+    ``` mermaid
+    graph LR
+        subgraph Système
+            subgraph noeud Minikube
+                A[pod <br/> conteneur python:3.8]
+                B{{192.168.1.2}}
+            end
+                C{{192.168.1.10}}
+        end
+    ```
+
+A la différence de Docker où une adresse ip est associée à un conteneur, **dans kubernetes une adresse ip est assignée à un pod**. Chaque pod possède donc sa propre adresse ip.
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node
+            A[pod <br/> conteneur python:3.8 </br> 10.244.0.2]
+            B{{192.168.1.2}}
+        end
+    end
+```
+
+Disons qu'ici l'adresse ip du pod est `10.224.0.2`.
+
+Lorsque kubernetes est initialisé, un réseau privé interne (avec l'adresse `10.244.0.0`) est alors créé et tous les pods lui sont rattachés.
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node
+            A[pod <br/> conteneur python:3.8 </br> 10.244.0.2]
+            B{{192.168.1.2}}
+            C[[10.244.0.0]]
+        end
+    end
+    C-.-A
+```
+
+Chaque pod déployé se voit alors assigner une adresse ip par ce réseau. Il peuvent communiquer entre eux via cette ip.
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node
+            A1[pod <br/> conteneur python:3.8 </br> 10.244.0.2]
+            A2[pod <br/> conteneur python:3.8 </br> 10.244.0.3]
+            A3[pod <br/> conteneur python:3.8 </br> 10.244.0.4]
+            B{{192.168.1.2}}
+            C[[10.244.0.0]]
+        end
+    end
+    C-.-A1 & A2 & A3
+```
+
+### Cas de plusieurs noeuds
+
+On considère 2 noeuds, chacun de ces noeuds possède un pod et un réseau privé fournissant l'adresse ip du pod.
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node1
+            A1[pod <br/> conteneur python:3.8 </br> 10.244.0.2]
+            C1[[10.244.0.0]]
+            B1{{192.168.1.2}}
+        end
+
+        subgraph node2
+            A2[pod <br/> conteneur python:3.8 </br> 10.244.0.2]
+            B2{{192.168.1.3}}
+            C2[[10.244.0.0]]
+        end
+    C1 -.- Error -.- C2
+    end
+
+    A1 -.- C1
+    A2 -.- C2
+```
+
+Ces pods et réseaux internes ayant la même adresse ip, la communication entre ces deux noeuds dans un cluster sera impossible.
+
+De façon générale dans un cluster, kubenertes ne gère pas de façon automatique les réseaux. Il s'attend à ce soit nous qui gérions la configuration réseau.
+
+Dans la configuration du réseau, kubernetes demande que ces deux conditions soient remplies pour pouvoir fonctionner.
+
+* Tous les pods, conteneurs, doivent pouvoir communiquer les uns avec les autres **sans traduction d'adresse réseau** (NAT).
+* Tous les noeuds peuvent communiquer avec tous les conteneurs, et inversement, **sans traduction d'adresse réseau**.
+
+
+!!! info "Network address translation"
+
+    En réseau informatique, on dit qu'un routeur fait du **network address translation** (NAT, "traduction d'adresse réseau" ou parfois "translation d'adresse réseau") lorsqu'il fait correspondre des adresses IP à d'autres adresses IP.
+
+    En particulier, un cas courant est de permettre à des machines disposant d'adresses privées qui font partie d'un intranet et ne sont ni uniques ni routables à l'échelle d'Internet, de communiquer avec le reste d'Internet en utilisant vers l'extérieur des adresses externes publiques, uniques et routables.
+
+    [Wikipedia](https://fr.wikipedia.org/wiki/Network_address_translation)
+
+Kubernetes s'attend donc à ce que l'on mette en place une solution réseau qui satisfait ces 2 critères.
+
+!!! example "Exemples"
+
+    Pour pouvoir mettre en place une telle configuration réseau, des solutions open source existent, telles que [Calico](https://www.tigera.io/project-calico/), [flannel](https://github.com/flannel-io/flannel), ou [VMWare NSX](https://www.vmware.com/fr/products/nsx.html) dans un environnement VMWare.
+
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node1
+            A1[pod <br/> conteneur python:3.8 </br> 10.244.0.2]
+            C1[[10.244.0.0]]
+            B1{{192.168.1.2}}
+        end
+
+        subgraph node2
+            A2[pod <br/> conteneur python:3.8 </br> 10.244.1.2]
+            C2[[10.244.1.0]]
+            B2{{192.168.1.3}}
+        end
+    D[[Routing]]
+    C1 -.- D -.- C2
+    end
+
+    A1 -.- C1
+    A2 -.- C2
+```
+
+## Les `Services`
+
+Les services permettent la communication entre différents composants à l'intérieur et à l'exterieur de kubernetes.
+
+``` mermaid
+graph TD
+
+    subgraph cluster
+        subgraph node
+            A[Utilisateur]
+            B[pod <br/> conteneur frontend]
+            C[pod <br/> conteneur backend]
+            D[pod <br/> conteneur backend]
+
+            A -.- Service1 -.- B
+            C -.- Service2 -.- B
+            D -.- Service3 -.- B
+        end
+
+    end
+```
+
+Les services permettent donc un couplage faible entre les différents composants nécessaires.
+
+### NodePort
+
+Prenons l'exemple suivant. On a un noeud d'ont l'adresse IP est `192.168.1.2` et un pod dont l'ip `10.244.0.2` est héritée du réseau `10.244.0.0`.
+
+On a aussi un laptop qui est sur le même réseau que le noeud.
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node
+            A1[pod <br/> conteneur FastAPI </br> 10.244.0.2]
+            B{{192.168.1.2}}
+            C[[10.244.0.0]]
+        end
+    end
+    C-.-A1
+
+    D[Laptop </br> 192.168.1.10]
+```
+
+!!! question "Question"
+
+    Comment accéder au pod depuis le laptop ?
+
+Si l'on se connecte en ssh au noeud, on sera alors capable d'appeler le pod via un `curl http://10.244.0.2`.
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node
+            A1[pod <br/> conteneur FastAPI </br> 10.244.0.2]
+            B{{192.168.1.2}}
+            C[[10.244.0.0]]
+        end
+    end
+    C-.-A1
+
+    D[Laptop </br> 192.168.1.10]
+    D -.- ssh -.- B
+```
+
+Mais on souhaite simplement être capable d'appeler le noeud via un `curl http://192.168.1.2`. On a donc besoin d'un intérmédiaire capable de faire le routage entre le laptop et le pod contenu dans le noeud.
+
+Une telle solution est fournie par le service `NodePort`, qui mappe un port du noeud var un port du pod.
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node
+            A1[pod <br/> conteneur FastAPI </br> 10.244.0.2]
+            B{{192.168.1.2}}
+            C[[10.244.0.0]]
+            E[port </br> 30008]
+            F[Service]
+        end
+    end
+    C-.-A1
+
+    D[Laptop </br> 192.168.1.10]
+    D -.- E -.- F -.- A1
+```
+
+Dans le détail, on a 3 ports qui sont impliqués :
+
+``` mermaid
+graph LR
+
+    subgraph cluster
+        subgraph node
+            A1[pod <br/> port 80 </br> 10.244.0.2]
+            E[port </br> 30008]
+            F[Service </br> port 80]
+        end
+    end
+
+    E -.- F -.- A1
+```
+
+* Le port 80 du pod, sur lequel tourne l'api, c'est celui auquel on veut avoir accès. On le nomme le `targetPort`.
+* Le port 80 du service, simplement nommé `port`.
+* Le port 30008 sur le noeud lui même qui permet un accès externe, le `nodePort`.
+
+!!! attention "Attention"
+
+    Le port sur le noeud a pour valeur 30008 et sur un noeud les ports ne peuvent avoir que des valeurs comprises entre 30000 et 32767.
+
+
+Les termes donnés ici sont du point du service. Le service est comme un serveur virtuel à l'intérieur du noeud. A l'intérieur du cluster, il possède sa propre adresse IP (l'ip cluster du service).
+
+
+
+!!! question "Question"
+
+    Comment spécifier au service que le port 30 correspond au bon pod ? Il peut y avoir plusieurs milliers de pods dans le même noeud.
+
+De la même façon que pour les `ReplicaSet`, les services possèdent une clé `selector` dans `spec` qui permet au service de filtrer les pods sur lesquels il doit s'appliquer par rapport aux tags.
+
+Ainsi, pour le pod suivant qui possède les tags `app: myapp` et `type: front-end`, il suffit de les renseigner dans le `selector` du service.
+
+
+```yaml title="pod-definition.yml"
+--8<-- "./includes/k8s/pod-definition.yml"
+```
+
+De cette façon là.
+
+```yaml title="service-definition.yml"
+--8<-- "./includes/k8s/service-definition.yaml"
+```
+
+!!! info "Remarque"
+
+    Si `targetPort` n'est pas défini, k8s supposera qu'il a la même valeur que `port`.
+
+Si on a plusieurs pod avec le même tags, ie des pods définis via un `ReplicaSet` ou un `Deployment` le service de chargera du routage vers l'ensemble de ces répliques et agira comme load balancer, **que les pods soient dans le même noeud ou non.**
+
+Par conséquent,
+
+* un seul pod dans un seul noeud,
+* plusieurs pods dans un seul noeud,
+* plusieurs pods dans plusieurs noeuds,
+
+cela ne change rien à la méthode de définition d'un service `NodePort` car kubernetes s'assure de le définir de manière transverse.
+
+
+Pour lancer le service, on utilise la commande suivante.
+
+`kubectl create -f service-definition.yaml`
+
+Pour voir l'ensemble des services lancés dans le cluster, on peut utiliser la commande `kubectl get svc`, `svc` désigant service control.
+
+**Sur Minikube**, pour avoir accès à l'adresse qu'il faut utiliser pour contacter le pod, on peut taper la commande suivante.
+
+
+```sh
+minikube service myapp-service --url
+```
+
+La commande nous affichera l'adresse pour contacter le pod, par exemple `http://192.168.99.101:30004`.
+
+### ClusterIP
+
+### Loadblancer
+
+Ne fonctionne que sur les plateformes Cloud.

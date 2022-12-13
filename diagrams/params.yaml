@@ -1,0 +1,32 @@
+---
+tf:
+    url: https://raw.githubusercontent.com/MathKlim/icons/main/TensorFlowBrandAssets/TensorFlow%20Logo/Primary/PNG/TF_FullColor_Icon.png
+    icon: TF.png
+
+dvc:
+    url: https://raw.githubusercontent.com/MathKlim/icons/main/dvc2.png
+    icon: dvc.png
+
+mlflow:
+    url: https://raw.githubusercontent.com/MathKlim/icons/main/MLflow-logo-final-black.png
+    icon: mlflow.png
+
+hydra:
+    url: https://raw.githubusercontent.com/MathKlim/icons/main/hydra.png
+    icon: hydra.png
+
+yaml:
+    url: https://raw.githubusercontent.com/MathKlim/icons/main/yaml.png
+    icon: yaml.png
+
+hdf:
+    url: https://raw.githubusercontent.com/MathKlim/icons/main/HDF_logo.png
+    icon: hdf.png
+
+txt:
+    url: https://raw.githubusercontent.com/MathKlim/icons/main/txt.png
+    icon: txt.png
+
+dvcbash:
+    url: https://raw.githubusercontent.com/MathKlim/icons/main/dvcbash.png
+    icon: dvcbash.png

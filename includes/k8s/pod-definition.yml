@@ -4,7 +4,7 @@ kind: Pod
 metadata:
     name: myapp-pod
     labels:
-        app: myapp
+        app: my-app
         type: front-end
 
 spec:
