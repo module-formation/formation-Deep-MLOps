@@ -902,6 +902,15 @@ graph TD
 
 Les services permettent donc un couplage faible entre les différents composants nécessaires.
 
+Un service est simplement un moyen de faire correspondre logiquement des pods avec des politiques pour y accéder. N'oubliez pas que les pods sont des ressources éphémères et qu'aucun pod n'est jamais recréé une fois qu'il a été supprimé. Les services offrent donc un moyen de fournir une connexion à ces pods, quelle que soit leur adresse IP. Ceci est réalisé par l'utilisation du `selector`. Habituellement, dans le manifeste d'un déploiement, des tags sont fournies dans le modèle du pod ce qui sert à identifier et à regrouper les pod en fonction de nos besoins. Des `selector` sont ensuite définis dans le manifeste des services **qui correspondent aux tags définis dans le manifeste du déploiement ou du pod**. Pour chaque pod qui correspond au sélecteur, un endpoint est créé pour ce pod.
+
+
+Nous allons maintenant discuter des différents types de services offerts (du moins les plus connus), du plus restreint au plus ouvert.
+
+### ClusterIP
+
+
+
 ### NodePort
 
 Prenons l'exemple suivant. On a un noeud d'ont l'adresse IP est `192.168.1.2` et un pod dont l'ip `10.244.0.2` est héritée du réseau `10.244.0.0`.
@@ -1045,8 +1054,203 @@ minikube service myapp-service --url
 
 La commande nous affichera l'adresse pour contacter le pod, par exemple `http://192.168.99.101:30004`.
 
-### ClusterIP
 
 ### Loadblancer
 
 Ne fonctionne que sur les plateformes Cloud.
+
+
+### k8s snippets
+
+```json
+{
+	"k8s Pod": {
+		"prefix": "k-pod",
+		"body": [
+			"apiVersion: v1",
+			"kind: Pod",
+			"metadata:",
+			"\tcreationTimestamp:",
+			"\tname: pod-name",
+			"\tlabels:",
+			"\t\tapp: my-app",
+			"\t\ttype: front-end",
+			"\t\tkey3: value3",
+
+			"spec:",
+			"\tcontainers:",
+			"\t\t- name: nginx-container",
+			"\t\t  image: nginx",
+			"\t\t  resources: {}",
+			"\trestartPolicy: Always",
+
+			"status: {}\n",
+			"---",
+
+		],
+		"description": "k8s Pod"
+	},
+
+	"k8s ReplicationController": {
+		"prefix": "k-replication-controller",
+		"body": [
+			"apiVersion: v1",
+			"kind: ReplicationController",
+			"metadata:",
+			"\tname: rc-name",
+			"\tlabels:",
+			"\t\tapp: my-app",
+			"\t\ttype: front-end",
+			"\t\tkey3: value3",
+
+			"spec:",
+			"\ttemplate:",
+			"\t\tmetadata:",
+			"\t\t\tname: rc-name",
+			"\t\t\tlabels:",
+			"\t\t\t\tapp: my-app",
+			"\t\t\t\ttype: front-end",
+			"\t\t\t\tkey3: value3",
+			"\t\tspec:",
+			"\t\t\tcontainers:",
+			"\t\t\t\t- name: container-name",
+			"\t\t\t\t  image: image-name",
+
+			"\treplicas: 3\n",
+			"---",
+		],
+		"description": "k8s ReplicationController"
+	},
+
+	"k8s ReplicaSet": {
+		"prefix": "k-replicaset",
+		"body": [
+			"apiVersion: apps/v1",
+			"kind: ReplicaSet",
+			"metadata:",
+			"\tname: replicaset-name",
+			"\tlabels:",
+			"\t\tapp: my-app",
+			"\t\ttype: front-end",
+			"\t\tkey3: value3",
+
+			"spec:",
+			"\ttemplate:",
+			"\t\tmetadata:",
+			"\t\t\tname: rc-name",
+			"\t\t\tlabels:",
+			"\t\t\t\tapp: my-app",
+			"\t\t\t\ttype: front-end",
+			"\t\t\t\tkey3: value3",
+			"\t\tspec:",
+			"\t\t\tcontainers:",
+			"\t\t\t\t- name: container-name",
+			"\t\t\t\t  image: image-name",
+
+			"\treplicas: 3",
+			"\tselector:",
+			"\t\tmatchLabels:",
+			"\t\t\ttype: front-end\n",
+			"---",
+		],
+		"description": "k8s ReplicaSet"
+	},
+
+	"k8s Deployment": {
+		"prefix": "k-deployment",
+		"body": [
+			"apiVersion: apps/v1",
+			"kind: Deployment",
+			"metadata:",
+			"\tname: myapp-deployment",
+			"\tlabels:",
+			"\t\tapp: my-app",
+			"\t\ttype: front-end",
+			"\t\tkey3: value3",
+
+			"spec:",
+			"\ttemplate:",
+			"\t\tmetadata:",
+			"\t\t\tname: myapp-pod",
+			"\t\t\tlabels:",
+			"\t\t\t\tapp: my-app",
+			"\t\t\t\ttype: front-end",
+			"\t\t\t\tkey3: value3",
+			"\t\tspec:",
+			"\t\t\tcontainers:",
+			"\t\t\t\t- name: container-name",
+			"\t\t\t\t  image: image-name",
+
+			"\treplicas: 3",
+			"\tselector:",
+			"\t\tmatchLabels:",
+			"\t\t\ttype: front-end\n",
+			"---",
+		],
+		"description": "k8s Deployment"
+	},
+
+	"k8s NodePort": {
+		"prefix": "k-nodeport",
+		"body": [
+			"apiVersion: v1",
+			"kind: Service",
+			"metadata:",
+			"\tname: myapp-service\n",
+			"spec:",
+			"\ttype: NodePort",
+			"\tports:",
+			"\t\t- targetPort: 80",
+			"\t\t  port: 80",
+			"\t\t  NodePort: 30008\n",
+			"\tselector:",
+			"\t\tapp: my-app",
+			"\t\ttype: front-end\n",
+			"---",
+		],
+		"description": "k8s NodePort"
+	},
+
+	"k8s ClusterIP": {
+		"prefix": "k-clusterip",
+		"body": [
+			"apiVersion: v1",
+			"kind: Service",
+			"metadata:",
+			"\tname: back-end\n",
+			"spec:",
+			"\ttype: ClusterIP",
+			"\tports:",
+			"\t\t- targetPort: 80",
+			"\t\t  port: 80\n",
+			"\tselector:",
+			"\t\tapp: my-app",
+			"\t\ttype: back-end\n",
+			"---",
+		],
+		"description": "k8s ClusterIP"
+	},
+
+	"k8s LoadBalancer": {
+		"prefix": "k-loadbalancer",
+		"body": [
+			"apiVersion: v1",
+			"kind: Service",
+			"metadata:",
+			"\tname: back-end\n",
+			"spec:",
+			"\ttype: LoadBalancer",
+			"\tports:",
+			"\t\t- targetPort: 80",
+			"\t\t  port: 80",
+			"\t\t  NodePort: 30008\n",
+			"\tselector:",
+			"\t\tapp: my-app",
+			"\t\ttype: back-end\n",
+			"---",
+		],
+		"description": "k8s LoadBalancer"
+	},
+
+}
+```
