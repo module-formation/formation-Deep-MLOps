@@ -1,0 +1,2685 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../terminal/">
+      
+      
+        <link rel="next" href="../docker/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>SSL et TLS - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#just-enough-ssl-tls-certificates" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SSL et TLS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-tabs__link">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../azure_ml/intro/" class="md-tabs__link">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../linux/" class="md-tabs__link md-tabs__link--active">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SSL et TLS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        SSL et TLS
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chiffrement-symetrique" class="md-nav__link">
+    Chiffrement symétrique
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chiffrement-asymetrique" class="md-nav__link">
+    Chiffrement asymétrique
+  </a>
+  
+    <nav class="md-nav" aria-label="Chiffrement asymétrique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openssl-et-https" class="md-nav__link">
+    openssl et https
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple" class="md-nav__link">
+    Exemple
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#chiffrement-symetrique" class="md-nav__link">
+    Chiffrement symétrique
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chiffrement-asymetrique" class="md-nav__link">
+    Chiffrement asymétrique
+  </a>
+  
+    <nav class="md-nav" aria-label="Chiffrement asymétrique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openssl-et-https" class="md-nav__link">
+    openssl et https
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple" class="md-nav__link">
+    Exemple
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="just-enough-ssl-tls-certificates">Just enough SSL TLS certificates</h1>
+<p>Un certificat est utilisé pour garantir la confiance entre deux devices pendant une transaction.</p>
+<p>Par exemple, lorsqu'un utilisateur souhaite se connecter à un serveur web, les certificats TLS sont là pour assurer que la communication entre les deux est correctement chiffrée et que le serveur est là où il prétend être.</p>
+<p>Il existe plusieurs méthodes de chiffrements.</p>
+<h2 id="chiffrement-symetrique">Chiffrement symétrique</h2>
+<p>La méthode la plus simple pour chiffrer et accéder à des données est via un couple login/password.</p>
+<p><pre class="mermaid"><code>sequenceDiagram
+    participant Client
+    participant WebServer
+
+    Note over Client: Génère une requête Q
+    loop Chiffrement
+        Client-&gt;&gt;Client: Chiffrement via K
+    end
+
+    activate Client
+    Client-&gt;&gt;WebServer: Enc(Q)
+    Client-&gt;&gt;WebServer: clé K
+    deactivate Client
+
+    loop Déchiffrement
+        WebServer-&gt;&gt;WebServer: Déchiffrement via K
+    end
+
+    Note over WebServer: Traîtement de Q
+    Note over WebServer: Génère une réponse A
+
+    loop Chiffrement
+        WebServer-&gt;&gt;WebServer: Chiffrement via K
+    end
+
+    activate WebServer
+    WebServer-&gt;&gt;Client: Enc(A)
+    deactivate WebServer
+
+    loop Déchiffrement
+        Client-&gt;&gt;Client: Déchiffrement via K
+    end</code></pre>
+Le problème du chiffrement symétrique est que le client et le webserver utilise la même clé pour chiffrer et déchiffrer les messages, de plus comme la clé doit voyager (au moins un fois lors de la connexion initiale), ce type de chiffrement est susceptible à des attaques du type "man in the middle".</p>
+<h2 id="chiffrement-asymetrique">Chiffrement asymétrique</h2>
+<p>Plutôt que d'utiliser une seule clé, le chiffrement asymétrique utilise une paire de clés: une clé <strong>publique</strong> et une clé <strong>privée</strong>. Pour la suite de l'explication, <strong>on peut penser à la clé publique comme un cadenas publique</strong>.</p>
+<p>Le chiffrement asymétrique est également connu sous le nom de cryptographie à clé publique.</p>
+<p>Un cadenas publique est mise gratuitement à la disposition de toute personne susceptible de vouloir chiffrer le message.</p>
+<p>La seconde clé privée est gardée secrète afin que seul l'utilisateur initial puisse la connaître.</p>
+<p>Un message crypté à l'aide d'un cadenas publique ne peut être déchiffré qu'à l'aide d'une clé privée, tandis qu'un message chiffré à l'aide d'une clé privée peut être déchiffré à l'aide d'un cadenas publique.</p>
+<p>Seul le cadenas publique transite vers le serveur, et l'unique clé pouvant débloquer l'accès est alors la clé privée contenue sur le device du Client.</p>
+<p>Une commande du type <code>ssh -i id_rsa user1@server1</code> permet alors de se connecter en ssh au serveur.</p>
+<p>L'ensemble des clés</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Dans le cas où l'on souhaite sécuriser l'accès à un WebServer via SSH. On peut alors générer la clé privée et le cadenas via la commande <code>ssh-keygen</code>. On a alors la clé privée <code>id_rsa</code> et le cadenas <code>id_rsa.pub</code>.</p>
+<p>La liste des entrées possibles sur le serveur, ie les clés/cadenas publiques permettant de s'y connecter sont listées dans <code>~/.ssh/authorized_keys</code>.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client
+    participant WebServer
+
+    loop ssh-keygen
+        Client-&gt;&gt;Client: Clé privée généré K
+        Client-&gt;&gt;Client: Cadenas publique &lt;br/&gt; généré L
+    end
+
+    activate Client
+    Client-&gt;&gt;WebServer: L
+    deactivate Client
+
+    Note over WebServer : Réception de L
+    Note over WebServer : Sécurisation</code></pre>
+</div>
+<p>Une seule clé/cadenas publique peut être utilisée pour sécuriser l'accès à plusieurs serveurs, tant que la clé privée ne fuite pas cela ne pose pas de soucis.</p>
+<p>Dans le cas où un autre Client souhaite accéder aux serveurs, il n'a alors qu'a générer une nouvelle paire de clés pour lui via <code>ssh-keygen</code> et vous fournir sa clé publique. Vous ayant accès au serveur pourra alors la rajouter à la liste des clés publiques autorisées dans <code>~/.ssh/authorized_keys</code>.</p>
+<h3 id="openssl-et-https">openssl et https</h3>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Est-il possible de sécuriser le transfert de la clé K lors d'un chiffrement symétrique ?</p>
+<p>Oui, avec du chiffrement asymétrique.</p>
+</div>
+<p>Supposons que nous sommes dans le cas d'un chiffrement symétrique, comme au dessus, et que l'on souhaite transférer de façon sure la clé de chiffrement.</p>
+<p>Une solution est alors de créer une paire de clé <strong>côté serveur</strong> via <code>openssl</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Génération de la clé publique</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>ma_cle.key<span class="w"> </span><span class="m">1024</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Génération de la clé/cadenas publique associée</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>openssl<span class="w"> </span>rsa<span class="w"> </span>-in<span class="w"> </span>ma_cle.key<span class="w"> </span>-pubout<span class="w"> </span>&gt;<span class="w"> </span>ma_cle.pem
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><a href="https://unix.stackexchange.com/questions/257010/pem-file-difference-ssh-keygen-vs-openssl">pem file difference - ssh-keygen vs openssl</a></li>
+<li><a href="https://security.stackexchange.com/questions/29876/what-are-the-differences-between-ssh-generated-keysssh-keygen-and-openssl-keys">What are the differences between ssh generated keys(ssh-keygen) and OpenSSL keys (PEM)and what is more secure for ssh remote login?</a></li>
+<li><a href="https://serverfault.com/questions/706336/how-to-get-a-pem-file-from-ssh-key-pair">How to get a .pem file from ssh key pair?</a></li>
+<li><a href="https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm">OpenSSL Quick Reference Guide</a></li>
+<li><a href="https://www.redhat.com/sysadmin/6-openssl-commands">6 OpenSSL command options that every sysadmin should know</a></li>
+</ul>
+<p>La première fois que le Client se connecte en <strong>https</strong> au serveur, il devine la clé publique générée <code>ma_cle.pem</code> lui ai transmise.</p>
+<p>Le browser du Client chiffre alors la clé symétrique via la <code>ma_cle.pem</code> qui vient de lui être transmise.</p>
+<p>Le couple (clé symétrique chiffrée, <code>ma_cle.pem</code>) fait alors le chemin inverse vers le serveur, où la clé symétrique est déchiffrée avec <code>ma_cle.key</code>.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Client
+    participant WebServer
+
+    activate Client
+    Client-&gt;&gt;WebServer: Première connexion https
+    deactivate Client
+
+    Note over Client: clé symétrique K
+
+    Note over WebServer: openssl
+    loop Génération
+        WebServer-&gt;&gt;WebServer: ma_cle.key
+        WebServer-&gt;&gt;WebServer: ma_cle.pem
+    end
+
+    activate WebServer
+    WebServer-&gt;&gt;Client: ma_cle.pem
+    deactivate WebServer
+
+    loop Chiffrement via ma_cle.pem
+        Client-&gt;&gt;Client: Enc(K)
+    end
+
+    activate Client
+    Client-&gt;&gt;WebServer: Enc(K)
+    deactivate Client
+
+    loop Déchiffrement via ma_cle.key
+        WebServer-&gt;&gt;WebServer: K
+    end
+
+    activate WebServer
+    WebServer-&gt;&gt;Client: Accès autorisé
+    deactivate WebServer</code></pre>
+<p>Afin d'éviter les problèmes, y-a-t'il un moyen de vérifier que les clés/cadenas du style <code>ma_cle.pem</code> que l'on reçoit du serveur sont authentiques, et non pas des clés qu'un hacker aurait pu générer en reroutant votre connexion vers son serveur ?</p>
+<p>En réalité, le serveur n'envoie pas que la clé <code>ma_cle.pem</code>, il envoie aussi un certificat, qui ne contient pas uniquement la clé, mais aussi l'adresse DNS du serveur ainsi que toutes les adresse DNS alternatives par lesquelles il peut être connu.</p>
+<p>Pour vérifier la légitimité d'un certificat, <strong>il est nécessaire qu'il soit signé</strong>, cela se fait par <strong>des autorités de certifications</strong> (CA) publiques tierces. Il est aussi possible d'avoir des autorités des certifications privées, par exemple pour chiffer le réseau interne d'une entreprise.</p>
+<p>PKI : Public Key Infrastructure.</p>
+<p>Certificats générés pour une clé publique :</p>
+<ul>
+<li><code>server.crt</code></li>
+<li><code>server.pem</code></li>
+<li><code>client.crt</code></li>
+<li><code>client.pem</code></li>
+</ul>
+<p>Certificats générés pour une clé privée :</p>
+<ul>
+<li><code>server.key</code></li>
+<li><code>server-key.pem</code></li>
+<li><code>client.key</code></li>
+<li><code>client-key.pem</code></li>
+</ul>
+<h2 id="exemple">Exemple</h2>
+<p>Create a CSR (certificate signing request) <code>/etc/httpd/csr/app01.csr</code> (key name should be <code>app01.key</code>). Below are the required details which should be used while creating CSR.</p>
+<ol>
+<li>Country Name = SG</li>
+<li>State or Province Name = Capital Tower</li>
+<li>Locality Name = CT</li>
+<li>Organization Name = KodeKloud</li>
+<li>Organizational Unit Name = Education</li>
+<li>Common Name = app01.com</li>
+<li>Email Address = admin@kodekloud.com</li>
+<li>Keep challenge password blank.</li>
+<li>Keep optional company name blank.</li>
+</ol>
+<p>cd into <code>/etc/httpd/csr</code> directory and run command <code>sudo openssl req -new -newkey rsa:2048 -nodes -keyout app01.key -out app01.csr</code> to generate a CSR file.</p>
+<p>To verify the entries we used to create a CSR, run the command:</p>
+<p><code>openssl req -noout -text -in app01.csr</code></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span>
+<span class="normal"><a href="#__codelineno-2-24">24</a></span>
+<span class="normal"><a href="#__codelineno-2-25">25</a></span>
+<span class="normal"><a href="#__codelineno-2-26">26</a></span>
+<span class="normal"><a href="#__codelineno-2-27">27</a></span>
+<span class="normal"><a href="#__codelineno-2-28">28</a></span>
+<span class="normal"><a href="#__codelineno-2-29">29</a></span>
+<span class="normal"><a href="#__codelineno-2-30">30</a></span>
+<span class="normal"><a href="#__codelineno-2-31">31</a></span>
+<span class="normal"><a href="#__codelineno-2-32">32</a></span>
+<span class="normal"><a href="#__codelineno-2-33">33</a></span>
+<span class="normal"><a href="#__codelineno-2-34">34</a></span>
+<span class="normal"><a href="#__codelineno-2-35">35</a></span>
+<span class="normal"><a href="#__codelineno-2-36">36</a></span>
+<span class="normal"><a href="#__codelineno-2-37">37</a></span>
+<span class="normal"><a href="#__codelineno-2-38">38</a></span>
+<span class="normal"><a href="#__codelineno-2-39">39</a></span>
+<span class="normal"><a href="#__codelineno-2-40">40</a></span>
+<span class="normal"><a href="#__codelineno-2-41">41</a></span>
+<span class="normal"><a href="#__codelineno-2-42">42</a></span>
+<span class="normal"><a href="#__codelineno-2-43">43</a></span>
+<span class="normal"><a href="#__codelineno-2-44">44</a></span>
+<span class="normal"><a href="#__codelineno-2-45">45</a></span>
+<span class="normal"><a href="#__codelineno-2-46">46</a></span>
+<span class="normal"><a href="#__codelineno-2-47">47</a></span>
+<span class="normal"><a href="#__codelineno-2-48">48</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-noout<span class="w"> </span>-text<span class="w"> </span>-in<span class="w"> </span>app01.csr
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>Certificate<span class="w"> </span>Request:
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span>Data:
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">        </span>Version:<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>0x0<span class="o">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">        </span>Subject:<span class="w"> </span><span class="nv">C</span><span class="o">=</span>SG,<span class="w"> </span><span class="nv">ST</span><span class="o">=</span>Capital<span class="w"> </span>Tower,<span class="w"> </span><span class="nv">L</span><span class="o">=</span>CT,<span class="w"> </span><span class="nv">O</span><span class="o">=</span>KodeKloud,<span class="w"> </span><span class="nv">OU</span><span class="o">=</span>Education,<span class="w"> </span><span class="nv">CN</span><span class="o">=</span>app01.com/emailAddress<span class="o">=</span>admin@kodekloud.com
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">        </span>Subject<span class="w"> </span>Public<span class="w"> </span>Key<span class="w"> </span>Info:
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">            </span>Public<span class="w"> </span>Key<span class="w"> </span>Algorithm:<span class="w"> </span>rsaEncryption
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">                </span>Public-Key:<span class="w"> </span><span class="o">(</span><span class="m">2048</span><span class="w"> </span>bit<span class="o">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">                </span>Modulus:
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">                    </span><span class="m">00</span>:c8:65:79:1c:48:f8:be:7e:1e:12:ed:ff:12:3f:
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">                    </span><span class="m">67</span>:f1:76:a9:09:6e:95:25:17:bd:3a:95:e9:e0:5b:
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">                    </span>2c:e7:82:07:60:80:88:74:93:ea:d5:49:90:28:33:
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">                    </span><span class="m">98</span>:a4:f5:a7:fa:48:d9:89:5c:17:c5:75:73:ee:ea:
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">                    </span>9a:c1:1e:47:25:9a:29:a5:de:4f:fe:49:8a:21:19:
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">                    </span>8b:bb:a9:d6:93:1e:de:f6:30:d3:fe:d9:db:fb:6f:
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">                    </span><span class="m">83</span>:f7:4e:68:f2:b2:ab:3e:22:8b:03:38:64:9c:32:
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">                    </span><span class="m">53</span>:9f:36:07:4e:12:6a:47:28:fd:35:41:4f:2a:d5:
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">                    </span><span class="m">07</span>:37:89:8a:a6:e7:5e:11:ba:0e:90:6f:3e:53:7b:
+<a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="w">                    </span>fb:ef:0f:88:b2:a7:28:d4:ce:01:5b:79:40:f5:35:
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="w">                    </span>1a:ef:70:94:db:99:94:90:e9:3b:9a:6d:26:2c:b0:
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="w">                    </span>0a:b4:d8:bf:a8:31:4c:14:bd:93:0b:c8:0c:a6:1d:
+<a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="w">                    </span><span class="m">98</span>:10:45:41:9f:8e:35:b5:bc:90:24:c8:b5:9e:00:
+<a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="w">                    </span>e6:39:58:50:f6:b9:bc:11:02:fd:96:ff:47:f0:da:
+<a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="w">                    </span>eb:d9:91:ec:1a:09:e6:7d:ca:41:ba:a6:b8:71:6a:
+<a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="w">                    </span>e8:33:c6:8b:c3:b9:9a:ff:c7:b6:a4:86:9a:cb:e5:
+<a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="w">                    </span><span class="m">13</span>:cd:5d:59:31:c4:3f:89:f4:99:cc:f9:37:89:40:
+<a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="w">                    </span>9b:49
+<a id="__codelineno-2-30" name="__codelineno-2-30"></a><span class="w">                </span>Exponent:<span class="w"> </span><span class="m">65537</span><span class="w"> </span><span class="o">(</span>0x10001<span class="o">)</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="w">        </span>Attributes:
+<a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="w">            </span>a0:00
+<a id="__codelineno-2-33" name="__codelineno-2-33"></a><span class="w">    </span>Signature<span class="w"> </span>Algorithm:<span class="w"> </span>sha256WithRSAEncryption
+<a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="w">         </span><span class="m">18</span>:d2:9a:97:66:e3:79:a8:f2:a2:98:0c:2d:66:26:3e:c2:8c:
+<a id="__codelineno-2-35" name="__codelineno-2-35"></a><span class="w">         </span><span class="m">57</span>:8c:1f:7c:6a:e7:e6:df:fe:d6:16:b4:e6:0e:3f:e0:8d:bc:
+<a id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="w">         </span>ab:c4:46:73:a7:eb:e2:29:cb:06:da:6f:a9:39:1c:68:8f:86:
+<a id="__codelineno-2-37" name="__codelineno-2-37"></a><span class="w">         </span><span class="m">26</span>:2f:3a:a6:da:40:2c:a1:e8:87:5e:3a:c0:b5:d6:e8:bf:79:
+<a id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="w">         </span>a4:62:07:fa:db:b7:dc:0e:45:33:0a:96:be:9b:2d:02:55:f0:
+<a id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="w">         </span>2a:ff:fd:5c:b2:45:41:b5:e5:76:b6:6c:35:52:be:a9:4e:d1:
+<a id="__codelineno-2-40" name="__codelineno-2-40"></a><span class="w">         </span>c1:46:2a:a4:b0:35:e4:3a:46:69:f1:bf:1e:13:8a:b4:20:22:
+<a id="__codelineno-2-41" name="__codelineno-2-41"></a><span class="w">         </span>fe:66:d4:ef:cd:21:52:31:11:e0:43:59:45:4a:ad:2e:47:4c:
+<a id="__codelineno-2-42" name="__codelineno-2-42"></a><span class="w">         </span>be:42:58:fa:58:58:6e:e8:30:dc:27:4b:6b:3b:98:3c:d2:ff:
+<a id="__codelineno-2-43" name="__codelineno-2-43"></a><span class="w">         </span>4b:4d:d5:d4:96:91:f6:de:74:8d:53:b9:53:7b:38:ce:3b:4f:
+<a id="__codelineno-2-44" name="__codelineno-2-44"></a><span class="w">         </span>ee:0f:f6:b8:2b:32:a1:c3:43:a1:a0:29:ec:13:ab:36:f4:16:
+<a id="__codelineno-2-45" name="__codelineno-2-45"></a><span class="w">         </span><span class="m">93</span>:d6:0a:5d:19:40:ab:b7:81:66:07:5e:c1:8f:62:b9:0e:67:
+<a id="__codelineno-2-46" name="__codelineno-2-46"></a><span class="w">         </span><span class="m">07</span>:a5:f1:2b:ec:a1:ab:bb:83:81:f7:d8:aa:a7:e6:78:e5:f3:
+<a id="__codelineno-2-47" name="__codelineno-2-47"></a><span class="w">         </span>f6:98:6b:70:e4:75:b1:bf:7f:d3:b2:37:1f:86:dd:30:e9:b1:
+<a id="__codelineno-2-48" name="__codelineno-2-48"></a><span class="w">         </span>3b:ab:d7:9e
+</code></pre></div></td></tr></table></div>
+<p>Great! We have now generated the CSR. We must now send it to a CA to get it signed. However there is no CA available, so <strong>we will create our own self signed certificate</strong>.</p>
+<p>On app01 create a self signed certificate <code>/etc/httpd/certs/app01.crt</code> (key name should <code>app01.key</code>). Below are the required details which should be used while creating the certificate.</p>
+<ol>
+<li>Country Name = SG</li>
+<li>State or Province Name = Capital Tower</li>
+<li>Locality Name = CT</li>
+<li>Organization Name = KodeKloud</li>
+<li>Organizational Unit Name = Education</li>
+<li>Common Name = app01.com</li>
+<li>Email Address = admin@kodekloud.com</li>
+</ol>
+<p>cd into <code>/etc/httpd/certs</code> directory and run command <code>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout app01.key -out app01.crt</code> and then pass in the details given above.</p>
+<p>On app01 server we have an Apache web server already installed and configured and ssl mode is already enabled. In the <code>/etc/httpd/conf.d/ssl.conf</code> file update the SSL certificate and key to use your <code>app01.crt</code> and <code>app01.key</code> files. After making changes remember to restart Apache config.</p>
+<p>For your reference the certificate you created in the previous steps is at <code>/etc/httpd/certs/app01.crt</code> and the key is at <code>/etc/httpd/certs/app01.key</code>. The properties in the file are SSLCertificateFile and SSLCertificateKeyFile. To test if server is using correct certificate or not run this command and check if it returns your certificate:</p>
+<p><code>echo | openssl s_client -showcerts -servername app01.com -connect app01:443 2&gt;/dev/null | openssl x509 -inform pem</code></p>
+<p>Modify the settings in the file <code>/etc/httpd/conf.d/ssl.conf</code> to point to the self signed cert and key you created. Then restart httpd service using the command <code>sudo service httpd restart</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span>
+<span class="normal"><a href="#__codelineno-3-30">30</a></span>
+<span class="normal"><a href="#__codelineno-3-31">31</a></span>
+<span class="normal"><a href="#__codelineno-3-32">32</a></span>
+<span class="normal"><a href="#__codelineno-3-33">33</a></span>
+<span class="normal"><a href="#__codelineno-3-34">34</a></span>
+<span class="normal"><a href="#__codelineno-3-35">35</a></span>
+<span class="normal"><a href="#__codelineno-3-36">36</a></span>
+<span class="normal"><a href="#__codelineno-3-37">37</a></span>
+<span class="normal"><a href="#__codelineno-3-38">38</a></span>
+<span class="normal"><a href="#__codelineno-3-39">39</a></span>
+<span class="normal"><a href="#__codelineno-3-40">40</a></span>
+<span class="normal"><a href="#__codelineno-3-41">41</a></span>
+<span class="normal"><a href="#__codelineno-3-42">42</a></span>
+<span class="normal"><a href="#__codelineno-3-43">43</a></span>
+<span class="normal"><a href="#__codelineno-3-44">44</a></span>
+<span class="normal"><a href="#__codelineno-3-45">45</a></span>
+<span class="normal"><a href="#__codelineno-3-46">46</a></span>
+<span class="normal"><a href="#__codelineno-3-47">47</a></span>
+<span class="normal"><a href="#__codelineno-3-48">48</a></span>
+<span class="normal"><a href="#__codelineno-3-49">49</a></span>
+<span class="normal"><a href="#__codelineno-3-50">50</a></span>
+<span class="normal"><a href="#__codelineno-3-51">51</a></span>
+<span class="normal"><a href="#__codelineno-3-52">52</a></span>
+<span class="normal"><a href="#__codelineno-3-53">53</a></span>
+<span class="normal"><a href="#__codelineno-3-54">54</a></span>
+<span class="normal"><a href="#__codelineno-3-55">55</a></span>
+<span class="normal"><a href="#__codelineno-3-56">56</a></span>
+<span class="normal"><a href="#__codelineno-3-57">57</a></span>
+<span class="normal"><a href="#__codelineno-3-58">58</a></span>
+<span class="normal"><a href="#__codelineno-3-59">59</a></span>
+<span class="normal"><a href="#__codelineno-3-60">60</a></span>
+<span class="normal"><a href="#__codelineno-3-61">61</a></span>
+<span class="normal"><a href="#__codelineno-3-62">62</a></span>
+<span class="normal"><a href="#__codelineno-3-63">63</a></span>
+<span class="normal"><a href="#__codelineno-3-64">64</a></span>
+<span class="normal"><a href="#__codelineno-3-65">65</a></span>
+<span class="normal"><a href="#__codelineno-3-66">66</a></span>
+<span class="normal"><a href="#__codelineno-3-67">67</a></span>
+<span class="normal"><a href="#__codelineno-3-68">68</a></span>
+<span class="normal"><a href="#__codelineno-3-69">69</a></span>
+<span class="normal"><a href="#__codelineno-3-70">70</a></span>
+<span class="normal"><a href="#__codelineno-3-71">71</a></span>
+<span class="normal"><a href="#__codelineno-3-72">72</a></span>
+<span class="normal"><a href="#__codelineno-3-73">73</a></span>
+<span class="normal"><a href="#__codelineno-3-74">74</a></span>
+<span class="normal"><a href="#__codelineno-3-75">75</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>Listen 443 https
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>SSLPassPhraseDialog exec:/usr/libexec/httpd-ssl-pass-dialog
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>SSLSessionCache         shmcb:/run/httpd/sslcache(512000)
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>SSLSessionCacheTimeout  300
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>SSLRandomSeed startup file:/dev/urandom  256
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>SSLRandomSeed connect builtin
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>#SSLRandomSeed startup file:/dev/random  512
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>#SSLRandomSeed connect file:/dev/random  512
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>#SSLRandomSeed connect file:/dev/urandom 512
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a>SSLCryptoDevice builtin
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a>#SSLCryptoDevice ubsec
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a>##
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a>## SSL Virtual Host Context
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a>##
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a>
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a>&lt;VirtualHost _default_:443&gt;
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22"></a>DocumentRoot &quot;/var/www/html&quot;
+<a id="__codelineno-3-23" name="__codelineno-3-23"></a>ServerName app01.com:443
+<a id="__codelineno-3-24" name="__codelineno-3-24"></a>
+<a id="__codelineno-3-25" name="__codelineno-3-25"></a>ErrorLog logs/app01_ssl_error_log
+<a id="__codelineno-3-26" name="__codelineno-3-26"></a>TransferLog logs/app01_ssl_access_log
+<a id="__codelineno-3-27" name="__codelineno-3-27"></a>LogLevel warn
+<a id="__codelineno-3-28" name="__codelineno-3-28"></a>
+<a id="__codelineno-3-29" name="__codelineno-3-29"></a>#   SSL Engine Switch:
+<a id="__codelineno-3-30" name="__codelineno-3-30"></a>#   Enable/Disable SSL for this virtual host.
+<a id="__codelineno-3-31" name="__codelineno-3-31"></a>SSLEngine on
+<a id="__codelineno-3-32" name="__codelineno-3-32"></a>
+<a id="__codelineno-3-33" name="__codelineno-3-33"></a>#   SSL Protocol support:
+<a id="__codelineno-3-34" name="__codelineno-3-34"></a># List the enable protocol levels with which clients will be able to
+<a id="__codelineno-3-35" name="__codelineno-3-35"></a># connect.  Disable SSLv2 access by default:
+<a id="__codelineno-3-36" name="__codelineno-3-36"></a>SSLProtocol all -SSLv2 -SSLv3
+<a id="__codelineno-3-37" name="__codelineno-3-37"></a>
+<a id="__codelineno-3-38" name="__codelineno-3-38"></a>#   SSL Cipher Suite:
+<a id="__codelineno-3-39" name="__codelineno-3-39"></a>#   List the ciphers that the client is permitted to negotiate.
+<a id="__codelineno-3-40" name="__codelineno-3-40"></a>#   See the mod_ssl documentation for a complete list.
+<a id="__codelineno-3-41" name="__codelineno-3-41"></a>SSLCipherSuite HIGH:3DES:!aNULL:!MD5:!SEED:!IDEA
+<a id="__codelineno-3-42" name="__codelineno-3-42"></a>
+<a id="__codelineno-3-43" name="__codelineno-3-43"></a>#   Server Certificate:
+<a id="__codelineno-3-44" name="__codelineno-3-44"></a># Point SSLCertificateFile at a PEM encoded certificate.  If
+<a id="__codelineno-3-45" name="__codelineno-3-45"></a># the certificate is encrypted, then you will be prompted for a
+<a id="__codelineno-3-46" name="__codelineno-3-46"></a># pass phrase.  Note that a kill -HUP will prompt again.  A new
+<a id="__codelineno-3-47" name="__codelineno-3-47"></a># certificate can be generated using the genkey(1) command.
+<a id="__codelineno-3-48" name="__codelineno-3-48"></a>SSLCertificateFile /etc/httpd/certs/app01.crt
+<a id="__codelineno-3-49" name="__codelineno-3-49"></a>
+<a id="__codelineno-3-50" name="__codelineno-3-50"></a>#   Server Private Key:
+<a id="__codelineno-3-51" name="__codelineno-3-51"></a>#   If the key is not combined with the certificate, use this
+<a id="__codelineno-3-52" name="__codelineno-3-52"></a>#   directive to point at the key file.  Keep in mind that if
+<a id="__codelineno-3-53" name="__codelineno-3-53"></a>#   you&#39;ve both a RSA and a DSA private key you can configure
+<a id="__codelineno-3-54" name="__codelineno-3-54"></a>#   both in parallel (to also allow the use of DSA ciphers, etc.)
+<a id="__codelineno-3-55" name="__codelineno-3-55"></a>SSLCertificateKeyFile /etc/httpd/certs/app01.key
+<a id="__codelineno-3-56" name="__codelineno-3-56"></a>
+<a id="__codelineno-3-57" name="__codelineno-3-57"></a>#SSLOptions +FakeBasicAuth +ExportCertData +StrictRequire
+<a id="__codelineno-3-58" name="__codelineno-3-58"></a>&lt;Files ~ &quot;\.(cgi|shtml|phtml|php3?)$&quot;&gt;
+<a id="__codelineno-3-59" name="__codelineno-3-59"></a>    SSLOptions +StdEnvVars
+<a id="__codelineno-3-60" name="__codelineno-3-60"></a>&lt;/Files&gt;
+<a id="__codelineno-3-61" name="__codelineno-3-61"></a>&lt;Directory &quot;/var/www/cgi-bin&quot;&gt;
+<a id="__codelineno-3-62" name="__codelineno-3-62"></a>    SSLOptions +StdEnvVars
+<a id="__codelineno-3-63" name="__codelineno-3-63"></a>&lt;/Directory&gt;
+<a id="__codelineno-3-64" name="__codelineno-3-64"></a>
+<a id="__codelineno-3-65" name="__codelineno-3-65"></a>BrowserMatch &quot;MSIE [2-5]&quot; \
+<a id="__codelineno-3-66" name="__codelineno-3-66"></a>         nokeepalive ssl-unclean-shutdown \
+<a id="__codelineno-3-67" name="__codelineno-3-67"></a>         downgrade-1.0 force-response-1.0
+<a id="__codelineno-3-68" name="__codelineno-3-68"></a>
+<a id="__codelineno-3-69" name="__codelineno-3-69"></a>#   Per-Server Logging:
+<a id="__codelineno-3-70" name="__codelineno-3-70"></a>#   The home of a custom SSL log file. Use this when you want a
+<a id="__codelineno-3-71" name="__codelineno-3-71"></a>#   compact non-error SSL logfile on a virtual host basis.
+<a id="__codelineno-3-72" name="__codelineno-3-72"></a>CustomLog logs/ssl_request_log \
+<a id="__codelineno-3-73" name="__codelineno-3-73"></a>          &quot;%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \&quot;%r\&quot; %b&quot;
+<a id="__codelineno-3-74" name="__codelineno-3-74"></a>
+<a id="__codelineno-3-75" name="__codelineno-3-75"></a>&lt;/VirtualHost&gt;
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>[thor@app01 certs]$ sudo service httpd restart
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>Redirecting to /bin/systemctl restart httpd.service
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>[thor@app01 certs]$ echo | openssl s_client -showcerts -servername app01.com -connect app01:443 2&gt;/dev/null | openssl x509 -inform pem
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>-----BEGIN CERTIFICATE-----
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>MIID+TCCAuGgAwIBAgIJAL+q3TOi/zk/MA0GCSqGSIb3DQEBCwUAMIGSMQswCQYD
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>VQQGEwJTRzEWMBQGA1UECAwNQ2FwaXRhbCBUb3dlcjELMAkGA1UEBwwCQ1QxEjAQ
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>BgNVBAoMCUtvZGVLbG91ZDESMBAGA1UECwwJRWR1Y2F0aW9uMRIwEAYDVQQDDAlh
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>cHAwMS5jb20xIjAgBgkqhkiG9w0BCQEWE2FkbWluQGtvZGVrbG91ZC5jb20wHhcN
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>MjIwNTEwMTk0NjM5WhcNMjMwNTEwMTk0NjM5WjCBkjELMAkGA1UEBhMCU0cxFjAU
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a>BgNVBAgMDUNhcGl0YWwgVG93ZXIxCzAJBgNVBAcMAkNUMRIwEAYDVQQKDAlLb2Rl
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>S2xvdWQxEjAQBgNVBAsMCUVkdWNhdGlvbjESMBAGA1UEAwwJYXBwMDEuY29tMSIw
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a>IAYJKoZIhvcNAQkBFhNhZG1pbkBrb2Rla2xvdWQuY29tMIIBIjANBgkqhkiG9w0B
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a>AQEFAAOCAQ8AMIIBCgKCAQEAyxqRPJBP9sp18fEi4q9CGpHd3idAFheWy6sBoAbY
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a>I7gKRlpKbMuZC3ezstrnOPVt3AeQJFDDZ5CLZ1FN2fXx3tEdz/U8FElxBK8FbwkY
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a>+igDJpBfEMkbIF2cNMMA0fw5F7589ddx3aCB4okjuJOSho7L6GtBRdtZUTEJCvgV
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a>s8JTncXfm6Ad6pQe0+XrNb5ZDNct71RCVwWA+g8jzAYkTBiJ1psl3OJW+YY6kcXK
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a>/8NWB8SjgCEfRRxfnwx7K49dO7PlNM7CuRj0CwHz5gGkm3eIez6v/1WVZU2D6tSR
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a>AbI61pXx3yMhLi/+Hywh8pysKMMJkA6gYA4m0PJ7kbnKrQIDAQABo1AwTjAdBgNV
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a>HQ4EFgQULcWGO0WKuybjbnvP885eJGOMjS0wHwYDVR0jBBgwFoAULcWGO0WKuybj
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a>bnvP885eJGOMjS0wDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAZJLP
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a>oTQsWKyRNWN+pYOOwHRLe5+fFUH4/uSLFNq1oZ/3F0fE+6hftcJ6Izi9D/UR4n3P
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a>lhGFtw5/gZGEeQWwf+NvSn+ZjN2nhsS//69giLkQkVv6HGMXoZbwl1RItTYhndp9
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a>75pRPLrXQjhKrvRR5Q72bujutCUyZsR7K1spUbh7YMHdshwxrqal0Z/WsDZtko6c
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a>4zNwGxwuhcni/Ld7i7mGDiKsuqNSaA8myv0q6t1jDLOQBU3KZYbyQJvYG5IGeekq
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a>qtBgSMqPbiy67lTtP5qb8djoe6qI44++4b4LQhXI7x6v/hdKpW9btPisb0g+xSnq
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a>W0THP/VibgL6TKNFYA==
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a>-----END CERTIFICATE-----
+</code></pre></div></td></tr></table></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

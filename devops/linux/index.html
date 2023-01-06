@@ -1,0 +1,3800 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../../azure_ml/annex2/">
+      
+      
+        <link rel="next" href="../git/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>Linux Basics - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#just-enough-linux-to-shine-in-society" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux Basics
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-tabs__link">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../azure_ml/intro/" class="md-tabs__link">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Linux Basics
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Linux Basics
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-shell" class="md-nav__link">
+    Working with Shell
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with Shell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#home-sweet-home" class="md-nav__link">
+    /home/ sweet /home/
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commandes-basiques" class="md-nav__link">
+    Commandes basiques
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chemins-absolus-et-relatifs" class="md-nav__link">
+    Chemins absolus et relatifs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protip-pushd-popd" class="md-nav__link">
+    Protip : pushd &amp; popd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtenir-de-laide-sur-les-commandes" class="md-nav__link">
+    Obtenir de l'aide sur les commandes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-types" class="md-nav__link">
+    Shell types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-variables-denvironnement" class="md-nav__link">
+    Les variables d'environnement
+  </a>
+  
+    <nav class="md-nav" aria-label="Les variables d'environnement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    export
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-variable-path" class="md-nav__link">
+    La variable PATH
+  </a>
+  
+    <nav class="md-nav" aria-label="La variable PATH">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#which" class="md-nav__link">
+    which
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-path" class="md-nav__link">
+    export PATH
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux-core-concepts" class="md-nav__link">
+    Linux Core concepts
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux Core concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#le-noyau-linux" class="md-nav__link">
+    Le noyau Linux
+  </a>
+  
+    <nav class="md-nav" aria-label="Le noyau Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-du-noyau" class="md-nav__link">
+    Version du noyau
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#espace-kernel-et-espace-utilisateur" class="md-nav__link">
+    Espace kernel et espace utilisateur
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-et-hardware" class="md-nav__link">
+    Linux et hardware
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vi" class="md-nav__link">
+    Vi
+  </a>
+  
+    <nav class="md-nav" aria-label="Vi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commandes-basiques_1" class="md-nav__link">
+    Commandes basiques
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-linux-commands" class="md-nav__link">
+    More Linux commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-management" class="md-nav__link">
+    Package Management
+  </a>
+  
+    <nav class="md-nav" aria-label="Package Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#centos" class="md-nav__link">
+    CentOS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu" class="md-nav__link">
+    Ubuntu
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services" class="md-nav__link">
+    Services
+  </a>
+  
+    <nav class="md-nav" aria-label="Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemple" class="md-nav__link">
+    Exemple
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placer-votre-code-dans-opt" class="md-nav__link">
+    Placer votre code dans /opt/
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-shell" class="md-nav__link">
+    Working with Shell
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with Shell">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#home-sweet-home" class="md-nav__link">
+    /home/ sweet /home/
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commandes-basiques" class="md-nav__link">
+    Commandes basiques
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chemins-absolus-et-relatifs" class="md-nav__link">
+    Chemins absolus et relatifs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protip-pushd-popd" class="md-nav__link">
+    Protip : pushd &amp; popd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtenir-de-laide-sur-les-commandes" class="md-nav__link">
+    Obtenir de l'aide sur les commandes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shell-types" class="md-nav__link">
+    Shell types
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-variables-denvironnement" class="md-nav__link">
+    Les variables d'environnement
+  </a>
+  
+    <nav class="md-nav" aria-label="Les variables d'environnement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#export" class="md-nav__link">
+    export
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-variable-path" class="md-nav__link">
+    La variable PATH
+  </a>
+  
+    <nav class="md-nav" aria-label="La variable PATH">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#which" class="md-nav__link">
+    which
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#export-path" class="md-nav__link">
+    export PATH
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linux-core-concepts" class="md-nav__link">
+    Linux Core concepts
+  </a>
+  
+    <nav class="md-nav" aria-label="Linux Core concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#le-noyau-linux" class="md-nav__link">
+    Le noyau Linux
+  </a>
+  
+    <nav class="md-nav" aria-label="Le noyau Linux">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#version-du-noyau" class="md-nav__link">
+    Version du noyau
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#espace-kernel-et-espace-utilisateur" class="md-nav__link">
+    Espace kernel et espace utilisateur
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linux-et-hardware" class="md-nav__link">
+    Linux et hardware
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vi" class="md-nav__link">
+    Vi
+  </a>
+  
+    <nav class="md-nav" aria-label="Vi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commandes-basiques_1" class="md-nav__link">
+    Commandes basiques
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#more-linux-commands" class="md-nav__link">
+    More Linux commands
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#package-management" class="md-nav__link">
+    Package Management
+  </a>
+  
+    <nav class="md-nav" aria-label="Package Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#centos" class="md-nav__link">
+    CentOS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu" class="md-nav__link">
+    Ubuntu
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services" class="md-nav__link">
+    Services
+  </a>
+  
+    <nav class="md-nav" aria-label="Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemple" class="md-nav__link">
+    Exemple
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#placer-votre-code-dans-opt" class="md-nav__link">
+    Placer votre code dans /opt/
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="just-enough-linux-to-shine-in-society">Just enough Linux to shine in society</h1>
+<p>Quasiment tous les outils utilisés pour le DevOps ont d'abord été développés pour Linux puis portéssur Windows, souvent avec un décalage important :</p>
+<ul>
+<li>Docker Linux : 2013,</li>
+<li>Docker for Windows : 2016.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<ul>
+<li>Ansible ne tourne pas sur Windows de façon native, mais peut tourner sur WSL2.</li>
+<li>Kubernetes ne tourne pas sur Windows.</li>
+</ul>
+</div>
+<h2 id="working-with-shell">Working with Shell</h2>
+<h3 id="home-sweet-home"><code>/home/</code> sweet <code>/home/</code></h3>
+<p>Dès que l'on lance un terminal Linux, le premier répertoire dans lequel vous vous trouverez sera <strong>le répertoire principal</strong>.</p>
+<p>Si vous avez comme nom d'utilisateur <code>vorphus</code>, votre terminal sera directement ouvert au répertoire <code>/home/vorphus</code>.</p>
+<p>De façon générique, l'utilisateur se nomme <code>user</code> dans les docs. Pour voir le nom d'utilisateur, on peut soit taper la commande <code>whoami</code> dans le terminal, soit savoir que le nom d'utilisateur est stocké dans la variable d'environnement <code>USER</code>, on peut alors taper <code>echo $USER</code> pour afficher son contenu.</p>
+<p>Le répertoire <code>/home/$USER</code> est unique à chaque utilisateur.</p>
+<p>On peut taper la commande <code>pwd</code> dans le terminal pour voir dans quel répertoire l'on se trouve.</p>
+<h3 id="commandes-basiques">Commandes basiques</h3>
+<p>On a deux types de commandes dans le Shell :</p>
+<ul>
+<li><strong>Les commandes internes</strong> : <code>echo</code>, <code>cd</code>, <code>pwd</code>, <code>mkdir</code>, <code>set e.t.c</code>, qui sont fournies avec le Shell.</li>
+<li><strong>Les commandes externes</strong> : <code>mv</code>, <code>date</code>, <code>uptime</code>, <code>cp</code>, qui sont des fichiers binaires ou scripts distincts qui sont appelées par le Shell.</li>
+</ul>
+<p>Pour déterminer si une commande est interne ou externe, on peut taper <code>type</code> suivi de la commande.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>❯<span class="w"> </span><span class="nb">type</span><span class="w"> </span>mv
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>mv<span class="w"> </span>is<span class="w"> </span>/usr/bin/mv
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>❯<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="nb">echo</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="nb">echo</span><span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>shell<span class="w"> </span><span class="nb">builtin</span>
+</code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th align="center">Commande</th>
+<th align="center">Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>echo</code></td>
+<td align="center">print a line of text</td>
+</tr>
+<tr>
+<td align="center"><code>ls</code></td>
+<td align="center">list files and folders</td>
+</tr>
+<tr>
+<td align="center"><code>cd</code></td>
+<td align="center">change directory</td>
+</tr>
+<tr>
+<td align="center"><code>mkdir</code></td>
+<td align="center">create a directory</td>
+</tr>
+<tr>
+<td align="center"><code>touch</code></td>
+<td align="center">create a file</td>
+</tr>
+<tr>
+<td align="center"><code>mv new_file.txt sample_file.txt</code></td>
+<td align="center">move <code>new_file.txt</code> to <code>sample_file.txt</code></td>
+</tr>
+<tr>
+<td align="center"><code>pwd</code></td>
+<td align="center">print the present working directory</td>
+</tr>
+<tr>
+<td align="center"><code>cat file.txt</code></td>
+<td align="center">show the content of <code>file.txt</code></td>
+</tr>
+</tbody>
+</table>
+<p>Des commandes successives peuvent être lancées avec le point virgule.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Commandes successives</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nb">cd</span><span class="w"> </span>new_dir<span class="p">;</span><span class="w"> </span>mkdir<span class="w"> </span>www<span class="p">;</span><span class="w"> </span><span class="nb">pwd</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Création de plusieurs répertoires en une seule fois</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>mkdir<span class="w"> </span>France<span class="w"> </span>Angleterre<span class="w"> </span>Belgique
+</code></pre></div></td></tr></table></div>
+<p>Les commandes du type</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>mkdir<span class="w"> </span>/tmp/europe
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>mkdir<span class="w"> </span>/tmp/europe/france
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>mkdir<span class="w"> </span>/tmp/europe/france/lille
+</code></pre></div></td></tr></table></div>
+peuvent se simplifier en une seule ligne via l'argument <code>-p</code> permettant de créer de façon récurrente les répertoires parents. On a ainsi la commande suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Commande simplifée, création directe des dossiers parents</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/tmp/europe/france/lille
+</code></pre></div></td></tr></table></div>
+<p>De même pour la suppression/copie récursive des données avec <code>-r</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">suppression récursive</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>rm<span class="w"> </span>-r<span class="w"> </span>/tmp/europe/france/lille
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">copie récursive</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>cp<span class="w"> </span>-r<span class="w"> </span>my_dir1<span class="w"> </span>/tmp/my_dir1
+</code></pre></div></td></tr></table></div>
+<p>La commande <code>tree /home/vorph/test_dir</code> permet de voir toute l'arborescence de <code>test_dir</code>, ie l'ensemble des fichiers et dossiers, sous la forme d'un arbre.</p>
+<h3 id="chemins-absolus-et-relatifs">Chemins absolus et relatifs</h3>
+<ul>
+<li>
+<p><code>/home/vorphus/test</code> est un chemin absolu. Un chemin absolu spécifie le chemin du répertoire, ou du dossier, depuis le dossier root <code>/</code>.</p>
+</li>
+<li>
+<p>Si on est dans le "home directory" <code>/home/vorphus</code>, alors <code>test</code> est un chemin relatif au répertoire dans lequel on se trouve déjà.</p>
+</li>
+</ul>
+<h3 id="protip-pushd-popd">Protip : <code>pushd</code> &amp; <code>popd</code></h3>
+<p>La commande <code>pushd</code> permet de mettre en cache l'adresse du répertoire où l'on se trouve actuellement avant de changer de répertoire. On peut alors y revenir avec <code>popd</code>.</p>
+<p>Si l'on est dans <code>/home/vorph</code>, <code>pushd /etc</code> nous amène au répertoire <code>/etc</code>, tout en mettant <code>/home/vorph</code> en haut de la pile des répertoires.</p>
+<p>La commande <code>popd</code> nous permet alors de revenir au répertoire en haut de la pile, eg ici <code>/home/vorph</code>.</p>
+<h3 id="obtenir-de-laide-sur-les-commandes">Obtenir de l'aide sur les commandes</h3>
+<p>On a plusieurs moyen d'obtenir de l'aide sur les commandes Linux et ce qu'elles sont sensées faire.</p>
+<ul>
+<li>On peut utiliser la commande <code>whatis</code> pour une décription succinte.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>❯<span class="w"> </span>whatis<span class="w"> </span>mv
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>mv<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span><span class="w">               </span>-<span class="w"> </span>move<span class="w"> </span><span class="o">(</span>rename<span class="o">)</span><span class="w"> </span>files
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>❯<span class="w"> </span>whatis<span class="w"> </span>cp
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>cp<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span><span class="w">               </span>-<span class="w"> </span>copy<span class="w"> </span>files<span class="w"> </span>and<span class="w"> </span>directories
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>On peut lire le manuel de la commande avec <code>man</code>.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span>
+<span class="normal"><a href="#__codelineno-8-19">19</a></span>
+<span class="normal"><a href="#__codelineno-8-20">20</a></span>
+<span class="normal"><a href="#__codelineno-8-21">21</a></span>
+<span class="normal"><a href="#__codelineno-8-22">22</a></span>
+<span class="normal"><a href="#__codelineno-8-23">23</a></span>
+<span class="normal"><a href="#__codelineno-8-24">24</a></span>
+<span class="normal"><a href="#__codelineno-8-25">25</a></span>
+<span class="normal"><a href="#__codelineno-8-26">26</a></span>
+<span class="normal"><a href="#__codelineno-8-27">27</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>❯<span class="w"> </span>man<span class="w"> </span>mv
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>MV<span class="o">(</span><span class="m">1</span><span class="o">)</span><span class="w">                     </span>UserCommands<span class="w">                           </span>MV<span class="o">(</span><span class="m">1</span><span class="o">)</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>NAME
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">       </span>mv<span class="w"> </span>-<span class="w"> </span>move<span class="w"> </span><span class="o">(</span>rename<span class="o">)</span><span class="w"> </span>files
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a>SYNOPSIS
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">       </span>mv<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>-T<span class="o">]</span><span class="w"> </span>SOURCE<span class="w"> </span>DEST
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">       </span>mv<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span>SOURCE...<span class="w"> </span>DIRECTORY
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">       </span>mv<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span>-t<span class="w"> </span>DIRECTORY<span class="w"> </span>SOURCE...
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a>DESCRIPTION
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">       </span>Rename<span class="w"> </span>SOURCE<span class="w"> </span>to<span class="w"> </span>DEST,<span class="w"> </span>or<span class="w"> </span>move<span class="w"> </span>SOURCE<span class="o">(</span>s<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>DIRECTORY.
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="w">       </span>Mandatory<span class="w"> </span>arguments<span class="w"> </span>to<span class="w"> </span>long<span class="w"> </span>options<span class="w"> </span>are<span class="w"> </span>mandatory<span class="w"> </span><span class="k">for</span><span class="w"> </span>short<span class="w"> </span>options<span class="w"> </span>too.
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a><span class="w">       </span>--backup<span class="o">[=</span>CONTROL<span class="o">]</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="w">              </span>make<span class="w"> </span>a<span class="w"> </span>backup<span class="w"> </span>of<span class="w"> </span>each<span class="w"> </span>existing<span class="w"> </span>destination<span class="w"> </span>file
+<a id="__codelineno-8-19" name="__codelineno-8-19"></a>
+<a id="__codelineno-8-20" name="__codelineno-8-20"></a><span class="w">       </span>-b<span class="w">     </span>like<span class="w"> </span>--backup<span class="w"> </span>but<span class="w"> </span>does<span class="w"> </span>not<span class="w"> </span>accept<span class="w"> </span>an<span class="w"> </span>argument
+<a id="__codelineno-8-21" name="__codelineno-8-21"></a>
+<a id="__codelineno-8-22" name="__codelineno-8-22"></a><span class="w">       </span>-f,<span class="w"> </span>--force
+<a id="__codelineno-8-23" name="__codelineno-8-23"></a><span class="w">              </span><span class="k">do</span><span class="w"> </span>not<span class="w"> </span>prompt<span class="w"> </span>before<span class="w"> </span>overwriting
+<a id="__codelineno-8-24" name="__codelineno-8-24"></a>
+<a id="__codelineno-8-25" name="__codelineno-8-25"></a><span class="w">       </span>-i,<span class="w"> </span>--interactive
+<a id="__codelineno-8-26" name="__codelineno-8-26"></a><span class="w">              </span>prompt<span class="w"> </span>before<span class="w"> </span>overwrite
+<a id="__codelineno-8-27" name="__codelineno-8-27"></a>...
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Certaines commandes fournissent une aide via la commande <code>--help</code>.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>❯<span class="w"> </span>mv<span class="w"> </span>--help
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>Utilisation<span class="w"> </span>:<span class="w"> </span>mv<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>-T<span class="o">]</span><span class="w"> </span>SOURCE<span class="w"> </span>DEST
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">         </span>ou<span class="w"> </span>:<span class="w"> </span>mv<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span>SOURCE...<span class="w"> </span>RÉPERTOIRE
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">         </span>ou<span class="w"> </span>:<span class="w"> </span>mv<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span>-t<span class="w"> </span>RÉPERTOIRE<span class="w"> </span>SOURCE...
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>Renommer<span class="w"> </span>SOURCE<span class="w"> </span>en<span class="w"> </span>DEST,<span class="w"> </span>ou<span class="w"> </span>déplacer<span class="w"> </span>le<span class="w"> </span>ou<span class="w"> </span>les<span class="w"> </span>SOURCEs<span class="w"> </span>vers<span class="w"> </span>RÉPERTOIRE.
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a>Les<span class="w"> </span>arguments<span class="w"> </span>obligatoires<span class="w"> </span>pour<span class="w"> </span>les<span class="w"> </span>options<span class="w"> </span>longues<span class="w"> </span>le<span class="w"> </span>sont<span class="w"> </span>aussi<span class="w"> </span>pour<span class="w"> </span>les
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a>options<span class="w"> </span>courtes.
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="w">      </span>--backup<span class="o">[=</span>CONTROL<span class="o">]</span><span class="w">       </span>archiver<span class="w"> </span>chaque<span class="w"> </span>fichier<span class="w"> </span>de<span class="w"> </span>destination<span class="w"> </span>existant
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="w">  </span>-b<span class="w">                           </span>identique<span class="w"> </span>à<span class="w"> </span>--backup<span class="w"> </span>mais<span class="w"> </span>sans<span class="w"> </span>argument
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="w">  </span>-f,<span class="w"> </span>--force<span class="w">                  </span>ne<span class="w"> </span>pas<span class="w"> </span>demander<span class="w"> </span>de<span class="w"> </span>confirmation<span class="w"> </span>avant<span class="w"> </span>d<span class="s1">&#39;écraser</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="s1">  -i, --interactive            demander confirmation avant d&#39;</span>écraser
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">  </span>-n,<span class="w"> </span>--no-clobber<span class="w">             </span>ne<span class="w"> </span>pas<span class="w"> </span>écraser<span class="w"> </span>les<span class="w"> </span>fichiers<span class="w"> </span>existants
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a>...
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code>apropos regex</code> fera une recherche dans toutes les pages de <code>man</code> pour trouver les commandes contenant la regex donnée.</li>
+</ul>
+<h3 id="shell-types">Shell types</h3>
+<div class="admonition info">
+<p class="admonition-title">Définition</p>
+<p>En informatique, le terme <strong>shell</strong> désigne un logiciel fournissant une interface à l'utilisateur pour des composantes d'un ensemble informatique plus grand. Bien qu'il puisse aussi désigner une interface graphique, <strong>shell est plus généralement employé pour désigner un interpréteur de lignes de commandes pouvant accéder aux services et interagir avec le noyau d'un système d'exploitation</strong>. Dans le cas d'Ubuntu, un shell interagit avec le noyau Linux. <a href="https://doc.ubuntu-fr.org/shell">Source</a></p>
+</div>
+<p>Il existe différents types de shell :</p>
+<ul>
+<li>Bourne Shell (Sh Shell)</li>
+<li>C Shell (csh ou tcsh)</li>
+<li>Korn Shell (ksh)</li>
+<li>Z Shell (zsh)</li>
+<li>Bourne again Shell (bash)</li>
+</ul>
+<p>Si l'ensemble des shells cités au dessus ont une base de commandes communes (<code>cp</code>, <code>cd</code>, <code>mv</code>, <code>ls</code>, etc.), il existe des commandes ou des synthaxes spécifiques à chacun, comme on le verra avec le <strong>shebang</strong> dans <a href="../shell/">les scripts shell</a>. On se concentre ici sur le plus utilisé, Bash.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Pour voir quel shell est utilisé dans un terminal : <code>echo $SHELL</code>.</p>
+</div>
+<p>La commande <code>alias</code> permet de créer des raccourcis permettant d'appeler d'autres commandes. Par exemple, pour renommer la commande <code>date</code> en <code>dt</code>, on utilise<code>alias dt=date</code>.</p>
+<p>La commande <code>history</code> permet elle d'avoir un historique des commandes déjà tapées dans le terminal. Commande fort utile pour se rappeler de la synthaxe de certaine commandes, à utiliser en conjonction avec <code>grep</code>.</p>
+<h3 id="les-variables-denvironnement">Les variables d'environnement</h3>
+<div class="admonition info">
+<p class="admonition-title">Définition</p>
+<p>Une <strong>variable d'environnement</strong> est une valeur dynamique, chargée en mémoire, pouvant être utilisée par plusieurs processus fonctionnant simultanément. Sur la plupart des systèmes d'exploitation, les emplacement de certaines librairies, voire des principaux exécutables du système peuvent avoir un emplacement différent selon l'installation.</p>
+<p>Ainsi, grâce aux variables d'environnement, il est possible, à partir d'un programme, de faire référence à un emplacement en s'appuyant sur les variables d'environnement définissant ces données. <a href="https://web.maths.unsw.edu.au/~lafaye/CCM/systemes/variables-environnement.htm">Source</a></p>
+</div>
+<p>Beaucoup de softwares, par exemple lorsque l'on déploie des conteneurs, on besoin de variables d'environnement pour fonctionner. On peut citer par exemple :</p>
+<ul>
+<li>L'adresse d'une DB,</li>
+<li>Le mot de passe d'une DB,</li>
+<li>Un port réseau;</li>
+<li>etc.</li>
+</ul>
+<p>La commande <code>env</code> permet de lister l'ensemble des variables d'environnement définies dans votre shell. Lorsque l'on tape cette commande, on peut par exemple avoir les résultats suivants.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span>
+<span class="normal"><a href="#__codelineno-10-6">6</a></span>
+<span class="normal"><a href="#__codelineno-10-7">7</a></span>
+<span class="normal"><a href="#__codelineno-10-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="nv">NAME</span><span class="o">=</span>Laptop3080
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="nv">HOME</span><span class="o">=</span>/home/vorph
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="nv">USER</span><span class="o">=</span>vorph
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="nv">LOGNAME</span><span class="o">=</span>vorph
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="nv">SHELL</span><span class="o">=</span>/usr/bin/zsh
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="nv">WSL_DISTRO_NAME</span><span class="o">=</span>Ubuntu-20.04
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="nv">SHLVL</span><span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="nv">PWD</span><span class="o">=</span>/home/vorph/work/perso/formation-Deep-MLOps
+</code></pre></div></td></tr></table></div>
+<p>Une variable d'environnement est par convention toujours définie en majuscule.</p>
+<p>Pour en défnir une, rien de plus simple, il suffit de la définir dans le terminal, on peut alors y accéder pour la voir par exemple en tapant la commande <code>echo</code> suivant de la variable.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>❯<span class="w"> </span><span class="nv">MON_NOM</span><span class="o">=</span>mathieu
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$MON_NOM</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>mathieu
+</code></pre></div></td></tr></table></div>
+</div>
+<h4 id="export"><code>export</code></h4>
+<p><strong>En fait, non.</strong> Ce que nous avons créer là est <a href="https://doc.ubuntu-fr.org/variables_d_environnement#assigner_des_valeurs_aux_variables_d_environnement">une variable de shell</a>, ce qui veut dire qu'elle ne sera valable que dans le shell dans lequel vous travailler. Pour <strong>vraiment</strong> définir une variable d'environnement, il faut utiliser la commande <code>export</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Différence entre variable de shell et d'environnemnt, en passant de zsh à bash</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>❯<span class="w"> </span><span class="nv">MON_NOM</span><span class="o">=</span>mathieu
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$MON_NOM</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>mathieu
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>❯<span class="w"> </span>bash
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="o">(</span>base<span class="o">)</span><span class="w"> </span>vorph@Laptop3080:~/work/perso/formation-Deep-MLOps$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$MON_NOM</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="o">(</span>base<span class="o">)</span><span class="w"> </span>vorph@Laptop3080:~/work/perso/formation-Deep-MLOps$<span class="w"> </span>zsh
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a>❯<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">MON_NOM</span><span class="o">=</span>mathieu
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a>❯<span class="w"> </span>bash
+<a id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="o">(</span>base<span class="o">)</span><span class="w"> </span>vorph@Laptop3080:~/work/perso/formation-Deep-MLOps$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$MON_NOM</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11"></a>mathieu
+</code></pre></div></td></tr></table></div>
+<p>Définir une variable de shell en simplement spécifiant son nom dans <code>zsh</code> ne la fera pas persister dans <code>bash</code>, alors que définir une variable d'environnement via la commande <code>export</code> la fera persister peut importe le shell que vous utiliser.</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Y a-t-il une différence de lieu de stockage de stockage entre les variables de shell et les variables d'environnement ?</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Les variables d'environnement définies par vos soins ne persisteront que jusqu'à ce que vous fermiez le terminal dans lequel vous les avez défini.</p>
+</div>
+<p>Pour que les variables d'environnement persistent, il faut les rentrer dans <code>~/.profile</code> ou <code>~/.pam_environment</code>.</p>
+<h4 id="la-variable-path">La variable <code>PATH</code></h4>
+<p>Une variable d'environnement particulières est la variable <code>PATH</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">Définition</p>
+<p>La variable d'environnement PATH gouverne les chemins d'exécution des logiciels ubuntu. Cette variable PATH permet d'installer et d’utiliser en local un logiciel sans avoir fait appel à l'administration système. <a href="https://doc.ubuntu-fr.org/personnaliser_path">Source</a></p>
+</div>
+<p>Ainsi, lorsque vous tapez par exemple la commande <code>python</code>, pour avoir accès à un terminal python, le fichier binaire éxecuté se trouve dans une adresse déterminée dans l'ensemble des chemins définies dans la variable <code>PATH</code>.</p>
+<p>Pour avoir accès à l'ensemble des chemins définis dans <code>PATH</code>, on fait comme précédemment.</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>/home/vorph/.cargo/bin:/home/vorph/miniconda3/bin:/home/vorph/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program<span class="w"> </span>Files<span class="w"> </span><span class="o">(</span>x86<span class="o">)</span>/NVIDIA<span class="w"> </span>Corporation/PhysX/Common:/mnt/c/Program<span class="w"> </span>Files/NVIDIA<span class="w"> </span>Corporation/NVIDIA<span class="w"> </span>NvDLISR:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program<span class="w"> </span>Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/mathieu/AppData/Local/Microsoft/WindowsApps:/mnt/c/Programmes_tiers/MicrosoftVSCode/bin:/mnt/c/Users/mathieu/AppData/Local/GitHubDesktop/bin
+</code></pre></div></td></tr></table></div>
+Chaque chemin est délimité par un double point <code>:</code>, ainsi <code>/home/vorph/.cargo/bin:/home/vorph/miniconda3/bin:/home/vorph/miniconda3/condabin</code> constituent 3 chemins différents :</p>
+<ul>
+<li><code>/home/vorph/.cargo/bin</code>,</li>
+<li><code>/home/vorph/miniconda3/bin</code>,</li>
+<li><code>/home/vorph/miniconda3/condabin</code>.</li>
+</ul>
+<h5 id="which"><code>which</code></h5>
+<p>Simplement taper <code>echo $PATH</code> ne renseigne pas beaucoup, tant il y a de chemins. Pour voir le chemin d'un logiciel spécifique on peut utiliser la commande <code>which</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Le chemin vers python</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>❯ which python
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>/home/vorph/miniconda3/bin/python
+</code></pre></div></td></tr></table></div>
+<p>Si l'on regarde attentivement le résultat de la commande <code>echo $PATH</code>, on verra que l'on ne voit pas le chemin vers <code>/home/vorph/miniconda3/bin/python</code>, en revanche on a bien le chemin vers <code>/home/vorph/miniconda3/bin</code>. <strong>Les chemins répertoriés dans la variables PATH sont les chemins racines vers d'autres logiciels</strong>.</p>
+<h5 id="export-path"><code>export PATH</code></h5>
+<p>Pour ajouter un chemin à la variable <code>PATH</code>, on utilise la commande <code>export PATHH=$PATH:chemin</code>.</p>
+<p>Par exemple, si notre logiciel se trouve dans <code>/opt/...</code> on tape la commande suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/opt/....
+</code></pre></div></td></tr></table></div>
+<!--
+Pour customiser le bash prompt, il faut modifier la variable d'environnement `PS1`.
+
+Update Bob's prompt so that it displays the date as per the format below:
+
+Example: [Wed Apr 22]bob@caleston-lp10:~$
+Make sure the change is made persistent.
+
+Run `PS1='[\d]\u@\h:\w$'` and add this to the `~/.profile` file `echo 'PS1="[\d]\u@\h:\w$"' >> ~/.profile`. -->
+
+<h2 id="linux-core-concepts">Linux Core concepts</h2>
+<h3 id="le-noyau-linux">Le noyau Linux</h3>
+<p>Le noyau Linux (Linux kernel) est la composante principale du système d'exploitation, le noyau fait l'interface principale entre la partie hardware et software.</p>
+<pre class="mermaid"><code>graph LR
+
+  subgraph Software
+  B[Applications/Processus]
+  end
+
+  A[Linux Kernel]
+
+  subgraph Hardware
+  C1[Mémoire]
+
+  C2[CPU/GPU]
+
+  C3[Devices]
+  end
+
+  A&lt;-..-&gt;B
+
+  A&lt;-..-&gt;C1 &amp; C2 &amp; C3</code></pre>
+<p>Le noyau Linux est responsable des 4 tâches principales suivantes :</p>
+<ul>
+<li>gestion de la mémoire,</li>
+<li>gestion des processus : quel processus peut utiliser le CPU/GPU, comment, quand, et pour combien de temps,</li>
+<li>drivers des périphériques,</li>
+<li>sécurité et gestion des appels systèmes.</li>
+</ul>
+<p><strong>Le noyau Linux est monolithique</strong>, ces tâches sont faites par lui même et non déléguées.</p>
+<p><strong>Le noyau Linux est aussi modulaire</strong>, ces compétences peuvent être étendues par l'ajout de modules.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Pour l'exemple, des kernels qui ne sont pas monolithiques sont les suivants :</p>
+<ul>
+<li>QNX,</li>
+<li>Symbian,</li>
+<li>L4Linux,</li>
+<li>Singularity,</li>
+<li>K42,</li>
+<li>Mac OS X,</li>
+<li>Integrity,</li>
+<li>PikeOS,</li>
+<li>HURD,</li>
+<li>Minix,</li>
+<li>Coyotos.</li>
+</ul>
+<p><a href="https://www.linkedin.com/in/yanice-karaouzene-238929159/">Source : Yanice Karaouzene</a></p>
+</div>
+<h4 id="version-du-noyau">Version du noyau</h4>
+<p>Pour avoir le nom du noyau, on peut taper la commande <code>uname</code>, qui ne produit que peu d'informations.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>❯<span class="w"> </span>uname
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>Linux
+</code></pre></div></td></tr></table></div>
+<p>Pour voir la version du noyau utilisé, taper <code>uname -r</code> ou <code>uname -a</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>❯<span class="w"> </span>uname<span class="w"> </span>-r
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="m">5</span>.13.0-40-generic
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a>❯<span class="w"> </span>uname<span class="w"> </span>-a
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a>Linux<span class="w"> </span>vorph-maison<span class="w"> </span><span class="m">5</span>.13.0-40-generic<span class="w"> </span><span class="c1">#45~20.04.1-Ubuntu SMP Mon Apr 4 09:38:31 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>5 = Version du noyau,</li>
+<li>13 = Version majeure,</li>
+<li>0 = Version mineure,</li>
+<li>40 = patch release,</li>
+<li>generic = information spécifique à la distribution.</li>
+</ul>
+<p>Pour avoir toutes les informations sur la version de l'OS qui est utilisée, on peut aller voir dans le répertoire <code>/etc</code>. A l'intérieur devrait se trouver un fichier nommé <code>os-release</code>. On peut trouver ce fichier via <code>ls /etc/*release*</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-18-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-18-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-18-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-18-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-18-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-18-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-18-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-18-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-18-10">10</a></span>
+<span class="normal"><a href="#__codelineno-18-11">11</a></span>
+<span class="normal"><a href="#__codelineno-18-12">12</a></span>
+<span class="normal"><a href="#__codelineno-18-13">13</a></span>
+<span class="normal"><a href="#__codelineno-18-14">14</a></span>
+<span class="normal"><a href="#__codelineno-18-15">15</a></span>
+<span class="normal"><a href="#__codelineno-18-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>❯<span class="w"> </span>ls<span class="w"> </span>/etc/*release*
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a>/etc/lsb-release<span class="w">  </span><span class="w"> </span>/etc/os-release
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4"></a>❯<span class="w"> </span>cat<span class="w"> </span>/etc/os-release
+<a id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;Ubuntu&quot;</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="nv">VERSION</span><span class="o">=</span><span class="s2">&quot;20.04.4 LTS (Focal Fossa)&quot;</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7"></a><span class="nv">ID</span><span class="o">=</span>ubuntu
+<a id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="nv">ID_LIKE</span><span class="o">=</span>debian
+<a id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="nv">PRETTY_NAME</span><span class="o">=</span><span class="s2">&quot;Ubuntu 20.04.4 LTS&quot;</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10"></a><span class="nv">VERSION_ID</span><span class="o">=</span><span class="s2">&quot;20.04&quot;</span>
+<a id="__codelineno-18-11" name="__codelineno-18-11"></a><span class="nv">HOME_URL</span><span class="o">=</span><span class="s2">&quot;https://www.ubuntu.com/&quot;</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12"></a><span class="nv">SUPPORT_URL</span><span class="o">=</span><span class="s2">&quot;https://help.ubuntu.com/&quot;</span>
+<a id="__codelineno-18-13" name="__codelineno-18-13"></a><span class="nv">BUG_REPORT_URL</span><span class="o">=</span><span class="s2">&quot;https://bugs.launchpad.net/ubuntu/&quot;</span>
+<a id="__codelineno-18-14" name="__codelineno-18-14"></a><span class="nv">PRIVACY_POLICY_URL</span><span class="o">=</span><span class="s2">&quot;https://www.ubuntu.com/legal/terms-and-policies/privacy-policy&quot;</span>
+<a id="__codelineno-18-15" name="__codelineno-18-15"></a><span class="nv">VERSION_CODENAME</span><span class="o">=</span>focal
+<a id="__codelineno-18-16" name="__codelineno-18-16"></a><span class="nv">UBUNTU_CODENAME</span><span class="o">=</span>focal
+</code></pre></div></td></tr></table></div>
+<p>Pour plus d'informations, aller voir sur <a href="https://kernel.org">kernel.org</a> qui recense le code source de toutes les versions du noyau Linux disponibles.</p>
+<h3 id="espace-kernel-et-espace-utilisateur">Espace kernel et espace utilisateur</h3>
+<p>Voyons maintenant comment la mémoire est gérée dans un OS Linux.</p>
+<p>La mémoire est divisée en deux espaces séparés, l'espace kernel et l'espace utilisateur.</p>
+<p>L'espace kernel est la partie de la mémoire dans laquelle le noyau provisionne et éxecute ses services, un processus tournant dans l'espace kernel à un accès illimité au hardware.</p>
+<p>Tous les processus tournant hors de l'espace kernel tournent dans l'espace utilisateur, qui a un accès restreint au CPU/GPU et à la mémoire.</p>
+<pre class="mermaid"><code>graph LR
+
+  subgraph Kernel space
+  A[Linux Kernel]
+  B[Device drivers]
+  end
+
+
+  subgraph User space
+  C[Applications/Processus]
+  end</code></pre>
+<p>L'espace kernel contient :</p>
+<ul>
+<li>kernel code,</li>
+<li>kernel extensions,</li>
+<li>devices drivers.</li>
+</ul>
+<p>L'espace utilisateur lui contient entre autre les programmes codés dans le languages suivants :</p>
+<ul>
+<li>C,</li>
+<li>Java,</li>
+<li>Python,</li>
+<li>Ruby,</li>
+<li>Docker containers,</li>
+<li>etc.</li>
+</ul>
+<p>Lorsqu'une application dans l'espace utilisateur tourne et qu'elle a besoin d'accéder au hardware pour par exemple :</p>
+<ul>
+<li>ouvrir un fichier,</li>
+<li>écrire dans un fichier,</li>
+<li>définir une variable,</li>
+<li>etc,</li>
+</ul>
+<p>l'espace utilisateur produit un "<strong>system call</strong>" à l'espace kernel qui lui fournit les ressources nécessaires via les drivers.</p>
+<pre class="mermaid"><code>graph LR
+
+  subgraph Kernel space
+  A[Linux Kernel]
+  B[Device drivers]
+  end
+
+  subgraph User space
+  C[Applications/Processus]
+  end
+
+  D[Hardware]
+
+  C-.-&gt;|System Call|B-.-&gt;D</code></pre>
+<h3 id="linux-et-hardware">Linux et hardware</h3>
+<p>Comment Linux identifie le hardware dans son OS.</p>
+<p>Prenons l'exemple d'une clé usb branchée sur un pc avec un OS Linux.</p>
+<ol>
+<li>Dès que la clé usb est branchée, le driver correspondant dans l'espace kernel détecte un changement d'état et génère un évènement, appelé <code>uevent</code>.</li>
+<li>Cet évènement est envoyé au "<strong>user space device manager daemon</strong>", appelé <code>udev</code>.</li>
+<li><code>udev</code> crée alors de façon dynamique un noeud de device correspondant à la clé usb se trouvant dans le système de fichier <code>/dev</code> et lui assigne le nom <code>sdb1</code> (par exemple).</li>
+<li>Une fois ces étapes faites, la clé usb et son contenu seront listés comme <code>/dev/sdb1</code>.</li>
+</ol>
+<div class="admonition atention">
+<p class="admonition-title">Attention</p>
+<p><code>/dev/sdb1</code> n'est pas un répertoire, c'est l'adresse que l'OS Linux assigne à la clé usb. Tenter de faire un <code>cd</code> vous donnera l'erreur suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>❯<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/dev/sdb1
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a>cd:<span class="w"> </span>n<span class="err">&#39;</span>est<span class="w"> </span>pas<span class="w"> </span>un<span class="w"> </span>dossier:<span class="w"> </span>/dev/sdb1
+</code></pre></div></td></tr></table></div>
+</div>
+<pre class="mermaid"><code>graph LR
+  subgraph Extérieur
+  A[Clé USB]
+  B[PC]
+  end
+
+  subgraph Kernel space
+  C[Device driver]
+  end
+
+  subgraph User space
+  D[udev]
+  end
+
+  E[/ /dev/sdb1 /]
+
+  A-.-&gt;B-.-&gt;C
+  C-.-&gt;|uevents|D-.-&gt;E</code></pre>
+<p>Comment avoir des infos sur les composants hardware ?</p>
+<ul>
+<li>
+<p><code>dmesg</code> (pour l'anglais "display message") est une commande sur les systèmes d'exploitation de type Unix qui affiche la mémoire tampon des messages du noyau. Quand un système Linux boot, il y a de nombreux messages qui peuvent ou non s'afficher (suivant votre OS), ces messages contiennent des logs du hardware</p>
+</li>
+<li>
+<p><code>udevadm info</code> requète la db de <code>udev</code> pour des infos concernant les périphériques.</p>
+</li>
+<li>
+<p><code>udevadm monitor</code> est à l'écoute de nouveaux <code>uevent</code>, et les affichera dans le terminal.</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Voici ce qui se passe avant et après avoir branché un disque usb avec <code>udevadm monitor</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">avant</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span>
+<span class="normal"><a href="#__codelineno-20-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>❯<span class="w"> </span>udevadm<span class="w"> </span>monitor
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a>monitor<span class="w"> </span>will<span class="w"> </span>print<span class="w"> </span>the<span class="w"> </span>received<span class="w"> </span>events<span class="w"> </span><span class="k">for</span>:
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a>UDEV<span class="w"> </span>-<span class="w"> </span>the<span class="w"> </span>event<span class="w"> </span>which<span class="w"> </span>udev<span class="w"> </span>sends<span class="w"> </span>out<span class="w"> </span>after<span class="w"> </span>rule<span class="w"> </span>processing
+<a id="__codelineno-20-4" name="__codelineno-20-4"></a>KERNEL<span class="w"> </span>-<span class="w"> </span>the<span class="w"> </span>kernel<span class="w"> </span>uevent
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">après</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-21-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-21-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-21-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-21-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-21-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-21-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-21-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-21-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-21-10">10</a></span>
+<span class="normal"><a href="#__codelineno-21-11">11</a></span>
+<span class="normal"><a href="#__codelineno-21-12">12</a></span>
+<span class="normal"><a href="#__codelineno-21-13">13</a></span>
+<span class="normal"><a href="#__codelineno-21-14">14</a></span>
+<span class="normal"><a href="#__codelineno-21-15">15</a></span>
+<span class="normal"><a href="#__codelineno-21-16">16</a></span>
+<span class="normal"><a href="#__codelineno-21-17">17</a></span>
+<span class="normal"><a href="#__codelineno-21-18">18</a></span>
+<span class="normal"><a href="#__codelineno-21-19">19</a></span>
+<span class="normal"><a href="#__codelineno-21-20">20</a></span>
+<span class="normal"><a href="#__codelineno-21-21">21</a></span>
+<span class="normal"><a href="#__codelineno-21-22">22</a></span>
+<span class="normal"><a href="#__codelineno-21-23">23</a></span>
+<span class="normal"><a href="#__codelineno-21-24">24</a></span>
+<span class="normal"><a href="#__codelineno-21-25">25</a></span>
+<span class="normal"><a href="#__codelineno-21-26">26</a></span>
+<span class="normal"><a href="#__codelineno-21-27">27</a></span>
+<span class="normal"><a href="#__codelineno-21-28">28</a></span>
+<span class="normal"><a href="#__codelineno-21-29">29</a></span>
+<span class="normal"><a href="#__codelineno-21-30">30</a></span>
+<span class="normal"><a href="#__codelineno-21-31">31</a></span>
+<span class="normal"><a href="#__codelineno-21-32">32</a></span>
+<span class="normal"><a href="#__codelineno-21-33">33</a></span>
+<span class="normal"><a href="#__codelineno-21-34">34</a></span>
+<span class="normal"><a href="#__codelineno-21-35">35</a></span>
+<span class="normal"><a href="#__codelineno-21-36">36</a></span>
+<span class="normal"><a href="#__codelineno-21-37">37</a></span>
+<span class="normal"><a href="#__codelineno-21-38">38</a></span>
+<span class="normal"><a href="#__codelineno-21-39">39</a></span>
+<span class="normal"><a href="#__codelineno-21-40">40</a></span>
+<span class="normal"><a href="#__codelineno-21-41">41</a></span>
+<span class="normal"><a href="#__codelineno-21-42">42</a></span>
+<span class="normal"><a href="#__codelineno-21-43">43</a></span>
+<span class="normal"><a href="#__codelineno-21-44">44</a></span>
+<span class="normal"><a href="#__codelineno-21-45">45</a></span>
+<span class="normal"><a href="#__codelineno-21-46">46</a></span>
+<span class="normal"><a href="#__codelineno-21-47">47</a></span>
+<span class="normal"><a href="#__codelineno-21-48">48</a></span>
+<span class="normal"><a href="#__codelineno-21-49">49</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>❯<span class="w"> </span>udevadm<span class="w"> </span>monitor
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>monitor<span class="w"> </span>will<span class="w"> </span>print<span class="w"> </span>the<span class="w"> </span>received<span class="w"> </span>events<span class="w"> </span><span class="k">for</span>:
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a>UDEV<span class="w"> </span>-<span class="w"> </span>the<span class="w"> </span>event<span class="w"> </span>which<span class="w"> </span>udev<span class="w"> </span>sends<span class="w"> </span>out<span class="w"> </span>after<span class="w"> </span>rule<span class="w"> </span>processing
+<a id="__codelineno-21-4" name="__codelineno-21-4"></a>KERNEL<span class="w"> </span>-<span class="w"> </span>the<span class="w"> </span>kernel<span class="w"> </span>uevent
+<a id="__codelineno-21-5" name="__codelineno-21-5"></a>
+<a id="__codelineno-21-6" name="__codelineno-21-6"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.354009<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1<span class="w"> </span><span class="o">(</span>usb<span class="o">)</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.354885<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0<span class="w"> </span><span class="o">(</span>usb<span class="o">)</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.355001<span class="o">]</span><span class="w"> </span><span class="nb">bind</span><span class="w">     </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1<span class="w"> </span><span class="o">(</span>usb<span class="o">)</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.362347<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1<span class="w"> </span><span class="o">(</span>usb<span class="o">)</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.366283<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/virtual/workqueue/scsi_tmf_6<span class="w"> </span><span class="o">(</span>workqueue<span class="o">)</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.366319<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6<span class="w"> </span><span class="o">(</span>scsi<span class="o">)</span>
+<a id="__codelineno-21-12" name="__codelineno-21-12"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.366327<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/scsi_host/host6<span class="w"> </span><span class="o">(</span>scsi_host<span class="o">)</span>
+<a id="__codelineno-21-13" name="__codelineno-21-13"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.366342<span class="o">]</span><span class="w"> </span><span class="nb">bind</span><span class="w">     </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0<span class="w"> </span><span class="o">(</span>usb<span class="o">)</span>
+<a id="__codelineno-21-14" name="__codelineno-21-14"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.366353<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/bus/usb/drivers/usb-storage<span class="w"> </span><span class="o">(</span>drivers<span class="o">)</span>
+<a id="__codelineno-21-15" name="__codelineno-21-15"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.366361<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/module/usb_storage<span class="w"> </span><span class="o">(</span>module<span class="o">)</span>
+<a id="__codelineno-21-16" name="__codelineno-21-16"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.367136<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/virtual/workqueue/scsi_tmf_6<span class="w"> </span><span class="o">(</span>workqueue<span class="o">)</span>
+<a id="__codelineno-21-17" name="__codelineno-21-17"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.367352<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/bus/usb/drivers/uas<span class="w"> </span><span class="o">(</span>drivers<span class="o">)</span>
+<a id="__codelineno-21-18" name="__codelineno-21-18"></a>KERNEL<span class="o">[</span><span class="m">13256</span>.367364<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/module/uas<span class="w"> </span><span class="o">(</span>module<span class="o">)</span>
+<a id="__codelineno-21-19" name="__codelineno-21-19"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.367427<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0<span class="w"> </span><span class="o">(</span>usb<span class="o">)</span>
+<a id="__codelineno-21-20" name="__codelineno-21-20"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.367778<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/bus/usb/drivers/usb-storage<span class="w"> </span><span class="o">(</span>drivers<span class="o">)</span>
+<a id="__codelineno-21-21" name="__codelineno-21-21"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.367788<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/module/usb_storage<span class="w"> </span><span class="o">(</span>module<span class="o">)</span>
+<a id="__codelineno-21-22" name="__codelineno-21-22"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.367794<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/bus/usb/drivers/uas<span class="w"> </span><span class="o">(</span>drivers<span class="o">)</span>
+<a id="__codelineno-21-23" name="__codelineno-21-23"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.368248<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/module/uas<span class="w"> </span><span class="o">(</span>module<span class="o">)</span>
+<a id="__codelineno-21-24" name="__codelineno-21-24"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.370659<span class="o">]</span><span class="w"> </span><span class="nb">bind</span><span class="w">     </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1<span class="w"> </span><span class="o">(</span>usb<span class="o">)</span>
+<a id="__codelineno-21-25" name="__codelineno-21-25"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.371298<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6<span class="w"> </span><span class="o">(</span>scsi<span class="o">)</span>
+<a id="__codelineno-21-26" name="__codelineno-21-26"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.371888<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/scsi_host/host6<span class="w"> </span><span class="o">(</span>scsi_host<span class="o">)</span>
+<a id="__codelineno-21-27" name="__codelineno-21-27"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13256</span>.372727<span class="o">]</span><span class="w"> </span><span class="nb">bind</span><span class="w">     </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0<span class="w"> </span><span class="o">(</span>usb<span class="o">)</span>
+<a id="__codelineno-21-28" name="__codelineno-21-28"></a>KERNEL<span class="o">[</span><span class="m">13257</span>.370058<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0<span class="w"> </span><span class="o">(</span>scsi<span class="o">)</span>
+<a id="__codelineno-21-29" name="__codelineno-21-29"></a>KERNEL<span class="o">[</span><span class="m">13257</span>.370127<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0<span class="w"> </span><span class="o">(</span>scsi<span class="o">)</span>
+<a id="__codelineno-21-30" name="__codelineno-21-30"></a>KERNEL<span class="o">[</span><span class="m">13257</span>.370157<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_device/6:0:0:0<span class="w"> </span><span class="o">(</span>scsi_device<span class="o">)</span>
+<a id="__codelineno-21-31" name="__codelineno-21-31"></a>KERNEL<span class="o">[</span><span class="m">13257</span>.370315<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_disk/6:0:0:0<span class="w"> </span><span class="o">(</span>scsi_disk<span class="o">)</span>
+<a id="__codelineno-21-32" name="__codelineno-21-32"></a>KERNEL<span class="o">[</span><span class="m">13257</span>.370379<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_generic/sg4<span class="w"> </span><span class="o">(</span>scsi_generic<span class="o">)</span>
+<a id="__codelineno-21-33" name="__codelineno-21-33"></a>KERNEL<span class="o">[</span><span class="m">13257</span>.370562<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/bsg/6:0:0:0<span class="w"> </span><span class="o">(</span>bsg<span class="o">)</span>
+<a id="__codelineno-21-34" name="__codelineno-21-34"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13257</span>.373300<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0<span class="w"> </span><span class="o">(</span>scsi<span class="o">)</span>
+<a id="__codelineno-21-35" name="__codelineno-21-35"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13257</span>.374079<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0<span class="w"> </span><span class="o">(</span>scsi<span class="o">)</span>
+<a id="__codelineno-21-36" name="__codelineno-21-36"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13257</span>.374986<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_device/6:0:0:0<span class="w"> </span><span class="o">(</span>scsi_device<span class="o">)</span>
+<a id="__codelineno-21-37" name="__codelineno-21-37"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13257</span>.375082<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_disk/6:0:0:0<span class="w"> </span><span class="o">(</span>scsi_disk<span class="o">)</span>
+<a id="__codelineno-21-38" name="__codelineno-21-38"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13257</span>.375095<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/bsg/6:0:0:0<span class="w"> </span><span class="o">(</span>bsg<span class="o">)</span>
+<a id="__codelineno-21-39" name="__codelineno-21-39"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13257</span>.375197<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/scsi_generic/sg4<span class="w"> </span><span class="o">(</span>scsi_generic<span class="o">)</span>
+<a id="__codelineno-21-40" name="__codelineno-21-40"></a>KERNEL<span class="o">[</span><span class="m">13257</span>.392547<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/virtual/bdi/8:48<span class="w"> </span><span class="o">(</span>bdi<span class="o">)</span>
+<a id="__codelineno-21-41" name="__codelineno-21-41"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13257</span>.393077<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/virtual/bdi/8:48<span class="w"> </span><span class="o">(</span>bdi<span class="o">)</span>
+<a id="__codelineno-21-42" name="__codelineno-21-42"></a>KERNEL<span class="o">[</span><span class="m">13257</span>.426707<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/block/sdd<span class="w"> </span><span class="o">(</span>block<span class="o">)</span>
+<a id="__codelineno-21-43" name="__codelineno-21-43"></a>KERNEL<span class="o">[</span><span class="m">13257</span>.426733<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/block/sdd/sdd1<span class="w"> </span><span class="o">(</span>block<span class="o">)</span>
+<a id="__codelineno-21-44" name="__codelineno-21-44"></a>KERNEL<span class="o">[</span><span class="m">13257</span>.482588<span class="o">]</span><span class="w"> </span><span class="nb">bind</span><span class="w">     </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0<span class="w"> </span><span class="o">(</span>scsi<span class="o">)</span>
+<a id="__codelineno-21-45" name="__codelineno-21-45"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13257</span>.602272<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/block/sdd<span class="w"> </span><span class="o">(</span>block<span class="o">)</span>
+<a id="__codelineno-21-46" name="__codelineno-21-46"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13257</span>.851325<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0/block/sdd/sdd1<span class="w"> </span><span class="o">(</span>block<span class="o">)</span>
+<a id="__codelineno-21-47" name="__codelineno-21-47"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13257</span>.851983<span class="o">]</span><span class="w"> </span><span class="nb">bind</span><span class="w">     </span>/devices/pci0000:00/0000:00:14.0/usb1/1-13/1-13.1/1-13.1:1.0/host6/target6:0:0/6:0:0:0<span class="w"> </span><span class="o">(</span>scsi<span class="o">)</span>
+<a id="__codelineno-21-48" name="__codelineno-21-48"></a>KERNEL<span class="o">[</span><span class="m">13266</span>.337010<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/virtual/bdi/8:49-fuseblk<span class="w"> </span><span class="o">(</span>bdi<span class="o">)</span>
+<a id="__codelineno-21-49" name="__codelineno-21-49"></a>UDEV<span class="w">  </span><span class="o">[</span><span class="m">13266</span>.339098<span class="o">]</span><span class="w"> </span>add<span class="w">      </span>/devices/virtual/bdi/8:49-fuseblk<span class="w"> </span><span class="o">(</span>bdi<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<ul>
+<li><code>lspci</code> liste tous les périphériques du "<a href="https://fr.wikipedia.org/wiki/PCI_(informatique)">bus pci</a>" du pc, ie les fameuses cartes qui s'enfichent dans la carte mère (GPU, carte réseau, RAM etc.)</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-22-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-22-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-22-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-22-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-22-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-22-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-22-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-22-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-22-10">10</a></span>
+<span class="normal"><a href="#__codelineno-22-11">11</a></span>
+<span class="normal"><a href="#__codelineno-22-12">12</a></span>
+<span class="normal"><a href="#__codelineno-22-13">13</a></span>
+<span class="normal"><a href="#__codelineno-22-14">14</a></span>
+<span class="normal"><a href="#__codelineno-22-15">15</a></span>
+<span class="normal"><a href="#__codelineno-22-16">16</a></span>
+<span class="normal"><a href="#__codelineno-22-17">17</a></span>
+<span class="normal"><a href="#__codelineno-22-18">18</a></span>
+<span class="normal"><a href="#__codelineno-22-19">19</a></span>
+<span class="normal"><a href="#__codelineno-22-20">20</a></span>
+<span class="normal"><a href="#__codelineno-22-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>❯<span class="w"> </span>lspci
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="m">00</span>:00.0<span class="w"> </span>Host<span class="w"> </span>bridge:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Device<span class="w"> </span>9b33<span class="w"> </span><span class="o">(</span>rev<span class="w"> </span><span class="m">05</span><span class="o">)</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4"></a><span class="m">00</span>:01.0<span class="w"> </span>PCI<span class="w"> </span>bridge:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Xeon<span class="w"> </span>E3-1200<span class="w"> </span>v5/E3-1500<span class="w"> </span>v5/6th<span class="w"> </span>Gen<span class="w"> </span>Core<span class="w"> </span>Processor<span class="w"> </span>PCIe<span class="w"> </span>Controller<span class="w"> </span><span class="o">(</span>x16<span class="o">)</span><span class="w"> </span><span class="o">(</span>rev<span class="w"> </span><span class="m">05</span><span class="o">)</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5"></a><span class="m">00</span>:08.0<span class="w"> </span>System<span class="w"> </span>peripheral:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Xeon<span class="w"> </span>E3-1200<span class="w"> </span>v5/v6<span class="w"> </span>/<span class="w"> </span>E3-1500<span class="w"> </span>v5<span class="w"> </span>/<span class="w"> </span>6th/7th/8th<span class="w"> </span>Gen<span class="w"> </span>Core<span class="w"> </span>Processor<span class="w"> </span>Gaussian<span class="w"> </span>Mixture<span class="w"> </span>Model
+<a id="__codelineno-22-6" name="__codelineno-22-6"></a><span class="m">00</span>:12.0<span class="w"> </span>Signal<span class="w"> </span>processing<span class="w"> </span>controller:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Comet<span class="w"> </span>Lake<span class="w"> </span>PCH<span class="w"> </span>Thermal<span class="w"> </span>Controller
+<a id="__codelineno-22-7" name="__codelineno-22-7"></a><span class="m">00</span>:14.0<span class="w"> </span>USB<span class="w"> </span>controller:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Comet<span class="w"> </span>Lake<span class="w"> </span>USB<span class="w"> </span><span class="m">3</span>.1<span class="w"> </span>xHCI<span class="w"> </span>Host<span class="w"> </span>Controller
+<a id="__codelineno-22-8" name="__codelineno-22-8"></a><span class="m">00</span>:14.2<span class="w"> </span>RAM<span class="w"> </span>memory:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Comet<span class="w"> </span>Lake<span class="w"> </span>PCH<span class="w"> </span>Shared<span class="w"> </span>SRAM
+<a id="__codelineno-22-9" name="__codelineno-22-9"></a><span class="m">00</span>:14.3<span class="w"> </span>Network<span class="w"> </span>controller:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Wi-Fi<span class="w"> </span><span class="m">6</span><span class="w"> </span>AX201
+<a id="__codelineno-22-10" name="__codelineno-22-10"></a><span class="m">00</span>:16.0<span class="w"> </span>Communication<span class="w"> </span>controller:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Comet<span class="w"> </span>Lake<span class="w"> </span>HECI<span class="w"> </span>Controller
+<a id="__codelineno-22-11" name="__codelineno-22-11"></a><span class="m">00</span>:17.0<span class="w"> </span>SATA<span class="w"> </span>controller:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Device<span class="w"> </span>06d2
+<a id="__codelineno-22-12" name="__codelineno-22-12"></a><span class="m">00</span>:1c.0<span class="w"> </span>PCI<span class="w"> </span>bridge:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Device<span class="w"> </span>06b8<span class="w"> </span><span class="o">(</span>rev<span class="w"> </span>f0<span class="o">)</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13"></a><span class="m">00</span>:1c.4<span class="w"> </span>PCI<span class="w"> </span>bridge:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Device<span class="w"> </span>06bc<span class="w"> </span><span class="o">(</span>rev<span class="w"> </span>f0<span class="o">)</span>
+<a id="__codelineno-22-14" name="__codelineno-22-14"></a><span class="m">00</span>:1f.0<span class="w"> </span>ISA<span class="w"> </span>bridge:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Device<span class="w"> </span><span class="m">0685</span>
+<a id="__codelineno-22-15" name="__codelineno-22-15"></a><span class="m">00</span>:1f.3<span class="w"> </span>Audio<span class="w"> </span>device:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Comet<span class="w"> </span>Lake<span class="w"> </span>PCH<span class="w"> </span>cAVS
+<a id="__codelineno-22-16" name="__codelineno-22-16"></a><span class="m">00</span>:1f.4<span class="w"> </span>SMBus:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Comet<span class="w"> </span>Lake<span class="w"> </span>PCH<span class="w"> </span>SMBus<span class="w"> </span>Controller
+<a id="__codelineno-22-17" name="__codelineno-22-17"></a><span class="m">00</span>:1f.5<span class="w"> </span>Serial<span class="w"> </span>bus<span class="w"> </span>controller<span class="w"> </span><span class="o">[</span>0c80<span class="o">]</span>:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Comet<span class="w"> </span>Lake<span class="w"> </span>PCH<span class="w"> </span>SPI<span class="w"> </span>Controller
+<a id="__codelineno-22-18" name="__codelineno-22-18"></a><span class="m">01</span>:00.0<span class="w"> </span>VGA<span class="w"> </span>compatible<span class="w"> </span>controller:<span class="w"> </span>NVIDIA<span class="w"> </span>Corporation<span class="w"> </span>Device<span class="w"> </span><span class="m">2204</span><span class="w"> </span><span class="o">(</span>rev<span class="w"> </span>a1<span class="o">)</span>
+<a id="__codelineno-22-19" name="__codelineno-22-19"></a><span class="m">01</span>:00.1<span class="w"> </span>Audio<span class="w"> </span>device:<span class="w"> </span>NVIDIA<span class="w"> </span>Corporation<span class="w"> </span>Device<span class="w"> </span>1aef<span class="w"> </span><span class="o">(</span>rev<span class="w"> </span>a1<span class="o">)</span>
+<a id="__codelineno-22-20" name="__codelineno-22-20"></a><span class="m">02</span>:00.0<span class="w"> </span>USB<span class="w"> </span>controller:<span class="w"> </span>ASMedia<span class="w"> </span>Technology<span class="w"> </span>Inc.<span class="w"> </span>Device<span class="w"> </span><span class="m">3241</span>
+<a id="__codelineno-22-21" name="__codelineno-22-21"></a><span class="m">03</span>:00.0<span class="w"> </span>Ethernet<span class="w"> </span>controller:<span class="w"> </span>Realtek<span class="w"> </span>Semiconductor<span class="w"> </span>Co.,<span class="w"> </span>Ltd.<span class="w"> </span>RTL8125<span class="w"> </span><span class="m">2</span>.5GbE<span class="w"> </span>Controller<span class="w"> </span><span class="o">(</span>rev<span class="w"> </span><span class="m">04</span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="vi">Vi</h2>
+<p>Vi est un éditeur de texte minimaliste installé par défaut dans la plupart des distributions Linux.</p>
+<p>Il possède deux modes :</p>
+<ul>
+<li><strong>mode commande</strong> : copier, coller, suppression, mais pas d'écriture possible,</li>
+<li><strong>mode insertion</strong> : nécessaire pour écrire du contenu dans un fichier.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Pour activer le mode insertion dans Vi, appuyez sur la touche <code>i</code>. Pour revenir au mode commande, il faut appuyer sur la touche echap <code>esc</code>.</p>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">installer Vim plutôt que Vi, pour un expérience plus user friendly</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>vim
+</code></pre></div></td></tr></table></div>
+<h3 id="commandes-basiques_1">Commandes basiques</h3>
+<table>
+<thead>
+<tr>
+<th align="center">Commande</th>
+<th align="center">Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>x</code></td>
+<td align="center">supprime un caractère</td>
+</tr>
+<tr>
+<td align="center"><code>dd</code></td>
+<td align="center">supprime la ligne entière</td>
+</tr>
+<tr>
+<td align="center"><code>yy</code></td>
+<td align="center">copie la ligne</td>
+</tr>
+<tr>
+<td align="center"><code>p</code></td>
+<td align="center">colle le ligne</td>
+</tr>
+<tr>
+<td align="center"><code>ctrl + u</code></td>
+<td align="center">scrolle ver le haut</td>
+</tr>
+<tr>
+<td align="center"><code>ctrl + d</code></td>
+<td align="center">scrolle vers le bas</td>
+</tr>
+<tr>
+<td align="center"><code>:</code></td>
+<td align="center">affiche l'invite de commande</td>
+</tr>
+<tr>
+<td align="center"><code>:w</code></td>
+<td align="center">sauvegarde le fichier</td>
+</tr>
+<tr>
+<td align="center"><code>:w filename</code></td>
+<td align="center">sauvegarde le fichier sous le nom filename</td>
+</tr>
+<tr>
+<td align="center"><code>:q</code></td>
+<td align="center">quitte l'éditeur <code>vi</code></td>
+</tr>
+<tr>
+<td align="center"><code>:wq</code></td>
+<td align="center">sauvegarder et quitter</td>
+</tr>
+<tr>
+<td align="center"><code>/string</code></td>
+<td align="center">recherche le <code>string</code> dans le texte</td>
+</tr>
+<tr>
+<td align="center"><code>n</code></td>
+<td align="center">va à l'occurence suivante du <code>string</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="more-linux-commands">More Linux commands</h2>
+<ul>
+<li><code>whoami</code></li>
+<li><code>id</code></li>
+<li><code>su</code> : switch user</li>
+<li>
+<p><code>ssh user@hostname</code></p>
+</li>
+<li>
+<p><code>sudo ...</code> toujours un utilisateur classique, mais avec des privilèges root, liste dans <code>etc/sudoers</code></p>
+</li>
+<li><code>wget http://www.url.com/some-file.txt -O some-file.txt</code></li>
+<li><code>curl http://www.url.com/some-file.txt -O</code></li>
+</ul>
+<h2 id="package-management">Package Management</h2>
+<h3 id="centos">CentOS</h3>
+<p>CentOS utilise RPM (Red Hat Package Manager), les softwares sont alors packagés sous la forme <code>telnet.rpm</code>, pour installer un tel package on tape alors la commande suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>rpm<span class="w"> </span>-i<span class="w"> </span>telnet.rpm
+</code></pre></div></td></tr></table></div>
+<p>l'argument <code>-i</code> signifiant que l'on veut installer quelque chose. Pour supprimer un package, on tape</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a>rpm<span class="w"> </span>-e<span class="w"> </span>telnet.rpm
+</code></pre></div></td></tr></table></div>
+<p>et pour requêter la db sur un package particuliers, on a la commande suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a>rpm<span class="w"> </span>-q<span class="w"> </span>telnet.rpm
+</code></pre></div></td></tr></table></div>
+<p><code>rpm</code> ne fait qu'installer le package qu'on lui a pointé, il n'installe aucune de ses dépendances ! Pour installer un package et l'ensemble de ses dépendances, on utilise <code>yum</code> qui est un surcouche de <code>rpm</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p><code>yum install ansible</code> installera <code>ansible</code> et l'ensemble de ses dépendances, par exemple <code>python</code>, <code>pyYAML</code>, <code>sshpass</code>.</p>
+</div>
+<p>Comment <code>yum</code> sait où sont localisées, ie dans quel repo, les dépendances d'un package ? L'ensemble des dépendances classiques sont listées dans <code>/etc/yum.repos.d</code>, c'est là que <code>yum</code> cherche en premier.</p>
+<p>Pour voir la liste des repos disponibles sur un système CentOS, on tape la commande <code>yum repolist</code>.</p>
+<ul>
+<li><code>ls /etc/yum.repos.d</code></li>
+<li><code>cat /etc/yum.repos.d/CentOS-Base.repo</code></li>
+</ul>
+<p>Pour l'ensemble des packages, par exemple <code>ansible</code>, disponible à l'installation, on peut taper la commande suivante.</p>
+<ul>
+<li><code>yum list ansible</code>,</li>
+<li><code>yum remove ansible</code> supprime le package,</li>
+<li><code>yum --showduplicates list ansible</code> pour voir les différentes versions disponibles.</li>
+<li><code>yum install ansible-2.4.2.0</code></li>
+</ul>
+<h3 id="ubuntu">Ubuntu</h3>
+<h2 id="services">Services</h2>
+<p>Dès qu'un software comme une DB, un webserveur ou Docker est installé sur une machine, il est configuré comme un <em>service</em>, pour que ce service marche, il doit être lancé.</p>
+<ul>
+<li><code>service nom_du_service start</code> est la commande permattant de le lancer.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p><code>service httpd start</code> lance un serveur apache.</p>
+</div>
+<p>Une méthode plus moderne de lancer un service est d'utiliser la commande <code>systemctl</code>.</p>
+<ul>
+<li><code>systemctl start httpd</code></li>
+</ul>
+<p><code>systemctl</code> est la commande utilisée pour manager les services sur un serveur managé par <code>systemd</code>.</p>
+<ul>
+<li>
+<p><code>systemctl stop httpd</code></p>
+</li>
+<li>
+<p><code>systemctl status httpd</code></p>
+</li>
+<li>
+<p><code>systemctl enable httpd</code> lance le service automatiquement quand le serveur boot.</p>
+</li>
+<li>
+<p><code>systemctl disable httpd</code> désactive le service automatiquement quand le serveur boot.</p>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-27-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-27-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-27-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-27-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-27-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-27-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-27-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-27-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-27-10">10</a></span>
+<span class="normal"><a href="#__codelineno-27-11">11</a></span>
+<span class="normal"><a href="#__codelineno-27-12">12</a></span>
+<span class="normal"><a href="#__codelineno-27-13">13</a></span>
+<span class="normal"><a href="#__codelineno-27-14">14</a></span>
+<span class="normal"><a href="#__codelineno-27-15">15</a></span>
+<span class="normal"><a href="#__codelineno-27-16">16</a></span>
+<span class="normal"><a href="#__codelineno-27-17">17</a></span>
+<span class="normal"><a href="#__codelineno-27-18">18</a></span>
+<span class="normal"><a href="#__codelineno-27-19">19</a></span>
+<span class="normal"><a href="#__codelineno-27-20">20</a></span>
+<span class="normal"><a href="#__codelineno-27-21">21</a></span>
+<span class="normal"><a href="#__codelineno-27-22">22</a></span>
+<span class="normal"><a href="#__codelineno-27-23">23</a></span>
+<span class="normal"><a href="#__codelineno-27-24">24</a></span>
+<span class="normal"><a href="#__codelineno-27-25">25</a></span>
+<span class="normal"><a href="#__codelineno-27-26">26</a></span>
+<span class="normal"><a href="#__codelineno-27-27">27</a></span>
+<span class="normal"><a href="#__codelineno-27-28">28</a></span>
+<span class="normal"><a href="#__codelineno-27-29">29</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>❯<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>docker.service
+<a id="__codelineno-27-2" name="__codelineno-27-2"></a>
+<a id="__codelineno-27-3" name="__codelineno-27-3"></a>●<span class="w"> </span>docker.service<span class="w"> </span>-<span class="w"> </span>Docker<span class="w"> </span>Application<span class="w"> </span>Container<span class="w"> </span>Engine
+<a id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="w">    </span>Loaded:<span class="w"> </span>loaded<span class="w"> </span><span class="o">(</span>/lib/systemd/system/docker.service<span class="p">;</span><span class="w"> </span>enabled<span class="p">;</span><span class="w"> </span>vendor<span class="w"> </span>preset:<span class="w"> </span>enabled<span class="o">)</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5"></a><span class="w">    </span>Active:<span class="w"> </span>active<span class="w"> </span><span class="o">(</span>running<span class="o">)</span><span class="w"> </span>since<span class="w"> </span>Wed<span class="w"> </span><span class="m">2022</span>-04-27<span class="w"> </span><span class="m">11</span>:50:20<span class="w"> </span>CEST<span class="p">;</span><span class="w"> </span>3h<span class="w"> </span>23min<span class="w"> </span>ago
+<a id="__codelineno-27-6" name="__codelineno-27-6"></a>TriggeredBy:<span class="w"> </span>●<span class="w"> </span>docker.socket
+<a id="__codelineno-27-7" name="__codelineno-27-7"></a><span class="w">    </span>Docs:<span class="w"> </span>https://docs.docker.com
+<a id="__codelineno-27-8" name="__codelineno-27-8"></a>Main<span class="w"> </span>PID:<span class="w"> </span><span class="m">1719</span><span class="w"> </span><span class="o">(</span>dockerd<span class="o">)</span>
+<a id="__codelineno-27-9" name="__codelineno-27-9"></a><span class="w">    </span>Tasks:<span class="w"> </span><span class="m">87</span>
+<a id="__codelineno-27-10" name="__codelineno-27-10"></a><span class="w">    </span>Memory:<span class="w"> </span><span class="m">167</span>.7M
+<a id="__codelineno-27-11" name="__codelineno-27-11"></a><span class="w">    </span>CGroup:<span class="w"> </span>/system.slice/docker.service
+<a id="__codelineno-27-12" name="__codelineno-27-12"></a><span class="w">            </span>├─<span class="w"> </span><span class="m">1719</span><span class="w"> </span>/usr/bin/dockerd<span class="w"> </span>-H<span class="w"> </span>fd://<span class="w"> </span>--containerd<span class="o">=</span>/run/containerd/containerd.sock
+<a id="__codelineno-27-13" name="__codelineno-27-13"></a><span class="w">            </span>├─<span class="w"> </span><span class="m">2034</span><span class="w"> </span>/usr/bin/docker-proxy<span class="w"> </span>-proto<span class="w"> </span>tcp<span class="w"> </span>-host-ip<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>-host-port<span class="w"> </span><span class="m">3001</span><span class="w"> </span>-container-ip<span class="w"> </span><span class="m">172</span>.26.0.2<span class="w"> </span>-co&gt;
+<a id="__codelineno-27-14" name="__codelineno-27-14"></a><span class="w">            </span>├─<span class="w"> </span><span class="m">2041</span><span class="w"> </span>/usr/bin/docker-proxy<span class="w"> </span>-proto<span class="w"> </span>tcp<span class="w"> </span>-host-ip<span class="w"> </span>::<span class="w"> </span>-host-port<span class="w"> </span><span class="m">3001</span><span class="w"> </span>-container-ip<span class="w"> </span><span class="m">172</span>.26.0.2<span class="w"> </span>-contain&gt;
+<a id="__codelineno-27-15" name="__codelineno-27-15"></a><span class="w">            </span>├─<span class="w"> </span><span class="m">2055</span><span class="w"> </span>/usr/bin/docker-proxy<span class="w"> </span>-proto<span class="w"> </span>tcp<span class="w"> </span>-host-ip<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>-host-port<span class="w"> </span><span class="m">5050</span><span class="w"> </span>-container-ip<span class="w"> </span><span class="m">172</span>.25.0.2<span class="w"> </span>-co&gt;
+<a id="__codelineno-27-16" name="__codelineno-27-16"></a><span class="w">            </span>├─<span class="w"> </span><span class="m">2062</span><span class="w"> </span>/usr/bin/docker-proxy<span class="w"> </span>-proto<span class="w"> </span>tcp<span class="w"> </span>-host-ip<span class="w"> </span>::<span class="w"> </span>-host-port<span class="w"> </span><span class="m">5050</span><span class="w"> </span>-container-ip<span class="w"> </span><span class="m">172</span>.25.0.2<span class="w"> </span>-contain&gt;
+<a id="__codelineno-27-17" name="__codelineno-27-17"></a><span class="w">            </span>├─<span class="w"> </span><span class="m">2103</span><span class="w"> </span>/usr/bin/docker-proxy<span class="w"> </span>-proto<span class="w"> </span>tcp<span class="w"> </span>-host-ip<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>-host-port<span class="w"> </span><span class="m">5432</span><span class="w"> </span>-container-ip<span class="w"> </span><span class="m">172</span>.25.0.3<span class="w"> </span>-co&gt;
+<a id="__codelineno-27-18" name="__codelineno-27-18"></a><span class="w">            </span>├─<span class="w"> </span><span class="m">2111</span><span class="w"> </span>/usr/bin/docker-proxy<span class="w"> </span>-proto<span class="w"> </span>tcp<span class="w"> </span>-host-ip<span class="w"> </span>::<span class="w"> </span>-host-port<span class="w"> </span><span class="m">5432</span><span class="w"> </span>-container-ip<span class="w"> </span><span class="m">172</span>.25.0.3<span class="w"> </span>-contain&gt;
+<a id="__codelineno-27-19" name="__codelineno-27-19"></a><span class="w">            </span>├─17675<span class="w"> </span>/usr/bin/docker-proxy<span class="w"> </span>-proto<span class="w"> </span>tcp<span class="w"> </span>-host-ip<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span>-host-port<span class="w"> </span><span class="m">49153</span><span class="w"> </span>-container-ip<span class="w"> </span><span class="m">172</span>.17.0.2<span class="w"> </span>-c&gt;
+<a id="__codelineno-27-20" name="__codelineno-27-20"></a><span class="w">            </span>└─17681<span class="w"> </span>/usr/bin/docker-proxy<span class="w"> </span>-proto<span class="w"> </span>tcp<span class="w"> </span>-host-ip<span class="w"> </span>::<span class="w"> </span>-host-port<span class="w"> </span><span class="m">49153</span><span class="w"> </span>-container-ip<span class="w"> </span><span class="m">172</span>.17.0.2<span class="w"> </span>-contai&gt;
+<a id="__codelineno-27-21" name="__codelineno-27-21"></a>
+<a id="__codelineno-27-22" name="__codelineno-27-22"></a>avril<span class="w"> </span><span class="m">27</span><span class="w"> </span><span class="m">11</span>:50:19<span class="w"> </span>vorph-maison<span class="w"> </span>dockerd<span class="o">[</span><span class="m">1719</span><span class="o">]</span>:<span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="s2">&quot;2022-04-27T11:50:19.614727941+02:00&quot;</span><span class="w"> </span><span class="nv">level</span><span class="o">=</span>info<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">&quot;No non-loc&gt;</span>
+<a id="__codelineno-27-23" name="__codelineno-27-23"></a><span class="s2">avril 27 11:50:19 vorph-maison dockerd[1719]: time=&quot;</span><span class="m">2022</span>-04-27T11:50:19.614743509+02:00<span class="s2">&quot; level=info msg=&quot;</span>IPv6<span class="w"> </span>enabl&gt;
+<a id="__codelineno-27-24" name="__codelineno-27-24"></a>avril<span class="w"> </span><span class="m">27</span><span class="w"> </span><span class="m">11</span>:50:19<span class="w"> </span>vorph-maison<span class="w"> </span>dockerd<span class="o">[</span><span class="m">1719</span><span class="o">]</span>:<span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="s2">&quot;2022-04-27T11:50:19.723169676+02:00&quot;</span><span class="w"> </span><span class="nv">level</span><span class="o">=</span>info<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">&quot;No non-loc&gt;</span>
+<a id="__codelineno-27-25" name="__codelineno-27-25"></a><span class="s2">avril 27 11:50:19 vorph-maison dockerd[1719]: time=&quot;</span><span class="m">2022</span>-04-27T11:50:19.723184792+02:00<span class="s2">&quot; level=info msg=&quot;</span>IPv6<span class="w"> </span>enabl&gt;
+<a id="__codelineno-27-26" name="__codelineno-27-26"></a>avril<span class="w"> </span><span class="m">27</span><span class="w"> </span><span class="m">11</span>:50:20<span class="w"> </span>vorph-maison<span class="w"> </span>dockerd<span class="o">[</span><span class="m">1719</span><span class="o">]</span>:<span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="s2">&quot;2022-04-27T11:50:20.260585965+02:00&quot;</span><span class="w"> </span><span class="nv">level</span><span class="o">=</span>info<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">&quot;Loading co&gt;</span>
+<a id="__codelineno-27-27" name="__codelineno-27-27"></a><span class="s2">avril 27 11:50:20 vorph-maison dockerd[1719]: time=&quot;</span><span class="m">2022</span>-04-27T11:50:20.310879570+02:00<span class="s2">&quot; level=info msg=&quot;</span>Docker<span class="w"> </span>dae&gt;
+<a id="__codelineno-27-28" name="__codelineno-27-28"></a>avril<span class="w"> </span><span class="m">27</span><span class="w"> </span><span class="m">11</span>:50:20<span class="w"> </span>vorph-maison<span class="w"> </span>dockerd<span class="o">[</span><span class="m">1719</span><span class="o">]</span>:<span class="w"> </span><span class="nv">time</span><span class="o">=</span><span class="s2">&quot;2022-04-27T11:50:20.311527346+02:00&quot;</span><span class="w"> </span><span class="nv">level</span><span class="o">=</span>info<span class="w"> </span><span class="nv">msg</span><span class="o">=</span><span class="s2">&quot;metrics AP&gt;</span>
+<a id="__codelineno-27-29" name="__codelineno-27-29"></a><span class="s2">avril 27 11:50:20 vorph-maison dockerd[1719]: time=&quot;</span><span class="m">2022</span>-04-27T11:50:20.312283730+02:00<span class="s2">&quot; level=info msg=&quot;</span>Daemon<span class="w"> </span>has&gt;
+</code></pre></div></td></tr></table></div>
+</div>
+<h3 id="exemple">Exemple</h3>
+<p>Supposons que l'on souhaite configurer l'API suivante comme un service.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">my_app.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-28-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-28-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-28-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-28-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-28-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-28-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-28-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-28-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-28-10">10</a></span>
+<span class="normal"><a href="#__codelineno-28-11">11</a></span>
+<span class="normal"><a href="#__codelineno-28-12">12</a></span>
+<span class="normal"><a href="#__codelineno-28-13">13</a></span>
+<span class="normal"><a href="#__codelineno-28-14">14</a></span>
+<span class="normal"><a href="#__codelineno-28-15">15</a></span>
+<span class="normal"><a href="#__codelineno-28-16">16</a></span>
+<span class="normal"><a href="#__codelineno-28-17">17</a></span>
+<span class="normal"><a href="#__codelineno-28-18">18</a></span>
+<span class="normal"><a href="#__codelineno-28-19">19</a></span>
+<span class="normal"><a href="#__codelineno-28-20">20</a></span>
+<span class="normal"><a href="#__codelineno-28-21">21</a></span>
+<span class="normal"><a href="#__codelineno-28-22">22</a></span>
+<span class="normal"><a href="#__codelineno-28-23">23</a></span>
+<span class="normal"><a href="#__codelineno-28-24">24</a></span>
+<span class="normal"><a href="#__codelineno-28-25">25</a></span>
+<span class="normal"><a href="#__codelineno-28-26">26</a></span>
+<span class="normal"><a href="#__codelineno-28-27">27</a></span>
+<span class="normal"><a href="#__codelineno-28-28">28</a></span>
+<span class="normal"><a href="#__codelineno-28-29">29</a></span>
+<span class="normal"><a href="#__codelineno-28-30">30</a></span>
+<span class="normal"><a href="#__codelineno-28-31">31</a></span>
+<span class="normal"><a href="#__codelineno-28-32">32</a></span>
+<span class="normal"><a href="#__codelineno-28-33">33</a></span>
+<span class="normal"><a href="#__codelineno-28-34">34</a></span>
+<span class="normal"><a href="#__codelineno-28-35">35</a></span>
+<span class="normal"><a href="#__codelineno-28-36">36</a></span>
+<span class="normal"><a href="#__codelineno-28-37">37</a></span>
+<span class="normal"><a href="#__codelineno-28-38">38</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">status</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a><span class="kn">from</span> <span class="nn">fastapi.middleware.cors</span> <span class="kn">import</span> <span class="n">CORSMiddleware</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3"></a><span class="kn">import</span> <span class="nn">uvicorn</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4"></a>
+<a id="__codelineno-28-5" name="__codelineno-28-5"></a><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6"></a>    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Mathieu&#39;s API&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Simple API to be define as a systemd service&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-8" name="__codelineno-28-8"></a>    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.1.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-9" name="__codelineno-28-9"></a><span class="p">)</span>
+<a id="__codelineno-28-10" name="__codelineno-28-10"></a>
+<a id="__codelineno-28-11" name="__codelineno-28-11"></a><span class="n">app</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span>
+<a id="__codelineno-28-12" name="__codelineno-28-12"></a>    <span class="n">CORSMiddleware</span><span class="p">,</span>
+<a id="__codelineno-28-13" name="__codelineno-28-13"></a>    <span class="n">allow_origins</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">],</span>
+<a id="__codelineno-28-14" name="__codelineno-28-14"></a>    <span class="n">allow_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-28-15" name="__codelineno-28-15"></a>    <span class="n">allow_methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">],</span>
+<a id="__codelineno-28-16" name="__codelineno-28-16"></a>    <span class="n">allow_headers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">],</span>
+<a id="__codelineno-28-17" name="__codelineno-28-17"></a><span class="p">)</span>
+<a id="__codelineno-28-18" name="__codelineno-28-18"></a>
+<a id="__codelineno-28-19" name="__codelineno-28-19"></a>
+<a id="__codelineno-28-20" name="__codelineno-28-20"></a><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+<a id="__codelineno-28-21" name="__codelineno-28-21"></a>    <span class="s2">&quot;/hello/&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-22" name="__codelineno-28-22"></a>    <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;hello&quot;</span><span class="p">],</span>
+<a id="__codelineno-28-23" name="__codelineno-28-23"></a>    <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">,</span>
+<a id="__codelineno-28-24" name="__codelineno-28-24"></a>    <span class="n">response_description</span><span class="o">=</span><span class="s2">&quot;Hello !&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-25" name="__codelineno-28-25"></a>    <span class="n">summary</span><span class="o">=</span><span class="s2">&quot;resume&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-26" name="__codelineno-28-26"></a><span class="p">)</span>
+<a id="__codelineno-28-27" name="__codelineno-28-27"></a><span class="k">async</span> <span class="k">def</span> <span class="nf">get_hello</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-28-28" name="__codelineno-28-28"></a>    <span class="k">return</span> <span class="s2">&quot;Hello !&quot;</span>
+<a id="__codelineno-28-29" name="__codelineno-28-29"></a>
+<a id="__codelineno-28-30" name="__codelineno-28-30"></a>
+<a id="__codelineno-28-31" name="__codelineno-28-31"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-28-32" name="__codelineno-28-32"></a>    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+<a id="__codelineno-28-33" name="__codelineno-28-33"></a>        <span class="s2">&quot;my_app:app&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-34" name="__codelineno-28-34"></a>        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-35" name="__codelineno-28-35"></a>        <span class="n">port</span><span class="o">=</span><span class="mi">8001</span><span class="p">,</span>
+<a id="__codelineno-28-36" name="__codelineno-28-36"></a>        <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
+<a id="__codelineno-28-37" name="__codelineno-28-37"></a>        <span class="n">reload</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-28-38" name="__codelineno-28-38"></a>    <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>si on la lance via la commande suivante.</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a>/home/vorph/miniconda3/envs/api/bin/python<span class="w"> </span>-m<span class="w"> </span>my_app
+</code></pre></div></td></tr></table></div>
+On peut alors tester qu'elle marche bien en faisant une requête <code>GET</code>, par exemple avec <a href="https://httpie.io/">httpie</a>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
+<span class="normal"><a href="#__codelineno-30-2">2</a></span>
+<span class="normal"><a href="#__codelineno-30-3">3</a></span>
+<span class="normal"><a href="#__codelineno-30-4">4</a></span>
+<span class="normal"><a href="#__codelineno-30-5">5</a></span>
+<span class="normal"><a href="#__codelineno-30-6">6</a></span>
+<span class="normal"><a href="#__codelineno-30-7">7</a></span>
+<span class="normal"><a href="#__codelineno-30-8">8</a></span>
+<span class="normal"><a href="#__codelineno-30-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a>❯<span class="w"> </span>http<span class="w"> </span><span class="m">127</span>.0.0.1:8001/hello/
+<a id="__codelineno-30-2" name="__codelineno-30-2"></a>
+<a id="__codelineno-30-3" name="__codelineno-30-3"></a>HTTP/1.1<span class="w"> </span><span class="m">200</span><span class="w"> </span>OK
+<a id="__codelineno-30-4" name="__codelineno-30-4"></a>content-length:<span class="w"> </span><span class="m">9</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5"></a>content-type:<span class="w"> </span>application/json
+<a id="__codelineno-30-6" name="__codelineno-30-6"></a>date:<span class="w"> </span>Wed,<span class="w"> </span><span class="m">04</span><span class="w"> </span>May<span class="w"> </span><span class="m">2022</span><span class="w"> </span><span class="m">09</span>:00:35<span class="w"> </span>GMT
+<a id="__codelineno-30-7" name="__codelineno-30-7"></a>server:<span class="w"> </span>uvicorn
+<a id="__codelineno-30-8" name="__codelineno-30-8"></a>
+<a id="__codelineno-30-9" name="__codelineno-30-9"></a><span class="s2">&quot;Hello !&quot;</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Le fais d'utiliser un chemin absolu <code>/home/vorph/miniconda3/envs/api/bin/python</code> pour lancer python est important et sera utilisé par la suite, pour connaître le chemin complet de votre éxecutable python, vous pouvez utiliser la commande suivante dans un terminal.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span>
+<span class="normal"><a href="#__codelineno-31-2">2</a></span>
+<span class="normal"><a href="#__codelineno-31-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a>❯ which python
+<a id="__codelineno-31-2" name="__codelineno-31-2"></a>
+<a id="__codelineno-31-3" name="__codelineno-31-3"></a>/home/vorph/miniconda3/envs/api/bin/python
+</code></pre></div></td></tr></table></div>
+<p>Il sera aussi utile par la suite de connaître le chemin absolu de <code>my_app.py</code>, on peut le connaître en utilisant la commande <a href="https://stackoverflow.com/questions/5265702/how-to-get-full-path-of-a-file"><code>readlink</code></a>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1">1</a></span>
+<span class="normal"><a href="#__codelineno-32-2">2</a></span>
+<span class="normal"><a href="#__codelineno-32-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a>❯<span class="w"> </span>readlink<span class="w"> </span>-f<span class="w"> </span>my_app.py
+<a id="__codelineno-32-2" name="__codelineno-32-2"></a>
+<a id="__codelineno-32-3" name="__codelineno-32-3"></a>/media/vorph/datas/formation-Deep-MLOps/includes/my_app.py
+</code></pre></div></td></tr></table></div>
+<p>Evidemment, la commande <code>readlink</code> nécessite que vous soyez dans le répertoire où se trouve <code>my_app.py</code> pour pouvoir lire le chemin absolu.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Il n'est pas nécessaire de laisser les lignes suivantes à la fin de <code>my_app.py</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span>
+<span class="normal"><a href="#__codelineno-33-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2"></a>    <span class="n">uvicorn</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;my_app:app&quot;</span><span class="p">,</span> <span class="n">host</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">8001</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>On pourrait très bien les enlever, mais dans ce cas là, il faudrait activer le bon environnement virtuel puis lancer la commande suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a>uvicorn<span class="w"> </span>my_app:app<span class="w"> </span>--reload<span class="w"> </span>--port<span class="w"> </span><span class="m">8001</span>
+</code></pre></div></td></tr></table></div>
+<p>Ce qui fait deux actions plutôt qu'une, cela sera plus pratique pour la suite.</p>
+<p>Autres références :</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/60959081/python-script-in-systemd-virtual-environment-or-real-environment">Python script in systemd: virtual environment or real environment</a></li>
+</ul>
+</div>
+<p>L'idée de la configurer comme un service est que l'on pourra alors utiliser <code>systemctl</code> pour la lancer et l'arrêter via les commandes <code>systemctl start my_app</code> et <code>systemctl stop my_app</code>.</p>
+<p>De cette façon l'administrateur du serveur n'a pas besoin de se soucier du chemin où se trouve l'API, ou même du langage dans lequel est codée cette API, il sait que c'est un service qu'il peut lancer et stopper à sa guise.</p>
+<p>Il sera même possible de la lancer de façon automatique au début de chaque démarrage du serveur, ou de la relancer si le serveur crash.</p>
+<p>Pour pouvoir lancer un script python comme un service, par exemple avec les commande <code>systemctl start my_app</code>, <code>systemctl stop my_app</code>, <code>my_app</code> faisant référence au nom que l'on souhaite assigner au service, <strong>on doit alors configurer ce script comme un service</strong> <code>systemd</code> en définissant un "<strong>systemd unit file</strong>" dans <code>/etc/systemd/system</code>.</p>
+<p>On définit le fichier systemd suivant.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">/etc/systemd/system/my_app.serivce</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-35-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-35-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-35-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-35-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-35-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-35-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-35-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-35-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-35-10">10</a></span>
+<span class="normal"><a href="#__codelineno-35-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1"></a><span class="k">[Unit]</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2"></a><span class="n">Description</span><span class="o">=</span><span class="n">A</span><span class="w"> </span><span class="n">simple</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">systemd</span><span class="w"> </span><span class="n">services</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3"></a>
+<a id="__codelineno-35-4" name="__codelineno-35-4"></a><span class="k">[Service]</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5"></a><span class="c1">#ExecStartPre=some code to run before my_app.py</span>
+<a id="__codelineno-35-6" name="__codelineno-35-6"></a><span class="n">ExecStart</span><span class="o">=</span><span class="err">/</span><span class="n">home</span><span class="err">/</span><span class="n">vorph</span><span class="err">/</span><span class="n">miniconda3</span><span class="err">/</span><span class="n">envs</span><span class="err">/</span><span class="n">api</span><span class="err">/</span><span class="n">bin</span><span class="err">/</span><span class="n">python</span><span class="w"> </span><span class="err">/</span><span class="n">media</span><span class="err">/</span><span class="n">vorph</span><span class="err">/</span><span class="n">datas</span><span class="err">/</span><span class="n">formation-Deep-MLOps</span><span class="err">/</span><span class="n">includes</span><span class="err">/</span><span class="n">my_app</span><span class="p">.</span><span class="n">py</span>
+<a id="__codelineno-35-7" name="__codelineno-35-7"></a><span class="c1">#ExecStartPre=some code to run afters my_app.py</span>
+<a id="__codelineno-35-8" name="__codelineno-35-8"></a><span class="n">Restart</span><span class="o">=</span><span class="n">always</span>
+<a id="__codelineno-35-9" name="__codelineno-35-9"></a>
+<a id="__codelineno-35-10" name="__codelineno-35-10"></a><span class="k">[Install]</span>
+<a id="__codelineno-35-11" name="__codelineno-35-11"></a><span class="n">WantedBy</span><span class="o">=</span><span class="n">multi-user</span><span class="p">.</span><span class="n">target</span>
+</code></pre></div></td></tr></table></div>
+<p>Une fois le fichier créé dans <code>/etc/systemd/system</code>, il est nécessaire de redémarrer le processus systemd en lançant la commande suivante.</p>
+<p><code>systemctl daemon-reload</code></p>
+<p>Seulement de cette façon le nouveau service configuré sera pris en compte dans <code>/etc/systemd/system</code>, il suffit alors de lancer le nouveau service lancer via <code>systemctl start my_app</code> pour qu'il démarre. On peut alors vérifier qu'il fonctionne en faisant la réquête suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-36-1">1</a></span>
+<span class="normal"><a href="#__codelineno-36-2">2</a></span>
+<span class="normal"><a href="#__codelineno-36-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1"></a>❯<span class="w"> </span>curl<span class="w"> </span>http://127.0.0.1:8001/hello/
+<a id="__codelineno-36-2" name="__codelineno-36-2"></a>
+<a id="__codelineno-36-3" name="__codelineno-36-3"></a><span class="s2">&quot;Hello !&quot;</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Les chemins utilisés dans un ficheier <code>.service</code> <strong>doivent toujours être des chemins absolus</strong>. Les chemins relatifs ne fonctionnent pas.</p>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-37-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-37-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-37-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-37-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-37-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-37-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-37-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-37-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-37-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-37-10">10</a></span>
+<span class="normal"><a href="#__codelineno-37-11">11</a></span>
+<span class="normal"><a href="#__codelineno-37-12">12</a></span>
+<span class="normal"><a href="#__codelineno-37-13">13</a></span>
+<span class="normal"><a href="#__codelineno-37-14">14</a></span>
+<span class="normal"><a href="#__codelineno-37-15">15</a></span>
+<span class="normal"><a href="#__codelineno-37-16">16</a></span>
+<span class="normal"><a href="#__codelineno-37-17">17</a></span>
+<span class="normal"><a href="#__codelineno-37-18">18</a></span>
+<span class="normal"><a href="#__codelineno-37-19">19</a></span>
+<span class="normal"><a href="#__codelineno-37-20">20</a></span>
+<span class="normal"><a href="#__codelineno-37-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1"></a>❯<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>my_app
+<a id="__codelineno-37-2" name="__codelineno-37-2"></a>●<span class="w"> </span>my_app.service
+<a id="__codelineno-37-3" name="__codelineno-37-3"></a><span class="w">     </span>Loaded:<span class="w"> </span>loaded<span class="w"> </span><span class="o">(</span>/etc/systemd/system/my_app.service<span class="p">;</span><span class="w"> </span>static<span class="p">;</span><span class="w"> </span>vendor<span class="w"> </span>preset:<span class="w"> </span>enabled<span class="o">)</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4"></a><span class="w">     </span>Active:<span class="w"> </span>active<span class="w"> </span><span class="o">(</span>running<span class="o">)</span><span class="w"> </span>since<span class="w"> </span>Wed<span class="w"> </span><span class="m">2022</span>-05-04<span class="w"> </span><span class="m">14</span>:22:11<span class="w"> </span>CEST<span class="p">;</span><span class="w"> </span>1min<span class="w"> </span>39s<span class="w"> </span>ago
+<a id="__codelineno-37-5" name="__codelineno-37-5"></a><span class="w">   </span>Main<span class="w"> </span>PID:<span class="w"> </span><span class="m">134295</span><span class="w"> </span><span class="o">(</span>python<span class="o">)</span>
+<a id="__codelineno-37-6" name="__codelineno-37-6"></a><span class="w">      </span>Tasks:<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>limit:<span class="w"> </span><span class="m">76995</span><span class="o">)</span>
+<a id="__codelineno-37-7" name="__codelineno-37-7"></a><span class="w">     </span>Memory:<span class="w"> </span><span class="m">1</span>.7G
+<a id="__codelineno-37-8" name="__codelineno-37-8"></a><span class="w">     </span>CGroup:<span class="w"> </span>/system.slice/my_app.service
+<a id="__codelineno-37-9" name="__codelineno-37-9"></a><span class="w">             </span>├─134295<span class="w"> </span>/home/vorph/miniconda3/envs/api/bin/python<span class="w"> </span>/opt/perso/my_app.py
+<a id="__codelineno-37-10" name="__codelineno-37-10"></a><span class="w">             </span>├─134780<span class="w"> </span>/home/vorph/miniconda3/envs/api/bin/python<span class="w"> </span>-c<span class="w"> </span>from<span class="w"> </span>multiprocessing.resource_tracker<span class="w"> </span>import<span class="w"> </span>ma&gt;
+<a id="__codelineno-37-11" name="__codelineno-37-11"></a><span class="w">             </span>└─134781<span class="w"> </span>/home/vorph/miniconda3/envs/api/bin/python<span class="w"> </span>-c<span class="w"> </span>from<span class="w"> </span>multiprocessing.spawn<span class="w"> </span>import<span class="w"> </span>spawn_main<span class="p">;</span><span class="w"> </span>s&gt;
+<a id="__codelineno-37-12" name="__codelineno-37-12"></a>
+<a id="__codelineno-37-13" name="__codelineno-37-13"></a>mai<span class="w"> </span><span class="m">04</span><span class="w"> </span><span class="m">14</span>:22:11<span class="w"> </span>vorph-maison<span class="w"> </span>systemd<span class="o">[</span><span class="m">1</span><span class="o">]</span>:<span class="w"> </span>Started<span class="w"> </span>my_app.service.
+<a id="__codelineno-37-14" name="__codelineno-37-14"></a>mai<span class="w"> </span><span class="m">04</span><span class="w"> </span><span class="m">14</span>:22:11<span class="w"> </span>vorph-maison<span class="w"> </span>python<span class="o">[</span><span class="m">134295</span><span class="o">]</span>:<span class="w"> </span>INFO:<span class="w">     </span>Will<span class="w"> </span>watch<span class="w"> </span><span class="k">for</span><span class="w"> </span>changes<span class="w"> </span><span class="k">in</span><span class="w"> </span>these<span class="w"> </span>directories:<span class="w"> </span><span class="o">[</span><span class="s1">&#39;/&#39;</span><span class="o">]</span>
+<a id="__codelineno-37-15" name="__codelineno-37-15"></a>mai<span class="w"> </span><span class="m">04</span><span class="w"> </span><span class="m">14</span>:22:11<span class="w"> </span>vorph-maison<span class="w"> </span>python<span class="o">[</span><span class="m">134295</span><span class="o">]</span>:<span class="w"> </span>INFO:<span class="w">     </span>Uvicorn<span class="w"> </span>running<span class="w"> </span>on<span class="w"> </span>http://127.0.0.1:8001<span class="w"> </span><span class="o">(</span>Press<span class="w"> </span>CTRL+C<span class="w"> </span>to<span class="w"> </span>qu&gt;
+<a id="__codelineno-37-16" name="__codelineno-37-16"></a>mai<span class="w"> </span><span class="m">04</span><span class="w"> </span><span class="m">14</span>:23:43<span class="w"> </span>vorph-maison<span class="w"> </span>python<span class="o">[</span><span class="m">134295</span><span class="o">]</span>:<span class="w"> </span>error<span class="w"> </span>walking<span class="w"> </span>file<span class="w"> </span>system:<span class="w"> </span>OSError<span class="w"> </span><span class="o">[</span>Errno<span class="w"> </span><span class="m">40</span><span class="o">]</span><span class="w"> </span>Too<span class="w"> </span>many<span class="w"> </span>levels<span class="w"> </span>of<span class="w"> </span>symbo&gt;
+<a id="__codelineno-37-17" name="__codelineno-37-17"></a>mai<span class="w"> </span><span class="m">04</span><span class="w"> </span><span class="m">14</span>:23:43<span class="w"> </span>vorph-maison<span class="w"> </span>python<span class="o">[</span><span class="m">134295</span><span class="o">]</span>:<span class="w"> </span>INFO:<span class="w">     </span>Started<span class="w"> </span>reloader<span class="w"> </span>process<span class="w"> </span><span class="o">[</span><span class="m">134295</span><span class="o">]</span><span class="w"> </span>using<span class="w"> </span>watchgod
+<a id="__codelineno-37-18" name="__codelineno-37-18"></a>mai<span class="w"> </span><span class="m">04</span><span class="w"> </span><span class="m">14</span>:23:44<span class="w"> </span>vorph-maison<span class="w"> </span>python<span class="o">[</span><span class="m">134781</span><span class="o">]</span>:<span class="w"> </span>INFO:<span class="w">     </span>Started<span class="w"> </span>server<span class="w"> </span>process<span class="w"> </span><span class="o">[</span><span class="m">134781</span><span class="o">]</span>
+<a id="__codelineno-37-19" name="__codelineno-37-19"></a>mai<span class="w"> </span><span class="m">04</span><span class="w"> </span><span class="m">14</span>:23:44<span class="w"> </span>vorph-maison<span class="w"> </span>python<span class="o">[</span><span class="m">134781</span><span class="o">]</span>:<span class="w"> </span>INFO:<span class="w">     </span>Waiting<span class="w"> </span><span class="k">for</span><span class="w"> </span>application<span class="w"> </span>startup.
+<a id="__codelineno-37-20" name="__codelineno-37-20"></a>mai<span class="w"> </span><span class="m">04</span><span class="w"> </span><span class="m">14</span>:23:44<span class="w"> </span>vorph-maison<span class="w"> </span>python<span class="o">[</span><span class="m">134781</span><span class="o">]</span>:<span class="w"> </span>INFO:<span class="w">     </span>Application<span class="w"> </span>startup<span class="w"> </span>complete.
+<a id="__codelineno-37-21" name="__codelineno-37-21"></a>mai<span class="w"> </span><span class="m">04</span><span class="w"> </span><span class="m">14</span>:23:44<span class="w"> </span>vorph-maison<span class="w"> </span>python<span class="o">[</span><span class="m">134781</span><span class="o">]</span>:<span class="w"> </span>INFO:<span class="w">     </span><span class="m">127</span>.0.0.1:55460<span class="w"> </span>-<span class="w"> </span><span class="s2">&quot;GET /hello/ HTTP/1.1&quot;</span><span class="w"> </span><span class="m">200</span><span class="w"> </span>OK
+</code></pre></div></td></tr></table></div>
+<p>Pour la stopper, il suffit de lancer <code>systemctl stop my_app</code>.</p>
+<p>Comment configurer le service pour qu'il se lance automatiquement au démarrage du serveur ?</p>
+<p>C'est la partie <code>[Install]</code> du fichier <code>my_app.service</code> qui le définit. La partie <code>WantedBy=multi-user.target</code> désigne que se service doit être lancé dès le démarrage. Pour que ce paramètre soit pris en compte, il est alors nécessaire de lancer la commande suivante.</p>
+<p><code>systemctl enable my_app</code></p>
+<p>Approfondir :</p>
+<ul>
+<li><a href="https://unix.stackexchange.com/questions/506347/why-do-most-systemd-examples-contain-wantedby-multi-user-target">Why do most systemd examples contain WantedBy=multi-user.target?</a></li>
+<li><a href="https://unix.stackexchange.com/questions/404667/systemd-service-what-is-multi-user-target?noredirect=1&amp;lq=1">Systemd service - what is <code>multi-user.target</code></a></li>
+<li><a href="https://gist.github.com/leommoore/ea74061dc3bb086f36d42666a6153e0c">Systemd Services 101</a></li>
+<li><a href="https://docs.google.com/presentation/d/10YwWZdBa3ffl7kVa2p21L9VqET2CRmVoWJpVBW6ujgg/htmlpresent">systemd 101</a></li>
+<li><a href="https://people.redhat.com/bbreard/presos/Systemd-101.pdf">Systemd – Easy as 1, 2, 3</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units-fr">Comment utiliser Systemctl pour gérer les services et les unités de Systemd</a></li>
+<li><a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">systemd.service — Service unit configuration</a></li>
+</ul>
+<h3 id="placer-votre-code-dans-opt">Placer votre code dans <code>/opt/</code></h3>
+<p>Dans la plupart des systèmes d'exploitations Linux, il existe un répertoire nommé <code>/opt</code>. Ici <code>/opt</code> peut se comprendre comme "option" ou "optionnal", pour citer la réponse StackOverflow de <a href="https://stackoverflow.com/questions/12649355/what-does-opt-mean-as-in-the-opt-directory-is-it-an-abbreviation">What does "opt" mean (as in the "opt" directory)? Is it an abbreviation?</a> :</p>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>In the old days, <code>/opt</code> was used by UNIX vendors like AT&amp;T, Sun, DEC and 3rd-party vendors to hold "Option" packages; i.e. packages that you might have paid extra money for. I don't recall seeing <code>/opt</code> on Berkeley BSD UNIX. They used <code>/usr/local</code> for stuff that you installed yourself.</p>
+<p>But of course, the true "meaning" of the different directories has always been somewhat vague. That is arguably a good thing, because if these directories had precise (and rigidly enforced) meanings you'd end up with a proliferation of different directory names.</p>
+<p>The Filesystem Hierarchy Standard says this about <code>/opt/*</code>:</p>
+<ul>
+<li>"/opt is reserved for the installation of add-on application software packages."</li>
+</ul>
+<p>By contrast it says this about <code>/usr/local/*</code>:</p>
+<ul>
+<li>"The /usr/local hierarchy is for use by the system administrator when installing software locally."</li>
+</ul>
+<p>These days, <code>/usr/local/*</code> is typically used for installing software that has been built locally, possibly after tweaking configuration options, etcetera.</p>
+</div>
+<p>En d'autres termes :</p>
+<ul>
+<li>Si votre programme est programmé dans un langage compilé, par exemple le C++ ou le Rust, et que vous le compilez, alors vous devriez le placer dans <code>/usr/local/*</code>.</li>
+<li>Votre application est un binaire unique, alors vous le copierez dans <code>/usr/local</code>.</li>
+<li>Vous voulez utiliser une alternative d'un programme système existant construit à partir des sources en utilisant <code>make</code>. Dans ce cas, vous l'installerez dans <code>/usr/local</code>.</li>
+<li>Si vous déployez une application, et que par design, tous ses fichiers sont dans le même répertoire, alors on la déploiera dans un répertoire <code>/opt/my_app/</code>.</li>
+</ul>
+<p>Cela ne reste que des conventions, mais elles sont largement utilisées et cela évite de se poser trop de questions sur où est tel application.</p>
+<p>Dans le cas qui nous interesse ici, déployer notre API basique comme un service, il ne faudrait donc pas mettre</p>
+<p><code>ExecStart=/home/vorph/miniconda3/envs/api/bin/python /media/vorph/datas/formation-Deep-MLOps/includes/my_app.py</code></p>
+<p>Dans notre fichier <code>my_app.service</code>, mais copier notre api et toutes ses dépendances (eg Dockerfile, docker-compose, etc) dans un répertoire <code>/opt/code/</code> par exemple, et mettre</p>
+<p><code>ExecStart=/home/vorph/miniconda3/envs/api/bin/python /opt/code/my_app.py</code></p>
+<p>dans <code>my_app.service</code>.</p>
+<div class="admonition summary">
+<p class="admonition-title">TLDR</p>
+<p>Pour créer un service à partir d'une application <code>my_app.py</code>:</p>
+<ol>
+<li>Mettre l'application dans un répertoire <code>/opt/code/my_app.py</code>.</li>
+<li>Définir un "systemd unit file" <code>/etc/systemd/system/my_app.service</code>.</li>
+<li>Relancer le démon <code>systemd</code> via <code>systemctl daemon-reload</code>.</li>
+<li>Lancer le service avec <code>systemctl start my_app</code>.</li>
+<li>Faire la configuration pour le lancement du service de façon automatique, si nécessaire.</li>
+</ol>
+</div>
+<ul>
+<li><a href="https://www.baeldung.com/linux/opt-directory">What does /opt mean in Linux?</a></li>
+<li><a href="http://www.extradrm.com/?p=2266">Linux : Directory /opt vs /usr/local</a></li>
+<li><a href="https://stackoverflow.com/questions/12649355/what-does-opt-mean-as-in-the-opt-directory-is-it-an-abbreviation">What does "opt" mean (as in the "opt" directory)? Is it an abbreviation?</a></li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

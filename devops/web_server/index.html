@@ -1,0 +1,2622 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../applications/">
+      
+      
+        <link rel="next" href="../terminal/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>Web Servers - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#just-enough-web-frameworks-and-web-servers" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Web Servers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-tabs__link">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../azure_ml/intro/" class="md-tabs__link">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../linux/" class="md-tabs__link md-tabs__link--active">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Web Servers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Web Servers
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#backend-web-frameworks" class="md-nav__link">
+    Backend web frameworks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apache-web-server" class="md-nav__link">
+    Apache Web Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apache-tomcat" class="md-nav__link">
+    Apache Tomcat
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-web-frameworks" class="md-nav__link">
+    Python web frameworks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodejs" class="md-nav__link">
+    NodeJS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ips-et-ports" class="md-nav__link">
+    IPs et Ports
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lancer-un-application-en-mode-background" class="md-nav__link">
+    Lancer un application en mode background
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#backend-web-frameworks" class="md-nav__link">
+    Backend web frameworks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apache-web-server" class="md-nav__link">
+    Apache Web Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apache-tomcat" class="md-nav__link">
+    Apache Tomcat
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#python-web-frameworks" class="md-nav__link">
+    Python web frameworks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodejs" class="md-nav__link">
+    NodeJS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ips-et-ports" class="md-nav__link">
+    IPs et Ports
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lancer-un-application-en-mode-background" class="md-nav__link">
+    Lancer un application en mode background
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="just-enough-web-frameworks-and-web-servers">Just enough Web Frameworks and Web Servers</h1>
+<h2 id="backend-web-frameworks">Backend web frameworks</h2>
+<pre class="mermaid"><code>sequenceDiagram
+    Client-&gt;&gt;WebServer: Requête
+    activate WebServer
+    WebServer-&gt;&gt;Client: Réponse
+    deactivate WebServer</code></pre>
+<p>Deux types de sites web :</p>
+<ul>
+<li>statiques : le contenu du site ne change pas. Une fois le contenu servi, il n'y a plus de contact avec le serveur,</li>
+<li>dynamiques.</li>
+</ul>
+<h2 id="apache-web-server">Apache Web Server</h2>
+<p>Open source HTTP serveur développé et maintenu par la fondation Apache. Plutôy utilisé comme serveur frontend.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>yum<span class="w"> </span>install<span class="w"> </span>httpd
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>service<span class="w"> </span>httpd<span class="w"> </span>start
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>service<span class="w"> </span>httpd<span class="w"> </span>status
+</code></pre></div></td></tr></table></div>
+<p>pour accéder aux logs, on utilise les commandes suivantes.</p>
+<p><code>cat /var/log/httpd/acces_log</code></p>
+<p><code>cat /var/log/httpd/error_log</code></p>
+<p>Le fichier de configuration de httpd sur trouve dans <code>/etc/httpd/conf/httpd.conf</code></p>
+<h2 id="apache-tomcat">Apache Tomcat</h2>
+<p>Backend serveur utilisé pour déployer des applications java. Il est nécessaire d'avoir java d'installé pour pouvoir l'utiliser.</p>
+<p><code>yum install java-1.8.0-openjdk-devel</code></p>
+<p>Port par défaut de Apache Tomcat : <code>8080</code>.</p>
+<p><code>jar -cvf app.war *</code></p>
+<h2 id="python-web-frameworks">Python web frameworks</h2>
+<p>Django, Flask.</p>
+<p>Production grade serveurs pour Python :</p>
+<ul>
+<li>Gunicorn</li>
+<li>uWSGI</li>
+<li>Gevent</li>
+<li>Twisted Web</li>
+</ul>
+<p><code>gunicorn main:app</code>.</p>
+<p><code>gunicorn main:app -w 2</code> avec 2 workers.</p>
+<p>Pour voir le nombre total de processus <code>Gunicorn</code> qui tourne sur le serveur, on peut taper la commande suivante.</p>
+<p><code>ps -ef | grep gunicorn | grep -v grep</code></p>
+<p>Le nombre de processus <code>Gunicorn</code> retourné correspond au processus principal plus le nombre de worker déployés.</p>
+<h2 id="nodejs">NodeJS</h2>
+<p>Express.js is the main web server framework.</p>
+<p><code>npm install</code> pour installer l'ensemble des dépendances du projet.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">package.json</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span>
+<span class="normal"><a href="#__codelineno-3-30">30</a></span>
+<span class="normal"><a href="#__codelineno-3-31">31</a></span>
+<span class="normal"><a href="#__codelineno-3-32">32</a></span>
+<span class="normal"><a href="#__codelineno-3-33">33</a></span>
+<span class="normal"><a href="#__codelineno-3-34">34</a></span>
+<span class="normal"><a href="#__codelineno-3-35">35</a></span>
+<span class="normal"><a href="#__codelineno-3-36">36</a></span>
+<span class="normal"><a href="#__codelineno-3-37">37</a></span>
+<span class="normal"><a href="#__codelineno-3-38">38</a></span>
+<span class="normal"><a href="#__codelineno-3-39">39</a></span>
+<span class="normal"><a href="#__codelineno-3-40">40</a></span>
+<span class="normal"><a href="#__codelineno-3-41">41</a></span>
+<span class="normal"><a href="#__codelineno-3-42">42</a></span>
+<span class="normal"><a href="#__codelineno-3-43">43</a></span>
+<span class="normal"><a href="#__codelineno-3-44">44</a></span>
+<span class="normal"><a href="#__codelineno-3-45">45</a></span>
+<span class="normal"><a href="#__codelineno-3-46">46</a></span>
+<span class="normal"><a href="#__codelineno-3-47">47</a></span>
+<span class="normal"><a href="#__codelineno-3-48">48</a></span>
+<span class="normal"><a href="#__codelineno-3-49">49</a></span>
+<span class="normal"><a href="#__codelineno-3-50">50</a></span>
+<span class="normal"><a href="#__codelineno-3-51">51</a></span>
+<span class="normal"><a href="#__codelineno-3-52">52</a></span>
+<span class="normal"><a href="#__codelineno-3-53">53</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="err">ca</span><span class="kc">t</span><span class="w"> </span><span class="err">package.jso</span><span class="kc">n</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="p">{</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example-contentful-theExampleApp-js&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.0.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">  </span><span class="nt">&quot;private&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">  </span><span class="nt">&quot;scripts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="nt">&quot;start:watch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nodemon ./bin/www --ignore public/&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="nt">&quot;start:dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node ./bin/www&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">    </span><span class="nt">&quot;debug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node debug ./bin/www&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">    </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NODE_ENV=production node ./bin/www&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="w">    </span><span class="nt">&quot;start:production&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;NODE_ENV=production node ./bin/www&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">    </span><span class="nt">&quot;lint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eslint ./app.js routes&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">    </span><span class="nt">&quot;format&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eslint --fix . bin --ignore public node_modules&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">    </span><span class="nt">&quot;pretest&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npm run lint&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">    </span><span class="nt">&quot;test&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;npm run test:unit &amp;&amp; npm run test:integration &amp;&amp; npm run test:e2e&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">    </span><span class="nt">&quot;test:e2e&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node test/run-e2e-test.js&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">    </span><span class="nt">&quot;test:e2e:dev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node test/run-e2e-test.js --dev&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">    </span><span class="nt">&quot;test:integration&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jest test/integration&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w">    </span><span class="nt">&quot;test:integration:watch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jest test/integration --watch&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="w">    </span><span class="nt">&quot;test:unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jest test/unit&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="w">    </span><span class="nt">&quot;test:unit:watch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;jest test/unit --watch&quot;</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="w">  </span><span class="nt">&quot;engines&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="w">    </span><span class="nt">&quot;node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&gt;=8.9.3&quot;</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">    </span><span class="nt">&quot;body-parser&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.18.2&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">    </span><span class="nt">&quot;contentful&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^6.0.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="w">    </span><span class="nt">&quot;cookie-parser&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~1.4.3&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="w">    </span><span class="nt">&quot;dotenv&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^5.0.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="w">    </span><span class="nt">&quot;execa&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^0.9.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-32" name="__codelineno-3-32"></a><span class="w">    </span><span class="nt">&quot;express&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.16.2&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="w">    </span><span class="nt">&quot;helmet&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^3.11.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="w">    </span><span class="nt">&quot;lodash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.17.5&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-35" name="__codelineno-3-35"></a><span class="w">    </span><span class="nt">&quot;marked&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^0.3.16&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-36" name="__codelineno-3-36"></a><span class="w">    </span><span class="nt">&quot;morgan&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.9.1&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-37" name="__codelineno-3-37"></a><span class="w">    </span><span class="nt">&quot;pug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;~2.0.0-beta6&quot;</span>
+<a id="__codelineno-3-38" name="__codelineno-3-38"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-3-39" name="__codelineno-3-39"></a><span class="w">  </span><span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-40" name="__codelineno-3-40"></a><span class="w">    </span><span class="nt">&quot;cheerio&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.0.0-rc.2&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-41" name="__codelineno-3-41"></a><span class="w">    </span><span class="nt">&quot;cookie&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^0.3.1&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-42" name="__codelineno-3-42"></a><span class="w">    </span><span class="nt">&quot;eslint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^4.18.1&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-43" name="__codelineno-3-43"></a><span class="w">    </span><span class="nt">&quot;eslint-config-standard&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^11.0.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-44" name="__codelineno-3-44"></a><span class="w">    </span><span class="nt">&quot;eslint-plugin-import&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^2.8.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-45" name="__codelineno-3-45"></a><span class="w">    </span><span class="nt">&quot;eslint-plugin-node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^6.0.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-46" name="__codelineno-3-46"></a><span class="w">    </span><span class="nt">&quot;eslint-plugin-promise&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^3.6.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-47" name="__codelineno-3-47"></a><span class="w">    </span><span class="nt">&quot;eslint-plugin-standard&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^3.0.1&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-48" name="__codelineno-3-48"></a><span class="w">    </span><span class="nt">&quot;jest&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^22.4.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-49" name="__codelineno-3-49"></a><span class="w">    </span><span class="nt">&quot;nodemon&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.18.9&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-50" name="__codelineno-3-50"></a><span class="w">    </span><span class="nt">&quot;supertest&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^3.0.0&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-51" name="__codelineno-3-51"></a><span class="w">    </span><span class="nt">&quot;yargs&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^11.0.0&quot;</span>
+<a id="__codelineno-3-52" name="__codelineno-3-52"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-3-53" name="__codelineno-3-53"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p><code>npm run start</code>, <code>npm run debug</code>, ... pour lancer la valeur correspondante dans la partie <code>scripts</code> de <code>package.json</code>.</p>
+<p>PM2 : Production Process Manager for Node.js applications with a built-in load balancer.</p>
+<p><code>pm2 start app.js</code></p>
+<p><code>pm2 start app.js -i 4</code> avec 4 instances de l'application.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span>
+<span class="normal"><a href="#__codelineno-4-29">29</a></span>
+<span class="normal"><a href="#__codelineno-4-30">30</a></span>
+<span class="normal"><a href="#__codelineno-4-31">31</a></span>
+<span class="normal"><a href="#__codelineno-4-32">32</a></span>
+<span class="normal"><a href="#__codelineno-4-33">33</a></span>
+<span class="normal"><a href="#__codelineno-4-34">34</a></span>
+<span class="normal"><a href="#__codelineno-4-35">35</a></span>
+<span class="normal"><a href="#__codelineno-4-36">36</a></span>
+<span class="normal"><a href="#__codelineno-4-37">37</a></span>
+<span class="normal"><a href="#__codelineno-4-38">38</a></span>
+<span class="normal"><a href="#__codelineno-4-39">39</a></span>
+<span class="normal"><a href="#__codelineno-4-40">40</a></span>
+<span class="normal"><a href="#__codelineno-4-41">41</a></span>
+<span class="normal"><a href="#__codelineno-4-42">42</a></span>
+<span class="normal"><a href="#__codelineno-4-43">43</a></span>
+<span class="normal"><a href="#__codelineno-4-44">44</a></span>
+<span class="normal"><a href="#__codelineno-4-45">45</a></span>
+<span class="normal"><a href="#__codelineno-4-46">46</a></span>
+<span class="normal"><a href="#__codelineno-4-47">47</a></span>
+<span class="normal"><a href="#__codelineno-4-48">48</a></span>
+<span class="normal"><a href="#__codelineno-4-49">49</a></span>
+<span class="normal"><a href="#__codelineno-4-50">50</a></span>
+<span class="normal"><a href="#__codelineno-4-51">51</a></span>
+<span class="normal"><a href="#__codelineno-4-52">52</a></span>
+<span class="normal"><a href="#__codelineno-4-53">53</a></span>
+<span class="normal"><a href="#__codelineno-4-54">54</a></span>
+<span class="normal"><a href="#__codelineno-4-55">55</a></span>
+<span class="normal"><a href="#__codelineno-4-56">56</a></span>
+<span class="normal"><a href="#__codelineno-4-57">57</a></span>
+<span class="normal"><a href="#__codelineno-4-58">58</a></span>
+<span class="normal"><a href="#__codelineno-4-59">59</a></span>
+<span class="normal"><a href="#__codelineno-4-60">60</a></span>
+<span class="normal"><a href="#__codelineno-4-61">61</a></span>
+<span class="normal"><a href="#__codelineno-4-62">62</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>thor@host01<span class="w"> </span>/opt/the-example-app.nodejs$<span class="w"> </span>pm2<span class="w"> </span>start<span class="w"> </span>app.js
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">                        </span>-------------
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>__/<span class="se">\\\\\\\\\\\\\_</span>___/<span class="se">\\\\</span>____________/<span class="se">\\\\</span>____/<span class="se">\\\\\\\\\_</span>____
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w"> </span>_<span class="se">\/\\\/</span>////////<span class="se">\\\_\/\\\\\\</span>________/<span class="se">\\\\\\</span>__/<span class="se">\\\/</span>//////<span class="se">\\\_</span>__
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">  </span>_<span class="se">\/\\\_</span>______<span class="se">\/\\\_\/\\\/</span>/<span class="se">\\\_</span>___/<span class="se">\\\/</span>/<span class="se">\\\_\/</span>//______<span class="se">\/</span>/<span class="se">\\\_</span>_
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">   </span>_<span class="se">\/\\\\\\\\\\\\\/</span>__<span class="se">\/\\\\</span>///<span class="se">\\\/\\\/</span>_<span class="se">\/\\\_</span>__________/<span class="se">\\\/</span>___
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span>_<span class="se">\/\\\/</span>////////____<span class="se">\/\\\_</span>_<span class="se">\/</span>//<span class="se">\\\/</span>___<span class="se">\/\\\_</span>_______/<span class="se">\\\/</span>/_____
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">     </span>_<span class="se">\/\\\_</span>____________<span class="se">\/\\\_</span>___<span class="se">\/</span>//_____<span class="se">\/\\\_</span>____/<span class="se">\\\/</span>/________
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">      </span>_<span class="se">\/\\\_</span>____________<span class="se">\/\\\_</span>____________<span class="se">\/\\\_</span>__/<span class="se">\\\/</span>___________
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="w">       </span>_<span class="se">\/\\\_</span>____________<span class="se">\/\\\_</span>____________<span class="se">\/\\\_</span>_/<span class="se">\\\\\\\\\\\\\\\_</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">        </span>_<span class="se">\/</span>//______________<span class="se">\/</span>//______________<span class="se">\/</span>//__<span class="se">\/</span>//////////////__
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">                          </span>Runtime<span class="w"> </span>Edition
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="w">        </span>PM2<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span>Production<span class="w"> </span>Process<span class="w"> </span>Manager<span class="w"> </span><span class="k">for</span><span class="w"> </span>Node.js<span class="w"> </span>applications
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">                     </span>with<span class="w"> </span>a<span class="w"> </span>built-in<span class="w"> </span>Load<span class="w"> </span>Balancer.
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="w">                </span>Start<span class="w"> </span>and<span class="w"> </span>Daemonize<span class="w"> </span>any<span class="w"> </span>application:
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="w">                </span>$<span class="w"> </span>pm2<span class="w"> </span>start<span class="w"> </span>app.js
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a>
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="w">                </span>Load<span class="w"> </span>Balance<span class="w"> </span><span class="m">4</span><span class="w"> </span>instances<span class="w"> </span>of<span class="w"> </span>api.js:
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="w">                </span>$<span class="w"> </span>pm2<span class="w"> </span>start<span class="w"> </span>api.js<span class="w"> </span>-i<span class="w"> </span><span class="m">4</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a>
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="w">                </span>Monitor<span class="w"> </span><span class="k">in</span><span class="w"> </span>production:
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="w">                </span>$<span class="w"> </span>pm2<span class="w"> </span>monitor
+<a id="__codelineno-4-29" name="__codelineno-4-29"></a>
+<a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="w">                </span>Make<span class="w"> </span>pm2<span class="w"> </span>auto-boot<span class="w"> </span>at<span class="w"> </span>server<span class="w"> </span>restart:
+<a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="w">                </span>$<span class="w"> </span>pm2<span class="w"> </span>startup
+<a id="__codelineno-4-32" name="__codelineno-4-32"></a>
+<a id="__codelineno-4-33" name="__codelineno-4-33"></a><span class="w">                </span>To<span class="w"> </span>go<span class="w"> </span>further<span class="w"> </span>checkout:
+<a id="__codelineno-4-34" name="__codelineno-4-34"></a><span class="w">                </span>http://pm2.io/
+<a id="__codelineno-4-35" name="__codelineno-4-35"></a>
+<a id="__codelineno-4-36" name="__codelineno-4-36"></a>
+<a id="__codelineno-4-37" name="__codelineno-4-37"></a><span class="w">                        </span>-------------
+<a id="__codelineno-4-38" name="__codelineno-4-38"></a>
+<a id="__codelineno-4-39" name="__codelineno-4-39"></a><span class="o">[</span>PM2<span class="o">]</span><span class="w"> </span>Spawning<span class="w"> </span>PM2<span class="w"> </span>daemon<span class="w"> </span>with<span class="w"> </span><span class="nv">pm2_home</span><span class="o">=</span>/home/thor/.pm2
+<a id="__codelineno-4-40" name="__codelineno-4-40"></a><span class="o">[</span>PM2<span class="o">]</span><span class="w"> </span>PM2<span class="w"> </span>Successfully<span class="w"> </span>daemonized
+<a id="__codelineno-4-41" name="__codelineno-4-41"></a><span class="o">[</span>PM2<span class="o">]</span><span class="w"> </span>Starting<span class="w"> </span>/opt/the-example-app.nodejs/app.js<span class="w"> </span><span class="k">in</span><span class="w"> </span>fork_mode<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="w"> </span>instance<span class="o">)</span>
+<a id="__codelineno-4-42" name="__codelineno-4-42"></a><span class="o">[</span>PM2<span class="o">]</span><span class="w"> </span>Done.
+<a id="__codelineno-4-43" name="__codelineno-4-43"></a>┌─────┬────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+<a id="__codelineno-4-44" name="__codelineno-4-44"></a>│<span class="w"> </span>id<span class="w">  </span>│<span class="w"> </span>name<span class="w">   </span>│<span class="w"> </span>namespace<span class="w">   </span>│<span class="w"> </span>version<span class="w"> </span>│<span class="w"> </span>mode<span class="w">    </span>│<span class="w"> </span>pid<span class="w">      </span>│<span class="w"> </span>uptime<span class="w"> </span>│<span class="w"> </span>↺<span class="w">    </span>│<span class="w"> </span>status<span class="w">    </span>│<span class="w"> </span>cpu<span class="w">      </span>│<span class="w"> </span>mem<span class="w">      </span>│<span class="w"> </span>user<span class="w">     </span>│<span class="w"> </span>watching<span class="w"> </span>│
+<a id="__codelineno-4-45" name="__codelineno-4-45"></a>├─────┼────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+<a id="__codelineno-4-46" name="__codelineno-4-46"></a>│<span class="w"> </span><span class="m">0</span><span class="w">   </span>│<span class="w"> </span>app<span class="w">    </span>│<span class="w"> </span>default<span class="w">     </span>│<span class="w"> </span><span class="m">0</span>.0.0<span class="w">   </span>│<span class="w"> </span>fork<span class="w">    </span>│<span class="w"> </span><span class="m">1023</span><span class="w">     </span>│<span class="w"> </span>0s<span class="w">     </span>│<span class="w"> </span><span class="m">0</span><span class="w">    </span>│<span class="w"> </span>online<span class="w">    </span>│<span class="w"> </span><span class="m">0</span>%<span class="w">       </span>│<span class="w"> </span><span class="m">29</span>.3mb<span class="w">   </span>│<span class="w"> </span>thor<span class="w">     </span>│<span class="w"> </span>disabled<span class="w"> </span>│
+<a id="__codelineno-4-47" name="__codelineno-4-47"></a>└─────┴────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+<a id="__codelineno-4-48" name="__codelineno-4-48"></a>thor@host01<span class="w"> </span>/opt/the-example-app.nodejs$<span class="w"> </span>^C
+<a id="__codelineno-4-49" name="__codelineno-4-49"></a>thor@host01<span class="w"> </span>/opt/the-example-app.nodejs$<span class="w"> </span>pm2<span class="w"> </span>start<span class="w"> </span>app.js<span class="w"> </span>-i<span class="w"> </span><span class="m">4</span>
+<a id="__codelineno-4-50" name="__codelineno-4-50"></a><span class="o">[</span>PM2<span class="o">][</span>ERROR<span class="o">]</span><span class="w"> </span>Script<span class="w"> </span>already<span class="w"> </span>launched,<span class="w"> </span>add<span class="w"> </span>-f<span class="w"> </span>option<span class="w"> </span>to<span class="w"> </span>force<span class="w"> </span>re-execution
+<a id="__codelineno-4-51" name="__codelineno-4-51"></a>thor@host01<span class="w"> </span>/opt/the-example-app.nodejs$<span class="w"> </span>pm2<span class="w"> </span>start<span class="w"> </span>app.js<span class="w"> </span>-i<span class="w"> </span><span class="m">4</span><span class="w"> </span>-f
+<a id="__codelineno-4-52" name="__codelineno-4-52"></a><span class="o">[</span>PM2<span class="o">]</span><span class="w"> </span>Starting<span class="w"> </span>/opt/the-example-app.nodejs/app.js<span class="w"> </span><span class="k">in</span><span class="w"> </span>cluster_mode<span class="w"> </span><span class="o">(</span><span class="m">4</span><span class="w"> </span>instances<span class="o">)</span>
+<a id="__codelineno-4-53" name="__codelineno-4-53"></a><span class="o">[</span>PM2<span class="o">]</span><span class="w"> </span>Done.
+<a id="__codelineno-4-54" name="__codelineno-4-54"></a>┌─────┬────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+<a id="__codelineno-4-55" name="__codelineno-4-55"></a>│<span class="w"> </span>id<span class="w">  </span>│<span class="w"> </span>name<span class="w">   </span>│<span class="w"> </span>namespace<span class="w">   </span>│<span class="w"> </span>version<span class="w"> </span>│<span class="w"> </span>mode<span class="w">    </span>│<span class="w"> </span>pid<span class="w">      </span>│<span class="w"> </span>uptime<span class="w"> </span>│<span class="w"> </span>↺<span class="w">    </span>│<span class="w"> </span>status<span class="w">    </span>│<span class="w"> </span>cpu<span class="w">      </span>│<span class="w"> </span>mem<span class="w">      </span>│<span class="w"> </span>user<span class="w">     </span>│<span class="w"> </span>watching<span class="w"> </span>│
+<a id="__codelineno-4-56" name="__codelineno-4-56"></a>├─────┼────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+<a id="__codelineno-4-57" name="__codelineno-4-57"></a>│<span class="w"> </span><span class="m">0</span><span class="w">   </span>│<span class="w"> </span>app<span class="w">    </span>│<span class="w"> </span>default<span class="w">     </span>│<span class="w"> </span><span class="m">0</span>.0.0<span class="w">   </span>│<span class="w"> </span>fork<span class="w">    </span>│<span class="w"> </span><span class="m">1225</span><span class="w">     </span>│<span class="w"> </span>1s<span class="w">     </span>│<span class="w"> </span><span class="m">12</span><span class="w">   </span>│<span class="w"> </span>online<span class="w">    </span>│<span class="w"> </span><span class="m">0</span>%<span class="w">       </span>│<span class="w"> </span><span class="m">50</span>.3mb<span class="w">   </span>│<span class="w"> </span>thor<span class="w">     </span>│<span class="w"> </span>disabled<span class="w"> </span>│
+<a id="__codelineno-4-58" name="__codelineno-4-58"></a>│<span class="w"> </span><span class="m">1</span><span class="w">   </span>│<span class="w"> </span>app<span class="w">    </span>│<span class="w"> </span>default<span class="w">     </span>│<span class="w"> </span><span class="m">0</span>.0.0<span class="w">   </span>│<span class="w"> </span>cluster<span class="w"> </span>│<span class="w"> </span><span class="m">1247</span><span class="w">     </span>│<span class="w"> </span>0s<span class="w">     </span>│<span class="w"> </span><span class="m">0</span><span class="w">    </span>│<span class="w"> </span>online<span class="w">    </span>│<span class="w"> </span><span class="m">0</span>%<span class="w">       </span>│<span class="w"> </span><span class="m">41</span>.0mb<span class="w">   </span>│<span class="w"> </span>thor<span class="w">     </span>│<span class="w"> </span>disabled<span class="w"> </span>│
+<a id="__codelineno-4-59" name="__codelineno-4-59"></a>│<span class="w"> </span><span class="m">2</span><span class="w">   </span>│<span class="w"> </span>app<span class="w">    </span>│<span class="w"> </span>default<span class="w">     </span>│<span class="w"> </span><span class="m">0</span>.0.0<span class="w">   </span>│<span class="w"> </span>cluster<span class="w"> </span>│<span class="w"> </span><span class="m">1254</span><span class="w">     </span>│<span class="w"> </span>0s<span class="w">     </span>│<span class="w"> </span><span class="m">0</span><span class="w">    </span>│<span class="w"> </span>online<span class="w">    </span>│<span class="w"> </span><span class="m">0</span>%<span class="w">       </span>│<span class="w"> </span><span class="m">38</span>.0mb<span class="w">   </span>│<span class="w"> </span>thor<span class="w">     </span>│<span class="w"> </span>disabled<span class="w"> </span>│
+<a id="__codelineno-4-60" name="__codelineno-4-60"></a>│<span class="w"> </span><span class="m">3</span><span class="w">   </span>│<span class="w"> </span>app<span class="w">    </span>│<span class="w"> </span>default<span class="w">     </span>│<span class="w"> </span><span class="m">0</span>.0.0<span class="w">   </span>│<span class="w"> </span>cluster<span class="w"> </span>│<span class="w"> </span><span class="m">1263</span><span class="w">     </span>│<span class="w"> </span>0s<span class="w">     </span>│<span class="w"> </span><span class="m">0</span><span class="w">    </span>│<span class="w"> </span>online<span class="w">    </span>│<span class="w"> </span><span class="m">0</span>%<span class="w">       </span>│<span class="w"> </span><span class="m">35</span>.5mb<span class="w">   </span>│<span class="w"> </span>thor<span class="w">     </span>│<span class="w"> </span>disabled<span class="w"> </span>│
+<a id="__codelineno-4-61" name="__codelineno-4-61"></a>│<span class="w"> </span><span class="m">4</span><span class="w">   </span>│<span class="w"> </span>app<span class="w">    </span>│<span class="w"> </span>default<span class="w">     </span>│<span class="w"> </span><span class="m">0</span>.0.0<span class="w">   </span>│<span class="w"> </span>cluster<span class="w"> </span>│<span class="w"> </span><span class="m">1276</span><span class="w">     </span>│<span class="w"> </span>0s<span class="w">     </span>│<span class="w"> </span><span class="m">0</span><span class="w">    </span>│<span class="w"> </span>online<span class="w">    </span>│<span class="w"> </span><span class="m">0</span>%<span class="w">       </span>│<span class="w"> </span><span class="m">29</span>.8mb<span class="w">   </span>│<span class="w"> </span>thor<span class="w">     </span>│<span class="w"> </span>disabled<span class="w"> </span>│
+<a id="__codelineno-4-62" name="__codelineno-4-62"></a>└─────┴────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+</code></pre></div></td></tr></table></div>
+<h2 id="ips-et-ports">IPs et Ports</h2>
+<ul>
+<li>Quelle adress IP et port utiliser ?</li>
+<li>localhost vs 127.0.0.1 vs IP adresse.</li>
+<li>Pourquoi est ce que je ne peux pas me connecter à mon serveur ?</li>
+</ul>
+<p>Une adresse IP est assignée à une interface, pas à un device. Ainsi on peut très bien avoir une IP pour se connecter en filaire, et une IP wifi.</p>
+<pre class="mermaid"><code>graph LR
+  subgraph PC
+  A[enp0s3 &lt;br/&gt; 10.0.2.15]
+  B[wlp0s2 &lt;br/&gt; 10.0.2.16]
+  end
+
+  C[switch]
+
+  A -.- C</code></pre>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>❯<span class="w"> </span>ip<span class="w"> </span>addr<span class="w"> </span>show
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="m">1</span>:<span class="w"> </span>lo:<span class="w"> </span>&lt;LOOPBACK,UP,LOWER_UP&gt;<span class="w"> </span>mtu<span class="w"> </span><span class="m">65536</span><span class="w"> </span>qdisc<span class="w"> </span>noqueue<span class="w"> </span>state<span class="w"> </span>UNKNOWN<span class="w"> </span>group<span class="w"> </span>default<span class="w"> </span>qlen<span class="w"> </span><span class="m">1000</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">    </span>link/loopback<span class="w"> </span><span class="m">00</span>:00:00:00:00:00<span class="w"> </span>brd<span class="w"> </span><span class="m">00</span>:00:00:00:00:00
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">    </span>inet<span class="w"> </span><span class="m">127</span>.0.0.1/8<span class="w"> </span>scope<span class="w"> </span>host<span class="w"> </span>lo
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">       </span>valid_lft<span class="w"> </span>forever<span class="w"> </span>preferred_lft<span class="w"> </span>forever
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">    </span>inet6<span class="w"> </span>::1/128<span class="w"> </span>scope<span class="w"> </span>host
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">       </span>valid_lft<span class="w"> </span>forever<span class="w"> </span>preferred_lft<span class="w"> </span>forever
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="m">2</span>:<span class="w"> </span>enp3s0:<span class="w"> </span>&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;<span class="w"> </span>mtu<span class="w"> </span><span class="m">1500</span><span class="w"> </span>qdisc<span class="w"> </span>fq_codel<span class="w"> </span>state<span class="w"> </span>UP<span class="w"> </span>group<span class="w"> </span>default<span class="w"> </span>qlen<span class="w"> </span><span class="m">1000</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">    </span>link/ether<span class="w"> </span>2c:f0:5d:d4:db:e6<span class="w"> </span>brd<span class="w"> </span>ff:ff:ff:ff:ff:ff
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">    </span>inet<span class="w"> </span><span class="m">192</span>.168.1.37/24<span class="w"> </span>brd<span class="w"> </span><span class="m">192</span>.168.1.255<span class="w"> </span>scope<span class="w"> </span>global<span class="w"> </span>dynamic<span class="w"> </span>noprefixroute<span class="w"> </span>enp3s0
+</code></pre></div></td></tr></table></div>
+<p>Chacune de ces adresses IP est divisée et composantes logiques appelées "ports", chanque port étant un point de communication possible vers l'extérieur.</p>
+<p>Ainsi, un serveur attendra des requếtes d'une certaine interface sur un port bien précis.</p>
+<pre class="mermaid"><code>graph TD
+  subgraph PC
+  subgraph enp0s3 10.0.2.15
+  A1[0]
+  A2[1]
+  A3[2]
+  A4[...]
+  A5[65535]
+  end
+  subgraph wlp0s2 10.0.2.16
+  B1[0]
+  B2[1]
+  B3[2]
+  B4[...]
+  B5[65535]
+  end
+  end
+
+  C[switch]
+
+  A3 -.-|10.0.2.15:2| C</code></pre>
+<p>Par exemple, une application python utilisant <code>Flask</code> écoute par défaut sur le port 5000. Mais sur quelle adresse ip ? Pour modifier l'adresse ip, il est nécessaire de spécifier sur quelle interface l'application doit écouter, sur quel <code>host</code>. Pour <code>Flask</code>, cela peut se faire via <code>app.run(port=8000, host="10.0.2.15")</code>. L'application écoute alors à l'adresse suivante <code>http://10.0.2.15:8000</code>.</p>
+<p>Si l'on souhaite que l'application soit aussi disponible sur toutes les autres interfaces, il suffit alors de remplacer l'adresse de l'hôte par <code>0.0.0.0</code>.</p>
+<pre class="mermaid"><code>graph TD
+  subgraph PC
+  subgraph enp0s3 10.0.2.15
+  A[8000]
+  end
+  subgraph wlp0s2 10.0.2.16
+  B[8000]
+  end
+  end
+
+  C[app]
+
+  A &amp; B -.- D[0.0.0.0:8000] -.- C</code></pre>
+<p>Comment faire si nous ne sommes pas encore assez confiant concernant notre application ? On ne veut pas qu'elle soit disponible à l'extérieur, mais l'on souhaite quand même être capable de la tester.</p>
+<p>Dans ce cas là, il ne faut spécifier aucune adresse pour <code>host</code>. Si c'est le cas, par défaut l'application écoute alors sur l'adresse <code>127.0.0.1</code>, qui est l'adresse désignée par <code>lo</code> dans la nomenclature et qui est ce que l'on apelle "l'adresse loopback".</p>
+<p>Chaque device possède une interface virtuelle connue comme l'adresse loopback.</p>
+<pre class="mermaid"><code>graph TD
+  subgraph PC
+  subgraph enp0s3 10.0.2.15
+  A[8000]
+  end
+  subgraph wlp0s2 10.0.2.16
+  B[8000]
+  end
+  subgraph lo 127.0.0.1
+  E[8000]
+  end
+  end
+
+  C[app]
+
+  E-.-|127.0.0.1:8000|C</code></pre>
+<p>Dans ce cas là, l'application écoute à l'adresse <code>http://127.0.0.1:8000</code>. Au lieu de taper l'adresse à chaque fois, il est possible de taper <code>http://localhost:8000</code>.</p>
+<p><strong>localhost est le nom assignée à l'adresse loopback 127.0.0.1</strong>, les deux sont interchangeables.</p>
+<h2 id="lancer-un-application-en-mode-background">Lancer un application en mode background</h2>
+<p><code>nohup python app.py &amp;</code></p>
+<p>Note: Nohup stands for no hang up, which can be executed as shown below.</p>
+<p><code>nohup command-with-options &amp;</code></p>
+<p>Adding <code>&amp;</code> at the end will move the process to run in background. When you execute a Unix job in the background (using <code>&amp;</code>) and logout from the session, <strong>your process will get killed</strong>. You can avoid this with nohup.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

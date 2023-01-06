@@ -1,0 +1,2931 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../intro/">
+      
+      
+        <link rel="next" href="../lesson1_project/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>SDK Azure - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-au-sdk-azure" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SDK Azure
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-tabs__link">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../intro/" class="md-tabs__link md-tabs__link--active">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../devops/linux/" class="md-tabs__link">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SDK Azure
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        SDK Azure
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#la-base-le-workspace" class="md-nav__link">
+    La base : le Workspace
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importer-des-donnees" class="md-nav__link">
+    Importer des données
+  </a>
+  
+    <nav class="md-nav" aria-label="Importer des données">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#importer-un-dataset-de-lexterieur" class="md-nav__link">
+    Importer un dataset de l'extérieur
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#versionner-un-dataset-et-lutiliser" class="md-nav__link">
+    Versionner un dataset et l'utiliser
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definir-une-experimentation" class="md-nav__link">
+    Définir une expérimentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#listing-past-experiments" class="md-nav__link">
+    Listing Past Experiments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submitting-new-experiments" class="md-nav__link">
+    Submitting New Experiments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimisation-des-hyperparametres-avec-hyperdrive" class="md-nav__link">
+    Optimisation des hyperparamètres avec HyperDrive
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimisation des hyperparamètres avec HyperDrive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controlling-hyperdrive-with-the-sdk" class="md-nav__link">
+    Controlling HyperDrive with the SDK
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automl-vs-traditionnal-ml" class="md-nav__link">
+    AutoML vs traditionnal ML
+  </a>
+  
+    <nav class="md-nav" aria-label="AutoML vs traditionnal ML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traditional-ml" class="md-nav__link">
+    Traditional ML
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated-ml" class="md-nav__link">
+    Automated ML
+  </a>
+  
+    <nav class="md-nav" aria-label="Automated ML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-automl-from-the-sdk" class="md-nav__link">
+    Configuring AutoML from the SDK
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-automl-from-the-sdk" class="md-nav__link">
+    Running AutoML from the SDK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automl-example" class="md-nav__link">
+    AutoML Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#la-base-le-workspace" class="md-nav__link">
+    La base : le Workspace
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importer-des-donnees" class="md-nav__link">
+    Importer des données
+  </a>
+  
+    <nav class="md-nav" aria-label="Importer des données">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#importer-un-dataset-de-lexterieur" class="md-nav__link">
+    Importer un dataset de l'extérieur
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#versionner-un-dataset-et-lutiliser" class="md-nav__link">
+    Versionner un dataset et l'utiliser
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#definir-une-experimentation" class="md-nav__link">
+    Définir une expérimentation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#listing-past-experiments" class="md-nav__link">
+    Listing Past Experiments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#submitting-new-experiments" class="md-nav__link">
+    Submitting New Experiments
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimisation-des-hyperparametres-avec-hyperdrive" class="md-nav__link">
+    Optimisation des hyperparamètres avec HyperDrive
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimisation des hyperparamètres avec HyperDrive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#controlling-hyperdrive-with-the-sdk" class="md-nav__link">
+    Controlling HyperDrive with the SDK
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automl-vs-traditionnal-ml" class="md-nav__link">
+    AutoML vs traditionnal ML
+  </a>
+  
+    <nav class="md-nav" aria-label="AutoML vs traditionnal ML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#traditional-ml" class="md-nav__link">
+    Traditional ML
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated-ml" class="md-nav__link">
+    Automated ML
+  </a>
+  
+    <nav class="md-nav" aria-label="Automated ML">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-automl-from-the-sdk" class="md-nav__link">
+    Configuring AutoML from the SDK
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-automl-from-the-sdk" class="md-nav__link">
+    Running AutoML from the SDK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automl-example" class="md-nav__link">
+    AutoML Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="introduction-au-sdk-azure">Introduction au SDK Azure</h1>
+<div class="admonition warning">
+<p class="admonition-title">Attention</p>
+<p>Un jour, peut être, tout sera traduit en français. Pour l'instant, il y aura les deux : anglais et français, la plupart du texte en anglais provient du nanodegree <a href="https://classroom.udacity.com/nanodegrees/nd00333/dashboard/overview">Machine Learning Engineer with Microsoft Azure Nanodegree Program</a> d'Udacity que j'ai suivi. L'idée étant ici de consolider et de formaliser ce qu'il y a dedans.</p>
+</div>
+<h2 id="la-base-le-workspace">La base : le Workspace</h2>
+<p>Le SDK Azure est déjà installé de base dans Azure évidemment, si vous souhaitez l'installer sur votre pc local, ou dans tout autre environnement autre que Azure, il suffit alors d'installer la librairie suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>azureml-core<span class="o">==</span>la_version_de_votre_choix
+</code></pre></div></td></tr></table></div>
+<p>Pour pouvoir l'utiliser correctement et lancer des commandes vers le cloud Azure depuis le SDK Azure installé sur votre environnement local, il doit être relié à un abonnement Azure, ce qui peut se faire via l'installation de l'<code>Azure cli</code>, nous y reviendrons plus tard.</p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Pour l'instant, supposons que nous sommes dans un environnement Azure, par exemple un Notebook Azure qui tourne sur un <a href="https://docs.microsoft.com/fr-fr/azure/machine-learning/how-to-create-attach-compute-cluster?tabs=python">compute cluster</a>. Et faisons un tour rapide de ce qu'il est possible rapidement de faire avec Azure.</p>
+</div>
+<p>Lorsque que l'on souhaite travailler avec Azure, <strong>il est important de définir dans quel <code>Workspace</code> (espace de travail), vous allez travailler</strong>. Le <code>Workspace</code> est l'espace de travail contenant vos datasets, vos expérimentations AutoML, vos pipelines, ainsi que les différentes instances de calculs que vous pouvez utiliser.</p>
+<p>Pour citer la <a href="https://docs.microsoft.com/fr-fr/azure/machine-learning/concept-workspace">documentation Azure</a> :</p>
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<p>L’espace de travail est la ressource de niveau supérieur pour Azure Machine Learning. Il fournit un emplacement centralisé dans lequel exploiter tous les artefacts que vous créez lorsque vous utilisez Azure Machine Learning. L’espace de travail conserve un historique de toutes les exécutions d’entraînement, y compris les journaux d’activité, les métriques, les sorties et un instantané de vos scripts. Vous utilisez ces informations pour déterminer quelle exécution d’entraînement produit le meilleur modèle.</p>
+<p>Une fois que vous disposez d’un modèle qui vous convient, inscrivez-le avec l’espace de travail. Ainsi, grâce au modèle inscrit et aux scripts de scoring, vous pouvez déployer sur Azure Container Instances, Azure Kubernetes Service ou sur un tableau FPGA (field programmable gate array) comme point de terminaison HTTP basé sur REST.</p>
+</div>
+<p>On le définit de la façon suivante.</p>
+<div class="admonition python">
+<p class="admonition-title">Workspace</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">azureml.core</span> <span class="kn">import</span> <span class="n">Workspace</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="n">ws</span> <span class="o">=</span> <span class="n">Workspace</span><span class="o">.</span><span class="n">from_config</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<p>Le <code>from_config()</code> ici présent détermine de quelle source doit être obtenue la configuration du <code>Workspace</code> dans lequel vous allez travailler. Si vous êtes sur Azure, vous êtes surement déjà en train de travailler dans un <code>Workspace</code> et donc la configuration prise sera celle ambiante, si vous êtes en local la configuration peut être chargée depuis un fichier <code>config.json</code> contenant la configuration de votre abonnement Azure sur lequel vous travaillez.</p>
+<p>Pour les autres méthodes de la classe <code>Workspace</code>, on se réfère à la <a href="https://docs.microsoft.com/fr-fr/azure/machine-learning/how-to-manage-workspace?tabs=python#create-a-workspace">documentation</a>.</p>
+<h2 id="importer-des-donnees">Importer des données</h2>
+<p>L'importation des données dans AzureML peut se faire de deux façons.</p>
+<ol>
+<li>Importer un dataset déjà présent de base ou versionné dans Azure pour le réutiliser.</li>
+<li>Importer un jeu de données depuis l'extérieur, au format <code>.csv</code>, <code>.parquet</code>, compressé ou autre.</li>
+</ol>
+<p>Concentrons-nous d'abord sur la seconde méthode.</p>
+<h3 id="importer-un-dataset-de-lexterieur">Importer un dataset de l'extérieur</h3>
+<p>La classe de base pour les datasets dans Azure s'instancie comme suit.</p>
+<div class="admonition python">
+<p class="admonition-title">Dataset</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">azureml.core.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<p>il est par exemple possible de récupérer des urls vers des datasets compressés pour en sortir des dataframes.</p>
+<div class="admonition python">
+<p class="admonition-title">Exemple</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">azureml.core.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">url_paths</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>            <span class="s1">&#39;http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>            <span class="s1">&#39;http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>            <span class="s1">&#39;http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>            <span class="s1">&#39;http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz&#39;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>            <span class="p">]</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">File</span><span class="o">.</span><span class="n">from_files</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">url_paths</span><span class="p">)</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="n">df</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">to_pandas_dataframe</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="admonition question">
+<p class="admonition-title">TODO</p>
+<p>Comment se fait la distinction entre les liens dans cette dataframe ? l'ajout d'une nouvelle colonne indiquant la provenance ?</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">TODO</p>
+<p>Ajouter les notions supplémentaires provenants des notebooks du module 1.</p>
+</div>
+<h3 id="versionner-un-dataset-et-lutiliser">Versionner un dataset et l'utiliser</h3>
+<p>TODO</p>
+<h2 id="definir-une-experimentation">Définir une expérimentation</h2>
+<ul>
+<li>ressource : <a href="https://github.com/Azure/MachineLearningNotebooks/blob/master/how-to-use-azureml/machine-learning-pipelines/intro-to-pipelines/aml-pipelines-getting-started.ipynb">Azure Machine Learning Pipelines: Getting Started</a></li>
+</ul>
+<p>L'intérêt d'AzureML est évidemment d'utiliser le cloud pour pouvoir entraîner des modèles et itérer rapidement. Le principe de base dans AzureML pour faire cela est de définir des expérimentations. En voici un exemple.</p>
+<div class="admonition python">
+<p class="admonition-title">Expérimentation</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span>
+<span class="normal"><a href="#__codelineno-4-22">22</a></span>
+<span class="normal"><a href="#__codelineno-4-23">23</a></span>
+<span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span>
+<span class="normal"><a href="#__codelineno-4-28">28</a></span>
+<span class="normal"><a href="#__codelineno-4-29">29</a></span>
+<span class="normal"><a href="#__codelineno-4-30">30</a></span>
+<span class="normal"><a href="#__codelineno-4-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">from</span> <span class="nn">azureml.core</span> <span class="kn">import</span> <span class="n">Workspace</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">Datastore</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="kn">from</span> <span class="nn">azureml.core.experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="kn">from</span> <span class="nn">azureml.pipeline.core</span> <span class="kn">import</span> <span class="n">Pipeline</span><span class="p">,</span> <span class="n">PipelineData</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="kn">from</span> <span class="nn">azureml.pipeline.steps</span> <span class="kn">import</span> <span class="n">PythonScriptStep</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="n">ws</span> <span class="o">=</span> <span class="n">Workspace</span><span class="o">.</span><span class="n">from_config</span><span class="p">()</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="n">compute_target</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">compute_targets</span><span class="p">[</span><span class="s2">&quot;STANDARD_NC6&quot;</span><span class="p">]</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="n">blob_store</span> <span class="o">=</span> <span class="n">Datastore</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s2">&quot;workspaceblobstore&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s1">&#39;MyExperiment&#39;</span><span class="p">)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="n">input_data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">File</span><span class="o">.</span><span class="n">from_files</span><span class="p">(</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a>    <span class="n">DataPath</span><span class="p">(</span><span class="n">datastore</span><span class="p">,</span> <span class="s1">&#39;20newsgroups/20news.pkl&#39;</span><span class="p">))</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="n">input_named</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">as_named_input</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="n">output_data</span> <span class="o">=</span> <span class="n">PipelineData</span><span class="p">(</span><span class="s2">&quot;output_data&quot;</span><span class="p">,</span> <span class="n">datastore</span><span class="o">=</span><span class="n">blob_store</span><span class="p">)</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">PythonScriptStep</span><span class="p">(</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a>    <span class="n">script_name</span><span class="o">=</span><span class="s2">&quot;train.py&quot;</span><span class="p">,</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a>    <span class="n">arguments</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;--input&quot;</span><span class="p">,</span> <span class="n">input_named</span><span class="o">.</span><span class="n">as_download</span><span class="p">(),</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a>        <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="n">output_data</span><span class="p">],</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22"></a>    <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">input_data</span><span class="p">],</span>
+<a id="__codelineno-4-23" name="__codelineno-4-23"></a>    <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">output_data</span><span class="p">],</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24"></a>    <span class="n">compute_target</span><span class="o">=</span><span class="n">compute_target</span><span class="p">,</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a>    <span class="n">source_directory</span><span class="o">=</span><span class="s2">&quot;myfolder&quot;</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="p">)]</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a>
+<a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29"></a>
+<a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="n">pipeline_run</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">pipeline</span><span class="p">)</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31"></a><span class="n">pipeline_run</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<p>Détaillons cet exemple.</p>
+<ol>
+<li>Configuration générale de l'expérimentation.</li>
+</ol>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">ws</span> <span class="o">=</span> <span class="n">Workspace</span><span class="o">.</span><span class="n">from_config</span><span class="p">()</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="n">compute_target</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">compute_targets</span><span class="p">[</span><span class="s2">&quot;STANDARD_NC6&quot;</span><span class="p">]</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="n">blob_store</span> <span class="o">=</span> <span class="n">Datastore</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s2">&quot;workspaceblobstore&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Définit le Workspace dans lequel va se dérouler l'expérimentation, et à ce Workspace est attaché une instance de calcul <code>ws.compute_targets["STANDARD_NC6"]</code>, <code>"STANDARD_NC6"</code> étant l'une des dénominations utilisées par Azure pour définir ses configurations d'instances. <code>blob_store = Datastore(ws, "workspaceblobstore")</code> définit dans quel datastore seront stockés les artefacts de l'expérimentation, ici celui par défaut associé au Workspace.</p>
+<ol>
+<li>Nommage de l'expérimentation.</li>
+</ol>
+<p><code>experiment = Experiment(ws, 'MyExperiment')</code></p>
+<ol>
+<li>
+<p>Définition des inputs, outputs</p>
+</li>
+<li>
+<p>ressource : <a href="https://docs.microsoft.com/en-us/python/api/azureml-pipeline-core/azureml.pipeline.core.pipelinedata?view=azure-ml-py">documentation sur la classe PipelineData </a>.</p>
+</li>
+</ol>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">input_data</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">File</span><span class="o">.</span><span class="n">from_files</span><span class="p">(</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>    <span class="n">DataPath</span><span class="p">(</span><span class="n">datastore</span><span class="p">,</span> <span class="s1">&#39;20newsgroups/20news.pkl&#39;</span><span class="p">))</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="n">input_named</span> <span class="o">=</span> <span class="n">input_data</span><span class="o">.</span><span class="n">as_named_input</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="n">output_data</span> <span class="o">=</span> <span class="n">PipelineData</span><span class="p">(</span><span class="s2">&quot;output_data&quot;</span><span class="p">,</span> <span class="n">datastore</span><span class="o">=</span><span class="n">blob_store</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li>Définition des étapes de l'expérimentation</li>
+</ol>
+<p>ressource : <a href="https://docs.microsoft.com/en-us/python/api/azureml-pipeline-steps/azureml.pipeline.steps.pythonscriptstep?view=azure-ml-py">documentation sur la classe PythonScriptStep</a>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">7</a></span>
+<span class="normal"><a href="#__codelineno-7-8">8</a></span>
+<span class="normal"><a href="#__codelineno-7-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="n">steps</span> <span class="o">=</span> <span class="p">[</span><span class="n">PythonScriptStep</span><span class="p">(</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>    <span class="n">script_name</span><span class="o">=</span><span class="s2">&quot;train.py&quot;</span><span class="p">,</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>    <span class="n">arguments</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;--input&quot;</span><span class="p">,</span> <span class="n">input_named</span><span class="o">.</span><span class="n">as_download</span><span class="p">(),</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>        <span class="s2">&quot;--output&quot;</span><span class="p">,</span> <span class="n">output_data</span><span class="p">],</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a>    <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">input_data</span><span class="p">],</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a>    <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">output_data</span><span class="p">],</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a>    <span class="n">compute_target</span><span class="o">=</span><span class="n">compute_target</span><span class="p">,</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>    <span class="n">source_directory</span><span class="o">=</span><span class="s2">&quot;myfolder&quot;</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="p">)]</span>
+</code></pre></div></td></tr></table></div>
+<p>Comme on peut le voir ici, l'objet <code>PythonScriptStep</code> est <strong>défini comme élément d'une liste</strong>, il est donc possible de définir une suite d'étapes comme une liste d'objets <code>PythonScriptStep</code> et de les passer après dans l'argument <code>steps</code> de l'objet <code>Pipeline</code> défini dans le point suivant.</p>
+<ol>
+<li>Instanciation du pipeline</li>
+</ol>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="n">steps</span><span class="p">)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="n">pipeline_run</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">pipeline</span><span class="p">)</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="n">pipeline_run</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="listing-past-experiments">Listing Past Experiments</h2>
+<p>To do this, we need to pass in a workspace object, and then list the collection of trials. This will give us data very similar to the list we've accessed previously using the Designer. Here's the example code we looked at:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="kn">from</span> <span class="nn">azureml.core.experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="c1"># First, we pass in the workspace object `ws` to the `list` method</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="c1"># and it returns a Python list of `Experiment` objects.</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="n">list_experiments</span> <span class="o">=</span> <span class="n">Experiment</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="c1"># If we print the contents of the variable,</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="c1"># we can see the list of all the experiments</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="c1"># that have been run in that workspace.</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">list_experiments</span><span class="p">)</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="p">[</span><span class="n">Experiment</span><span class="p">(</span><span class="n">Name</span><span class="p">:</span> <span class="n">dataset_profile</span><span class="p">,</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a> <span class="n">Workspace</span><span class="p">:</span> <span class="n">Azure</span><span class="o">-</span><span class="n">ML</span><span class="o">-</span><span class="n">Workspace</span><span class="p">),</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">Name</span><span class="p">:</span> <span class="n">binary</span><span class="o">-</span><span class="n">classification</span><span class="p">,</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a> <span class="n">Workspace</span><span class="p">:</span> <span class="n">Azure</span><span class="o">-</span><span class="n">ML</span><span class="o">-</span><span class="n">Workspace</span><span class="p">),</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">Name</span><span class="p">:</span> <span class="n">regression</span><span class="p">,</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a> <span class="n">Workspace</span><span class="p">:</span> <span class="n">Azure</span><span class="o">-</span><span class="n">ML</span><span class="o">-</span><span class="n">Workspace</span><span class="p">),]</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="submitting-new-experiments">Submitting New Experiments</h2>
+<p>To submit a new experiment (such as if we wanted to try a different model type or a different algorithm), we would again pass in a workspace object and then submit the experiment. Here's the example code:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kn">from</span> <span class="nn">azureml.core.experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s2">&quot;automl_test_experiment&quot;</span><span class="p">)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="n">run</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">automl_config</span><span class="p">,</span> <span class="n">show_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="optimisation-des-hyperparametres-avec-hyperdrive">Optimisation des hyperparamètres avec HyperDrive</h2>
+<p>Main Steps for Tuning with HyperDrive</p>
+<ul>
+<li>Define the parameter search space. This could be a discrete/categorical variable (e.g., apple, banana, pair) or it can be a continuous value (e.g., a time series value).</li>
+<li>Define the sampling method over the search space. This is a question of the method you want to use to find the values. For example, you can use a random, grid, or Bayesian search strategy.</li>
+<li>Specify the primary metric to optimize. For example, the Area Under the Curve (AUC) is a common optimization metric.</li>
+<li>Define an early termination policy. An early termination policy specifies that if you have a certain number of failures, HyperDrive will stop looking for the answer.</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Note that to use HyperDrive, you must have a custom-coded machine learning model. Otherwise, HyperDrive won't know what model to optimize the parameters for!</p>
+</div>
+<div class="admonition todo">
+<p class="admonition-title">TODO</p>
+<p>A comparer avec KerasTuner.</p>
+</div>
+<h3 id="controlling-hyperdrive-with-the-sdk">Controlling HyperDrive with the SDK</h3>
+<p>You can control HyperDrive with the SDK. Here is an example code.</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">6</a></span>
+<span class="normal"><a href="#__codelineno-11-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="kn">from</span> <span class="nn">azureml.train.hyperdrive</span> <span class="kn">import</span> <span class="n">BayesianParameterSampling</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="kn">from</span> <span class="nn">azureml.train.hyperdrive</span> <span class="kn">import</span> <span class="n">uniform</span><span class="p">,</span> <span class="n">choice</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="n">param_sampling</span> <span class="o">=</span> <span class="n">BayesianParameterSampling</span><span class="p">(</span> <span class="p">{</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>        <span class="s2">&quot;learning_rate&quot;</span><span class="p">:</span> <span class="n">uniform</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>        <span class="s2">&quot;batch_size&quot;</span><span class="p">:</span> <span class="n">choice</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>    <span class="p">}</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+We also saw that we can specify whether we are tuning a discrete or continuous variable.</p>
+<p>Discrete example:</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w">    </span><span class="nt">&quot;batch_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">choice(</span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="mi">128</span><span class="err">)</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w">    </span><span class="nt">&quot;number_of_hidden_layers&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">choice(ra</span><span class="kc">n</span><span class="err">ge(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="err">))</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+Continuous example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="w">    </span><span class="nt">&quot;learning_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">n</span><span class="err">ormal(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="err">)</span><span class="p">,</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">    </span><span class="nt">&quot;keep_probability&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">u</span><span class="kc">n</span><span class="err">i</span><span class="kc">f</span><span class="err">orm(</span><span class="mf">0.05</span><span class="p">,</span><span class="w"> </span><span class="mf">0.1</span><span class="err">)</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>And finally, we will need to find the best model parameters. Here's an example:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span>
+<span class="normal"><a href="#__codelineno-14-4">4</a></span>
+<span class="normal"><a href="#__codelineno-14-5">5</a></span>
+<span class="normal"><a href="#__codelineno-14-6">6</a></span>
+<span class="normal"><a href="#__codelineno-14-7">7</a></span>
+<span class="normal"><a href="#__codelineno-14-8">8</a></span>
+<span class="normal"><a href="#__codelineno-14-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="n">best_run</span> <span class="o">=</span> <span class="n">hyperdrive_run</span><span class="o">.</span><span class="n">get_best_run_by_primary_metric</span><span class="p">()</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="n">best_run_metrics</span> <span class="o">=</span> <span class="n">best_run</span><span class="o">.</span><span class="n">get_metrics</span><span class="p">()</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="n">parameter_values</span> <span class="o">=</span> <span class="n">best_run</span><span class="o">.</span><span class="n">get_details</span><span class="p">()[</span><span class="s1">&#39;runDefinition&#39;</span><span class="p">][</span><span class="s1">&#39;Arguments&#39;</span><span class="p">]</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Best Run Id: &#39;</span><span class="p">,</span> <span class="n">best_run</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> Accuracy:&#39;</span><span class="p">,</span> <span class="n">best_run_metrics</span><span class="p">[</span><span class="s1">&#39;accuracy&#39;</span><span class="p">])</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> learning rate:&#39;</span><span class="p">,</span><span class="n">parameter_values</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> keep probability:&#39;</span><span class="p">,</span><span class="n">parameter_values</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> batch size:&#39;</span><span class="p">,</span><span class="n">parameter_values</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+<p>The ultimate result is that we are able to choose the best tuning and use it in our final machine learning model.</p>
+<h2 id="automl-vs-traditionnal-ml">AutoML vs traditionnal ML</h2>
+<div class="admonition todo">
+<p class="admonition-title">TODO</p>
+<p>A comparer avec AutoKeras.</p>
+</div>
+<h3 id="traditional-ml">Traditional ML</h3>
+<p>To understand why Automated ML is a useful tool, it helps to first understand some of the challenges we face with traditional ML. These include:</p>
+<ul>
+<li>Focus on technical details vs the business problem. The code and technical details can consume large amounts of the available resources, distracting our focus from the business problem we want to use the ML to solve.</li>
+<li>Lack of automation. With traditional ML, we have to do many things manually, even though they could easily be automated with tools like Azure ML Studio.</li>
+<li>Too much HiPPO influence. The Highest Paid Person's Opinion (HiPPO) can have an unduly large influence on decisions about the output of the model, even though this decision might be better made automatically.</li>
+<li>Feature engineering. What are the features that I need to get the best accuracy? What are the columns I should select? This can be a huge task that requires a lot of human effort.</li>
+<li>Hyperparameter selection. For example, with a clustering model, what number of clusters will give the best results? There can be a lot of trial and error and many false starts.</li>
+<li>Training and Tuning. What are the different parameters you're using when training your model? What machines and resources should you use? How should you best tune the parameters? In traditional ML, these questions require a human to supervise the process.</li>
+</ul>
+<h3 id="automated-ml">Automated ML</h3>
+<p>Automated ML can help with all of the above problems. Essentially, AutoML involves the application of DevOps principles to machine learning, in order to automate all aspects of the process. For example, we can automate feature engineering, hyperparameter selection, model training, and tuning. With AutoML, we can:</p>
+<ul>
+<li>Create hundreds of models a day</li>
+<li>Get better model accuracy</li>
+<li>Deploy models faster</li>
+</ul>
+<p>This creates a quicker feedback loop and allows us to bring ideas to market much sooner. Overall, it reduces the time that we have to spend on technical details, allowing for more effort to be put into solving the underlying business problems.</p>
+<h4 id="configuring-automl-from-the-sdk">Configuring AutoML from the SDK</h4>
+<p>We can easily leverage AutoML from the SDK to automate many aspects of our pipeline, including:</p>
+<ul>
+<li>Task type</li>
+<li>Algorithm iterations</li>
+<li>Accuracy metric to optimize</li>
+<li>Algorithms to blacklist/whitelist</li>
+<li>Number of cross-validations</li>
+<li>Compute targets</li>
+<li>Training data</li>
+</ul>
+<p>To do this, we first use the <code>AutoMLConfig</code> class. In the code example below, you can see that we are creating an automl_config object and setting many of the parameters listed above:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="kn">from</span> <span class="nn">azureml.train.automl</span> <span class="kn">import</span> <span class="n">AutoMLConfig</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="n">automl_config</span> <span class="o">=</span> <span class="n">AutoMLConfig</span><span class="p">(</span><span class="n">task</span><span class="o">=</span><span class="s2">&quot;classification&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a>                             <span class="n">X</span><span class="o">=</span><span class="n">your_training_features</span><span class="p">,</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a>                             <span class="n">y</span><span class="o">=</span><span class="n">your_training_labels</span><span class="p">,</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a>                             <span class="n">iterations</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a>                             <span class="n">iteration_timeout_minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8"></a>                             <span class="n">primary_metric</span><span class="o">=</span><span class="s2">&quot;AUC_weighted&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9"></a>                             <span class="n">n_cross_validations</span><span class="o">=</span><span class="mi">5</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10"></a>                            <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="running-automl-from-the-sdk">Running AutoML from the SDK</h3>
+<p>Once we have completed our configuration, we can then run it using the SDK. Here's a typical example of what that would look like:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span>
+<span class="normal"><a href="#__codelineno-16-3">3</a></span>
+<span class="normal"><a href="#__codelineno-16-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="kn">from</span> <span class="nn">azureml.core.experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="s2">&quot;automl_test_experiment&quot;</span><span class="p">)</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="n">run</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">automl_config</span><span class="p">,</span> <span class="n">show_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="automl-example">AutoML Example</h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-17-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-17-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-17-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-17-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-17-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-17-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-17-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-17-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-17-10">10</a></span>
+<span class="normal"><a href="#__codelineno-17-11">11</a></span>
+<span class="normal"><a href="#__codelineno-17-12">12</a></span>
+<span class="normal"><a href="#__codelineno-17-13">13</a></span>
+<span class="normal"><a href="#__codelineno-17-14">14</a></span>
+<span class="normal"><a href="#__codelineno-17-15">15</a></span>
+<span class="normal"><a href="#__codelineno-17-16">16</a></span>
+<span class="normal"><a href="#__codelineno-17-17">17</a></span>
+<span class="normal"><a href="#__codelineno-17-18">18</a></span>
+<span class="normal"><a href="#__codelineno-17-19">19</a></span>
+<span class="normal"><a href="#__codelineno-17-20">20</a></span>
+<span class="normal"><a href="#__codelineno-17-21">21</a></span>
+<span class="normal"><a href="#__codelineno-17-22">22</a></span>
+<span class="normal"><a href="#__codelineno-17-23">23</a></span>
+<span class="normal"><a href="#__codelineno-17-24">24</a></span>
+<span class="normal"><a href="#__codelineno-17-25">25</a></span>
+<span class="normal"><a href="#__codelineno-17-26">26</a></span>
+<span class="normal"><a href="#__codelineno-17-27">27</a></span>
+<span class="normal"><a href="#__codelineno-17-28">28</a></span>
+<span class="normal"><a href="#__codelineno-17-29">29</a></span>
+<span class="normal"><a href="#__codelineno-17-30">30</a></span>
+<span class="normal"><a href="#__codelineno-17-31">31</a></span>
+<span class="normal"><a href="#__codelineno-17-32">32</a></span>
+<span class="normal"><a href="#__codelineno-17-33">33</a></span>
+<span class="normal"><a href="#__codelineno-17-34">34</a></span>
+<span class="normal"><a href="#__codelineno-17-35">35</a></span>
+<span class="normal"><a href="#__codelineno-17-36">36</a></span>
+<span class="normal"><a href="#__codelineno-17-37">37</a></span>
+<span class="normal"><a href="#__codelineno-17-38">38</a></span>
+<span class="normal"><a href="#__codelineno-17-39">39</a></span>
+<span class="normal"><a href="#__codelineno-17-40">40</a></span>
+<span class="normal"><a href="#__codelineno-17-41">41</a></span>
+<span class="normal"><a href="#__codelineno-17-42">42</a></span>
+<span class="normal"><a href="#__codelineno-17-43">43</a></span>
+<span class="normal"><a href="#__codelineno-17-44">44</a></span>
+<span class="normal"><a href="#__codelineno-17-45">45</a></span>
+<span class="normal"><a href="#__codelineno-17-46">46</a></span>
+<span class="normal"><a href="#__codelineno-17-47">47</a></span>
+<span class="normal"><a href="#__codelineno-17-48">48</a></span>
+<span class="normal"><a href="#__codelineno-17-49">49</a></span>
+<span class="normal"><a href="#__codelineno-17-50">50</a></span>
+<span class="normal"><a href="#__codelineno-17-51">51</a></span>
+<span class="normal"><a href="#__codelineno-17-52">52</a></span>
+<span class="normal"><a href="#__codelineno-17-53">53</a></span>
+<span class="normal"><a href="#__codelineno-17-54">54</a></span>
+<span class="normal"><a href="#__codelineno-17-55">55</a></span>
+<span class="normal"><a href="#__codelineno-17-56">56</a></span>
+<span class="normal"><a href="#__codelineno-17-57">57</a></span>
+<span class="normal"><a href="#__codelineno-17-58">58</a></span>
+<span class="normal"><a href="#__codelineno-17-59">59</a></span>
+<span class="normal"><a href="#__codelineno-17-60">60</a></span>
+<span class="normal"><a href="#__codelineno-17-61">61</a></span>
+<span class="normal"><a href="#__codelineno-17-62">62</a></span>
+<span class="normal"><a href="#__codelineno-17-63">63</a></span>
+<span class="normal"><a href="#__codelineno-17-64">64</a></span>
+<span class="normal"><a href="#__codelineno-17-65">65</a></span>
+<span class="normal"><a href="#__codelineno-17-66">66</a></span>
+<span class="normal"><a href="#__codelineno-17-67">67</a></span>
+<span class="normal"><a href="#__codelineno-17-68">68</a></span>
+<span class="normal"><a href="#__codelineno-17-69">69</a></span>
+<span class="normal"><a href="#__codelineno-17-70">70</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="kn">from</span> <span class="nn">azureml.core</span> <span class="kn">import</span> <span class="n">Workspace</span><span class="p">,</span> <span class="n">Dataset</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="kn">from</span> <span class="nn">azureml.core.experiment</span> <span class="kn">import</span> <span class="n">Experiment</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="kn">from</span> <span class="nn">azureml.core.workspace</span> <span class="kn">import</span> <span class="n">Workspace</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="kn">from</span> <span class="nn">azureml.core.compute</span> <span class="kn">import</span> <span class="n">ComputeTarget</span><span class="p">,</span> <span class="n">AmlCompute</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="kn">from</span> <span class="nn">azureml.core.compute_target</span> <span class="kn">import</span> <span class="n">ComputeTargetException</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="kn">from</span> <span class="nn">azureml.train.automl</span> <span class="kn">import</span> <span class="n">AutoMLConfig</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7"></a><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8"></a>
+<a id="__codelineno-17-9" name="__codelineno-17-9"></a><span class="n">subscription_id</span> <span class="o">=</span> <span class="s1">&#39;6971f5ac-8af1-446e-8034-05acea24681f&#39;</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10"></a><span class="n">resource_group</span> <span class="o">=</span> <span class="s1">&#39;aml-quickstarts-190413&#39;</span>
+<a id="__codelineno-17-11" name="__codelineno-17-11"></a><span class="n">workspace_name</span> <span class="o">=</span> <span class="s1">&#39;quick-starts-ws-190413&#39;</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12"></a>
+<a id="__codelineno-17-13" name="__codelineno-17-13"></a><span class="n">workspace</span> <span class="o">=</span> <span class="n">Workspace</span><span class="p">(</span><span class="n">subscription_id</span><span class="p">,</span> <span class="n">resource_group</span><span class="p">,</span> <span class="n">workspace_name</span><span class="p">)</span>
+<a id="__codelineno-17-14" name="__codelineno-17-14"></a><span class="n">ws</span> <span class="o">=</span> <span class="n">Workspace</span><span class="o">.</span><span class="n">from_config</span><span class="p">()</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15"></a>
+<a id="__codelineno-17-16" name="__codelineno-17-16"></a><span class="n">output</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-17-17" name="__codelineno-17-17"></a><span class="n">output</span><span class="p">[</span><span class="s1">&#39;Subscription ID&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">subscription_id</span>
+<a id="__codelineno-17-18" name="__codelineno-17-18"></a><span class="n">output</span><span class="p">[</span><span class="s1">&#39;Workspace&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">name</span>
+<a id="__codelineno-17-19" name="__codelineno-17-19"></a><span class="n">output</span><span class="p">[</span><span class="s1">&#39;Resource Group&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">resource_group</span>
+<a id="__codelineno-17-20" name="__codelineno-17-20"></a><span class="n">output</span><span class="p">[</span><span class="s1">&#39;Location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">location</span>
+<a id="__codelineno-17-21" name="__codelineno-17-21"></a><span class="n">output</span><span class="p">[</span><span class="s1">&#39;Experiment Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">name</span>
+<a id="__codelineno-17-22" name="__codelineno-17-22"></a><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_colwidth&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-17-23" name="__codelineno-17-23"></a><span class="n">outputDf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">output</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">])</span>
+<a id="__codelineno-17-24" name="__codelineno-17-24"></a><span class="n">outputDf</span><span class="o">.</span><span class="n">T</span>
+<a id="__codelineno-17-25" name="__codelineno-17-25"></a>
+<a id="__codelineno-17-26" name="__codelineno-17-26"></a><span class="c1"># choose a name for experiment</span>
+<a id="__codelineno-17-27" name="__codelineno-17-27"></a><span class="n">experiment_name</span> <span class="o">=</span> <span class="s1">&#39;automl-nba-position&#39;</span>
+<a id="__codelineno-17-28" name="__codelineno-17-28"></a><span class="n">experiment</span><span class="o">=</span><span class="n">Experiment</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">)</span>
+<a id="__codelineno-17-29" name="__codelineno-17-29"></a>
+<a id="__codelineno-17-30" name="__codelineno-17-30"></a><span class="c1"># Choose a name for your CPU cluster</span>
+<a id="__codelineno-17-31" name="__codelineno-17-31"></a><span class="n">cpu_cluster_name</span> <span class="o">=</span> <span class="s2">&quot;auto-ml&quot;</span>
+<a id="__codelineno-17-32" name="__codelineno-17-32"></a>
+<a id="__codelineno-17-33" name="__codelineno-17-33"></a><span class="c1"># Verify that cluster does not exist already</span>
+<a id="__codelineno-17-34" name="__codelineno-17-34"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-17-35" name="__codelineno-17-35"></a>    <span class="n">compute_target</span> <span class="o">=</span> <span class="n">ComputeTarget</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">cpu_cluster_name</span><span class="p">)</span>
+<a id="__codelineno-17-36" name="__codelineno-17-36"></a>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Found existing cluster, use it.&#39;</span><span class="p">)</span>
+<a id="__codelineno-17-37" name="__codelineno-17-37"></a><span class="k">except</span> <span class="n">ComputeTargetException</span><span class="p">:</span>
+<a id="__codelineno-17-38" name="__codelineno-17-38"></a>    <span class="n">compute_config</span> <span class="o">=</span> <span class="n">AmlCompute</span><span class="o">.</span><span class="n">provisioning_configuration</span><span class="p">(</span><span class="n">vm_size</span><span class="o">=</span><span class="s1">&#39;STANDARD_D2_V2&#39;</span><span class="p">,</span>
+<a id="__codelineno-17-39" name="__codelineno-17-39"></a>                                                           <span class="n">max_nodes</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<a id="__codelineno-17-40" name="__codelineno-17-40"></a>    <span class="n">compute_target</span> <span class="o">=</span> <span class="n">ComputeTarget</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">cpu_cluster_name</span><span class="p">,</span> <span class="n">compute_config</span><span class="p">)</span>
+<a id="__codelineno-17-41" name="__codelineno-17-41"></a>
+<a id="__codelineno-17-42" name="__codelineno-17-42"></a><span class="n">compute_target</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">(</span><span class="n">show_output</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-17-43" name="__codelineno-17-43"></a>
+<a id="__codelineno-17-44" name="__codelineno-17-44"></a><span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">get_by_name</span><span class="p">(</span><span class="n">workspace</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Nba-Dataset&#39;</span><span class="p">)</span>
+<a id="__codelineno-17-45" name="__codelineno-17-45"></a><span class="n">dataset</span><span class="o">.</span><span class="n">to_pandas_dataframe</span><span class="p">()</span>
+<a id="__codelineno-17-46" name="__codelineno-17-46"></a>
+<a id="__codelineno-17-47" name="__codelineno-17-47"></a><span class="n">automl_settings</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-17-48" name="__codelineno-17-48"></a>    <span class="s2">&quot;experiment_timeout_hours&quot;</span> <span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+<a id="__codelineno-17-49" name="__codelineno-17-49"></a>    <span class="s2">&quot;enable_early_stopping&quot;</span> <span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-17-50" name="__codelineno-17-50"></a>    <span class="s2">&quot;iteration_timeout_minutes&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-17-51" name="__codelineno-17-51"></a>    <span class="s2">&quot;max_concurrent_iterations&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-17-52" name="__codelineno-17-52"></a>    <span class="s2">&quot;max_cores_per_iteration&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-17-53" name="__codelineno-17-53"></a>    <span class="s2">&quot;n_cross_validations&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+<a id="__codelineno-17-54" name="__codelineno-17-54"></a>    <span class="s2">&quot;primary_metric&quot;</span><span class="p">:</span> <span class="s1">&#39;AUC_weighted&#39;</span><span class="p">,</span>
+<a id="__codelineno-17-55" name="__codelineno-17-55"></a>    <span class="s2">&quot;featurization&quot;</span><span class="p">:</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+<a id="__codelineno-17-56" name="__codelineno-17-56"></a>    <span class="s2">&quot;verbosity&quot;</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+<a id="__codelineno-17-57" name="__codelineno-17-57"></a><span class="p">}</span>
+<a id="__codelineno-17-58" name="__codelineno-17-58"></a>
+<a id="__codelineno-17-59" name="__codelineno-17-59"></a><span class="n">automl_config</span> <span class="o">=</span> <span class="n">AutoMLConfig</span><span class="p">(</span><span class="n">task</span> <span class="o">=</span> <span class="s1">&#39;classification&#39;</span><span class="p">,</span>
+<a id="__codelineno-17-60" name="__codelineno-17-60"></a>                             <span class="n">debug_log</span> <span class="o">=</span> <span class="s1">&#39;automl_errors.log&#39;</span><span class="p">,</span>
+<a id="__codelineno-17-61" name="__codelineno-17-61"></a>                             <span class="n">compute_target</span><span class="o">=</span><span class="n">compute_target</span><span class="p">,</span>
+<a id="__codelineno-17-62" name="__codelineno-17-62"></a>                             <span class="n">experiment_exit_score</span> <span class="o">=</span> <span class="mf">0.9984</span><span class="p">,</span>
+<a id="__codelineno-17-63" name="__codelineno-17-63"></a>                             <span class="n">blocked_models</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNN&#39;</span><span class="p">,</span><span class="s1">&#39;LinearSVM&#39;</span><span class="p">],</span>
+<a id="__codelineno-17-64" name="__codelineno-17-64"></a>                             <span class="n">enable_onnx_compatible_models</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-17-65" name="__codelineno-17-65"></a>                             <span class="n">training_data</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">,</span>
+<a id="__codelineno-17-66" name="__codelineno-17-66"></a>                             <span class="n">label_column_name</span> <span class="o">=</span><span class="s1">&#39;POSITION&#39;</span><span class="p">,</span>
+<a id="__codelineno-17-67" name="__codelineno-17-67"></a>                             <span class="o">**</span><span class="n">automl_settings</span>
+<a id="__codelineno-17-68" name="__codelineno-17-68"></a>                            <span class="p">)</span>
+<a id="__codelineno-17-69" name="__codelineno-17-69"></a>
+<a id="__codelineno-17-70" name="__codelineno-17-70"></a><span class="n">remote_run</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">automl_config</span><span class="p">,</span> <span class="n">show_output</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

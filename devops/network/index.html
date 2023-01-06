@@ -1,0 +1,3007 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../shell/">
+      
+      
+        <link rel="next" href="../applications/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>Networking - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#les-bases-du-reseau" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Networking
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-tabs__link">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../azure_ml/intro/" class="md-tabs__link">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../linux/" class="md-tabs__link md-tabs__link--active">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Networking
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Networking
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#networking-101" class="md-nav__link">
+    Networking 101
+  </a>
+  
+    <nav class="md-nav" aria-label="Networking 101">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#switching" class="md-nav__link">
+    Switching
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing" class="md-nav__link">
+    Routing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-gateway" class="md-nav__link">
+    Default Gateway
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-sous-linux" class="md-nav__link">
+    DNS sous Linux
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#networking-101" class="md-nav__link">
+    Networking 101
+  </a>
+  
+    <nav class="md-nav" aria-label="Networking 101">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#switching" class="md-nav__link">
+    Switching
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing" class="md-nav__link">
+    Routing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-gateway" class="md-nav__link">
+    Default Gateway
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-sous-linux" class="md-nav__link">
+    DNS sous Linux
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="les-bases-du-reseau">Les bases du réseau</h1>
+<h2 id="networking-101">Networking 101</h2>
+<h3 id="switching">Switching</h3>
+<p>Qu'est ce qu'un réseau ?</p>
+<p>Supposons que nous ayons deux ordinateurs, VM, Cloud Center, etc A et B.</p>
+<p>Comment A communique-t-il avec B ?</p>
+<pre class="mermaid"><code>graph LR
+  A[PC A] --&gt;|?| B[PC B];
+  B[PC B] --&gt;|?| A[PC A];</code></pre>
+<p>On les connecte tous les deux à un switch commun, et ce switch crée un réseau contenant A et B.</p>
+<pre class="mermaid"><code>graph LR
+  A[PC A] --&gt; C[switch];
+  B[PC B] --&gt; C[switch];
+  C[switch] --&gt; B[PC B];
+  C[switch] --&gt; A[PC A];</code></pre>
+<p>Pour pouvoir les connecter, on a besoin d'une interface, qu'elle soit physique ou virtuelle.</p>
+<p>Pour connaître cette interface, on peut taper la commande <code>ip link</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Sur mon pc, cela donne le résulat suivant.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>❯<span class="w"> </span>ip<span class="w"> </span>link
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="m">2</span>:<span class="w"> </span>enp3s0:<span class="w"> </span>&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;<span class="w"> </span>mtu<span class="w"> </span><span class="m">1500</span><span class="w"> </span>qdisc<span class="w"> </span>fq_codel<span class="w"> </span>state<span class="w"> </span>UP<span class="w"> </span>mode<span class="w"> </span>DEFAULT<span class="w"> </span>group<span class="w"> </span>default<span class="w"> </span>qlen<span class="w"> </span><span class="m">1000</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span>link/ether<span class="w"> </span>2c:f0:5d:d4:db:e6<span class="w"> </span>brd<span class="w"> </span>ff:ff:ff:ff:ff:ff
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="m">3</span>:<span class="w"> </span>wlo1:<span class="w"> </span>&lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt;<span class="w"> </span>mtu<span class="w"> </span><span class="m">1500</span><span class="w"> </span>qdisc<span class="w"> </span>noqueue<span class="w"> </span>state<span class="w"> </span>DOWN<span class="w"> </span>mode<span class="w"> </span>DORMANT<span class="w"> </span>group<span class="w"> </span>default<span class="w"> </span>qlen<span class="w"> </span><span class="m">1000</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">    </span>link/ether<span class="w"> </span>9c:29:76:75:3f:aa<span class="w"> </span>brd<span class="w"> </span>ff:ff:ff:ff:ff:ff
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">    </span>altname<span class="w"> </span>wlp0s20f3
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="m">5</span>:<span class="w"> </span>docker0:<span class="w"> </span>&lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt;<span class="w"> </span>mtu<span class="w"> </span><span class="m">1500</span><span class="w"> </span>qdisc<span class="w"> </span>noqueue<span class="w"> </span>state<span class="w"> </span>UP<span class="w"> </span>mode<span class="w"> </span>DEFAULT<span class="w"> </span>group<span class="w"> </span>default
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span>link/ether<span class="w"> </span><span class="m">02</span>:42:3a:62:5a:b9<span class="w"> </span>brd<span class="w"> </span>ff:ff:ff:ff:ff:ff
+</code></pre></div></td></tr></table></div>
+</div>
+<p><a href="https://www.linuxtricks.fr/wiki/nomenclature-des-interfaces-reseau-sous-linux-enp0s3-wlo1">Dans la nomenclature Linux</a>, <code>en</code> est le préfixe pour une interface ethernet, et <code>wl</code> pour une interface wifi.</p>
+<p>Remarquons que Docker à sa propre interface <code>docker0</code> pour faire le lien entre les conteneurs et le reste du réseau.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Les nomenclatures peuvent quelque peu varier suivant les distributions, il n'est pas rare de voir <code>eth0</code> pour une interface ethernet.</p>
+</div>
+<p>Supposons que le réseau créé possède l'adresse <span class="arithmatex">\(192.168.1.0\)</span> et que A et B on deux interface ethernet nommé <code>enp3s0</code> et <code>enp3s1</code>.</p>
+<pre class="mermaid"><code>graph LR
+  A[PC A &lt;br/&gt; enp3s0] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  B[PC B &lt;br/&gt; enp3s1] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; B[PC B &lt;br/&gt; enp3s1];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; A[PC A &lt;br/&gt; enp3s0];</code></pre>
+<p>Pour ajouter les deux ordinateurs A et B, on leur assigne alors une adresse ip sur ce réseau, via la commande suivante.</p>
+<ul>
+<li><code>ip addr add 192.168.1.10/24 dev enp3s0</code> pour A,</li>
+<li><code>ip addr add 192.168.1.11/24 dev enp3s1</code> pour B.</li>
+</ul>
+<pre class="mermaid"><code>graph LR
+  A[PC A &lt;br/&gt; 192.168.1.10] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  B[PC B &lt;br/&gt; 192.168.1.11] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; B[PC B &lt;br/&gt; 192.168.1.11];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; A[PC A &lt;br/&gt; 192.168.1.10];</code></pre>
+<p>Chacun des deux pc possède alors une adresse sur ce réseau et peut communiquer avec l'autre. Il est pas exemple possible depuis A de faire un <code>ping</code> vers B en tapant <code>ping 192.168.1.11</code>.</p>
+<p>Les communications ici entre A et B se font via le switch. Le switch ne peut recevoir et envoyer des informations que depuis des interfaces faisant parties du réseau défini.</p>
+<p>Mettons maintenant deux réseaux définis par deux switchs avec deux adresses ip différentes. Comment A peut-il communiquer avec C ?</p>
+<pre class="mermaid"><code>graph TD
+  subgraph réseau 1
+  A[PC A &lt;br/&gt; 192.168.1.10] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  B[PC B &lt;br/&gt; 192.168.1.11] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; B[PC B &lt;br/&gt; 192.168.1.11];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; A[PC A &lt;br/&gt; 192.168.1.10];
+  end
+  subgraph réseau 2
+  D[PC C &lt;br/&gt; 192.168.2.10] --&gt; E[switch &lt;br/&gt; 192.168.2.0];
+  F[PC D &lt;br/&gt; 192.168.2.11] --&gt; E[switch &lt;br/&gt; 192.168.2.0];
+  E[switch &lt;br/&gt; 192.168.2.0] --&gt; D[PC D &lt;br/&gt; 192.168.2.11];
+  E[switch &lt;br/&gt; 192.168.2.0] --&gt; F[PC C &lt;br/&gt; 192.168.2.10];
+  end
+
+  A[PC A &lt;br/&gt; 192.168.1.10] -.-&gt;|?| D[PC C &lt;br/&gt; 192.168.2.10];</code></pre>
+<h3 id="routing">Routing</h3>
+<p>C'est là qu'intervient le routeur. Un routeur permet de connecter deux réseaux ensembles. On peut le penser comme un serveur avec de multiples ports réseaux.</p>
+<p><pre class="mermaid"><code>graph LR
+  subgraph réseau 1
+  A[PC A &lt;br/&gt; 192.168.1.10] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  B[PC B &lt;br/&gt; 192.168.1.11] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; B[PC B &lt;br/&gt; 192.168.1.11];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; A[PC A &lt;br/&gt; 192.168.1.10];
+  end
+
+  subgraph réseau 2
+  D[PC C &lt;br/&gt; 192.168.2.10] --&gt; E[switch &lt;br/&gt; 192.168.2.0];
+  F[PC D &lt;br/&gt; 192.168.2.11] --&gt; E[switch &lt;br/&gt; 192.168.2.0];
+  E[switch &lt;br/&gt; 192.168.2.0] --&gt; D[PC D &lt;br/&gt; 192.168.2.11];
+  E[switch &lt;br/&gt; 192.168.2.0] --&gt; F[PC C &lt;br/&gt; 192.168.2.10];
+  end
+
+  G[Routeur]-.-C[switch &lt;br/&gt; 192.168.1.0];
+  G[Routeur]-.-E[switch &lt;br/&gt; 192.168.2.0];</code></pre>
+Puisque le routeur connecte deux réseaux, il a deux adresses qui lui sont assignées : une pour l'identifier sur chaque réseau.</p>
+<pre class="mermaid"><code>graph LR
+  subgraph réseau 1
+  A[PC A &lt;br/&gt; 192.168.1.10] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  B[PC B &lt;br/&gt; 192.168.1.11] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; B[PC B &lt;br/&gt; 192.168.1.11];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; A[PC A &lt;br/&gt; 192.168.1.10];
+  end
+
+  subgraph réseau 2
+  D[PC C &lt;br/&gt; 192.168.2.10] --&gt; E[switch &lt;br/&gt; 192.168.2.0];
+  F[PC D &lt;br/&gt; 192.168.2.11] --&gt; E[switch &lt;br/&gt; 192.168.2.0];
+  E[switch &lt;br/&gt; 192.168.2.0] --&gt; D[PC D &lt;br/&gt; 192.168.2.11];
+  E[switch &lt;br/&gt; 192.168.2.0] --&gt; F[PC C &lt;br/&gt; 192.168.2.10];
+  end
+
+  G[Routeur]-.-|192.168.1.1|C[switch &lt;br/&gt; 192.168.1.0];
+  G[Routeur]-.-|192.168.2.1|E[switch &lt;br/&gt; 192.168.2.0];</code></pre>
+<p>Maintenant que le routeur relie les deux réseaux, chacun des 4 pc peut communiquer l'un avec l'autre.</p>
+<p>Quand le PC A veut envoyer un paquet au PC C, comment sait-il où est le routeur sur le réseau, pour envoyer le paquet via lui ? Le routeur n'est qu'un système supplémentaire sur le réseau, il peut y en avoir des centaines.</p>
+<h3 id="default-gateway">Default Gateway</h3>
+<p>C'est là que l'on configure les systèmes avec une <em>gateway</em>, ou <em>passerelle</em>. Si un réseau est une chambre, alors la gateway est une porte pour communiquer vers l'extérieur.</p>
+<p>Les systèmes ont besoin de savoir où est cette gateway pour pouvoir communiquer entre réseaux.</p>
+<p>Pour voir les différentes <strong>configuration de route</strong>, ou <strong>table de routage</strong> d'un système, on peut alors taper la commande suivante.</p>
+<p><code>route</code></p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Sur mon pc, cela donne le résultat suivant.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>❯<span class="w"> </span>route
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>Table<span class="w"> </span>de<span class="w"> </span>routage<span class="w"> </span>IP<span class="w"> </span>du<span class="w"> </span>noyau
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>Destination<span class="w">     </span>Passerelle<span class="w">      </span>Genmask<span class="w">         </span>Indic<span class="w"> </span>Metric<span class="w"> </span>Ref<span class="w">    </span>Use<span class="w"> </span>Iface
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>default<span class="w">         </span>livebox.home<span class="w">    </span><span class="m">0</span>.0.0.0<span class="w">         </span>UG<span class="w">    </span><span class="m">100</span><span class="w">    </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>enp3s0
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>link-local<span class="w">      </span><span class="m">0</span>.0.0.0<span class="w">         </span><span class="m">255</span>.255.0.0<span class="w">     </span>U<span class="w">     </span><span class="m">1000</span><span class="w">   </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>enp3s0
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="m">172</span>.17.0.0<span class="w">      </span><span class="m">0</span>.0.0.0<span class="w">         </span><span class="m">255</span>.255.0.0<span class="w">     </span>U<span class="w">     </span><span class="m">0</span><span class="w">      </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>docker0
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="m">192</span>.168.1.0<span class="w">     </span><span class="m">0</span>.0.0.0<span class="w">         </span><span class="m">255</span>.255.255.0<span class="w">   </span>U<span class="w">     </span><span class="m">100</span><span class="w">    </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>enp3s0
+</code></pre></div></td></tr></table></div>
+</div>
+<p>Dans notre exemple, si l'on tape cette commande, comme aucune passerelle n'a encore été définie, on obtiendra une table de routage vide.</p>
+<pre class="mermaid"><code>graph LR
+  subgraph réseau 1
+  A[PC A &lt;br/&gt; 192.168.1.10] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  B[PC B &lt;br/&gt; 192.168.1.11] --&gt; C[switch &lt;br/&gt; 192.168.1.0];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; B[PC B &lt;br/&gt; 192.168.1.11];
+  C[switch &lt;br/&gt; 192.168.1.0] --&gt; A[PC A &lt;br/&gt; 192.168.1.10];
+  end
+
+  subgraph réseau 2
+  D[PC C &lt;br/&gt; 192.168.2.10] --&gt; E[switch &lt;br/&gt; 192.168.2.0];
+  F[PC D &lt;br/&gt; 192.168.2.11] --&gt; E[switch &lt;br/&gt; 192.168.2.0];
+  E[switch &lt;br/&gt; 192.168.2.0] --&gt; D[PC D &lt;br/&gt; 192.168.2.11];
+  E[switch &lt;br/&gt; 192.168.2.0] --&gt; F[PC C &lt;br/&gt; 192.168.2.10];
+  end
+
+  G[Routeur]-.-|192.168.1.1|C[switch &lt;br/&gt; 192.168.1.0];
+  G[Routeur]-.-|192.168.2.1|E[switch &lt;br/&gt; 192.168.2.0];</code></pre>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>❯<span class="w"> </span>route
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>Table<span class="w"> </span>de<span class="w"> </span>routage<span class="w"> </span>IP<span class="w"> </span>du<span class="w"> </span>noyau
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>Destination<span class="w">     </span>Passerelle<span class="w">      </span>Genmask<span class="w">         </span>Indic<span class="w"> </span>Metric<span class="w"> </span>Ref<span class="w">    </span>Use<span class="w"> </span>Iface
+</code></pre></div></td></tr></table></div>
+<p>Pour configurer une passerelle du PC B vers des systèmes du réseau 2, on tape alors la commande suivante.</p>
+<p><code>ip route add 192.168.2.0/24 via 192.168.1.1</code></p>
+<p><code>via 192.168.1.1</code> définit la passerelle qui sera utilisée par le réseau 1 pour communiquer vers le réseau 2.</p>
+<p>La table de routage du réseau 1 se mettra alors à jour.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>❯<span class="w"> </span>route
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>Table<span class="w"> </span>de<span class="w"> </span>routage<span class="w"> </span>IP<span class="w"> </span>du<span class="w"> </span>noyau
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>Destination<span class="w">     </span>Passerelle<span class="w">      </span>Genmask<span class="w">         </span>Indic<span class="w"> </span>Metric<span class="w"> </span>Ref<span class="w">    </span>Use<span class="w"> </span>Iface
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="m">192</span>.168.2.0<span class="w">     </span><span class="m">192</span>.168.1.1<span class="w">     </span><span class="m">255</span>.255.255.0<span class="w">   </span>U<span class="w">     </span><span class="m">100</span><span class="w">    </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>eth0
+</code></pre></div></td></tr></table></div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Si l'on s'arette là, la communication ne va que dans un sens, du réseau 1 vers le réseau 2. Il faut aussi définir la passerelle pour aller dans l'autre sens.</p>
+</div>
+<p>cela se fait via <code>ip route add 192.168.1.0/24 via 192.168.2.1</code>.</p>
+<p>Mais si maintenant le réseau 2 a besoin d'accéder à internet ? Par exemple à l'ip internet 172.217.194.0, qui est celle de Google (ça peut être utile) ?</p>
+<p><pre class="mermaid"><code>graph LR
+  subgraph réseau 1
+  A[PC A 192.168.1.10] --&gt; C[switch];
+  B[PC B 192.168.1.11] --&gt; C[switch];
+  C[switch 192.168.1.0] --&gt; B[PC B 192.168.1.11];
+  C[switch 192.168.1.0] --&gt; A[PC A 192.168.1.10];
+  end
+
+  subgraph réseau 2
+  D[PC C 192.168.2.10] --&gt; E[switch];
+  F[PC D 192.168.2.11] --&gt; E[switch];
+  E[switch 192.168.2.0] --&gt; D[PC D 192.168.2.11];
+  E[switch 192.168.2.0] --&gt; F[PC C 192.168.2.10];
+  end
+
+  G[Routeur]-.-|192.168.1.1|C[switch 192.168.1.0];
+  G[Routeur]-.-|192.168.2.1|E[switch 192.168.2.0];
+
+  subgraph Internet
+  H{{Google 172.217.194.0}}
+  end</code></pre>
+Et bien on rajoute une nouvelle passerelle.</p>
+<p><code>ip route add 172.217.194.0/24 via 192.168.2.1</code></p>
+<p>La table de routage aura alors une nouvelle route.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>❯<span class="w"> </span>route
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>Table<span class="w"> </span>de<span class="w"> </span>routage<span class="w"> </span>IP<span class="w"> </span>du<span class="w"> </span>noyau
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>Destination<span class="w">     </span>Passerelle<span class="w">      </span>Genmask<span class="w">         </span>Indic<span class="w"> </span>Metric<span class="w"> </span>Ref<span class="w">    </span>Use<span class="w"> </span>Iface
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="m">192</span>.168.2.0<span class="w">     </span><span class="m">192</span>.168.1.1<span class="w">     </span><span class="m">255</span>.255.255.0<span class="w">   </span>U<span class="w">     </span><span class="m">100</span><span class="w">    </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>eth0
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="m">172</span>.217.194.0<span class="w">   </span><span class="m">192</span>.168.2.1<span class="w">     </span><span class="m">255</span>.255.255.0<span class="w">   </span>U<span class="w">     </span><span class="m">0</span><span class="w">      </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>eth0
+</code></pre></div></td></tr></table></div>
+<pre class="mermaid"><code>graph LR
+  subgraph réseau 1
+  A[PC A 192.168.1.10] --&gt; C[switch];
+  B[PC B 192.168.1.11] --&gt; C[switch];
+  C[switch 192.168.1.0] --&gt; B[PC B 192.168.1.11];
+  C[switch 192.168.1.0] --&gt; A[PC A 192.168.1.10];
+  end
+
+  subgraph réseau 2
+  D[PC C 192.168.2.10] --&gt; E[switch];
+  F[PC D 192.168.2.11] --&gt; E[switch];
+  E[switch 192.168.2.0] --&gt; D[PC D 192.168.2.11];
+  E[switch 192.168.2.0] --&gt; F[PC C 192.168.2.10];
+  end
+
+  subgraph Internet
+  H1{{Google 172.217.194.0}};
+  end
+
+  G[Routeur]-.-|192.168.1.1|C[switch 192.168.1.0];
+  G[Routeur]-.-|192.168.2.1|E[switch 192.168.2.0];
+  G[Routeur]-.-H1{{Google 172.217.194.0}};
+</code></pre>
+<p>Mais il y a des milliards de sites, on ne va quand même pas faire ça pour tous ?</p>
+<pre class="mermaid"><code>graph LR
+  subgraph réseau 1
+  A[PC A 192.168.1.10] --&gt; C[switch];
+  B[PC B 192.168.1.11] --&gt; C[switch];
+  C[switch 192.168.1.0] --&gt; B[PC B 192.168.1.11];
+  C[switch 192.168.1.0] --&gt; A[PC A 192.168.1.10];
+  end
+
+  subgraph réseau 2
+  D[PC C 192.168.2.10] --&gt; E[switch];
+  F[PC D 192.168.2.11] --&gt; E[switch];
+  E[switch 192.168.2.0] --&gt; D[PC D 192.168.2.11];
+  E[switch 192.168.2.0] --&gt; F[PC C 192.168.2.10];
+  end
+
+  G[Routeur]-.-|192.168.1.1|C[switch 192.168.1.0];
+  G[Routeur]-.-|192.168.2.1|E[switch 192.168.2.0];
+  G[Routeur]-.-H1{{Google 172.217.194.0}};
+
+  subgraph Internet
+  H1{{Google 172.217.194.0}}
+  H2{{Site 1}}
+  H3{{Site 2}}
+  H4{{...}}
+  end</code></pre>
+<p>Plutôt que d'ajouter une nouvelle route pour chaque adresse ip, on peut simplement dire "pour chaque réseau dont je ne connais pas la route, utilise ce routeur comme passerelle par défaut".</p>
+<p><code>ip route add default via 192.168.2.1</code></p>
+<p>Ainsi, toute requête alors vers un réseau inconnu passe par ce routeur particuliers.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Sur mon pc, la passerelle par défaut est <code>livebox.home</code>, qui est ma box internet, ce qui est cohérent car c'est elle qui fait la jonction entre mon réseau local et internet.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span>
+<span class="normal"><a href="#__codelineno-5-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>❯<span class="w"> </span>route
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>Table<span class="w"> </span>de<span class="w"> </span>routage<span class="w"> </span>IP<span class="w"> </span>du<span class="w"> </span>noyau
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>Destination<span class="w">     </span>Passerelle<span class="w">      </span>Genmask<span class="w">         </span>Indic<span class="w"> </span>Metric<span class="w"> </span>Ref<span class="w">    </span>Use<span class="w"> </span>Iface
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>default<span class="w">         </span>livebox.home<span class="w">    </span><span class="m">0</span>.0.0.0<span class="w">         </span>UG<span class="w">    </span><span class="m">100</span><span class="w">    </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>enp3s0
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>link-local<span class="w">      </span><span class="m">0</span>.0.0.0<span class="w">         </span><span class="m">255</span>.255.0.0<span class="w">     </span>U<span class="w">     </span><span class="m">1000</span><span class="w">   </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>enp3s0
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="m">172</span>.17.0.0<span class="w">      </span><span class="m">0</span>.0.0.0<span class="w">         </span><span class="m">255</span>.255.0.0<span class="w">     </span>U<span class="w">     </span><span class="m">0</span><span class="w">      </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>docker0
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="m">192</span>.168.1.0<span class="w">     </span><span class="m">0</span>.0.0.0<span class="w">         </span><span class="m">255</span>.255.255.0<span class="w">   </span>U<span class="w">     </span><span class="m">100</span><span class="w">    </span><span class="m">0</span><span class="w">        </span><span class="m">0</span><span class="w"> </span>enp3s0
+</code></pre></div></td></tr></table></div>
+<p>Notons qu'à la place de <code>default</code> comme destination, on aurait pu avoir <code>0.0.0.0</code>, ce qui revient au même puisque <code>0.0.0.0</code> signifie "n'importe quelle adresse ip".</p>
+<p>Lorsque l'on voit <code>0.0.0.0</code> dans la section passerelle, cela signifie simplement que l'on a pas besoin de passerelle pour accéder à ce réseau.</p>
+</div>
+<p>Comment définir un system Linux comme routeur ? Prenons la situation suivante.</p>
+<pre class="mermaid"><code>graph LR
+  subgraph A
+  A1[eth0 &lt;br/&gt; 192.168.1.5];
+  end
+
+  subgraph B
+  B1[eth0 &lt;br/&gt; 192.168.1.6];
+  B2[eth1 &lt;br/&gt; 192.168.2.6];
+  end
+
+  subgraph C
+  C1[eth0 &lt;br/&gt; 192.168.2.5];
+  end
+
+  A1[eth0 &lt;br/&gt; 192.168.1.5]-.-|192.168.1.0|B1[eth0 &lt;br/&gt; 192.168.1.6]
+  B2[eth1 &lt;br/&gt; 192.168.2.6]-.-|192.168.2.0|C1[eth0 &lt;br/&gt; 192.168.2.5]</code></pre>
+<p>On a un système Linux B avec deux interfaces, chacune connectant un autre système Linux. Donc B est connecté aux 2 réseaux, et a donc une ip sur chaque réseau.</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Comment A peut-il communiquer avec C ?</p>
+</div>
+<p>Si l'on essaye naïvement de faire un <code>ping 192.168.2.5</code> depuis le réseau A, on aura le message suivant <code>Connect: Network is unreachable</code>. Maintenant on sait pourquoi, A n'a aucune idée de comment joindre 192.168.2.0 car il n'y a pas de passerelle. On doit lui dire que la passerelle passe par B.</p>
+<p>On fait ça via <code>ip route add 192.168.2.0/24 via 192.168.1.6</code>, et la même chose dans l'autre sens : <code>ip route add 192.168.1.0/24 via 192.168.2.6</code>.</p>
+<p>Si l'on réesaye <code>ping 192.168.2.5</code> maintenant, nous n'aurons plus le message d'erreur, mais nous pas non plus de réponses. <strong>Par défaut et pour des raisons de sécurité, dans Linux, les paquets ne sont pas transmis d'une interface à l'autre</strong>, ie il n'y a aucune communication entre <code>eth0</code> et <code>eth1</code> dans le réseau B.</p>
+<pre class="mermaid"><code>graph LR
+  subgraph A
+  A1[eth0 &lt;br/&gt; 192.168.1.5];
+  end
+
+  subgraph B
+  B1[eth0 &lt;br/&gt; 192.168.1.6];
+  B2[eth1 &lt;br/&gt; 192.168.2.6];
+  end
+
+  subgraph C
+  C1[eth0 &lt;br/&gt; 192.168.2.5];
+  end
+
+  A1[eth0 &lt;br/&gt; 192.168.1.5]-.-|192.168.1.0|B1[eth0 &lt;br/&gt; 192.168.1.6]
+  B2[eth1 &lt;br/&gt; 192.168.2.6]-.-|192.168.2.0|C1[eth0 &lt;br/&gt; 192.168.2.5]
+  B1[eth0 &lt;br/&gt; 192.168.1.6] -.-|X| B2[eth1 &lt;br/&gt; 192.168.2.6]</code></pre>
+<p>Pour autoriser B à transmettre les paquets d'une interface à l'autre, on doit aller voir dans <code>/proc/sys/net/ipv4/ip_forward</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Sur mon pc, cela donne :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>❯<span class="w"> </span>cat<span class="w"> </span>/proc/sys/net/ipv4/ip_forward
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="m">1</span>
+</code></pre></div></td></tr></table></div>
+<p>La valeur est sur 1, donc le transfert d'une interface à l'autre est autorisé, sinon elle serait à 0.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>Jusqu'à présent, toutes les commandes que l'on a expliquer ne persisterons pas au redémarrage du système ! Il faudrait les refaire à chaque fois.</p>
+</div>
+<p>Pour que les changements soient persistents, il faut modifier la valeur du paramètre <code>net.ipv4.ip_forward</code> dans <code>/etc/sysctl.conf</code> en la mettant à 1.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span>
+<span class="normal"><a href="#__codelineno-7-19">19</a></span>
+<span class="normal"><a href="#__codelineno-7-20">20</a></span>
+<span class="normal"><a href="#__codelineno-7-21">21</a></span>
+<span class="normal"><a href="#__codelineno-7-22">22</a></span>
+<span class="normal"><a href="#__codelineno-7-23">23</a></span>
+<span class="normal"><a href="#__codelineno-7-24">24</a></span>
+<span class="normal"><a href="#__codelineno-7-25">25</a></span>
+<span class="normal"><a href="#__codelineno-7-26">26</a></span>
+<span class="normal"><a href="#__codelineno-7-27">27</a></span>
+<span class="normal"><a href="#__codelineno-7-28">28</a></span>
+<span class="normal"><a href="#__codelineno-7-29">29</a></span>
+<span class="normal"><a href="#__codelineno-7-30">30</a></span>
+<span class="normal"><a href="#__codelineno-7-31">31</a></span>
+<span class="normal"><a href="#__codelineno-7-32">32</a></span>
+<span class="normal"><a href="#__codelineno-7-33">33</a></span>
+<span class="normal"><a href="#__codelineno-7-34">34</a></span>
+<span class="normal"><a href="#__codelineno-7-35">35</a></span>
+<span class="normal"><a href="#__codelineno-7-36">36</a></span>
+<span class="normal"><a href="#__codelineno-7-37">37</a></span>
+<span class="normal"><a href="#__codelineno-7-38">38</a></span>
+<span class="normal"><a href="#__codelineno-7-39">39</a></span>
+<span class="normal"><a href="#__codelineno-7-40">40</a></span>
+<span class="normal"><a href="#__codelineno-7-41">41</a></span>
+<span class="normal"><a href="#__codelineno-7-42">42</a></span>
+<span class="normal"><a href="#__codelineno-7-43">43</a></span>
+<span class="normal"><a href="#__codelineno-7-44">44</a></span>
+<span class="normal"><a href="#__codelineno-7-45">45</a></span>
+<span class="normal"><a href="#__codelineno-7-46">46</a></span>
+<span class="normal"><a href="#__codelineno-7-47">47</a></span>
+<span class="normal"><a href="#__codelineno-7-48">48</a></span>
+<span class="normal"><a href="#__codelineno-7-49">49</a></span>
+<span class="normal"><a href="#__codelineno-7-50">50</a></span>
+<span class="normal"><a href="#__codelineno-7-51">51</a></span>
+<span class="normal"><a href="#__codelineno-7-52">52</a></span>
+<span class="normal"><a href="#__codelineno-7-53">53</a></span>
+<span class="normal"><a href="#__codelineno-7-54">54</a></span>
+<span class="normal"><a href="#__codelineno-7-55">55</a></span>
+<span class="normal"><a href="#__codelineno-7-56">56</a></span>
+<span class="normal"><a href="#__codelineno-7-57">57</a></span>
+<span class="normal"><a href="#__codelineno-7-58">58</a></span>
+<span class="normal"><a href="#__codelineno-7-59">59</a></span>
+<span class="normal"><a href="#__codelineno-7-60">60</a></span>
+<span class="normal"><a href="#__codelineno-7-61">61</a></span>
+<span class="normal"><a href="#__codelineno-7-62">62</a></span>
+<span class="normal"><a href="#__codelineno-7-63">63</a></span>
+<span class="normal"><a href="#__codelineno-7-64">64</a></span>
+<span class="normal"><a href="#__codelineno-7-65">65</a></span>
+<span class="normal"><a href="#__codelineno-7-66">66</a></span>
+<span class="normal"><a href="#__codelineno-7-67">67</a></span>
+<span class="normal"><a href="#__codelineno-7-68">68</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>❯<span class="w"> </span>cat<span class="w"> </span>/etc/sysctl.conf
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="c1">#</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="c1"># /etc/sysctl.conf - Configuration file for setting system variables</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="c1"># See /etc/sysctl.d/ for additional system variables.</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="c1"># See sysctl.conf (5) for information.</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="c1">#</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="c1">#kernel.domainname = example.com</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="c1"># Uncomment the following to stop low-level messages on console</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a><span class="c1">#kernel.printk = 3 4 1 3</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="c1">##############################################################3</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="c1"># Functions previously found in netbase</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="c1">#</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a>
+<a id="__codelineno-7-17" name="__codelineno-7-17"></a><span class="c1"># Uncomment the next two lines to enable Spoof protection (reverse-path filter)</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18"></a><span class="c1"># Turn on Source Address Verification in all interfaces to</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19"></a><span class="c1"># prevent some spoofing attacks</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20"></a><span class="c1">#net.ipv4.conf.default.rp_filter=1</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21"></a><span class="c1">#net.ipv4.conf.all.rp_filter=1</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22"></a>
+<a id="__codelineno-7-23" name="__codelineno-7-23"></a><span class="c1"># Uncomment the next line to enable TCP/IP SYN cookies</span>
+<a id="__codelineno-7-24" name="__codelineno-7-24"></a><span class="c1"># See http://lwn.net/Articles/277146/</span>
+<a id="__codelineno-7-25" name="__codelineno-7-25"></a><span class="c1"># Note: This may impact IPv6 TCP sessions too</span>
+<a id="__codelineno-7-26" name="__codelineno-7-26"></a><span class="c1">#net.ipv4.tcp_syncookies=1</span>
+<a id="__codelineno-7-27" name="__codelineno-7-27"></a>
+<a id="__codelineno-7-28" name="__codelineno-7-28"></a><span class="c1"># Uncomment the next line to enable packet forwarding for IPv4</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29"></a><span class="c1">#net.ipv4.ip_forward=1</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30"></a>
+<a id="__codelineno-7-31" name="__codelineno-7-31"></a><span class="c1"># Uncomment the next line to enable packet forwarding for IPv6</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32"></a><span class="c1">#  Enabling this option disables Stateless Address Autoconfiguration</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33"></a><span class="c1">#  based on Router Advertisements for this host</span>
+<a id="__codelineno-7-34" name="__codelineno-7-34"></a><span class="c1">#net.ipv6.conf.all.forwarding=1</span>
+<a id="__codelineno-7-35" name="__codelineno-7-35"></a>
+<a id="__codelineno-7-36" name="__codelineno-7-36"></a>
+<a id="__codelineno-7-37" name="__codelineno-7-37"></a><span class="c1">###################################################################</span>
+<a id="__codelineno-7-38" name="__codelineno-7-38"></a><span class="c1"># Additional settings - these settings can improve the network</span>
+<a id="__codelineno-7-39" name="__codelineno-7-39"></a><span class="c1"># security of the host and prevent against some network attacks</span>
+<a id="__codelineno-7-40" name="__codelineno-7-40"></a><span class="c1"># including spoofing attacks and man in the middle attacks through</span>
+<a id="__codelineno-7-41" name="__codelineno-7-41"></a><span class="c1"># redirection. Some network environments, however, require that these</span>
+<a id="__codelineno-7-42" name="__codelineno-7-42"></a><span class="c1"># settings are disabled so review and enable them as needed.</span>
+<a id="__codelineno-7-43" name="__codelineno-7-43"></a><span class="c1">#</span>
+<a id="__codelineno-7-44" name="__codelineno-7-44"></a><span class="c1"># Do not accept ICMP redirects (prevent MITM attacks)</span>
+<a id="__codelineno-7-45" name="__codelineno-7-45"></a><span class="c1">#net.ipv4.conf.all.accept_redirects = 0</span>
+<a id="__codelineno-7-46" name="__codelineno-7-46"></a><span class="c1">#net.ipv6.conf.all.accept_redirects = 0</span>
+<a id="__codelineno-7-47" name="__codelineno-7-47"></a><span class="c1"># _or_</span>
+<a id="__codelineno-7-48" name="__codelineno-7-48"></a><span class="c1"># Accept ICMP redirects only for gateways listed in our default</span>
+<a id="__codelineno-7-49" name="__codelineno-7-49"></a><span class="c1"># gateway list (enabled by default)</span>
+<a id="__codelineno-7-50" name="__codelineno-7-50"></a><span class="c1"># net.ipv4.conf.all.secure_redirects = 1</span>
+<a id="__codelineno-7-51" name="__codelineno-7-51"></a><span class="c1">#</span>
+<a id="__codelineno-7-52" name="__codelineno-7-52"></a><span class="c1"># Do not send ICMP redirects (we are not a router)</span>
+<a id="__codelineno-7-53" name="__codelineno-7-53"></a><span class="c1">#net.ipv4.conf.all.send_redirects = 0</span>
+<a id="__codelineno-7-54" name="__codelineno-7-54"></a><span class="c1">#</span>
+<a id="__codelineno-7-55" name="__codelineno-7-55"></a><span class="c1"># Do not accept IP source route packets (we are not a router)</span>
+<a id="__codelineno-7-56" name="__codelineno-7-56"></a><span class="c1">#net.ipv4.conf.all.accept_source_route = 0</span>
+<a id="__codelineno-7-57" name="__codelineno-7-57"></a><span class="c1">#net.ipv6.conf.all.accept_source_route = 0</span>
+<a id="__codelineno-7-58" name="__codelineno-7-58"></a><span class="c1">#</span>
+<a id="__codelineno-7-59" name="__codelineno-7-59"></a><span class="c1"># Log Martian Packets</span>
+<a id="__codelineno-7-60" name="__codelineno-7-60"></a><span class="c1">#net.ipv4.conf.all.log_martians = 1</span>
+<a id="__codelineno-7-61" name="__codelineno-7-61"></a><span class="c1">#</span>
+<a id="__codelineno-7-62" name="__codelineno-7-62"></a>
+<a id="__codelineno-7-63" name="__codelineno-7-63"></a><span class="c1">###################################################################</span>
+<a id="__codelineno-7-64" name="__codelineno-7-64"></a><span class="c1"># Magic system request Key</span>
+<a id="__codelineno-7-65" name="__codelineno-7-65"></a><span class="c1"># 0=disable, 1=enable all, &gt;1 bitmask of sysrq functions</span>
+<a id="__codelineno-7-66" name="__codelineno-7-66"></a><span class="c1"># See https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html</span>
+<a id="__codelineno-7-67" name="__codelineno-7-67"></a><span class="c1"># for what other values do</span>
+<a id="__codelineno-7-68" name="__codelineno-7-68"></a><span class="c1">#kernel.sysrq=438</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<h3 id="dns-sous-linux">DNS sous Linux</h3>
+<p>On considère deux pc A et B reliés au même réseau, avec des adresse ip qui ont été assignées. Il sont capables de communiquer entre eux, ie <code>ping 192.168.1.11</code> depuis A fonctionne.</p>
+<pre class="mermaid"><code>graph LR
+  subgraph A
+  A1[eth0 &lt;br/&gt; 192.168.1.10];
+  end
+
+  B1{{192.168.1.0}};
+
+  subgraph B
+  C1[eth0 &lt;br/&gt; 192.168.1.11];
+  end
+
+  A1[eth0 &lt;br/&gt; 192.168.1.10]-.-B1{{192.168.1.0}}
+  C1[eth0 &lt;br/&gt; 192.168.1.11]-.-B1{{192.168.1.0}}</code></pre>
+<p>Le système B possède des bases de données, donc plutôt que de se souvenir de son adresse ip, on souhaite lui associer le nom <code>db</code>. Ainsi on souhaiterait que la commande <code>ping db</code> fonctionne, pour l'instant ce n'est pas le cas.</p>
+<pre class="mermaid"><code>graph LR
+  subgraph A
+  A1[eth0 &lt;br/&gt; 192.168.1.10];
+  end
+
+  B1{{192.168.1.0}};
+
+  subgraph B
+  C1[eth0 &lt;br/&gt; db &lt;br/&gt; 192.168.1.11];
+  end
+
+  A1[eth0 &lt;br/&gt; 192.168.1.10]-.-B1{{192.168.1.0}}
+  C1[db &lt;br/&gt; eth0 &lt;br/&gt; 192.168.1.11]-.-B1{{192.168.1.0}}</code></pre>
+<p>En d'autres termes, on souhaiterait dire au système A que lorsque l'on utilise le nom <code>db</code>, on veut en fait parler de l'adresse ip <code>192.168.1.11</code>.</p>
+<p>En encore d'autres termes, on devrait créer un <strong>dictionnaire sur le système A disant que la clé <code>db</code> a pour valeur l'adresse ip <code>192.168.1.11</code></strong>. <strong>C'est exactement ce que fait le fichier <code>/etc/hosts</code> sous Linux.</strong> Il suffit alors de rajouter la ligne <code>192.168.1.11          db</code> dans ce fichier pour que le poing depuis A sur B fonctionne.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Avec mon laptop sous WSL2, j'ai le fichier suivant.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>❯<span class="w"> </span>cat<span class="w"> </span>/etc/hosts
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="c1"># This file was automatically generated by WSL. To stop automatic generation of this file, add the following entry to /etc/wsl.conf:</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="c1"># [network]</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="c1"># generateHosts = false</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="m">127</span>.0.0.1<span class="w">       </span>localhost
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="m">127</span>.0.1.1<span class="w">       </span>Laptop3080.localdomain<span class="w">  </span>Laptop3080
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a>﻿
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="m">192</span>.168.1.21<span class="w">    </span>host.docker.internal
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="m">192</span>.168.1.21<span class="w">    </span>gateway.docker.internal
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="m">127</span>.0.0.1<span class="w">       </span>kubernetes.docker.internal
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="c1"># The following lines are desirable for IPv6 capable hosts</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a>::1<span class="w">     </span>ip6-localhost<span class="w"> </span>ip6-loopback
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a>fe00::0<span class="w"> </span>ip6-localnet
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a>ff00::0<span class="w"> </span>ip6-mcastprefix
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a>ff02::1<span class="w"> </span>ip6-allnodes
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a>ff02::2<span class="w"> </span>ip6-allrouters
+</code></pre></div></td></tr></table></div>
+</div>
+<p>Un point important à noter, nous avons dit au système A que le système B s'appelait <code>db</code>, il va prendre ça pour acquis, <strong>peut importe le nom que vous mettrez dans <code>/etc/hosts</code> il sera considéré comme vrai par A</strong>.</p>
+<p>On peut même assigner deux noms différents pointant sur la même ip cela ne pose aucun soucis, par exemple on peut faire la chose suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>❯<span class="w"> </span>cat<span class="w"> </span>/etc/hosts
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="m">192</span>.168.1.11<span class="w">    </span>db
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="m">192</span>.168.1.11<span class="w">    </span>www.google.com
+</code></pre></div></td></tr></table></div>
+<p>et les deux <code>ping</code> fonctionneront !</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>En faisant <code>cat /etc/hosts</code> sur mon laptop, on a vu que l'adresse <code>127.0.1.1</code> était répertoriée sous 3 clées différentes : <code>localhost</code>, <code>Laptop3080</code> et <code>Laptop3080.localdomain</code>, un <code>ping</code> sur chacun des " fonctionne sans soucis et appelle la même adresse ip.</p>
+<p><img alt="screen" src="../images/network.png" /></p>
+</div>
+<p>En d'autres termes, A ne vérifie pas si le vrai nom de B est <code>db</code>, pour voir le vrai nom du sysème B, il faut taper la commande suivante dans le sysème B : <code>hostname</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>❯<span class="w"> </span>hostname
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>Laptop3080
+</code></pre></div></td></tr></table></div>
+<p>A s'en fiche, il utilisera le nom qui est dans le fichier <code>/etc/hosts</code>.</p>
+<p>La traduction du nom défini dans <code>/etc/hosts</code> en une adresse ip valide s'appelle la <strong>résolution du nom</strong>.</p>
+<pre class="mermaid"><code>graph LR
+  subgraph A
+  A1[eth0 &lt;br/&gt; web &lt;br/&gt; 192.168.1.10];
+  end
+
+  B1{{192.168.1.0}};
+
+  subgraph B
+  C1[eth0 &lt;br/&gt; db &lt;br/&gt; 192.168.1.11];
+  end
+
+  subgraph C
+  D1[eth0 &lt;br/&gt; nfs &lt;br/&gt; 192.168.1.12];
+  end
+
+  A1[eth0 &lt;br/&gt; web &lt;br/&gt; 192.168.1.10]-.-B1{{192.168.1.0}}
+  C1[eth0 &lt;br/&gt; db &lt;br/&gt; 192.168.1.11]-.-B1{{192.168.1.0}}
+  D1[eth0 &lt;br/&gt; nfs &lt;br/&gt; 192.168.1.12]-.-B1{{192.168.1.0}}</code></pre>
+<p>Avec des sysèmes relativement simples comme celui au dessus, on peut encore s'en sortir en définissant un même fichier <code>/etc/hosts</code> pour les 3 systèmes A, B et C.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>❯<span class="w"> </span>cat<span class="w"> </span>/etc/hosts
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="m">192</span>.168.1.10<span class="w">    </span>web
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="m">192</span>.168.1.11<span class="w">    </span>db
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="m">192</span>.168.1.12<span class="w">    </span>nfs
+</code></pre></div></td></tr></table></div>
+<p>Pour les sysèmes modernes avec plusieurs milliers d'intefaces connectéss entre elles, ce n'est plus faisables. Si une seule ip change, il est alors nécessaire de changer l'ensemble des fichier <code>/etc/hosts</code> de toutes les machines, ce qui devient rapidement impossible.</p>
+<p>L'idéee est alors de centraliser ce dictionnaire en un unique serveur, lorsque le système A aura alors besoin de faire une résolution de nom, il enverra une requête à ce serveur, qui se chargera de faire la résolution de nom et de lui renvoyer le résultat.</p>
+<p>Ce serveur est ce que l'on appelle le <strong>serveur DNS</strong>.</p>
+<pre class="mermaid"><code>graph LR
+  subgraph A
+  A1[eth0 &lt;br/&gt; web &lt;br/&gt; 192.168.1.10];
+  end
+
+  B1{{192.168.1.0}};
+
+  subgraph B
+  C1[eth0 &lt;br/&gt; db &lt;br/&gt; 192.168.1.11];
+  end
+
+  subgraph C
+  D1[eth0 &lt;br/&gt; nfs &lt;br/&gt; 192.168.1.12];
+  end
+
+  subgraph D
+  E1[eth0];
+  end
+
+  subgraph ...
+  F1[eth0];
+  end
+
+  subgraph DNS
+  G1[eth0 &lt;br/&gt; 192.168.1.100];
+  G2[/ /etc/hosts /]
+  end
+
+
+  A1[eth0 &lt;br/&gt; web &lt;br/&gt; 192.168.1.10]-.-B1{{192.168.1.0}}
+  C1[eth0 &lt;br/&gt; db &lt;br/&gt; 192.168.1.11]-.-B1{{192.168.1.0}}
+  D1[eth0 &lt;br/&gt; nfs &lt;br/&gt; 192.168.1.12]-.-B1{{192.168.1.0}}
+  G1[eth0]-.-B1{{192.168.1.0}}</code></pre>
+<p>Comment faire en sorte que chaque système de réseau pointe correctement vers le serveur DNS quand il a besoin de faire une résolution de nom ?</p>
+<p>Le serveur DNS est relié au réseau, il a donc une adresse ip, ici <code>192.168.1.100</code>. <strong>Chaque sysrème Linux possède une fichier de configuration DNS <code>/etc/resolv.conf</code></strong>. Il suffit alors de le renseigner comme l'on renseignerait le fichier <code>/etc/hosts</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>cat<span class="w"> </span>/etc/resolv.conf
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>nameserver<span class="w">    </span><span class="m">192</span>.168.1.100
+</code></pre></div></td></tr></table></div>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Sur mon laptop, l'adresse du serveur DNS auquel je suis relié est la suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>❯<span class="w"> </span>cat<span class="w"> </span>/etc/resolv.conf
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="c1"># This file was automatically generated by WSL. To stop automatic generation of this file, add the following entry to /etc/wsl.conf:</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="c1"># [network]</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="c1"># generateResolvConf = false</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>nameserver<span class="w"> </span><span class="m">172</span>.27.80.1
+</code></pre></div></td></tr></table></div>
+</div>
+<p>Si un nom ou une adresse ip change, il suffit alors de mettre à jour le registre du serveur DNS. Actuellement, avec les principes de réplications des données, la mise à jour d'un nom de domaine ou d'une adresse ip peut prendre entre 30 minutes et plusieurs heures, le temps que le changement soit pris en compte par l'ensemble des serveurs DNS présents sur internet.</p>
+<p>Avoir un serveur DNS ne veut pas dire que le fichier <code>/etc/hosts</code> devient inutile. Si l'on souhaite provisioner un serveur de tests, en souhaitant que seuls les sytèmes de notre réseau, voire même uniquement notre système puissent y accéder, on peut renseigner unqiement le fichier <code>/etc/hosts</code> afin d'avoir une résolution locale.</p>
+<p>Le fichier <code>/etc/hosts</code> est toujours prioritaire sur le serveur DNS, pour faire une résolution, un système cherchera d'abord dans <code>/etc/hosts</code>, et s'il ne trouve pas la solution, il fera ensuite une requête DNS.</p>
+<p>Pour changer l'ordre de priorité, cela se fait dans le fichier de configuration <code>/etc/nsswitch.conf</code> en modifiant l'ordre des valeurs pour le paramètre <code>hosts</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span>
+<span class="normal"><a href="#__codelineno-14-13">13</a></span>
+<span class="normal"><a href="#__codelineno-14-14">14</a></span>
+<span class="normal"><a href="#__codelineno-14-15">15</a></span>
+<span class="normal"><a href="#__codelineno-14-16">16</a></span>
+<span class="normal"><a href="#__codelineno-14-17">17</a></span>
+<span class="normal"><a href="#__codelineno-14-18">18</a></span>
+<span class="normal"><a href="#__codelineno-14-19">19</a></span>
+<span class="normal"><a href="#__codelineno-14-20">20</a></span>
+<span class="normal"><a href="#__codelineno-14-21">21</a></span>
+<span class="normal"><a href="#__codelineno-14-22">22</a></span>
+<span class="normal"><a href="#__codelineno-14-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>❯<span class="w"> </span>cat<span class="w"> </span>/etc/nsswitch.conf
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a>
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="c1"># /etc/nsswitch.conf</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="c1">#</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="c1"># Example configuration of GNU Name Service Switch functionality.</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="c1"># If you have the `glibc-doc-reference&#39; and `info&#39; packages installed, try:</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8"></a><span class="c1"># `info libc &quot;Name Service Switch&quot;&#39; for information about this file.</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9"></a>
+<a id="__codelineno-14-10" name="__codelineno-14-10"></a>passwd:<span class="w">         </span>files<span class="w"> </span>systemd
+<a id="__codelineno-14-11" name="__codelineno-14-11"></a>group:<span class="w">          </span>files<span class="w"> </span>systemd
+<a id="__codelineno-14-12" name="__codelineno-14-12"></a>shadow:<span class="w">         </span>files
+<a id="__codelineno-14-13" name="__codelineno-14-13"></a>gshadow:<span class="w">        </span>files
+<a id="__codelineno-14-14" name="__codelineno-14-14"></a>
+<a id="__codelineno-14-15" name="__codelineno-14-15"></a>hosts:<span class="w">          </span>files<span class="w"> </span>dns
+<a id="__codelineno-14-16" name="__codelineno-14-16"></a>networks:<span class="w">       </span>files
+<a id="__codelineno-14-17" name="__codelineno-14-17"></a>
+<a id="__codelineno-14-18" name="__codelineno-14-18"></a>protocols:<span class="w">      </span>db<span class="w"> </span>files
+<a id="__codelineno-14-19" name="__codelineno-14-19"></a>services:<span class="w">       </span>db<span class="w"> </span>files
+<a id="__codelineno-14-20" name="__codelineno-14-20"></a>ethers:<span class="w">         </span>db<span class="w"> </span>files
+<a id="__codelineno-14-21" name="__codelineno-14-21"></a>rpc:<span class="w">            </span>db<span class="w"> </span>files
+<a id="__codelineno-14-22" name="__codelineno-14-22"></a>
+<a id="__codelineno-14-23" name="__codelineno-14-23"></a>netgroup:<span class="w">       </span>nis
+</code></pre></div></td></tr></table></div>
+</div>
+<p>Si votre serveur DNS est sur un réseau privé, par exemple un serveur DNS sur un réseau bancaire, il est possible que votre DNS ne puisse pas résoudre tous les noms, par exemple <code>ping wwww.facebook.com</code> peut ne pas fonctionner, et donc dans ce cas vous serez dans l'impossibilité d'y accéder.</p>
+<p>Il est possible de rajouter d'autres serveurs DNS, par exemple le serveru DNS de Google situé à l'adresse <code>8.8.8.8</code>. Pour faire cela il suffit de modifier le fichier <code>/etc/resolv.conf</code> en ajoutant la ligne <code>Forward All to 8.8.8.8</code>, les noms non résolus par votre serveru DNS, seront alors transmises au serveur DNS de Google.</p>
+<p>Un nom de la forme <code>wwww.facebook.com</code> avec <code>www.</code> au début et <code>.com</code> à la fin est ce que l'on appelle un <strong>nom de domaine</strong>.</p>
+<p>Pourquoi cette synthaxe ?</p>
+<p>L'idée est de grouper les choses ensembles. La dernière partie est ce que l'on appelle le <strong>nom de domaine de plus haut niveau</strong> (top level domain name), il en existe peu, on peut par exemple citer <code>.com</code>, <code>.fr</code>, <code>.net</code>, <code>.edu</code>, <code>.org</code>, <code>.io</code>, etc. Ils sont censés représenter le but du site, <code>.com</code> pour les sites commerciaux, <code>.fr</code> pour les sites français, <code>.net</code> pour network, <code>.edu</code> pour les écoles/universités, <code>.org</code> pour les organisations à but non lucratif, etc.</p>
+<p>Pour une adresse comme <code>google.com</code>, on peut alors hiérarchiser de la façon suivante. On a la racine le <code>.</code> suivi du nom de domaine de plus haut niveau, <code>google</code> est le <strong>nom de domaine assigné</strong> à google, et en desous nous avons les sous-domaines, si l'on veut utiliser google maps on ira sur <code>maps.google.com</code>, pour se connecter à son drive on ira sur <code>drive.google.com</code> etc.</p>
+<pre class="mermaid"><code>graph TD
+
+  A1{{ Root &lt;br/&gt; . }}
+
+  B1{{ Top Level Domain Name &lt;br/&gt; .com }}
+
+  C1{{ Google }}
+
+  D1{{Subdomain &lt;br/&gt; mail}}
+  D2{{Subdomain &lt;br/&gt; drive}}
+  D3{{Subdomain &lt;br/&gt; www}}
+  D4{{Subdomain &lt;br/&gt; maps}}
+  D5{{Subdomain &lt;br/&gt; apps}}
+
+  A1-.-&gt;B1
+
+  B1-.-&gt;C1
+
+  C1-.-&gt;D1
+  C1-.-&gt;D2
+  C1-.-&gt;D3
+  C1-.-&gt;D4
+  C1-.-&gt;D5</code></pre>
+<pre class="mermaid"><code>graph LR
+
+  A1[apps.google.com]
+
+  B1{{Org &lt;br/&gt; DNS }}
+
+  C1{{Root &lt;br/&gt; DNS }}
+
+  D1{{.com &lt;br/&gt; DNS }}
+
+  D2{{Google &lt;br/&gt; DNS }}
+
+  D3[216.58.221.78]
+
+  A1-.-&gt;B1
+
+  B1-.-&gt;C1
+
+  C1-.-&gt;D1
+
+  D1-.-&gt;D2
+  D2-.-&gt;D3
+
+  D3-.-&gt;|cache|A1</code></pre>
+<p><code>nslookup</code></p>
+<p><code>dig</code></p>
+<p><code>search domain.com</code> dans <code>/etc/resolv.conf</code></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

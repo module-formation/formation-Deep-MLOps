@@ -1,0 +1,2586 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../../module1/tp1/">
+      
+      
+        <link rel="next" href="../module2_annexe/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>Théorie - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-2-les-reseaux-de-neurones-convolutifs" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Théorie
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../module1/Module1/" class="md-tabs__link md-tabs__link--active">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../azure_ml/intro/" class="md-tabs__link">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../devops/linux/" class="md-tabs__link">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Théorie
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Théorie
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#les-neurosciences-toujours-la-vision-chez-letre-humain" class="md-nav__link">
+    Les neurosciences toujours : La vision chez l'être humain
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-reseaux-convolutifs-cnn" class="md-nav__link">
+    Les réseaux convolutifs (CNN)
+  </a>
+  
+    <nav class="md-nav" aria-label="Les réseaux convolutifs (CNN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loperation-de-convolution" class="md-nav__link">
+    L'opération de convolution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motivation-de-la-convolution" class="md-nav__link">
+    Motivation de la convolution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-convolution-dans-un-cnn" class="md-nav__link">
+    La convolution dans un CNN
+  </a>
+  
+    <nav class="md-nav" aria-label="La convolution dans un CNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-champs-receptifs-locaux" class="md-nav__link">
+    Les champs réceptifs locaux...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permettent-le-partage-des-parametres" class="md-nav__link">
+    ...permettent le partage des paramètres
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactions-parcimonieuses" class="md-nav__link">
+    Interactions parcimonieuses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-passage-dune-couche-convolutive-a-lautre" class="md-nav__link">
+    Le passage d'une couche convolutive à l'autre
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pooling" class="md-nav__link">
+    Pooling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-classique" class="md-nav__link">
+    Architecture classique
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transfert-dapprentissage" class="md-nav__link">
+    Transfert d'apprentissage
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#les-neurosciences-toujours-la-vision-chez-letre-humain" class="md-nav__link">
+    Les neurosciences toujours : La vision chez l'être humain
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-reseaux-convolutifs-cnn" class="md-nav__link">
+    Les réseaux convolutifs (CNN)
+  </a>
+  
+    <nav class="md-nav" aria-label="Les réseaux convolutifs (CNN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loperation-de-convolution" class="md-nav__link">
+    L'opération de convolution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#motivation-de-la-convolution" class="md-nav__link">
+    Motivation de la convolution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-convolution-dans-un-cnn" class="md-nav__link">
+    La convolution dans un CNN
+  </a>
+  
+    <nav class="md-nav" aria-label="La convolution dans un CNN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-champs-receptifs-locaux" class="md-nav__link">
+    Les champs réceptifs locaux...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permettent-le-partage-des-parametres" class="md-nav__link">
+    ...permettent le partage des paramètres
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactions-parcimonieuses" class="md-nav__link">
+    Interactions parcimonieuses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-passage-dune-couche-convolutive-a-lautre" class="md-nav__link">
+    Le passage d'une couche convolutive à l'autre
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pooling" class="md-nav__link">
+    Pooling
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-classique" class="md-nav__link">
+    Architecture classique
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transfert-dapprentissage" class="md-nav__link">
+    Transfert d'apprentissage
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-2-les-reseaux-de-neurones-convolutifs">Module 2 : Les réseaux de neurones convolutifs</h1>
+<h2 id="les-neurosciences-toujours-la-vision-chez-letre-humain">Les neurosciences toujours : La vision chez l'être humain</h2>
+<p>Les CNN (réseau de neurones convolutifs) ont été inspirés par les découvertes lors de l'étude de la vision biologique.</p>
+<p>Au milieu du 20e siècle, David Hubel et Torsten Wiesel décrouvrent 2 types majeurs de cellules dans le cortex visuel primaire des chats :</p>
+<ol>
+<li>Les cellules dites <strong>simples</strong>,</li>
+<li>Les cellules dites <strong>complexes</strong>.</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">David Hubel (gauche), Torsten Wiesel (droite)</p>
+<p><img alt="Screenshot" src="../images/hubelweisel.jpg" /></p>
+<p>Prix Nobel de médecine pour "leurs découvertes concernant le traitement de l'information dans le système visuel".</p>
+</div>
+<p>Les cellules simples réagissent à des barres lumineuses ou sombres placées à des endroits spécifiques, de plus chaque cellules à une orientation préférée pour laquelle la réaction est maximale.</p>
+<p>Les cellules complexes ont un profil de réponse moins strict, elles ont toujours une orientation préférée mais elles réagissent de la même façon à des barres situées à des endroits proches.</p>
+<p><strong>Hubel et Wiesel concluent alors que ces cellules reçoivent des données de plusieurs cellules simples, toutes de la même orientation, mais à des positions proches différentes.</strong></p>
+<p><img alt="Screenshot" src="../images/cell_CS.png" /></p>
+<p>En 1980, Fukushima transforme les découvertes de Hubel et Wiesel en un modèle du système visuel : <strong>Le NeoCognitron</strong>. Précurseur des CNNs il contient deux types de cellules :</p>
+<div class="admonition example">
+<p class="admonition-title">Architecture du NeoCognitron</p>
+<p><img align="left" alt="Screenshot" src="../images/Cells_CS.svg" /></p>
+<ul>
+<li>
+<p>Les <strong>celulles S</strong> : Une grille 2D de poids est appliquée à chaque image d'entrée, créant la réponse des cellules S. Un plan de cellules S a une structure similaire à celle de l'oeil humain, avec les cellules partageant toutes les mêmes caractéristiques visuelles préférées. Plusieurs plans peuvent alors s'organiser en couches succéssives.</p>
+</li>
+<li>
+<p>Les <strong>cellules C</strong> : La réponse de ces cellules est donnée par une fonction non linéaire de plusieurs cellules S provenant du même plan mais à des positions différentes.</p>
+</li>
+</ul>
+</div>
+<p>L'architecture de ce modèle est alors une simple répétition de ces cellules, les répétitions permettant de simuler le chemin visuel ventral en entier.</p>
+<p>Dans les années 1990, le néocognitron est amélioré et devient le HMAX. On utilise alors la fonction maximum pour définir la réponse des cellules C.</p>
+<p>Les CNN modernes découlent de ces découvertes, les cellules S correspondents au couches convolutives, tandis que les cellules C correspondent aux couches de pooling. L'interêt des neuroscientifiques pour les CNNs est important car ils sont capables de récapituler la représentation de l'information visuelle le long du courant ventral (responsable de la reconnaissance d'objets et de la représentation des formes.)</p>
+<p><img alt="Screenshot" src="../images/brain.png" /></p>
+<p>Pour résumer, si notre but est de détecter des objets dans des images, il est clair que <strong>la position de l'objet dans l'image ne doit pas être un facteur impactant pour le modèle</strong>, en d'autres termes, le modèle doit être invariant par translation le plus possible.</p>
+<p>Se contenter de réseaux denses, comme dans le module précédent, nous fait ignorer une des propriétés clés des images : <strong>les pixels proches sont plus fortement corrélés entre eux que des pixels distants</strong>. Pour prendre en compte cette propriété, l'idée est alors d'extraire des caractéristiques locales ne dépendant que de petites sous-régions de l'image. Ces caractéristiques locales pourront alors être plus tard regroupées pour détecter des caractéristiques de plus haut niveau.</p>
+<p>Ces notions sont alors incorporées dans les CNN via les 3 mécanismes suivants :</p>
+<ol>
+<li>Les champs réceptifs locaux,</li>
+<li>Le partage des poids,</li>
+<li>Le sous échantillonage.</li>
+</ol>
+<h2 id="les-reseaux-convolutifs-cnn">Les réseaux convolutifs (CNN)</h2>
+<div class="admonition note">
+<p class="admonition-title">Résumé</p>
+<p>Les CNN sont spécialisés en traitement des données dont la topologie ressemble à celle d'une grille connue.</p>
+<p>Les réseaux de neurones convolutifs sont <em>simplement</em> des ANN qui utilisent le produit de convolution à la place du produit matriciel classique.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<ol>
+<li>Données de séries temporelles : grille 1D échantillonée à intervalles réguliers.</li>
+<li>Données d'images : grille 2D de pixels.</li>
+</ol>
+</div>
+<h3 id="loperation-de-convolution">L'opération de convolution</h3>
+<p>Mettons tout d'abord d'accord sur ce que l'on appelle le produit de convolution.</p>
+<div class="admonition note">
+<p class="admonition-title">Définition</p>
+<p>Pour <span class="arithmatex">\(f\)</span> et <span class="arithmatex">\(g\)</span> deux fonction de <span class="arithmatex">\(L^{1}(\mathbb{R})\)</span> on définit le produit de convolution de <span class="arithmatex">\(f\)</span> et <span class="arithmatex">\(g\)</span> via la formule suivante.</p>
+<div class="arithmatex">\[
+    (f \ast g )(t) := \int_{\mathbb{R}} f(s)g(s-t) \mathrm{d}s
+\]</div>
+<p>Pour <span class="arithmatex">\((f_{n})_{n \in \mathbb{N}}\)</span> et <span class="arithmatex">\((g_{n})_{n \in \mathbb{N}}\)</span> deux suites de  <span class="arithmatex">\(\ell^{1}(\mathbb{R})\)</span> le produit de convolution est défini par la formule suivante.</p>
+<div class="arithmatex">\[
+    (f \ast g )_{n} := \sum_{k} f_{k}g_{n-k}
+\]</div>
+</div>
+<p>Par convention, en Deep Learning, le premier argument <span class="arithmatex">\(f\)</span> du produit de convolution est dénommé <strong>l'entrée</strong>. Le second argument est appelé le <strong>noyau</strong>.</p>
+<p>Le résultat est appelé <strong>la carte de caractéristique</strong> (feature map).</p>
+<p>Typiquement, l'entrée est un tableau multidimensionnel <strong>de données</strong> et le noyau est un tableau multidimensionnel <strong>de paramètres estimés par l'algorithme</strong>. On se place donc dans le cadre d'une convolution discrète (la deuxième formule).</p>
+<div class="admonition warning">
+<p class="admonition-title">Attention</p>
+<p>On utilise souvent des convolutions sur plus d'un axe à la fois.</p>
+</div>
+<h3 id="motivation-de-la-convolution">Motivation de la convolution</h3>
+<p>La convolution est une opération spécialisée dans le traitement des images. Cherchons d'abord à savoir comment est représentée une image pour Tensorflow.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_sample_image</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="n">china</span> <span class="o">=</span> <span class="n">load_sample_image</span><span class="p">(</span><span class="s1">&#39;china.jpg&#39;</span><span class="p">)</span><span class="o">/</span><span class="mi">255</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">18</span><span class="p">))</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">china</span><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="n">plt</span><span class="o">.</span><span class="n">show</span>
+</code></pre></div></td></tr></table></div>
+<p><img alt="Screenshot" src="../images/china.jpg" /></p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">china</span><span class="o">.</span><span class="n">shape</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="p">(</span><span class="mi">427</span><span class="p">,</span><span class="mi">640</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+Pour reprendre les termes du premier module, une image est un tenseur 3D définie suivant 3 axes.</p>
+<ul>
+<li>La hauteur,</li>
+<li>la largeur,</li>
+<li>le nombre de canaux.</li>
+</ul>
+<p>Un mini-batch d'images utilisé pour l'entraînement sera alors un tenseur 4D de la forme (taille du mini-batch, hauteur, largeur, canaux). Détaillons, la hauteur et la largeur de l'image sont exprimées en nombre de pixels, le nombre de canaux nous informe si oui ou non une image est en couleur.</p>
+<ul>
+<li>Si l'image est en couleur, on a alors 3 canaux qui correspondent qui correspondent aux 3 canaux de couleurs RGB.</li>
+<li>Si l'image n'est qu'en niveau de gris, on a un seul canal.</li>
+</ul>
+<p>Une image en couleur sera donc de la forme <span class="arithmatex">\((H,W,3)\)</span>, tandis d'une image en niveau de gris sera de la forme <span class="arithmatex">\((H,W,1)\)</span>.</p>
+<h3 id="la-convolution-dans-un-cnn">La convolution dans un CNN</h3>
+<p>Dans le contexte des CNN, l'opération de convolution diffère de celle de la littérature mathématique classique : elle implique souvent plusieurs noyaux faisant des convolutions en parallèle sur plusieurs axes pour obtenir autant de cartes de caractéristique que désirée.</p>
+<p>La collection de noyaux définissant une convolution discrète est définie par la famille suivante.</p>
+<div class="arithmatex">\[
+    (n, m, k_{1}, \dots, k_{N})
+\]</div>
+<p>où :</p>
+<ol>
+<li><span class="arithmatex">\(n :=\)</span> nombre de cartes de caractéristiques en sortie.</li>
+<li><span class="arithmatex">\(m :=\)</span> nombre de cartes de caractéristiques en entrée.</li>
+<li><span class="arithmatex">\(k_{j} :=\)</span> dimension du noyau le long de l'axe <span class="arithmatex">\(j\)</span>.</li>
+</ol>
+<p>De la même façon, la dimension de la sortie du CNN le long de l'axe <span class="arithmatex">\(j\)</span>, notée <span class="arithmatex">\(o_{j}\)</span>, est définie par la famille suivante.</p>
+<div class="arithmatex">\[
+    (i_{j}, k_{j}, s_{j}, p_{j})
+\]</div>
+<p>où :</p>
+<ol>
+<li><span class="arithmatex">\(i_{j} :=\)</span> dimension de l'entrée le long de l'axe <span class="arithmatex">\(j\)</span>.</li>
+<li><span class="arithmatex">\(k_{j} :=\)</span> dimension du noyau le long de l'axe <span class="arithmatex">\(j\)</span>.</li>
+<li><span class="arithmatex">\(s_{j} :=\)</span> <strong>foulée</strong> (stride) le long de l'axe <span class="arithmatex">\(j\)</span> : distance entre deux positions consécutives du noyau.</li>
+<li><span class="arithmatex">\(p_{j} :=\)</span> valeur de la <strong>marge à zéro</strong> (zero padding) le long de l'axe <span class="arithmatex">\(j\)</span> : le nombre de position que le noyau peut visiter hors de l'image.</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Remarqe</p>
+<p>Dans la pratique, la dimension des noyaux d'une même couche ne varie pas le long de chaque axe : on travaille avec des noyaux de forme "cubique". On choisit une dimension qui est fixe dans la couche convolutive.</p>
+</div>
+<p>Généralement, nous considérons chaque pixel de l'image source comme un pixel d'ancrage, mais nous ne sommes pas contraints de le faire. En fait, il n'est pas rare d'inclure une foulée (stride), où les pixels d'ancrage/source sont séparés par un nombre spécifique de pixels.</p>
+<p>D'accord, alors quel est le pixel source ? C'est le point d'ancrage autour duquel le noyau est centré et où nous encodons tous les pixels voisins, y compris le pixel d'ancrage. Comme le noyau est de forme symétrique (mais pas nécessairement symétrique en termes de valeurs), il y a un nombre égal <span class="arithmatex">\(n\)</span> de pixels de tous les côtés du pixel d'ancrage. Par conséquent, quel que soit ce nombre de pixels, la longueur de chaque côté de notre noyau de forme symétrique est de <span class="arithmatex">\(2n+1\)</span> (chaque côté de l'ancre + le pixel d'ancrage), et les noyaux sont donc toujours de taille impaire. Les tailles de noyaux les plus courantes étant <span class="arithmatex">\(\lbrace 1,3,5,7 \rbrace\)</span>.</p>
+<p><img alt="Screenshot" src="../images/YDusp.png" /></p>
+<p>Dans la <strong>définition classique de la convolution</strong>, <strong>le noyau de convolution n'est alors autorisé à visiter que les positions où le noyau est entièrement dans l'image</strong>.</p>
+<div class="arithmatex">\[
+    \begin{align}
+    Z_{i,j,k} &amp; = (V_{\bullet} \ast K_{\bullet})_{i,j,k} \\
+              &amp; = \sum_{l,m,n} V_{l, j-1+m, k-1+n} \cdot K_{i,l,m,n}
+    \end{align}
+\]</div>
+<p>La dimension des couches réduit donc à chacune de ces convolutions. En effet, dans une convolution classique, la dimension de la sortie <span class="arithmatex">\(o_{j}\)</span>, est définie par la formule suivante.</p>
+<div class="arithmatex">\[
+    o_{j} := i_{j} - k_{j} + 1
+\]</div>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>Dès que <span class="arithmatex">\(k_{j} &gt; 1\)</span> la dimension de la sortie suvant cette axe diminue. On ne peut donc pas empiler autant de couches convolutives que l'on veut.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Convolution simple : pas de foulée, pas de marge à zéro, noyau de taille <span class="arithmatex">\((3,3)\)</span>. La dimension de la sortie est alors plus petite que la dimension de la couche de sortie.</p>
+<p><img alt="Screenshot" src="../images/no_padding_no_strides.gif" /></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>https://github.com/vdumoulin/conv_arithmetic
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;valid&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>La solution est alors d'ajouter ce que l'on appelle une marge de zéros, padding, pour garder la même dimension en sortie.</p>
+<div class="admonition example">
+<p class="admonition-title">Convolution simple : pas de foulée, marge à zéro égale, noyau de taille <span class="arithmatex">\((3,3)\)</span>. La dimension de sortie est la même que celle d'entrée.</p>
+<p><img alt="Screenshot" src="../images/same_padding_no_strides.gif" /></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>https://github.com/vdumoulin/conv_arithmetic
+</code></pre></div></td></tr></table></div>
+</div>
+<p>La nouvelle dimension de l'output est alors donnée par la formule suivante.</p>
+<div class="arithmatex">\[
+    o := i - k + 1 +2p
+\]</div>
+<p>Ce qui donne, si <span class="arithmatex">\(o=i\)</span>, un padding égal à</p>
+<div class="arithmatex">\[
+   p = \frac{k-1}{2}.
+\]</div>
+<p>D'où un intéret supplémentaire aux noyaux de tailles impaires.</p>
+<div class="admonition example">
+<p class="admonition-title">Convolution simple : pas de foulée, marge à zéro égale, noyau de taille <span class="arithmatex">\((3,3)\)</span>.</p>
+<p><img alt="Screenshot" src="../images/keras_conv2d_padding.gif" /></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>https://www.pyimagesearch.com/2018/12/31/keras-conv2d-and-convolutional-layers/
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>On peut alors empiler autant de couches que l'on souhaite. Cependant, les pixels du bord influencent moins les pixels de sorties que ceux à l'intérieur, ce qui peut les rendre sous représentés.</p>
+<p>En espaçant les champs réceptifs par une foulée supérieure à 1, il est possible de réduire la compléxité du réseau de neurones.</p>
+<div class="admonition example">
+<p class="admonition-title">Convolution simple : foulée de 1, pas de marge à zéro, noyau de taille <span class="arithmatex">\((3,3)\)</span>.</p>
+<p><img alt="Screenshot" src="../images/no_padding_strides.gif" /></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>https://github.com/vdumoulin/conv_arithmetic
+</code></pre></div></td></tr></table></div>
+</div>
+<h4 id="les-champs-receptifs-locaux">Les champs réceptifs locaux...</h4>
+<p>Lors de l'opération de convolution, chaque unité de la feature map ne prend en entrée qu'une petite sous région de l'image, déterminée par la taille du noyau.</p>
+<div class="admonition example">
+<p class="admonition-title">Le champ réceptif local de chaque unité de la feature map est représenté par la partie de l'image s'intersectant avec le noyau de convolution.</p>
+<p><img alt="Screenshot" src="../images/no_padding_no_strides.gif" /></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>https://github.com/vdumoulin/conv_arithmetic
+</code></pre></div></td></tr></table></div>
+</div>
+<p>Si l'on pense aux unités des features maps comme des détecteurs, alors toutes les unités d'une même feature map détectent le même schéma mais à des endroits différents.</p>
+<h4 id="permettent-le-partage-des-parametres">...permettent le partage des paramètres</h4>
+<p>Le partage de paramètres fait référence à l'utilisation d'un même paramètre par plusieurs fonctions dans un même modèle.</p>
+<p>Dans le cas d'un ANN classique, chaque élément de la matrice de poids est utilisé exactement une seule fois lors du calcul de la sortie. Dans un CNN, chaque élément du noyau est utilisé par chaque position de l'entrée. Au lieu d'apprendre un ensemble de paramètres distincts pour chaque emplacement, on apprend donc un unique ensemble.</p>
+<h4 id="interactions-parcimonieuses">Interactions parcimonieuses</h4>
+<p>Comme on l'a vu pour le cas des réseaux de neurones denses, pour les ANN utilisant le produit matriciel, la matrice contient des paramètres décrivant l'interaction entre chaque unité d'entrée et chaque unité de sortie.</p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p><strong>Chaque unité de sortie interagit avec chaque unité de d'entrée.</strong></p>
+</div>
+<p>Les CNN, eux ont des <em>interactions parcimonieuses</em>, du à la taille réduite du noyau. Cela a plusieurs avantages, un gain de mémoire et une amélioration de l'éfficacité statistique, ainsi qu'un gain en complexité algorothmique.</p>
+<p>Pour <span class="arithmatex">\(m\)</span> entrées et <span class="arithmatex">\(n\)</span> sorties, le produit matriciel avec une matrice de paramètres de dimension <span class="arithmatex">\(m \times n\)</span> induit une compléxité algorithmique en <span class="arithmatex">\(\mathcal{O}(m \times n)\)</span>. Si l'on limite à <span class="arithmatex">\(k\)</span> le nombre de connexion des sorties possibles, la compléxité chute à <span class="arithmatex">\(\mathcal{O}(k \times n)\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Equivariance par translation</p>
+<p>La convolution rend le résultat équivariant par translation. Ce qui fait qu'une caractéristique géométrique dans une photo ne dépend pas de sa position (dans une photo pas exemple) pour être apprise par un CNN.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>La convolution n'est pas naturellement équivariante par d'autres transformations, par exemple le changement d'échelle ou la rotation.</p>
+</div>
+<h3 id="le-passage-dune-couche-convolutive-a-lautre">Le passage d'une couche convolutive à l'autre</h3>
+<p>Lorsque l'entrée d'une couche convolutive sont les features maps d'une couche convolutive précédente, chaque filtre se "démultiplie" pour avoir autant de copie de ce filtre que de features maps en entrée. A une copie est assignée une feature map d'entrée, le résultat de cette convolution donne une "feature map partielle".</p>
+<p>Pour un filtre, on aura autant de feature map partielle que de feature maps en entrée, la somme de ces feature maps partielle donnera le résultat de la convolution des feature maps d'entrée avec le filtre choisi.</p>
+<div class="admonition example">
+<p class="admonition-title">8 feature maps en entrée, 3 filtres "démultipliés" chacun en 8 copie, et 3 feature maps en sortie.</p>
+<p><img alt="Screenshot" src="../images/Conv2D2.svg" /></p>
+</div>
+<h2 id="pooling">Pooling</h2>
+<p>Le pooling correspond à la propriété de sous échantillonnage. Dans un CNN, les couches de pooling fournissent une invariance aux petites translations qui peuvent être présentes dans les images.</p>
+<p>Le but du pooling est de réduire la taille de l'image afin d'en réduire le coût en calcul, le coût en mémoire, ainsi que le nombre de paramètres, ce qui permet de limiter le sur-apprentissage.</p>
+<p>De la même façon qu'une couche convolutive, les sorties d'une couche de pooling possèdent un champs réceptif local, mais au contraire d'une couche convolutive il n'y a aucun poids associés à cette couche. L'opération éffectuée dans une couche de pooling est une opération d'agrégration, telle que le maximum (MaxPooling) ou la moyenne (AvgPooling), cette opération n'étant effectuée que sur les élément présent dans le champs réceptif.</p>
+<p>De façon usuelle, une couche de pooling se trouve après une couche convolutive et prend en entrée les feature maps obtenues en sortie de cette couche.</p>
+<div class="admonition example">
+<p class="admonition-title">Pooling</p>
+<p><img alt="Screenshot" src="../images/pooling.svg" /></p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Dans la pratique, le MaxPooling est plus populaire que l'AvgPooling : il est plus rapide de calculer le maximum que la moyenne, de plus il offre de meilleurs résultats.</p>
+<p>La taille du champs  réceptifs est souvent de 2 ou 3.</p>
+</div>
+<h2 id="architecture-classique">Architecture classique</h2>
+<div class="admonition example">
+<p class="admonition-title">VGG16</p>
+<p><img alt="Screenshot" src="../images/VGG.svg" /></p>
+</div>
+<h2 id="transfert-dapprentissage">Transfert d'apprentissage</h2>
+<p>L'idée est que des poids qui ont été entraîné pour un tâche spécifique, devrait être performant pour une tâche similaire, même si les deux datasets sont totalements disjoints.</p>
+<p>Des couches entraînées à classifier des vêtements devraient être performants pour en classifier d'autres.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

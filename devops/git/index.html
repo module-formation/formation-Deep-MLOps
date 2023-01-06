@@ -1,0 +1,3674 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../linux/">
+      
+      
+        <link rel="next" href="../shell/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>Git - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git-gud" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Git
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-tabs__link">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../azure_ml/intro/" class="md-tabs__link">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../linux/" class="md-tabs__link md-tabs__link--active">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Git
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Git
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#repos-locaux-et-distants" class="md-nav__link">
+    Repos locaux et distants
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installer-git-sur-ubuntu" class="md-nav__link">
+    Installer git sur ubuntu
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialiser-un-repo-git" class="md-nav__link">
+    Initialiser un repo git
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revenir-en-arriere" class="md-nav__link">
+    Revenir en arrière
+  </a>
+  
+    <nav class="md-nav" aria-label="Revenir en arrière">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preliminaires" class="md-nav__link">
+    Préliminaires
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-zone-de-travail" class="md-nav__link">
+    En zone de travail
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-zone-de-transit" class="md-nav__link">
+    En zone de transit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignorer" class="md-nav__link">
+    Ignorer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-logs" class="md-nav__link">
+    Les logs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-branches-git" class="md-nav__link">
+    Les branches Git
+  </a>
+  
+    <nav class="md-nav" aria-label="Les branches Git">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quest-ce-que-head" class="md-nav__link">
+    Qu'est ce que HEAD ?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-merge" class="md-nav__link">
+    git merge
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialiser-et-travailler-avec-un-repo-distant" class="md-nav__link">
+    Initialiser et travailler avec un repo distant
+  </a>
+  
+    <nav class="md-nav" aria-label="Initialiser et travailler avec un repo distant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#difference-git-push-et-git-push-origin-main" class="md-nav__link">
+    Différence git push et git push origin main
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rebasing" class="md-nav__link">
+    Rebasing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reset-et-revert" class="md-nav__link">
+    Reset et revert
+  </a>
+  
+    <nav class="md-nav" aria-label="Reset et revert">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-revert-hash" class="md-nav__link">
+    git revert hash
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-reset" class="md-nav__link">
+    git reset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-stash" class="md-nav__link">
+    git stash
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-reflog" class="md-nav__link">
+    git reflog
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags-et-release" class="md-nav__link">
+    tags et release
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commits-conventionnels" class="md-nav__link">
+    Commits Conventionnels
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#repos-locaux-et-distants" class="md-nav__link">
+    Repos locaux et distants
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installer-git-sur-ubuntu" class="md-nav__link">
+    Installer git sur ubuntu
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialiser-un-repo-git" class="md-nav__link">
+    Initialiser un repo git
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revenir-en-arriere" class="md-nav__link">
+    Revenir en arrière
+  </a>
+  
+    <nav class="md-nav" aria-label="Revenir en arrière">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preliminaires" class="md-nav__link">
+    Préliminaires
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-zone-de-travail" class="md-nav__link">
+    En zone de travail
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-zone-de-transit" class="md-nav__link">
+    En zone de transit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ignorer" class="md-nav__link">
+    Ignorer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-logs" class="md-nav__link">
+    Les logs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-branches-git" class="md-nav__link">
+    Les branches Git
+  </a>
+  
+    <nav class="md-nav" aria-label="Les branches Git">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quest-ce-que-head" class="md-nav__link">
+    Qu'est ce que HEAD ?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-merge" class="md-nav__link">
+    git merge
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initialiser-et-travailler-avec-un-repo-distant" class="md-nav__link">
+    Initialiser et travailler avec un repo distant
+  </a>
+  
+    <nav class="md-nav" aria-label="Initialiser et travailler avec un repo distant">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#difference-git-push-et-git-push-origin-main" class="md-nav__link">
+    Différence git push et git push origin main
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rebasing" class="md-nav__link">
+    Rebasing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reset-et-revert" class="md-nav__link">
+    Reset et revert
+  </a>
+  
+    <nav class="md-nav" aria-label="Reset et revert">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#git-revert-hash" class="md-nav__link">
+    git revert hash
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-reset" class="md-nav__link">
+    git reset
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-stash" class="md-nav__link">
+    git stash
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#git-reflog" class="md-nav__link">
+    git reflog
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tags-et-release" class="md-nav__link">
+    tags et release
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commits-conventionnels" class="md-nav__link">
+    Commits Conventionnels
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="git-gud">GIT Gud</h1>
+<p><img alt="gitgud" src="../images/gitgud.jpg" /></p>
+<h2 id="introduction">Introduction</h2>
+<p>Git est un système de contrôle de version distribué et open source qui permet aux développeurs et aux équipes d'exploitation de collaborer et de suivre les modifications apportées à un projet.</p>
+<p>En tant qu'outil DevOps, Git favorise la collaboration et l'accélération des cycles de publication. Toute personne désireuse de démarrer sa carrière DevOps ou de passer à un niveau supérieur doit commencer par les bases, et Git est l'exigence la plus fondamentale de toutes.</p>
+<p>Bon nombre des projets open source les plus populaires aujourd'hui sont développés sur Github - Kubernetes, Ansible, TensorFlow, Rust, Node.js, Go, Terraform, Helm Charts étant quelques-uns des plus importants parmi les 100 millions de dépôts.</p>
+<h2 id="repos-locaux-et-distants">Repos locaux et distants</h2>
+<p>Git a 2 type de repos :</p>
+<ul>
+<li><strong>Le repo local</strong>, qui se trouve sur votre machine, et auquel vous avez un accès direct,</li>
+<li><strong>Le repo distant</strong>, qui se trouve généralement sur un serveur centralisé, et qui est optionnel.</li>
+</ul>
+<p>Le repo distant est pensé comme un back-up de votre repo local.</p>
+<p>Le repo local est divisé en 3 sections.</p>
+<ol>
+<li><strong>La zone de travail</strong> où sont les fichiers sur lesquels vous travaillez, git ne fait rien avec ces fichiers, il sait juste que ces fichiers sont en train d'être modifiés.</li>
+<li><strong>La zone de transit (staging area)</strong>, contient les nouveaux changements qui seront bientôt versionnés.</li>
+<li><strong>Les fichiers versionnés</strong> (committed files).</li>
+</ol>
+<h2 id="installer-git-sur-ubuntu">Installer git sur ubuntu</h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>git<span class="w"> </span>-y
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;max@example.com&quot;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;max&quot;</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="initialiser-un-repo-git">Initialiser un repo git</h2>
+<p>Pour initialiser un repo, placez vous, dans le terminal, dans le dossier dans lequel vous voulez versionner les changements et taper simplement <code>git init</code> dans le terminal.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>❯<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>helloworld-git
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>❯<span class="w"> </span>git<span class="w"> </span>init
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>Dépôt<span class="w"> </span>Git<span class="w"> </span>vide<span class="w"> </span>initialisé<span class="w"> </span>dans<span class="w"> </span>/media/vorph/datas/perso/helloworld/helloworld-git/.git/
+</code></pre></div></td></tr></table></div>
+<p>Maintenant que le repo est initialisé, Git surveille ce dossier et vois les changements qui y sont fait. On peut utiliser la commande <code>git status</code> pour les voir.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>❯<span class="w"> </span>touch<span class="w"> </span>story.txt
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;ceci n&#39;est pas un texte&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>story.txt
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>Aucun<span class="w"> </span>commit
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>Fichiers<span class="w"> </span>non<span class="w"> </span>suivis:
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>inclure<span class="w"> </span>dans<span class="w"> </span>ce<span class="w"> </span>qui<span class="w"> </span>sera<span class="w"> </span>validé<span class="o">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span>story.txt
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>aucune<span class="w"> </span>modification<span class="w"> </span>ajoutée<span class="w"> </span>à<span class="w"> </span>la<span class="w"> </span>validation<span class="w"> </span>mais<span class="w"> </span>des<span class="w"> </span>fichiers<span class="w"> </span>non<span class="w"> </span>suivis<span class="w"> </span>sont<span class="w"> </span>présents<span class="w"> </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add&quot;</span><span class="w"> </span>pour<span class="w"> </span>les<span class="w"> </span>suivre<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Aucun fichiers n'est dans la zone des fichiers versionnés, pour versionner notre travail, on le fait en deux étapes.</p>
+<ol>
+<li>On envoie <code>story.txt</code> en zone de transit via <code>git add</code>,</li>
+<li>On versionne <code>story.txt</code> avec <code>git commit</code>.</li>
+</ol>
+<pre class="mermaid"><code>sequenceDiagram
+    participant "Working Area"
+    participant "Staging Area"
+    participant "Committed files"
+
+    Note over "Working Area": travail sur story.txt
+    activate "Working Area"
+    "Working Area"-&gt;&gt;+"Staging Area": git add story.txt
+    deactivate "Working Area"
+
+    activate "Staging Area"
+    "Staging Area"-&gt;&gt;"Committed files": git commit -m "commit story.txt"
+    deactivate "Staging Area"</code></pre>
+<p>Le <code>-m</code> dans <code>git commit -m "commit story.txt"</code> est l'argument pour ajouter un message au commit.</p>
+<h2 id="revenir-en-arriere">Revenir en arrière</h2>
+<p>Il est possible, lorsque l'on code, de vouloir revenir en arrière, soit parce que ce que l'on a écrit ne veut rien dire, ou alors parce que l'on a fait une erreur, ou autre.</p>
+<p>Pour revenir en arrière il est possible d'utiliser la commande <a href="https://git-scm.com/docs/git-restore"><code>git restore</code></a>.</p>
+<p>Il est possible de restaurer à deux moments :</p>
+<ul>
+<li>soit en zone de travail,</li>
+<li>soit en zone de transit.</li>
+</ul>
+<h3 id="preliminaires">Préliminaires</h3>
+<p>Définissons un répertoire suivi par git avec au moins un fichier dedans.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Initialisation</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>❯<span class="w"> </span>mkdir<span class="w"> </span>helloworld-git
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>❯<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>helloworld-git
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a>❯<span class="w"> </span>git<span class="w"> </span>init
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>Initialized<span class="w"> </span>empty<span class="w"> </span>Git<span class="w"> </span>repository<span class="w"> </span><span class="k">in</span><span class="w"> </span>/home/vorph/work/perso/helloworld-git/.git/
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>❯<span class="w"> </span>touch<span class="w"> </span>poeme.txt
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>❯<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>On<span class="w"> </span>branch<span class="w"> </span>master
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>No<span class="w"> </span>commits<span class="w"> </span>yet
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a>Changes<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>committed:
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git rm --cached &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>unstage<span class="o">)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">        </span>new<span class="w"> </span>file:<span class="w">   </span>poeme.txt
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a>❯<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: ajout poeme.txt&quot;</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="o">[</span>master<span class="w"> </span><span class="o">(</span>root-commit<span class="o">)</span><span class="w"> </span>34ac1ba<span class="o">]</span><span class="w"> </span>feat:<span class="w"> </span>ajout<span class="w"> </span>poeme.txt
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">0</span><span class="w"> </span>insertions<span class="o">(</span>+<span class="o">)</span>,<span class="w"> </span><span class="m">0</span><span class="w"> </span>deletions<span class="o">(</span>-<span class="o">)</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>poeme.txt
+</code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Question</p>
+<p>Pourquoi au moins un fichier dedans ? Tout simplement par ce que git <strong>ne peut pas supprimer des fichiers</strong> d'un répertoire, la seule chose qu'il puisse faire est restaurer des fichiers à un état précedent, pourvu que ce fichier existe à l'état précédent.</p>
+</div>
+<p>Maintenant que l'on a un dossier suivi, voyons comment et ce que l'on peut restaurer.</p>
+<h3 id="en-zone-de-travail">En zone de travail</h3>
+<p>Ecrivons un poème.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span>
+<span class="normal"><a href="#__codelineno-4-8">8</a></span>
+<span class="normal"><a href="#__codelineno-4-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;c&#39;est un très joli poème n&#39;est-ce pas ?&quot;</span>&gt;&gt;<span class="w"> </span>poeme.txt
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>On<span class="w"> </span>branch<span class="w"> </span>master
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>Changes<span class="w"> </span>not<span class="w"> </span>staged<span class="w"> </span><span class="k">for</span><span class="w"> </span>commit:
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>update<span class="w"> </span>what<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>committed<span class="o">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git restore &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>discard<span class="w"> </span>changes<span class="w"> </span><span class="k">in</span><span class="w"> </span>working<span class="w"> </span>directory<span class="o">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">        </span>modified:<span class="w">   </span>poeme.txt
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>no<span class="w"> </span>changes<span class="w"> </span>added<span class="w"> </span>to<span class="w"> </span>commit<span class="w"> </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add&quot;</span><span class="w"> </span>and/or<span class="w"> </span><span class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Lorsque l'on tape la commande <code>git status</code>, on peut voir alors la phrase <code>(use "git restore &lt;file&gt;..." to discard changes in working directory)</code>.</p>
+<p>Lorsque les fichiers modifiés sont encore en zone de travail, il est alors possible d'utiliser la commande <code>git restore nom_du_fichier</code> pour <strong>annuler toutes les modifications faites à ce fichier depuis le dernier commit</strong> (ou git add ?).</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Usage du restore sans commit</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a>❯<span class="w"> </span>cat<span class="w"> </span>poeme.txt
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="s2">&quot;c&#39;est un très joli poème n&#39;est-ca pas ?&quot;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>❯<span class="w"> </span>git<span class="w"> </span>restore<span class="w"> </span>poeme.txt
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>❯<span class="w"> </span>cat<span class="w"> </span>poeme.txt
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>❯
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">S'il y a déjà un commit, restore nous y fait revenir</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span>
+<span class="normal"><a href="#__codelineno-6-16">16</a></span>
+<span class="normal"><a href="#__codelineno-6-17">17</a></span>
+<span class="normal"><a href="#__codelineno-6-18">18</a></span>
+<span class="normal"><a href="#__codelineno-6-19">19</a></span>
+<span class="normal"><a href="#__codelineno-6-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;c&#39;est un très joli poème n&#39;est-ce pas ? C&#39;est le premier ajout&quot;</span>&gt;&gt;<span class="w"> </span>poeme.txt
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>❯<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>❯<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: ajout du premier commit&quot;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="o">[</span>master<span class="w"> </span>eff1c35<span class="o">]</span><span class="w"> </span>feat:<span class="w"> </span>ajout<span class="w"> </span>du<span class="w"> </span>premier<span class="w"> </span>commit
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">1</span><span class="w"> </span>insertion<span class="o">(</span>+<span class="o">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;c&#39;est un très joli poême n&#39;est-ce pas ? C&#39;est le deuxième ajout&quot;</span>&gt;&gt;<span class="w"> </span>poeme.txt
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a>On<span class="w"> </span>branch<span class="w"> </span>master
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a>Changes<span class="w"> </span>not<span class="w"> </span>staged<span class="w"> </span><span class="k">for</span><span class="w"> </span>commit:
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>update<span class="w"> </span>what<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>committed<span class="o">)</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">  </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git restore &lt;file&gt;...&quot;</span><span class="w"> </span>to<span class="w"> </span>discard<span class="w"> </span>changes<span class="w"> </span><span class="k">in</span><span class="w"> </span>working<span class="w"> </span>directory<span class="o">)</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="w">        </span>modified:<span class="w">   </span>poeme.txt
+<a id="__codelineno-6-15" name="__codelineno-6-15"></a>
+<a id="__codelineno-6-16" name="__codelineno-6-16"></a>no<span class="w"> </span>changes<span class="w"> </span>added<span class="w"> </span>to<span class="w"> </span>commit<span class="w"> </span><span class="o">(</span>use<span class="w"> </span><span class="s2">&quot;git add&quot;</span><span class="w"> </span>and/or<span class="w"> </span><span class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17"></a>
+<a id="__codelineno-6-18" name="__codelineno-6-18"></a>❯<span class="w"> </span>git<span class="w"> </span>restore<span class="w"> </span>poeme.txt
+<a id="__codelineno-6-19" name="__codelineno-6-19"></a>❯<span class="w"> </span>cat<span class="w"> </span>poeme.txt
+<a id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="s2">&quot;c&#39;est un très joli poème n&#39;est-ce pas ? C&#39;est le premier ajout&quot;</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="en-zone-de-transit">En zone de transit</h3>
+<p>Si les modifications sont déjà en "staging area", prêtes à être versionnées. Il est encore possible de restaurer les fichiers mais en ajoutant cette fois ci l'argument <code>--staged</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Premier ajout</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;c&#39;est un très joli poème n&#39;est-ce pas ? C&#39;est le premier ajout&quot;</span>&gt;&gt;<span class="w"> </span>poeme.txt
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>❯<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>❯<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: ajout du premier commit&quot;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="o">[</span>master<span class="w"> </span>791eea7<span class="o">]</span><span class="w"> </span>feat:<span class="w"> </span>ajout<span class="w"> </span>du<span class="w"> </span>premier<span class="w"> </span>commit
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">1</span><span class="w"> </span>insertion<span class="o">(</span>+<span class="o">)</span>,<span class="w"> </span><span class="m">1</span><span class="w"> </span>deletion<span class="o">(</span>-<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Deuxième ajout</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span>
+<span class="normal"><a href="#__codelineno-8-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;c&#39;est un très joli poême n&#39;est-ce pas ? C&#39;est le deuxième ajout&quot;</span>&gt;&gt;<span class="w"> </span>poeme.txt
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>❯<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>Modifications<span class="w"> </span>qui<span class="w"> </span>seront<span class="w"> </span>validées<span class="w"> </span>:
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git restore --staged &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>désindexer<span class="o">)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span>modifié<span class="w"> </span>:<span class="w">         </span>poeme.txt
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Retour en arrière vers la zone de travail</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>❯<span class="w"> </span>git<span class="w"> </span>restore<span class="w"> </span>--staged<span class="w"> </span>poeme.txt
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>❯<span class="w"> </span>cat<span class="w"> </span>poeme.txt
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="s2">&quot;c&#39;est un très joli poème n&#39;est-ce pas ? C&#39;est le premier ajout&quot;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="s2">&quot;c&#39;est un très joli poême n&#39;est-ce pas ? C&#39;est le deuxième ajout&quot;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a>Modifications<span class="w"> </span>qui<span class="w"> </span>ne<span class="w"> </span>seront<span class="w"> </span>pas<span class="w"> </span>validées<span class="w"> </span>:
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>mettre<span class="w"> </span>à<span class="w"> </span>jour<span class="w"> </span>ce<span class="w"> </span>qui<span class="w"> </span>sera<span class="w"> </span>validé<span class="o">)</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git restore &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>annuler<span class="w"> </span>les<span class="w"> </span>modifications<span class="w"> </span>dans<span class="w"> </span>le<span class="w"> </span>répertoire<span class="w"> </span>de<span class="w"> </span>travail<span class="o">)</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="w">    </span>modifié<span class="w"> </span>:<span class="w">         </span>poeme.txt
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a>aucune<span class="w"> </span>modification<span class="w"> </span>n<span class="err">&#39;</span>a<span class="w"> </span>été<span class="w"> </span>ajoutée<span class="w"> </span>à<span class="w"> </span>la<span class="w"> </span>validation<span class="w"> </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add&quot;</span><span class="w"> </span>ou<span class="w"> </span><span class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Comme vous le voyez ici avec <code>cat poeme.txt</code>, la commande <code>git restore --staged poeme.txt</code> n'a pas supprimée la deuxième ligne de <code>poeme.txt</code>. La commande <code>git restore</code>, ne fait que restaurer l'état des fichiers avant la dernière commande git éxecutée. Ici dans notre cas, la dernière commande git éxecutée était <code>git add .</code>, on est donc revenu à l'état d'avant cette commande, ie :</p>
+<ul>
+<li>le fichier <code>poeme.txt</code> avait 2 lignes,</li>
+<li>il était prêt à être transféré en "staging area".</li>
+</ul>
+<p>Pour supprimer la deuxième ligne, il faudrait alors de nouveau appliquer une commande <code>git restore</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>❯<span class="w"> </span>git<span class="w"> </span>restore<span class="w"> </span>poeme.txt
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>❯<span class="w"> </span>cat<span class="w"> </span>poeme.txt
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="s2">&quot;c&#39;est un très joli poème n&#39;est-ce pas ? C&#39;est le premier ajout&quot;</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<ul>
+<li><code>git rm --cached</code></li>
+</ul>
+<h2 id="ignorer">Ignorer</h2>
+<p>Il est possible de forcer git à ignorer des fichiers ou des répertoires en les ajoutant au fichier <code>.gitignore</code>.</p>
+<h2 id="les-logs">Les logs</h2>
+<p>Pour voir l'ensemble des commits d'un repo git, vous pouvez taper la commande suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>git<span class="w"> </span>log
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Structure d'un log git</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">6</a></span>
+<span class="normal"><a href="#__codelineno-12-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>git<span class="w"> </span>log
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>commit<span class="w"> </span>83153b74fbedfde6c7bb6d6845ed56149829f86a<span class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span class="w"> </span>master<span class="o">)</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>Author:<span class="w"> </span>vorph<span class="w"> </span>&lt;klimczak.mathieu@pm.me&gt;
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a>Date:<span class="w">   </span>Mon<span class="w"> </span>May<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">15</span>:35:19<span class="w"> </span><span class="m">2022</span><span class="w"> </span>+0200
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">    </span>feat:<span class="w"> </span>add<span class="w"> </span>story.txt
+</code></pre></div></td></tr></table></div>
+<p>Un élément de log dans Git est constitué des éléments suivants :</p>
+<ul>
+<li>le hash du commit, qui est un identifiant alphanumérique unique au commit,</li>
+<li>l'auteur du commit,</li>
+<li>la date du commit,</li>
+<li>le texte écrit après l'argument <code>-m</code>.</li>
+</ul>
+<p><code>git log --oneline</code> permet de voir l'ensemble de ces infos au format une seule ligne.</p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Les fichiers versionnés n'apparaissent pas lorsque l'on utilise la commande <code>git log</code>.</p>
+</div>
+<p>Pour les faire apparaître on peut utiliser la commande <code>git log --name-only</code></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span>
+<span class="normal"><a href="#__codelineno-13-7">7</a></span>
+<span class="normal"><a href="#__codelineno-13-8">8</a></span>
+<span class="normal"><a href="#__codelineno-13-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>git<span class="w"> </span>log<span class="w"> </span>--name-only
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>commit<span class="w"> </span>83153b74fbedfde6c7bb6d6845ed56149829f86a<span class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span class="w"> </span>master<span class="o">)</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a>Author:<span class="w"> </span>vorph<span class="w"> </span>&lt;klimczak.mathieu@pm.me&gt;
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>Date:<span class="w">   </span>Mon<span class="w"> </span>May<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">15</span>:35:19<span class="w"> </span><span class="m">2022</span><span class="w"> </span>+0200
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7"></a><span class="w">    </span>feat:<span class="w"> </span>add<span class="w"> </span>story.txt
+<a id="__codelineno-13-8" name="__codelineno-13-8"></a>
+<a id="__codelineno-13-9" name="__codelineno-13-9"></a>story.txt
+</code></pre></div></td></tr></table></div>
+<p>Pour limiter l'affichage des logs aux k derniers commits, on utilise la commande <code>git log -n k</code>.</p>
+<h2 id="les-branches-git">Les branches Git</h2>
+<p>De façon basique, une branche est un pointeur vers un certain commit.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Crée une branche nommée dev</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>git<span class="w"> </span>branch<span class="w"> </span>dev
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Switcher sur la branche nommée dev</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>dev
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Crée une branche nommée dev et switch dessus directement</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>dev
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Supprime une branche nommée dev</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span>dev
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Liste toutes les branches</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>git<span class="w"> </span>branch
+</code></pre></div></td></tr></table></div>
+<pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit
+  commit
+  branch dev
+  branch dev-mathieu
+  checkout dev
+  commit
+  commit id:"3-e2cf2c8"
+  checkout dev-mathieu
+  commit
+  commit
+  checkout dev
+  merge dev-mathieu
+  checkout main
+  merge dev
+  commit id:"mise en prod"</code></pre>
+<h3 id="quest-ce-que-head">Qu'est ce que HEAD ?</h3>
+<p>Ce terme apparaît dans chaque commit que vous faites, par exemple dans l'exemple du dessus avec <code>git log</code>, on a <code>commit 83153b74fbedfde6c7bb6d6845ed56149829f86a (HEAD -&gt; master)</code>.</p>
+<p><code>HEAD</code> désigne votre position actuelle dans le graphe git. En prenant le graphe ci-dessus, si vous êtes positionné au dernier commit de la branche <code>dev</code>, alors <code>HEAD</code> sera <code>3-e2cf2c8</code>.</p>
+<p>Pour voir sur quel commit est positionné <code>HEAD</code>, <a href="https://stackoverflow.com/questions/1967967/git-command-to-display-head-commit-id">vous pouvez taper la commande suivante</a>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Montre le commit où est HEAD</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>git<span class="w"> </span>rev-parse<span class="w"> </span>HEAD
+</code></pre></div></td></tr></table></div>
+<p><code>HEAD -&gt; master</code> désigne donc la branche (ici <code>master</code>) dans le repo sur laquelle vous faites un <code>git commit</code>. <code>HEAD</code> pointe toujours vers le dernier commit sur la branche actuellement extraite.</p>
+<p><code>git log --graph --decorate</code> permet d'avoir un graphe des différents commits, branch et merge de l'historique.</p>
+<h3 id="git-merge"><code>git merge</code></h3>
+<p>Pour fusionner deux branches, la marche à suivre est la suivante :</p>
+<ol>
+<li>se positionner sur la branche <strong>vers laquelle</strong> on veut fusionner,</li>
+<li>taper la commande <code>git merge branche_a_fusionner</code>.</li>
+</ol>
+<p>Par exemple, supposons que je suis sur la branche <code>dev-mathieu</code>, et que je souhaite fusionner mon travail vers la branche <code>dev</code>.</p>
+<p><pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit
+  commit
+  branch dev
+  branch dev-mathieu
+  checkout dev
+  commit
+  commit
+  checkout dev-mathieu
+  commit
+  commit tag: "HEAD"</code></pre>
+La marche à suivre est alors :</p>
+<ol>
+<li><code>git checkout dev</code>,</li>
+<li><code>git merge dev-mathieu</code></li>
+</ol>
+<pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit
+  commit
+  branch dev
+  branch dev-mathieu
+  checkout dev
+  commit
+  commit
+  checkout dev-mathieu
+  commit
+  commit
+  checkout dev
+  merge dev-mathieu</code></pre>
+<p>On a deux type de <code>merge</code> différents :</p>
+<ol>
+<li>fast-forward,</li>
+<li>no-fast-forward</li>
+</ol>
+<p>Un <code>fast-forward merge</code> se fait lorsque la branche vers laquelle on souhaite fusionner n'a pas de commits en dehors de celui créant la branche. Dans ce cas là, la fusion ne crée pas de nouveau commit mais fusionne les commits des deux branches.</p>
+<div class="admonition example">
+<p class="admonition-title">fast-forward merge de dev-mathieu vers dev</p>
+<pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit
+  commit
+  branch dev
+  branch dev-mathieu
+  commit id:"2-6923bcf"
+  commit id:"3-9038f6c"</code></pre>
+<pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit
+  commit
+  branch dev
+  commit id:"2-6923bcf"
+  commit id:"3-9038f6c"</code></pre>
+</div>
+<p>Un <code>no-fast-forward merge</code> se fait lorsque la branche vers laquelle on souhaite fusionner a au moins un commit en dehors de ceux présents sur la branche à fusionner. Dans ce cas là, la fusion créera un nouveau commit (un merge commit) en fusionnant les commits des deux branches.</p>
+<div class="admonition example">
+<p class="admonition-title">no-fast-forward merge de dev-mathieu vers dev</p>
+<pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit
+  commit
+  branch dev
+  commit id:"2-aeb8393"
+  branch dev-mathieu
+  checkout dev
+  commit id:"3-e1bb5ee"
+  checkout dev-mathieu
+  commit id:"2-6923bcf"
+  commit id:"3-9038f6c"</code></pre>
+<pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit
+  commit
+  branch dev
+  commit id:"2-aeb8393"
+  commit id:"3-e1bb5ee"
+  commit id:"2-6923bcf"
+  commit id:"3-9038f6c"
+  commit id:"Merge"</code></pre>
+</div>
+<h2 id="initialiser-et-travailler-avec-un-repo-distant">Initialiser et travailler avec un repo distant</h2>
+<p>Les solutions les plus connues pour héberger des repos distants sont les suivantes :</p>
+<ul>
+<li>GitHub,</li>
+<li>GitLab,</li>
+<li>Bitbucket,</li>
+</ul>
+<p>Chacune des solutions ci-dessus, une fois un repo distant initialisé sur leur plateforme, founit une url de la forme :</p>
+<ul>
+<li><code>https://github.com/my_organization/my_repo.git</code>,</li>
+<li><code>https://gitlab.com/my_organization/my_repo.git</code>,</li>
+<li><code>https://bitbucket.org/my_organization/my_repo.git</code>.</li>
+</ul>
+<p>Pour ajouter ce repo distant à un projet local, on utilise la commande suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Connexion repo local vers repo distant (github par exemple)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/my_organization/my_repo.git
+</code></pre></div></td></tr></table></div>
+<p>Il est possibble de connecter plusieurs repos distants au même repo local.</p>
+<p>Pour voir l'ensemble des repos distants connectés au repo local, on utlise <code>git remote -v</code>.</p>
+<p>Envoyer les commits vers le repo distant se fait via la commande <code>git push origin main</code>.</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Working Area
+    participant Staging Area
+    participant Committed files
+    participant Repo distant
+
+    Note over Working Area: travail sur story.txt
+    activate Working Area
+    Working Area-&gt;&gt;Staging Area: git add story.txt
+    deactivate Working Area
+
+    activate Staging Area
+    Staging Area-&gt;&gt;Committed files: git commit -m "commit story.txt"
+    deactivate Staging Area
+
+    activate Committed files
+    Committed files-&gt;&gt;Repo distant: git push origin main
+    deactivate Committed files</code></pre>
+<ul>
+<li><code>git clone</code></li>
+<li><code>git fetch origin main</code></li>
+<li><code>git pull origin main</code></li>
+</ul>
+<p><code>git pull = git fetch + git merge</code></p>
+<ul>
+<li><code>git fork</code></li>
+</ul>
+<h3 id="difference-git-push-et-git-push-origin-main">Différence <code>git push</code> et <code>git push origin main</code></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-21-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-21-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-21-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-21-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-21-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-21-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-21-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-21-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-21-10">10</a></span>
+<span class="normal"><a href="#__codelineno-21-11">11</a></span>
+<span class="normal"><a href="#__codelineno-21-12">12</a></span>
+<span class="normal"><a href="#__codelineno-21-13">13</a></span>
+<span class="normal"><a href="#__codelineno-21-14">14</a></span>
+<span class="normal"><a href="#__codelineno-21-15">15</a></span>
+<span class="normal"><a href="#__codelineno-21-16">16</a></span>
+<span class="normal"><a href="#__codelineno-21-17">17</a></span>
+<span class="normal"><a href="#__codelineno-21-18">18</a></span>
+<span class="normal"><a href="#__codelineno-21-19">19</a></span>
+<span class="normal"><a href="#__codelineno-21-20">20</a></span>
+<span class="normal"><a href="#__codelineno-21-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>$<span class="w"> </span>git<span class="w"> </span>push
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a>fatal:<span class="w"> </span>The<span class="w"> </span>current<span class="w"> </span>branch<span class="w"> </span>master<span class="w"> </span>has<span class="w"> </span>no<span class="w"> </span>upstream<span class="w"> </span>branch.
+<a id="__codelineno-21-4" name="__codelineno-21-4"></a>To<span class="w"> </span>push<span class="w"> </span>the<span class="w"> </span>current<span class="w"> </span>branch<span class="w"> </span>and<span class="w"> </span><span class="nb">set</span><span class="w"> </span>the<span class="w"> </span>remote<span class="w"> </span>as<span class="w"> </span>upstream,<span class="w"> </span>use
+<a id="__codelineno-21-5" name="__codelineno-21-5"></a>
+<a id="__codelineno-21-6" name="__codelineno-21-6"></a><span class="w">    </span>git<span class="w"> </span>push<span class="w"> </span>--set-upstream<span class="w"> </span>origin<span class="w"> </span>master
+<a id="__codelineno-21-7" name="__codelineno-21-7"></a>
+<a id="__codelineno-21-8" name="__codelineno-21-8"></a>$<span class="w"> </span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+<a id="__codelineno-21-9" name="__codelineno-21-9"></a>
+<a id="__codelineno-21-10" name="__codelineno-21-10"></a>Username<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;http://git.example.com&#39;</span>:<span class="w"> </span>vorphus
+<a id="__codelineno-21-11" name="__codelineno-21-11"></a>Password<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;http://vorphus@git.example.com&#39;</span>:
+<a id="__codelineno-21-12" name="__codelineno-21-12"></a>Enumerating<span class="w"> </span>objects:<span class="w"> </span><span class="m">14</span>,<span class="w"> </span><span class="k">done</span>.
+<a id="__codelineno-21-13" name="__codelineno-21-13"></a>Counting<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">14</span>/14<span class="o">)</span>,<span class="w"> </span><span class="k">done</span>.
+<a id="__codelineno-21-14" name="__codelineno-21-14"></a>Delta<span class="w"> </span>compression<span class="w"> </span>using<span class="w"> </span>up<span class="w"> </span>to<span class="w"> </span><span class="m">36</span><span class="w"> </span>threads
+<a id="__codelineno-21-15" name="__codelineno-21-15"></a>Compressing<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">12</span>/12<span class="o">)</span>,<span class="w"> </span><span class="k">done</span>.
+<a id="__codelineno-21-16" name="__codelineno-21-16"></a>Writing<span class="w"> </span>objects:<span class="w"> </span><span class="m">100</span>%<span class="w"> </span><span class="o">(</span><span class="m">14</span>/14<span class="o">)</span>,<span class="w"> </span><span class="m">2</span>.05<span class="w"> </span>KiB<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">2</span>.05<span class="w"> </span>MiB/s,<span class="w"> </span><span class="k">done</span>.
+<a id="__codelineno-21-17" name="__codelineno-21-17"></a>Total<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="o">(</span>delta<span class="w"> </span><span class="m">4</span><span class="o">)</span>,<span class="w"> </span>reused<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">(</span>delta<span class="w"> </span><span class="m">0</span><span class="o">)</span>,<span class="w"> </span>pack-reused<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-21-18" name="__codelineno-21-18"></a>remote:<span class="w"> </span>.<span class="w"> </span>Processing<span class="w"> </span><span class="m">1</span><span class="w"> </span>references
+<a id="__codelineno-21-19" name="__codelineno-21-19"></a>remote:<span class="w"> </span>Processed<span class="w"> </span><span class="m">1</span><span class="w"> </span>references<span class="w"> </span><span class="k">in</span><span class="w"> </span>total
+<a id="__codelineno-21-20" name="__codelineno-21-20"></a>To<span class="w"> </span>http://git.example.com/vorphus/story-blog.git
+<a id="__codelineno-21-21" name="__codelineno-21-21"></a><span class="w"> </span>*<span class="w"> </span><span class="o">[</span>new<span class="w"> </span>branch<span class="o">]</span><span class="w">      </span>master<span class="w"> </span>-&gt;<span class="w"> </span>master
+</code></pre></div></td></tr></table></div>
+<h2 id="rebasing">Rebasing</h2>
+<p>Lorsque l'on travaille sur une branche distincte de la branche <code>main</code> et que l'on souhaite mettre à jour sa branche avec les modifications apportées sur la branche <code>main</code>, on a deux solutions.</p>
+<ol>
+<li>Faire un <code>merge</code> de la branche <code>main</code> vers notre branche.</li>
+</ol>
+<pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit id:"3-e1bb5ee"
+  branch dev
+  checkout main
+  commit id:"2-aeb8393"
+  checkout dev
+  commit id:"2-6923bcf"
+  commit id:"3-9038f6c"</code></pre>
+<ul>
+<li><code>git checkout dev</code></li>
+<li><code>git merge main</code></li>
+</ul>
+<p><pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit id:"3-e1bb5ee"
+  branch dev
+  checkout main
+  commit id:"2-aeb8393"
+  checkout dev
+  commit id:"2-6923bcf"
+  commit id:"3-9038f6c"
+  merge main</code></pre>
+2. Utiliser la commande <code>rebase</code>.</p>
+<pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit id:"3-e1bb5ee"
+  branch dev
+  checkout main
+  commit id:"2-aeb8393"
+  checkout dev
+  commit id:"2-6923bcf"
+  commit id:"3-9038f6c"</code></pre>
+<ul>
+<li><code>git checkout dev</code></li>
+<li><code>git rebase main</code></li>
+</ul>
+<p><pre class="mermaid"><code>%%{init: { 'logLevel': 'debug', 'theme': 'base', 'gitGraph': {'showBranches': true, 'showCommitLabel':true,'mainBranchName': 'main'}} }%%
+gitGraph
+  commit id:"3-e1bb5ee"
+  commit id:"2-aeb8393"
+  branch dev
+  checkout dev
+  commit id:"2-6893bcf"
+  commit id:"3-908526c"</code></pre>
+La commande <code>rebase</code> va modifier la base de la branche <code>dev</code> pour la positionner au dernier commit de la branche <code>main</code>, et donc mettre à jour les fichiers, sans pour autant modifier la position de la branche <code>main</code>.</p>
+<p>Une différence principale est que lors d'un <code>merge</code>, les hash des commits ne changent pas. Lors d'un rebase, comme l'on copie les fichiers à une nouvelle place, cela compte comme une opération et les hash se mettent à jour.</p>
+<p>En d'autres termes, faire un <code>rebase</code> modifie l'historique Git, alors que ce n'est pas le cas pour un <code>merge</code>.</p>
+<p><code>git rebase -i HEAD~k</code>, permet de faire un rebase interactif des k derniers commits, pour par exemple faire du "<a href="https://stackoverflow.com/questions/5189560/squash-my-last-x-commits-together-using-git">squash commit</a>".</p>
+<p><code>git cherry-pick hash</code></p>
+<h2 id="reset-et-revert">Reset et revert</h2>
+<p>Les commandes <code>git reset</code> et <code>git revert</code> sont toutes les deux des commandes permettant de revenir en arrière dans le graphe git. Mais leurs utilisations changent.</p>
+<h3 id="git-revert-hash"><code>git revert hash</code></h3>
+<p>La commande <code>git revert</code> permet de supprimer toutes les modifications faites lors du commit désigné par son hash (généralement le commit précédent).</p>
+<p>En d'autres termes, si un fichier à était ajouté lors du commit précédent, appliquer <code>git revert</code> sur ce commit supprimera ce fichier du graphe git.</p>
+<p>La commande <code>git revert</code> crée un nouveau commit, ce qui permet de suivre les modifications.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">git revert</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-22-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-22-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-22-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-22-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-22-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-22-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-22-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-22-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-22-10">10</a></span>
+<span class="normal"><a href="#__codelineno-22-11">11</a></span>
+<span class="normal"><a href="#__codelineno-22-12">12</a></span>
+<span class="normal"><a href="#__codelineno-22-13">13</a></span>
+<span class="normal"><a href="#__codelineno-22-14">14</a></span>
+<span class="normal"><a href="#__codelineno-22-15">15</a></span>
+<span class="normal"><a href="#__codelineno-22-16">16</a></span>
+<span class="normal"><a href="#__codelineno-22-17">17</a></span>
+<span class="normal"><a href="#__codelineno-22-18">18</a></span>
+<span class="normal"><a href="#__codelineno-22-19">19</a></span>
+<span class="normal"><a href="#__codelineno-22-20">20</a></span>
+<span class="normal"><a href="#__codelineno-22-21">21</a></span>
+<span class="normal"><a href="#__codelineno-22-22">22</a></span>
+<span class="normal"><a href="#__codelineno-22-23">23</a></span>
+<span class="normal"><a href="#__codelineno-22-24">24</a></span>
+<span class="normal"><a href="#__codelineno-22-25">25</a></span>
+<span class="normal"><a href="#__codelineno-22-26">26</a></span>
+<span class="normal"><a href="#__codelineno-22-27">27</a></span>
+<span class="normal"><a href="#__codelineno-22-28">28</a></span>
+<span class="normal"><a href="#__codelineno-22-29">29</a></span>
+<span class="normal"><a href="#__codelineno-22-30">30</a></span>
+<span class="normal"><a href="#__codelineno-22-31">31</a></span>
+<span class="normal"><a href="#__codelineno-22-32">32</a></span>
+<span class="normal"><a href="#__codelineno-22-33">33</a></span>
+<span class="normal"><a href="#__codelineno-22-34">34</a></span>
+<span class="normal"><a href="#__codelineno-22-35">35</a></span>
+<span class="normal"><a href="#__codelineno-22-36">36</a></span>
+<span class="normal"><a href="#__codelineno-22-37">37</a></span>
+<span class="normal"><a href="#__codelineno-22-38">38</a></span>
+<span class="normal"><a href="#__codelineno-22-39">39</a></span>
+<span class="normal"><a href="#__codelineno-22-40">40</a></span>
+<span class="normal"><a href="#__codelineno-22-41">41</a></span>
+<span class="normal"><a href="#__codelineno-22-42">42</a></span>
+<span class="normal"><a href="#__codelineno-22-43">43</a></span>
+<span class="normal"><a href="#__codelineno-22-44">44</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>❯<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>helloworld-git
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-22-4" name="__codelineno-22-4"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-22-5" name="__codelineno-22-5"></a>Fichiers<span class="w"> </span>non<span class="w"> </span>suivis:
+<a id="__codelineno-22-6" name="__codelineno-22-6"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>inclure<span class="w"> </span>dans<span class="w"> </span>ce<span class="w"> </span>qui<span class="w"> </span>sera<span class="w"> </span>validé<span class="o">)</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7"></a><span class="w">    </span>note.txt
+<a id="__codelineno-22-8" name="__codelineno-22-8"></a>
+<a id="__codelineno-22-9" name="__codelineno-22-9"></a>aucune<span class="w"> </span>modification<span class="w"> </span>ajoutée<span class="w"> </span>à<span class="w"> </span>la<span class="w"> </span>validation<span class="w"> </span>mais<span class="w"> </span>des<span class="w"> </span>fichiers<span class="w"> </span>non<span class="w"> </span>suivis<span class="w"> </span>sont<span class="w"> </span>présents<span class="w"> </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add&quot;</span><span class="w"> </span>pour<span class="w"> </span>les<span class="w"> </span>suivre<span class="o">)</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10"></a>
+<a id="__codelineno-22-11" name="__codelineno-22-11"></a>❯<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>.
+<a id="__codelineno-22-12" name="__codelineno-22-12"></a>
+<a id="__codelineno-22-13" name="__codelineno-22-13"></a>❯<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-22-14" name="__codelineno-22-14"></a><span class="o">[</span>master<span class="w"> </span>4f10f7d<span class="o">]</span><span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-22-15" name="__codelineno-22-15"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">1</span><span class="w"> </span>insertion<span class="o">(</span>+<span class="o">)</span>
+<a id="__codelineno-22-16" name="__codelineno-22-16"></a><span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>note.txt
+<a id="__codelineno-22-17" name="__codelineno-22-17"></a>
+<a id="__codelineno-22-18" name="__codelineno-22-18"></a>❯<span class="w"> </span>git<span class="w"> </span>revert<span class="w"> </span>4f10f7d
+<a id="__codelineno-22-19" name="__codelineno-22-19"></a>Suppression<span class="w"> </span>de<span class="w"> </span>note.txt
+<a id="__codelineno-22-20" name="__codelineno-22-20"></a><span class="o">[</span>master<span class="w"> </span>22dc824<span class="o">]</span><span class="w"> </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-22-21" name="__codelineno-22-21"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">1</span><span class="w"> </span>deletion<span class="o">(</span>-<span class="o">)</span>
+<a id="__codelineno-22-22" name="__codelineno-22-22"></a><span class="w"> </span>delete<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>note.txt
+<a id="__codelineno-22-23" name="__codelineno-22-23"></a>
+<a id="__codelineno-22-24" name="__codelineno-22-24"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-22-25" name="__codelineno-22-25"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-22-26" name="__codelineno-22-26"></a>rien<span class="w"> </span>à<span class="w"> </span>valider,<span class="w"> </span>la<span class="w"> </span>copie<span class="w"> </span>de<span class="w"> </span>travail<span class="w"> </span>est<span class="w"> </span>propre
+<a id="__codelineno-22-27" name="__codelineno-22-27"></a>
+<a id="__codelineno-22-28" name="__codelineno-22-28"></a>❯<span class="w"> </span>git<span class="w"> </span>log
+<a id="__codelineno-22-29" name="__codelineno-22-29"></a>
+<a id="__codelineno-22-30" name="__codelineno-22-30"></a>commit<span class="w"> </span>22dc824b7693ac8fc053bc0e1c8d2c23d8e8a981<span class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span class="w"> </span>master<span class="o">)</span>
+<a id="__codelineno-22-31" name="__codelineno-22-31"></a>Author:<span class="w"> </span>vorph<span class="w"> </span>&lt;klimczak.mathieu@pm.me&gt;
+<a id="__codelineno-22-32" name="__codelineno-22-32"></a>Date:<span class="w">   </span>Tue<span class="w"> </span>May<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">11</span>:03:44<span class="w"> </span><span class="m">2022</span><span class="w"> </span>+0200
+<a id="__codelineno-22-33" name="__codelineno-22-33"></a>
+<a id="__codelineno-22-34" name="__codelineno-22-34"></a><span class="w">    </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-22-35" name="__codelineno-22-35"></a>
+<a id="__codelineno-22-36" name="__codelineno-22-36"></a><span class="w">    </span>This<span class="w"> </span>reverts<span class="w"> </span>commit<span class="w"> </span>4f10f7d660aa7ce4c54afb2634062733053616c6.
+<a id="__codelineno-22-37" name="__codelineno-22-37"></a>
+<a id="__codelineno-22-38" name="__codelineno-22-38"></a><span class="w">    </span>Test<span class="w"> </span>de<span class="w"> </span>la<span class="w"> </span>commande<span class="w"> </span>git<span class="w"> </span>revert
+<a id="__codelineno-22-39" name="__codelineno-22-39"></a>
+<a id="__codelineno-22-40" name="__codelineno-22-40"></a>commit<span class="w"> </span>4f10f7d660aa7ce4c54afb2634062733053616c6
+<a id="__codelineno-22-41" name="__codelineno-22-41"></a>Author:<span class="w"> </span>vorph<span class="w"> </span>&lt;klimczak.mathieu@pm.me&gt;
+<a id="__codelineno-22-42" name="__codelineno-22-42"></a>Date:<span class="w">   </span>Tue<span class="w"> </span>May<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">11</span>:03:25<span class="w"> </span><span class="m">2022</span><span class="w"> </span>+0200
+<a id="__codelineno-22-43" name="__codelineno-22-43"></a>
+<a id="__codelineno-22-44" name="__codelineno-22-44"></a><span class="w">    </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+</code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Pour faire un revert sur le commit le plus récent, on peut aussi utliser la commande <code>git revert HEAD~0</code>.</p>
+</div>
+<h3 id="git-reset"><code>git reset</code></h3>
+<p>La commande <code>git reset</code> permet elle de supprimer directemnts des commit du graphe git. Selon l'argument qu'on lui assignera <code>--soft</code> ou <code>--hard</code> les modifications qui étaient présentes dans ces commits :</p>
+<ul>
+<li>retourneront en zone de transit (staging area), avec l'argument <code>--soft</code>,</li>
+<li>seront purement et simplement supprimées, avec l'argument <code>--hard</code>.</li>
+</ul>
+<p><code>HEAD~k</code> permet de déterminer sur combien de commits on doit revenir en arrière, à partir du pointeur <code>HEAD</code>, ici on revient en arrière sur k commits.</p>
+<ul>
+<li><code>git reset --soft HEAD~k</code></li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-23-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-23-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-23-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-23-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-23-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-23-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-23-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-23-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-23-10">10</a></span>
+<span class="normal"><a href="#__codelineno-23-11">11</a></span>
+<span class="normal"><a href="#__codelineno-23-12">12</a></span>
+<span class="normal"><a href="#__codelineno-23-13">13</a></span>
+<span class="normal"><a href="#__codelineno-23-14">14</a></span>
+<span class="normal"><a href="#__codelineno-23-15">15</a></span>
+<span class="normal"><a href="#__codelineno-23-16">16</a></span>
+<span class="normal"><a href="#__codelineno-23-17">17</a></span>
+<span class="normal"><a href="#__codelineno-23-18">18</a></span>
+<span class="normal"><a href="#__codelineno-23-19">19</a></span>
+<span class="normal"><a href="#__codelineno-23-20">20</a></span>
+<span class="normal"><a href="#__codelineno-23-21">21</a></span>
+<span class="normal"><a href="#__codelineno-23-22">22</a></span>
+<span class="normal"><a href="#__codelineno-23-23">23</a></span>
+<span class="normal"><a href="#__codelineno-23-24">24</a></span>
+<span class="normal"><a href="#__codelineno-23-25">25</a></span>
+<span class="normal"><a href="#__codelineno-23-26">26</a></span>
+<span class="normal"><a href="#__codelineno-23-27">27</a></span>
+<span class="normal"><a href="#__codelineno-23-28">28</a></span>
+<span class="normal"><a href="#__codelineno-23-29">29</a></span>
+<span class="normal"><a href="#__codelineno-23-30">30</a></span>
+<span class="normal"><a href="#__codelineno-23-31">31</a></span>
+<span class="normal"><a href="#__codelineno-23-32">32</a></span>
+<span class="normal"><a href="#__codelineno-23-33">33</a></span>
+<span class="normal"><a href="#__codelineno-23-34">34</a></span>
+<span class="normal"><a href="#__codelineno-23-35">35</a></span>
+<span class="normal"><a href="#__codelineno-23-36">36</a></span>
+<span class="normal"><a href="#__codelineno-23-37">37</a></span>
+<span class="normal"><a href="#__codelineno-23-38">38</a></span>
+<span class="normal"><a href="#__codelineno-23-39">39</a></span>
+<span class="normal"><a href="#__codelineno-23-40">40</a></span>
+<span class="normal"><a href="#__codelineno-23-41">41</a></span>
+<span class="normal"><a href="#__codelineno-23-42">42</a></span>
+<span class="normal"><a href="#__codelineno-23-43">43</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>❯<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/media/vorph/datas/perso/helloworld/helloworld-git
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;test&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>note.txt
+<a id="__codelineno-23-4" name="__codelineno-23-4"></a>
+<a id="__codelineno-23-5" name="__codelineno-23-5"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-23-6" name="__codelineno-23-6"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-23-7" name="__codelineno-23-7"></a>Fichiers<span class="w"> </span>non<span class="w"> </span>suivis:
+<a id="__codelineno-23-8" name="__codelineno-23-8"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>inclure<span class="w"> </span>dans<span class="w"> </span>ce<span class="w"> </span>qui<span class="w"> </span>sera<span class="w"> </span>validé<span class="o">)</span>
+<a id="__codelineno-23-9" name="__codelineno-23-9"></a><span class="w">    </span>note.txt
+<a id="__codelineno-23-10" name="__codelineno-23-10"></a>
+<a id="__codelineno-23-11" name="__codelineno-23-11"></a>aucune<span class="w"> </span>modification<span class="w"> </span>ajoutée<span class="w"> </span>à<span class="w"> </span>la<span class="w"> </span>validation<span class="w"> </span>mais<span class="w"> </span>des<span class="w"> </span>fichiers<span class="w"> </span>non<span class="w"> </span>suivis<span class="w"> </span>sont<span class="w"> </span>présents<span class="w"> </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add&quot;</span><span class="w"> </span>pour<span class="w"> </span>les<span class="w"> </span>suivre<span class="o">)</span>
+<a id="__codelineno-23-12" name="__codelineno-23-12"></a>
+<a id="__codelineno-23-13" name="__codelineno-23-13"></a>❯<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-23-14" name="__codelineno-23-14"></a>
+<a id="__codelineno-23-15" name="__codelineno-23-15"></a>❯<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-23-16" name="__codelineno-23-16"></a><span class="o">[</span>master<span class="w"> </span>be87880<span class="o">]</span><span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-23-17" name="__codelineno-23-17"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">1</span><span class="w"> </span>insertion<span class="o">(</span>+<span class="o">)</span>
+<a id="__codelineno-23-18" name="__codelineno-23-18"></a><span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>note.txt
+<a id="__codelineno-23-19" name="__codelineno-23-19"></a>
+<a id="__codelineno-23-20" name="__codelineno-23-20"></a>❯<span class="w"> </span>git<span class="w"> </span>reset<span class="w"> </span>--soft<span class="w"> </span>HEAD~1
+<a id="__codelineno-23-21" name="__codelineno-23-21"></a>
+<a id="__codelineno-23-22" name="__codelineno-23-22"></a>❯<span class="w"> </span>git<span class="w"> </span>log
+<a id="__codelineno-23-23" name="__codelineno-23-23"></a>commit<span class="w"> </span>22dc824b7693ac8fc053bc0e1c8d2c23d8e8a981<span class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span class="w"> </span>master<span class="o">)</span>
+<a id="__codelineno-23-24" name="__codelineno-23-24"></a>Author:<span class="w"> </span>vorph<span class="w"> </span>&lt;klimczak.mathieu@pm.me&gt;
+<a id="__codelineno-23-25" name="__codelineno-23-25"></a>Date:<span class="w">   </span>Tue<span class="w"> </span>May<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">11</span>:03:44<span class="w"> </span><span class="m">2022</span><span class="w"> </span>+0200
+<a id="__codelineno-23-26" name="__codelineno-23-26"></a>
+<a id="__codelineno-23-27" name="__codelineno-23-27"></a><span class="w">    </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-23-28" name="__codelineno-23-28"></a>
+<a id="__codelineno-23-29" name="__codelineno-23-29"></a><span class="w">    </span>This<span class="w"> </span>reverts<span class="w"> </span>commit<span class="w"> </span>4f10f7d660aa7ce4c54afb2634062733053616c6.
+<a id="__codelineno-23-30" name="__codelineno-23-30"></a>
+<a id="__codelineno-23-31" name="__codelineno-23-31"></a><span class="w">    </span>Test<span class="w"> </span>de<span class="w"> </span>la<span class="w"> </span>commande<span class="w"> </span>git<span class="w"> </span>revert
+<a id="__codelineno-23-32" name="__codelineno-23-32"></a>
+<a id="__codelineno-23-33" name="__codelineno-23-33"></a>commit<span class="w"> </span>4f10f7d660aa7ce4c54afb2634062733053616c6
+<a id="__codelineno-23-34" name="__codelineno-23-34"></a>Author:<span class="w"> </span>vorph<span class="w"> </span>&lt;klimczak.mathieu@pm.me&gt;
+<a id="__codelineno-23-35" name="__codelineno-23-35"></a>Date:<span class="w">   </span>Tue<span class="w"> </span>May<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="m">11</span>:03:25<span class="w"> </span><span class="m">2022</span><span class="w"> </span>+0200
+<a id="__codelineno-23-36" name="__codelineno-23-36"></a>
+<a id="__codelineno-23-37" name="__codelineno-23-37"></a><span class="w">    </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-23-38" name="__codelineno-23-38"></a>
+<a id="__codelineno-23-39" name="__codelineno-23-39"></a>commit<span class="w"> </span>83153b74fbedfde6c7bb6d6845ed56149829f86a
+<a id="__codelineno-23-40" name="__codelineno-23-40"></a>Author:<span class="w"> </span>vorph<span class="w"> </span>&lt;klimczak.mathieu@pm.me&gt;
+<a id="__codelineno-23-41" name="__codelineno-23-41"></a>Date:<span class="w">   </span>Mon<span class="w"> </span>May<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="m">15</span>:35:19<span class="w"> </span><span class="m">2022</span><span class="w"> </span>+0200
+<a id="__codelineno-23-42" name="__codelineno-23-42"></a>
+<a id="__codelineno-23-43" name="__codelineno-23-43"></a><span class="w">    </span>feat:<span class="w"> </span>add<span class="w"> </span>story.txt
+</code></pre></div></td></tr></table></div>
+<p>Remarquez que le commit <code>be87880</code>, avant <code>git reset --soft HEAD~1</code>, n'apparaît pas dans les logs.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">note.txt est retourné en staging area</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span>
+<span class="normal"><a href="#__codelineno-24-2">2</a></span>
+<span class="normal"><a href="#__codelineno-24-3">3</a></span>
+<span class="normal"><a href="#__codelineno-24-4">4</a></span>
+<span class="normal"><a href="#__codelineno-24-5">5</a></span>
+<span class="normal"><a href="#__codelineno-24-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-24-2" name="__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-24-4" name="__codelineno-24-4"></a>Modifications<span class="w"> </span>qui<span class="w"> </span>seront<span class="w"> </span>validées<span class="w"> </span>:
+<a id="__codelineno-24-5" name="__codelineno-24-5"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git restore --staged &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>désindexer<span class="o">)</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6"></a><span class="w">    </span>nouveau<span class="w"> </span>fichier<span class="w"> </span>:<span class="w"> </span>note.txt
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><code>git reset --hard HEAD~k</code></li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">note.txt est supprimé avec --hard</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-25-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-25-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-25-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-25-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-25-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-25-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-25-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-25-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-25-10">10</a></span>
+<span class="normal"><a href="#__codelineno-25-11">11</a></span>
+<span class="normal"><a href="#__codelineno-25-12">12</a></span>
+<span class="normal"><a href="#__codelineno-25-13">13</a></span>
+<span class="normal"><a href="#__codelineno-25-14">14</a></span>
+<span class="normal"><a href="#__codelineno-25-15">15</a></span>
+<span class="normal"><a href="#__codelineno-25-16">16</a></span>
+<span class="normal"><a href="#__codelineno-25-17">17</a></span>
+<span class="normal"><a href="#__codelineno-25-18">18</a></span>
+<span class="normal"><a href="#__codelineno-25-19">19</a></span>
+<span class="normal"><a href="#__codelineno-25-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a>
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a>Modifications<span class="w"> </span>qui<span class="w"> </span>seront<span class="w"> </span>validées<span class="w"> </span>:
+<a id="__codelineno-25-5" name="__codelineno-25-5"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git restore --staged &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>désindexer<span class="o">)</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6"></a><span class="w">    </span>nouveau<span class="w"> </span>fichier<span class="w"> </span>:<span class="w"> </span>note.txt
+<a id="__codelineno-25-7" name="__codelineno-25-7"></a>
+<a id="__codelineno-25-8" name="__codelineno-25-8"></a>❯<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-25-9" name="__codelineno-25-9"></a>
+<a id="__codelineno-25-10" name="__codelineno-25-10"></a>❯<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-25-11" name="__codelineno-25-11"></a><span class="o">[</span>master<span class="w"> </span>c92b48a<span class="o">]</span><span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-25-12" name="__codelineno-25-12"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">1</span><span class="w"> </span>insertion<span class="o">(</span>+<span class="o">)</span>
+<a id="__codelineno-25-13" name="__codelineno-25-13"></a><span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>note.txt
+<a id="__codelineno-25-14" name="__codelineno-25-14"></a>
+<a id="__codelineno-25-15" name="__codelineno-25-15"></a>❯<span class="w"> </span>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD~1
+<a id="__codelineno-25-16" name="__codelineno-25-16"></a>HEAD<span class="w"> </span>est<span class="w"> </span>maintenant<span class="w"> </span>à<span class="w"> </span>22dc824<span class="w"> </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-25-17" name="__codelineno-25-17"></a>
+<a id="__codelineno-25-18" name="__codelineno-25-18"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-25-19" name="__codelineno-25-19"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-25-20" name="__codelineno-25-20"></a>rien<span class="w"> </span>à<span class="w"> </span>valider,<span class="w"> </span>la<span class="w"> </span>copie<span class="w"> </span>de<span class="w"> </span>travail<span class="w"> </span>est<span class="w"> </span>propre
+</code></pre></div></td></tr></table></div>
+<h3 id="git-stash"><code>git stash</code></h3>
+<p>Permet de mettre en cache des documents qui sont dans la staging area pour par exemple eviter de les commit de façon accidentelle.</p>
+<ul>
+<li><code>git stash</code></li>
+<li><code>git stash pop</code></li>
+<li><code>git stash pop stash_id</code></li>
+<li><code>git stash show stash_id</code></li>
+</ul>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Working Area
+    participant Staging Area
+    participant Stash
+
+    Note over Working Area: travail sur story.txt
+    activate Working Area
+    Working Area-&gt;&gt;Staging Area: git add story.txt
+    deactivate Working Area
+
+    activate Staging Area
+    Staging Area-&gt;&gt;Stash: git stash
+    deactivate Staging Area</code></pre>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">stash met en cache les fichiers de la staging area</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-26-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-26-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-26-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-26-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-26-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-26-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-26-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-26-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-26-10">10</a></span>
+<span class="normal"><a href="#__codelineno-26-11">11</a></span>
+<span class="normal"><a href="#__codelineno-26-12">12</a></span>
+<span class="normal"><a href="#__codelineno-26-13">13</a></span>
+<span class="normal"><a href="#__codelineno-26-14">14</a></span>
+<span class="normal"><a href="#__codelineno-26-15">15</a></span>
+<span class="normal"><a href="#__codelineno-26-16">16</a></span>
+<span class="normal"><a href="#__codelineno-26-17">17</a></span>
+<span class="normal"><a href="#__codelineno-26-18">18</a></span>
+<span class="normal"><a href="#__codelineno-26-19">19</a></span>
+<span class="normal"><a href="#__codelineno-26-20">20</a></span>
+<span class="normal"><a href="#__codelineno-26-21">21</a></span>
+<span class="normal"><a href="#__codelineno-26-22">22</a></span>
+<span class="normal"><a href="#__codelineno-26-23">23</a></span>
+<span class="normal"><a href="#__codelineno-26-24">24</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a>❯<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>helloworld-git
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a>
+<a id="__codelineno-26-3" name="__codelineno-26-3"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-26-4" name="__codelineno-26-4"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-26-5" name="__codelineno-26-5"></a>Fichiers<span class="w"> </span>non<span class="w"> </span>suivis:
+<a id="__codelineno-26-6" name="__codelineno-26-6"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>inclure<span class="w"> </span>dans<span class="w"> </span>ce<span class="w"> </span>qui<span class="w"> </span>sera<span class="w"> </span>validé<span class="o">)</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7"></a><span class="w">    </span>note.txt
+<a id="__codelineno-26-8" name="__codelineno-26-8"></a><span class="w">    </span>note2.txt
+<a id="__codelineno-26-9" name="__codelineno-26-9"></a>
+<a id="__codelineno-26-10" name="__codelineno-26-10"></a>aucune<span class="w"> </span>modification<span class="w"> </span>ajoutée<span class="w"> </span>à<span class="w"> </span>la<span class="w"> </span>validation<span class="w"> </span>mais<span class="w"> </span>des<span class="w"> </span>fichiers<span class="w"> </span>non<span class="w"> </span>suivis<span class="w"> </span>sont<span class="w"> </span>présents<span class="w"> </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add&quot;</span><span class="w"> </span>pour<span class="w"> </span>les<span class="w"> </span>suivre<span class="o">)</span>
+<a id="__codelineno-26-11" name="__codelineno-26-11"></a>
+<a id="__codelineno-26-12" name="__codelineno-26-12"></a>❯<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-26-13" name="__codelineno-26-13"></a>
+<a id="__codelineno-26-14" name="__codelineno-26-14"></a>❯<span class="w"> </span>git<span class="w"> </span>stash
+<a id="__codelineno-26-15" name="__codelineno-26-15"></a>Arbre<span class="w"> </span>de<span class="w"> </span>travail<span class="w"> </span>et<span class="w"> </span>état<span class="w"> </span>de<span class="w"> </span>l<span class="w"> </span>index<span class="w"> </span>sauvegardés<span class="w"> </span>dans<span class="w"> </span>WIP<span class="w"> </span>on<span class="w"> </span>master:<span class="w"> </span>22dc824<span class="w"> </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-26-16" name="__codelineno-26-16"></a>
+<a id="__codelineno-26-17" name="__codelineno-26-17"></a>❯<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>note2.txt
+<a id="__codelineno-26-18" name="__codelineno-26-18"></a>
+<a id="__codelineno-26-19" name="__codelineno-26-19"></a>❯<span class="w"> </span>git<span class="w"> </span>stash
+<a id="__codelineno-26-20" name="__codelineno-26-20"></a>Arbre<span class="w"> </span>de<span class="w"> </span>travail<span class="w"> </span>et<span class="w"> </span>état<span class="w"> </span>de<span class="w"> </span>l<span class="w"> </span>index<span class="w"> </span>sauvegardés<span class="w"> </span>dans<span class="w"> </span>WIP<span class="w"> </span>on<span class="w"> </span>master:<span class="w"> </span>22dc824<span class="w"> </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-26-21" name="__codelineno-26-21"></a>
+<a id="__codelineno-26-22" name="__codelineno-26-22"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-26-23" name="__codelineno-26-23"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-26-24" name="__codelineno-26-24"></a>rien<span class="w"> </span>à<span class="w"> </span>valider,<span class="w"> </span>la<span class="w"> </span>copie<span class="w"> </span>de<span class="w"> </span>travail<span class="w"> </span>est<span class="w"> </span>propre
+</code></pre></div></td></tr></table></div>
+<p><div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Les deux fichiers sans visibles dans stash</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span>
+<span class="normal"><a href="#__codelineno-27-2">2</a></span>
+<span class="normal"><a href="#__codelineno-27-3">3</a></span>
+<span class="normal"><a href="#__codelineno-27-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>git<span class="w"> </span>stash<span class="w"> </span>list
+<a id="__codelineno-27-2" name="__codelineno-27-2"></a>
+<a id="__codelineno-27-3" name="__codelineno-27-3"></a>stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span>:<span class="w"> </span>WIP<span class="w"> </span>on<span class="w"> </span>master:<span class="w"> </span>22dc824<span class="w"> </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4"></a>stash@<span class="o">{</span><span class="m">1</span><span class="o">}</span>:<span class="w"> </span>WIP<span class="w"> </span>on<span class="w"> </span>master:<span class="w"> </span>22dc824<span class="w"> </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+</code></pre></div></td></tr></table></div>
+Pour voir quels éléments sont stockés dans un des éléments du stash, on peut utiliser la commande <code>git stash show</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span>
+<span class="normal"><a href="#__codelineno-28-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a>❯<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>show<span class="w"> </span>stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a>note.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>+
+<a id="__codelineno-28-3" name="__codelineno-28-3"></a><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">1</span><span class="w"> </span>insertion<span class="o">(</span>+<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p>On peut lancer plusieurs commandes à ma suite :</p>
+<p><code>git stash show stash@{0} ; git stash show stash@{1}; git stash show stash@{2}</code></p>
+<p><code>stash</code> marche comme une pile, on est en mode <strong>LIFO</strong> : <strong>Last In First Out</strong>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">LIFO</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-29-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-29-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-29-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-29-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-29-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-29-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-29-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-29-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-29-10">10</a></span>
+<span class="normal"><a href="#__codelineno-29-11">11</a></span>
+<span class="normal"><a href="#__codelineno-29-12">12</a></span>
+<span class="normal"><a href="#__codelineno-29-13">13</a></span>
+<span class="normal"><a href="#__codelineno-29-14">14</a></span>
+<span class="normal"><a href="#__codelineno-29-15">15</a></span>
+<span class="normal"><a href="#__codelineno-29-16">16</a></span>
+<span class="normal"><a href="#__codelineno-29-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a>❯<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>pop
+<a id="__codelineno-29-2" name="__codelineno-29-2"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-29-3" name="__codelineno-29-3"></a>Modifications<span class="w"> </span>qui<span class="w"> </span>seront<span class="w"> </span>validées<span class="w"> </span>:
+<a id="__codelineno-29-4" name="__codelineno-29-4"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git restore --staged &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>désindexer<span class="o">)</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5"></a><span class="w">    </span>nouveau<span class="w"> </span>fichier<span class="w"> </span>:<span class="w"> </span>note2.txt
+<a id="__codelineno-29-6" name="__codelineno-29-6"></a>
+<a id="__codelineno-29-7" name="__codelineno-29-7"></a>refs/stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span><span class="w"> </span>supprimé<span class="w"> </span><span class="o">(</span>f3642afe7ca5869fbc6498e693bb6745a5087db3<span class="o">)</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8"></a>
+<a id="__codelineno-29-9" name="__codelineno-29-9"></a>
+<a id="__codelineno-29-10" name="__codelineno-29-10"></a>❯<span class="w"> </span>git<span class="w"> </span>stash<span class="w"> </span>pop
+<a id="__codelineno-29-11" name="__codelineno-29-11"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-29-12" name="__codelineno-29-12"></a>Modifications<span class="w"> </span>qui<span class="w"> </span>seront<span class="w"> </span>validées<span class="w"> </span>:
+<a id="__codelineno-29-13" name="__codelineno-29-13"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git restore --staged &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>désindexer<span class="o">)</span>
+<a id="__codelineno-29-14" name="__codelineno-29-14"></a><span class="w">    </span>nouveau<span class="w"> </span>fichier<span class="w"> </span>:<span class="w"> </span>note.txt
+<a id="__codelineno-29-15" name="__codelineno-29-15"></a><span class="w">    </span>nouveau<span class="w"> </span>fichier<span class="w"> </span>:<span class="w"> </span>note2.txt
+<a id="__codelineno-29-16" name="__codelineno-29-16"></a>
+<a id="__codelineno-29-17" name="__codelineno-29-17"></a>refs/stash@<span class="o">{</span><span class="m">0</span><span class="o">}</span><span class="w"> </span>supprimé<span class="w"> </span><span class="o">(</span>1f490abc174ac6b5089f8329ac116b6db285b0eb<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="git-reflog"><code>git reflog</code></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-30-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-30-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-30-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-30-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-30-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-30-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-30-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-30-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-30-10">10</a></span>
+<span class="normal"><a href="#__codelineno-30-11">11</a></span>
+<span class="normal"><a href="#__codelineno-30-12">12</a></span>
+<span class="normal"><a href="#__codelineno-30-13">13</a></span>
+<span class="normal"><a href="#__codelineno-30-14">14</a></span>
+<span class="normal"><a href="#__codelineno-30-15">15</a></span>
+<span class="normal"><a href="#__codelineno-30-16">16</a></span>
+<span class="normal"><a href="#__codelineno-30-17">17</a></span>
+<span class="normal"><a href="#__codelineno-30-18">18</a></span>
+<span class="normal"><a href="#__codelineno-30-19">19</a></span>
+<span class="normal"><a href="#__codelineno-30-20">20</a></span>
+<span class="normal"><a href="#__codelineno-30-21">21</a></span>
+<span class="normal"><a href="#__codelineno-30-22">22</a></span>
+<span class="normal"><a href="#__codelineno-30-23">23</a></span>
+<span class="normal"><a href="#__codelineno-30-24">24</a></span>
+<span class="normal"><a href="#__codelineno-30-25">25</a></span>
+<span class="normal"><a href="#__codelineno-30-26">26</a></span>
+<span class="normal"><a href="#__codelineno-30-27">27</a></span>
+<span class="normal"><a href="#__codelineno-30-28">28</a></span>
+<span class="normal"><a href="#__codelineno-30-29">29</a></span>
+<span class="normal"><a href="#__codelineno-30-30">30</a></span>
+<span class="normal"><a href="#__codelineno-30-31">31</a></span>
+<span class="normal"><a href="#__codelineno-30-32">32</a></span>
+<span class="normal"><a href="#__codelineno-30-33">33</a></span>
+<span class="normal"><a href="#__codelineno-30-34">34</a></span>
+<span class="normal"><a href="#__codelineno-30-35">35</a></span>
+<span class="normal"><a href="#__codelineno-30-36">36</a></span>
+<span class="normal"><a href="#__codelineno-30-37">37</a></span>
+<span class="normal"><a href="#__codelineno-30-38">38</a></span>
+<span class="normal"><a href="#__codelineno-30-39">39</a></span>
+<span class="normal"><a href="#__codelineno-30-40">40</a></span>
+<span class="normal"><a href="#__codelineno-30-41">41</a></span>
+<span class="normal"><a href="#__codelineno-30-42">42</a></span>
+<span class="normal"><a href="#__codelineno-30-43">43</a></span>
+<span class="normal"><a href="#__codelineno-30-44">44</a></span>
+<span class="normal"><a href="#__codelineno-30-45">45</a></span>
+<span class="normal"><a href="#__codelineno-30-46">46</a></span>
+<span class="normal"><a href="#__codelineno-30-47">47</a></span>
+<span class="normal"><a href="#__codelineno-30-48">48</a></span>
+<span class="normal"><a href="#__codelineno-30-49">49</a></span>
+<span class="normal"><a href="#__codelineno-30-50">50</a></span>
+<span class="normal"><a href="#__codelineno-30-51">51</a></span>
+<span class="normal"><a href="#__codelineno-30-52">52</a></span>
+<span class="normal"><a href="#__codelineno-30-53">53</a></span>
+<span class="normal"><a href="#__codelineno-30-54">54</a></span>
+<span class="normal"><a href="#__codelineno-30-55">55</a></span>
+<span class="normal"><a href="#__codelineno-30-56">56</a></span>
+<span class="normal"><a href="#__codelineno-30-57">57</a></span>
+<span class="normal"><a href="#__codelineno-30-58">58</a></span>
+<span class="normal"><a href="#__codelineno-30-59">59</a></span>
+<span class="normal"><a href="#__codelineno-30-60">60</a></span>
+<span class="normal"><a href="#__codelineno-30-61">61</a></span>
+<span class="normal"><a href="#__codelineno-30-62">62</a></span>
+<span class="normal"><a href="#__codelineno-30-63">63</a></span>
+<span class="normal"><a href="#__codelineno-30-64">64</a></span>
+<span class="normal"><a href="#__codelineno-30-65">65</a></span>
+<span class="normal"><a href="#__codelineno-30-66">66</a></span>
+<span class="normal"><a href="#__codelineno-30-67">67</a></span>
+<span class="normal"><a href="#__codelineno-30-68">68</a></span>
+<span class="normal"><a href="#__codelineno-30-69">69</a></span>
+<span class="normal"><a href="#__codelineno-30-70">70</a></span>
+<span class="normal"><a href="#__codelineno-30-71">71</a></span>
+<span class="normal"><a href="#__codelineno-30-72">72</a></span>
+<span class="normal"><a href="#__codelineno-30-73">73</a></span>
+<span class="normal"><a href="#__codelineno-30-74">74</a></span>
+<span class="normal"><a href="#__codelineno-30-75">75</a></span>
+<span class="normal"><a href="#__codelineno-30-76">76</a></span>
+<span class="normal"><a href="#__codelineno-30-77">77</a></span>
+<span class="normal"><a href="#__codelineno-30-78">78</a></span>
+<span class="normal"><a href="#__codelineno-30-79">79</a></span>
+<span class="normal"><a href="#__codelineno-30-80">80</a></span>
+<span class="normal"><a href="#__codelineno-30-81">81</a></span>
+<span class="normal"><a href="#__codelineno-30-82">82</a></span>
+<span class="normal"><a href="#__codelineno-30-83">83</a></span>
+<span class="normal"><a href="#__codelineno-30-84">84</a></span>
+<span class="normal"><a href="#__codelineno-30-85">85</a></span>
+<span class="normal"><a href="#__codelineno-30-86">86</a></span>
+<span class="normal"><a href="#__codelineno-30-87">87</a></span>
+<span class="normal"><a href="#__codelineno-30-88">88</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a>❯<span class="w"> </span>git<span class="w"> </span>status
+<a id="__codelineno-30-2" name="__codelineno-30-2"></a>Sur<span class="w"> </span>la<span class="w"> </span>branche<span class="w"> </span>master
+<a id="__codelineno-30-3" name="__codelineno-30-3"></a>Modifications<span class="w"> </span>qui<span class="w"> </span>seront<span class="w"> </span>validées<span class="w"> </span>:
+<a id="__codelineno-30-4" name="__codelineno-30-4"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git restore --staged &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>désindexer<span class="o">)</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5"></a><span class="w">    </span>nouveau<span class="w"> </span>fichier<span class="w"> </span>:<span class="w"> </span>note.txt
+<a id="__codelineno-30-6" name="__codelineno-30-6"></a>
+<a id="__codelineno-30-7" name="__codelineno-30-7"></a>Fichiers<span class="w"> </span>non<span class="w"> </span>suivis:
+<a id="__codelineno-30-8" name="__codelineno-30-8"></a><span class="w">  </span><span class="o">(</span>utilisez<span class="w"> </span><span class="s2">&quot;git add &lt;fichier&gt;...&quot;</span><span class="w"> </span>pour<span class="w"> </span>inclure<span class="w"> </span>dans<span class="w"> </span>ce<span class="w"> </span>qui<span class="w"> </span>sera<span class="w"> </span>validé<span class="o">)</span>
+<a id="__codelineno-30-9" name="__codelineno-30-9"></a><span class="w">    </span>note2.txt
+<a id="__codelineno-30-10" name="__codelineno-30-10"></a>
+<a id="__codelineno-30-11" name="__codelineno-30-11"></a>❯<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-30-12" name="__codelineno-30-12"></a><span class="o">[</span>master<span class="w"> </span>d77fcf6<span class="o">]</span><span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-13" name="__codelineno-30-13"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">1</span><span class="w"> </span>insertion<span class="o">(</span>+<span class="o">)</span>
+<a id="__codelineno-30-14" name="__codelineno-30-14"></a><span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>note.txt
+<a id="__codelineno-30-15" name="__codelineno-30-15"></a>
+<a id="__codelineno-30-16" name="__codelineno-30-16"></a>❯<span class="w"> </span>git<span class="w"> </span>add<span class="w"> </span>note2.txt
+<a id="__codelineno-30-17" name="__codelineno-30-17"></a>
+<a id="__codelineno-30-18" name="__codelineno-30-18"></a>❯<span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;feat: add note2.txt&quot;</span>
+<a id="__codelineno-30-19" name="__codelineno-30-19"></a><span class="o">[</span>master<span class="w"> </span>0f502d5<span class="o">]</span><span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note2.txt
+<a id="__codelineno-30-20" name="__codelineno-30-20"></a><span class="w"> </span><span class="m">1</span><span class="w"> </span>file<span class="w"> </span>changed,<span class="w"> </span><span class="m">1</span><span class="w"> </span>insertion<span class="o">(</span>+<span class="o">)</span>
+<a id="__codelineno-30-21" name="__codelineno-30-21"></a><span class="w"> </span>create<span class="w"> </span>mode<span class="w"> </span><span class="m">100644</span><span class="w"> </span>note2.txt
+<a id="__codelineno-30-22" name="__codelineno-30-22"></a>
+<a id="__codelineno-30-23" name="__codelineno-30-23"></a>❯<span class="w"> </span>git<span class="w"> </span>reflog
+<a id="__codelineno-30-24" name="__codelineno-30-24"></a>
+<a id="__codelineno-30-25" name="__codelineno-30-25"></a>0f502d5<span class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span class="w"> </span>master<span class="o">)</span><span class="w"> </span>HEAD@<span class="o">{</span><span class="m">0</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note2.txt
+<a id="__codelineno-30-26" name="__codelineno-30-26"></a>d77fcf6<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">1</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-27" name="__codelineno-30-27"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">2</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-28" name="__codelineno-30-28"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">3</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-29" name="__codelineno-30-29"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">4</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-30" name="__codelineno-30-30"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">5</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-31" name="__codelineno-30-31"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">6</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-32" name="__codelineno-30-32"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">7</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-33" name="__codelineno-30-33"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">8</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-34" name="__codelineno-30-34"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">9</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD~1
+<a id="__codelineno-30-35" name="__codelineno-30-35"></a>c92b48a<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">10</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-36" name="__codelineno-30-36"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">11</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD~1
+<a id="__codelineno-30-37" name="__codelineno-30-37"></a>be87880<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">12</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-38" name="__codelineno-30-38"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">13</span><span class="o">}</span>:<span class="w"> </span>revert:<span class="w"> </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-30-39" name="__codelineno-30-39"></a>4f10f7d<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">14</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-40" name="__codelineno-30-40"></a>83153b7<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">15</span><span class="o">}</span>:<span class="w"> </span>commit<span class="w"> </span><span class="o">(</span>initial<span class="o">)</span>:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>story.txt
+<a id="__codelineno-30-41" name="__codelineno-30-41"></a>
+<a id="__codelineno-30-42" name="__codelineno-30-42"></a>❯<span class="w"> </span>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>HEAD~1
+<a id="__codelineno-30-43" name="__codelineno-30-43"></a>HEAD<span class="w"> </span>est<span class="w"> </span>maintenant<span class="w"> </span>à<span class="w"> </span>d77fcf6<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-44" name="__codelineno-30-44"></a>
+<a id="__codelineno-30-45" name="__codelineno-30-45"></a>❯<span class="w"> </span>git<span class="w"> </span>reflog
+<a id="__codelineno-30-46" name="__codelineno-30-46"></a>d77fcf6<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">1</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD~1
+<a id="__codelineno-30-47" name="__codelineno-30-47"></a>0f502d5<span class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span class="w"> </span>master<span class="o">)</span><span class="w"> </span>HEAD@<span class="o">{</span><span class="m">2</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note2.txt
+<a id="__codelineno-30-48" name="__codelineno-30-48"></a>d77fcf6<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">3</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-49" name="__codelineno-30-49"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">4</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-50" name="__codelineno-30-50"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">5</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-51" name="__codelineno-30-51"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">6</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-52" name="__codelineno-30-52"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">7</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-53" name="__codelineno-30-53"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">8</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-54" name="__codelineno-30-54"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">9</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-55" name="__codelineno-30-55"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">10</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-56" name="__codelineno-30-56"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">11</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD~1
+<a id="__codelineno-30-57" name="__codelineno-30-57"></a>c92b48a<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">12</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-58" name="__codelineno-30-58"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">13</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD~1
+<a id="__codelineno-30-59" name="__codelineno-30-59"></a>be87880<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">14</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-60" name="__codelineno-30-60"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">15</span><span class="o">}</span>:<span class="w"> </span>revert:<span class="w"> </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-30-61" name="__codelineno-30-61"></a>4f10f7d<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">16</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-62" name="__codelineno-30-62"></a>83153b7<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">17</span><span class="o">}</span>:<span class="w"> </span>commit<span class="w"> </span><span class="o">(</span>initial<span class="o">)</span>:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>story.txt
+<a id="__codelineno-30-63" name="__codelineno-30-63"></a>
+<a id="__codelineno-30-64" name="__codelineno-30-64"></a>❯<span class="w"> </span>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>0f502d5
+<a id="__codelineno-30-65" name="__codelineno-30-65"></a>HEAD<span class="w"> </span>est<span class="w"> </span>maintenant<span class="w"> </span>à<span class="w"> </span>0f502d5<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note2.txt
+<a id="__codelineno-30-66" name="__codelineno-30-66"></a>
+<a id="__codelineno-30-67" name="__codelineno-30-67"></a>❯<span class="w"> </span>git<span class="w"> </span>reflog
+<a id="__codelineno-30-68" name="__codelineno-30-68"></a>0f502d5<span class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span class="w"> </span>master<span class="o">)</span><span class="w"> </span>HEAD@<span class="o">{</span><span class="m">0</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>0f502d5
+<a id="__codelineno-30-69" name="__codelineno-30-69"></a>d77fcf6<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">1</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD~1
+<a id="__codelineno-30-70" name="__codelineno-30-70"></a>0f502d5<span class="w"> </span><span class="o">(</span>HEAD<span class="w"> </span>-&gt;<span class="w"> </span>master<span class="o">)</span><span class="w"> </span>HEAD@<span class="o">{</span><span class="m">2</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note2.txt
+<a id="__codelineno-30-71" name="__codelineno-30-71"></a>d77fcf6<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">3</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-72" name="__codelineno-30-72"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">4</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-73" name="__codelineno-30-73"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">5</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-74" name="__codelineno-30-74"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">6</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-75" name="__codelineno-30-75"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">7</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-76" name="__codelineno-30-76"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">8</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-77" name="__codelineno-30-77"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">9</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-78" name="__codelineno-30-78"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">10</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD
+<a id="__codelineno-30-79" name="__codelineno-30-79"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">11</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD~1
+<a id="__codelineno-30-80" name="__codelineno-30-80"></a>c92b48a<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">12</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-81" name="__codelineno-30-81"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">13</span><span class="o">}</span>:<span class="w"> </span>reset:<span class="w"> </span>moving<span class="w"> </span>to<span class="w"> </span>HEAD~1
+<a id="__codelineno-30-82" name="__codelineno-30-82"></a>be87880<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">14</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-83" name="__codelineno-30-83"></a>22dc824<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">15</span><span class="o">}</span>:<span class="w"> </span>revert:<span class="w"> </span>Revert<span class="w"> </span><span class="s2">&quot;feat: add note.txt&quot;</span>
+<a id="__codelineno-30-84" name="__codelineno-30-84"></a>4f10f7d<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">16</span><span class="o">}</span>:<span class="w"> </span>commit:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>note.txt
+<a id="__codelineno-30-85" name="__codelineno-30-85"></a>83153b7<span class="w"> </span>HEAD@<span class="o">{</span><span class="m">17</span><span class="o">}</span>:<span class="w"> </span>commit<span class="w"> </span><span class="o">(</span>initial<span class="o">)</span>:<span class="w"> </span>feat:<span class="w"> </span>add<span class="w"> </span>story.txt
+<a id="__codelineno-30-86" name="__codelineno-30-86"></a>
+<a id="__codelineno-30-87" name="__codelineno-30-87"></a>❯<span class="w"> </span>ls
+<a id="__codelineno-30-88" name="__codelineno-30-88"></a><span class="w"> </span>note.txt<span class="w">  </span><span class="w"> </span>note2.txt<span class="w">  </span><span class="w"> </span>story.txt
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><a href="https://stackoverflow.com/questions/17857723/whats-the-difference-between-git-reflog-and-log">What's the difference between git reflog and log?</a></li>
+</ul>
+<h2 id="tags-et-release">tags et release</h2>
+<h2 id="commits-conventionnels">Commits Conventionnels</h2>
+<p><a href="https://www.conventionalcommits.org/fr/v1.0.0/">Voir la documentation</a></p>
+<p>Le commit contient les éléments structurels suivants, permettant de communiquer à l’intention des consommateurs de votre bibliothèque:</p>
+<ol>
+<li><code>fix</code>: un commit de type <code>fix</code> corrige un bogue dans le code (cela est en corrélation avec <code>PATCH</code> en versioning sémantique).</li>
+<li><code>feat</code>: un commit de type <code>feat</code> introduit une nouvelle fonctionnalité dans le code (cela est en corrélation avec <code>MINOR</code> en versioning sémantique).</li>
+<li><code>BREAKING CHANGE</code>: un commit qui a dans le pied de page le mot clef <code>BREAKING CHANGE</code>:, ou ajoute un <code>!</code> après le type/scope, introduit un changement cassant l’API (cela est en corrélation avec <code>MAJOR</code> en versioning sémantique). Un <code>BREAKING CHANGE</code> peut faire partie des commits de n’importe quel type.</li>
+<li>Les types autre que <code>fix:</code> et <code>feat:</code> sont autorisés, par exemple <a href="https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional">@commitlint/config-conventional</a> (basé sur <a href="https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines">the Angular convention</a>) recommande <code>build:</code>, <code>chore:</code>, <code>ci:</code>, <code>docs:</code>, <code>style:</code>, <code>refactor:</code>, <code>perf:</code>, <code>test:</code>, etc.</li>
+<li>Les pieds de pages autre que <code>BREAKING CHANGE: &lt;description&gt;</code> peuvent être fourni et suivre une convention similaire à <a href="https://git-scm.com/docs/git-interpret-trailers">git trailer format.</a></li>
+</ol>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

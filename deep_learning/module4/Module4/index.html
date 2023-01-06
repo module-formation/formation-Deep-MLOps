@@ -1,0 +1,3414 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../../module3/Module3/">
+      
+      
+        <link rel="next" href="../Module4_2/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>Théorie - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-4-optimisation-et-regularisation-des-reseaux-de-neurones" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Théorie
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../module1/Module1/" class="md-tabs__link md-tabs__link--active">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../azure_ml/intro/" class="md-tabs__link">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../devops/linux/" class="md-tabs__link">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Théorie
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Théorie
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#le-compromis-biais-variance" class="md-nav__link">
+    Le compromis biais-variance
+  </a>
+  
+    <nav class="md-nav" aria-label="Le compromis biais-variance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#le-cas-de-la-regression" class="md-nav__link">
+    Le cas de la régression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-cas-de-la-classification" class="md-nav__link">
+    Le cas de la classification
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#earlystopping-regularisation-dropout-et-batchnorm" class="md-nav__link">
+    EarlyStopping, régularisation, Dropout et BatchNorm
+  </a>
+  
+    <nav class="md-nav" aria-label="EarlyStopping, régularisation, Dropout et BatchNorm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#earlystopping" class="md-nav__link">
+    EarlyStopping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="###" class="md-nav__link">
+    Régularisations L1 , L2
+  </a>
+  
+    <nav class="md-nav" aria-label="Régularisations L1 , L2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="####" class="md-nav__link">
+    Régularisation L2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="####" class="md-nav__link">
+    Régularisation L1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpretation-geometrique" class="md-nav__link">
+    Interprétation géométrique
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dropout" class="md-nav__link">
+    Dropout
+  </a>
+  
+    <nav class="md-nav" aria-label="Dropout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dentrainement" class="md-nav__link">
+    Phase d'entraînement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-de-test" class="md-nav__link">
+    Phase de test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pourquoi-ca-marche" class="md-nav__link">
+    Pourquoi ça marche.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batchnorm" class="md-nav__link">
+    BatchNorm
+  </a>
+  
+    <nav class="md-nav" aria-label="BatchNorm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dentrainement_1" class="md-nav__link">
+    Phase d'entraînement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-de-test_1" class="md-nav__link">
+    Phase de test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pourquoi-ca-marche_1" class="md-nav__link">
+    Pourquoi ça marche ?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-methodes-dinitialisation-des-poids-xavier-he" class="md-nav__link">
+    Les méthodes d'initialisation des poids (Xavier, He)
+  </a>
+  
+    <nav class="md-nav" aria-label="Les méthodes d'initialisation des poids (Xavier, He)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminologie" class="md-nav__link">
+    Terminologie
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initilisation-de-xavier" class="md-nav__link">
+    Initilisation de Xavier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initilisation-de-he" class="md-nav__link">
+    Initilisation de He
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-cas-des-cnn" class="md-nav__link">
+    Le cas des CNN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimisation-de-la-descente-du-gradient-stochastique" class="md-nav__link">
+    Optimisation de la descente du gradient stochastique
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimisation de la descente du gradient stochastique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-rate-decay" class="md-nav__link">
+    Learning rate Decay
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning rate Decay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lrd-exponentiel" class="md-nav__link">
+    LRD exponentiel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lrd-inverse" class="md-nav__link">
+    LRD inverse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lrd-divise" class="md-nav__link">
+    LRD divisé
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#momentum" class="md-nav__link">
+    Momentum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nesterov" class="md-nav__link">
+    Nesterov
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taux-dapprentissage-adaptatif" class="md-nav__link">
+    Taux d'apprentissage adaptatif
+  </a>
+  
+    <nav class="md-nav" aria-label="Taux d'apprentissage adaptatif">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rmsprop" class="md-nav__link">
+    RMSProp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adam" class="md-nav__link">
+    Adam
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparaison" class="md-nav__link">
+    Comparaison
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#le-compromis-biais-variance" class="md-nav__link">
+    Le compromis biais-variance
+  </a>
+  
+    <nav class="md-nav" aria-label="Le compromis biais-variance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#le-cas-de-la-regression" class="md-nav__link">
+    Le cas de la régression
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-cas-de-la-classification" class="md-nav__link">
+    Le cas de la classification
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#earlystopping-regularisation-dropout-et-batchnorm" class="md-nav__link">
+    EarlyStopping, régularisation, Dropout et BatchNorm
+  </a>
+  
+    <nav class="md-nav" aria-label="EarlyStopping, régularisation, Dropout et BatchNorm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#earlystopping" class="md-nav__link">
+    EarlyStopping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="###" class="md-nav__link">
+    Régularisations L1 , L2
+  </a>
+  
+    <nav class="md-nav" aria-label="Régularisations L1 , L2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="####" class="md-nav__link">
+    Régularisation L2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="####" class="md-nav__link">
+    Régularisation L1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpretation-geometrique" class="md-nav__link">
+    Interprétation géométrique
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dropout" class="md-nav__link">
+    Dropout
+  </a>
+  
+    <nav class="md-nav" aria-label="Dropout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dentrainement" class="md-nav__link">
+    Phase d'entraînement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-de-test" class="md-nav__link">
+    Phase de test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pourquoi-ca-marche" class="md-nav__link">
+    Pourquoi ça marche.
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batchnorm" class="md-nav__link">
+    BatchNorm
+  </a>
+  
+    <nav class="md-nav" aria-label="BatchNorm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-dentrainement_1" class="md-nav__link">
+    Phase d'entraînement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-de-test_1" class="md-nav__link">
+    Phase de test
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pourquoi-ca-marche_1" class="md-nav__link">
+    Pourquoi ça marche ?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-methodes-dinitialisation-des-poids-xavier-he" class="md-nav__link">
+    Les méthodes d'initialisation des poids (Xavier, He)
+  </a>
+  
+    <nav class="md-nav" aria-label="Les méthodes d'initialisation des poids (Xavier, He)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminologie" class="md-nav__link">
+    Terminologie
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initilisation-de-xavier" class="md-nav__link">
+    Initilisation de Xavier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initilisation-de-he" class="md-nav__link">
+    Initilisation de He
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-cas-des-cnn" class="md-nav__link">
+    Le cas des CNN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimisation-de-la-descente-du-gradient-stochastique" class="md-nav__link">
+    Optimisation de la descente du gradient stochastique
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimisation de la descente du gradient stochastique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#learning-rate-decay" class="md-nav__link">
+    Learning rate Decay
+  </a>
+  
+    <nav class="md-nav" aria-label="Learning rate Decay">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lrd-exponentiel" class="md-nav__link">
+    LRD exponentiel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lrd-inverse" class="md-nav__link">
+    LRD inverse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lrd-divise" class="md-nav__link">
+    LRD divisé
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#momentum" class="md-nav__link">
+    Momentum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nesterov" class="md-nav__link">
+    Nesterov
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taux-dapprentissage-adaptatif" class="md-nav__link">
+    Taux d'apprentissage adaptatif
+  </a>
+  
+    <nav class="md-nav" aria-label="Taux d'apprentissage adaptatif">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rmsprop" class="md-nav__link">
+    RMSProp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adam" class="md-nav__link">
+    Adam
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparaison" class="md-nav__link">
+    Comparaison
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-4-optimisation-et-regularisation-des-reseaux-de-neurones">Module 4 : Optimisation et régularisation des réseaux de neurones</h1>
+<p>Le but d'un réseau de neurones est de créer un modèle <span class="arithmatex">\(\hat{f}\)</span> minimisant</p>
+<div class="arithmatex">\[
+    \mathbf{E}(\mathcal{L}_{\vartheta}(\hat{y}))
+\]</div>
+<p>où la moyenne est prise sur le dataset d'entraînement complet, <span class="arithmatex">\(\mathcal{L}_{\vartheta}\)</span> est la fonction de perte choisie pour ce problème d'optimisation, et <span class="arithmatex">\(\hat{y}\)</span> est la prédiction obtenue par <span class="arithmatex">\(\hat{f}\)</span>, <span class="arithmatex">\(\hat{f}(x) = \hat{y}\)</span>.</p>
+<p>Entraîner un algorithme de deep learning est coûteux, en temps de calcul comme en ressource matériel. Beaucoup de techniques ont donc été développées pour réduire ces contraintes et faire converger les algorithmes plus rapidement.</p>
+<h2 id="le-compromis-biais-variance">Le compromis biais-variance</h2>
+<h3 id="le-cas-de-la-regression">Le cas de la régression</h3>
+<p>Dans un problème de régression classique la fonction de perte utilisée et le plus souvent <strong>l'Erreur Moyenne Quadratique</strong> (<strong>Mean Squared Error</strong>), définie de la façon suivante.</p>
+<div class="arithmatex">\[
+    MSE(\hat{y}) :=  \mathbf{E}((\hat{y}-y)^2) = \frac{1}{k}\sum_{i=1}^{k} ||\hat{y}_{i} - y_{i}||^{2}_{2}
+\]</div>
+<p>Cette formule peut encore se décomposer de la façon suivante.</p>
+<div class="admonition note">
+<p class="admonition-title">Décomposition biais variance</p>
+<div class="arithmatex">\[
+    MSE(\hat{y}) = \mathbf{Var}(\hat{y}) + \mathbf{Biais}(\hat{y})^2
+\]</div>
+</div>
+<p><span class="arithmatex">\(\mathbf{Var}(\hat{y})\)</span> est la <strong>variance</strong> de <span class="arithmatex">\(\hat{y}\)</span>, elle est définie par la formule suivante.</p>
+<div class="arithmatex">\[
+        \mathbf{Var}(\hat{y}) = \mathbf{E}((\hat{y}- \mathbf{E}(\hat{y}))^2)
+\]</div>
+<p><span class="arithmatex">\(\mathbf{Biais}(\hat{y})\)</span> est le <strong>biais</strong> de <span class="arithmatex">\(\hat{y}\)</span>, il est défini par la formule suivante.</p>
+<div class="arithmatex">\[
+    \mathbf{Biais}(\hat{y}) = \mathbf{E}(\hat{y}) - y
+\]</div>
+<p>La variance mesure la dispersion moyenne de notre prédiction par rapport à la valeur moyenne des prédictions. Une variance importante signifiant que nos valeurs s'écarterons beaucoup de la moyenne.</p>
+<p>Le biais lui nous dit de combien en moyenne notre prédiction dévie de la vraie valeur. Une prédiction est alors <strong>non biaisée</strong> si <span class="arithmatex">\(\mathbf{E}(\mathbf{Biais}(\hat{y})) = 0\)</span>.</p>
+<p><img alt="Screenshot" src="../images/tradeoff.svg" /></p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>La décomposition biais-variance fait normalement intervernir un troisisème terme, qui correspond à un terme d'erreur. Par simplicité, nous avons choisi de ne pas le faire apparaître.</p>
+</div>
+<p>Le but, dans l'évaluation d'une régression linéaire, est d'essayer de se placer dans le cas idéal où le biais et la variance sont faibles. Cependant il y a nécessairement un compromis à faire entre les deux. De façon générale, si la variance baisse au cours du temps, le biais lui augmente.</p>
+<p><img alt="Screenshot" src="../images/complexity.png" /></p>
+<p>La combinaison du biais et de la variance permet de quantifier <strong>la compléxité du modèle</strong>.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple de sous-apprentissage, apprentissage correct, sur-apprentissage.</p>
+<p><img alt="Screenshot" src="../images/fit.png" /></p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<ol>
+<li>Un modèle avec une <strong>variance faible</strong>, mais un <strong>biais élevé</strong> est en <strong>sous-apprentissage</strong>, que l'on appelle aussi parfois sur-généralisation.</li>
+<li>Un modèle avec une <strong>variance élevé</strong>, mais un <strong>biais faible</strong>, est en <strong>sur-apprentissage</strong>.</li>
+</ol>
+</div>
+<h3 id="le-cas-de-la-classification">Le cas de la classification</h3>
+<p>Si l'on ne se place pas dans le cadre d'une régression, mais dans le cadre d'un problème de classification. La question de l'existence d'une décomposition biais-variance pour une fonction de perte <span class="arithmatex">\(\mathcal{L}_{\vartheta}\)</span> quelconque reste compliquée. Nous avons toutefois les résultats suivants.</p>
+<div class="admonition note">
+<p class="admonition-title">Théorème (Domingos)</p>
+<p>Dans un problème de classification binaire, si la fonction de perte <span class="arithmatex">\(\mathcal{L}_{\vartheta}\)</span> vérifie</p>
+<ol>
+<li><span class="arithmatex">\(\mathcal{L}_{\vartheta}(y,y)=0, \, \forall y\)</span></li>
+<li><span class="arithmatex">\(\mathcal{L}_{\vartheta}(y_{1},y_{2}) \neq 0, \, \forall y_{1} \neq y_{2}\)</span></li>
+</ol>
+<p>Alors</p>
+<div class="arithmatex">\[
+    \mathbf{E}(\mathcal{L}_{\vartheta}(\hat{y}))
+\]</div>
+<p>Admet une décompoistion biais-variance.</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Pour une classification multiclasse ?</p>
+<p>Si l'on se place dans le cadre d'un problème de classification multiclasse, la question reste ouverte.</p>
+</div>
+<h2 id="earlystopping-regularisation-dropout-et-batchnorm">EarlyStopping, régularisation, Dropout et BatchNorm</h2>
+<p>A chaque fois, le but de ces méthodes est d'atténuer les problèmes de sur-apprentissage, afin que notre modèle soit capable de généraliser correctement. De façon usuelle, on y parvient en réduisant la compléxité du modèle, ou en réduisant la variance de la prédiction. Dans le cadre des réseaux de neurones c'est le plus souvent obtenu en rajoutant de l'information, ou en modifiant la fonction de perte.</p>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>Avant de passer aux méthodes de régularisation des réseaux de neurones à proprement parler, listons ici les différentes options disponibles pour éviter le surapprentissage.</p>
+<ol>
+<li>
+<p>Collecter plus de données (pas toujours faisable, par exemple en médecine), faire de l'augmtentation de données (attention à la faire de façon correcte, par exemple les rotations et symetries en Computer Vision).</p>
+</li>
+<li>
+<p>Choisir une architecture de modèle plus petite.</p>
+</li>
+<li>
+<p>Ajouter du bruit.</p>
+</li>
+<li>
+<p>Séparer en <strong>3 datasets distincts</strong> votre jeu de données : un dataset d'entraînement, un dataset de validation, et un dataset de test.</p>
+<ol>
+<li>
+<p>Le dataset de validation sera utilisé pour mesurer les performances du modèle, et le tuning des hyperparamètres.</p>
+</li>
+<li>
+<p>Le dataset de test lui donnera une estimation non biaisée des performances de généralisation du modèle.</p>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<h3 id="earlystopping">EarlyStopping</h3>
+<p>Lorsque d'un modèle s'entraîne trop longtemps, les performances générales du modèle sur le dataset de validation ont tendance à stagner, alors que celle sur le dataset d'entraînement peuvent très bien continuer à s'améliorer. On est alors dans un cas de sur-apprentissage.</p>
+<p>L'idée est alors de surveiller l'écart entre les performances du modèle sur le dataset d'entraînement et celles sur le dataset de validation. La plupart du temps, la métrique observée est la valeur de la fonction de perte sur le dataset de validation. Une fois que l'écart devient "trop important" ou que la métrique de validation ne s'améliore plus pendant un certain nombre d'époques, on arêtte l'entraînement.</p>
+<p>Sur Tensorflow, cela se gère via l'API keras avec le callback EarlyStopping.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span>
+<span class="normal"><a href="#__codelineno-0-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>                                 <span class="n">min_delta</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>                                 <span class="n">patience</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>                                 <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>                                 <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>                                 <span class="n">baseline</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>                                 <span class="n">restore_best_weights</span><span class="o">=</span><span class="kc">False</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>                                <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Cette méthode n'est plus très utilisée actuellement, les versions modernes de Tensorflow (tout comme Pytorch), nous permettent de sauvegarder les meilleurs modèles sans avoir à stoper l'entraînement.</p>
+<h3 L1L2="L1L2" id="##">Régularisations <span class="arithmatex">\(L_{1}\)</span> , <span class="arithmatex">\(L_{2}\)</span></h3>
+<p>Les méthodes de régularisation <span class="arithmatex">\(L_{1}\)</span> , <span class="arithmatex">\(L_{2}\)</span> sont des méthodes provenant de l'apprentissage statistique et du Machine Learning classique. On peut trouver la régularisation <span class="arithmatex">\(L_{1}\)</span> sous le terme de <strong>régression LASSO</strong>, et la régularisation <span class="arithmatex">\(L_{2}\)</span> sous le terme de <strong>régression Ridge</strong> (voire même <strong>régularisation de Thikonov</strong>).</p>
+<p>Ici, l'idée est de contraindre les poids "à être petits", on peut y penser comme l'ajout d'une pénalité contre la compléxité.</p>
+<h4 L2="L2" id="###">Régularisation <span class="arithmatex">\(L_{2}\)</span></h4>
+<p>Plaçons nous dans le cas d'un modèle linéaire, tel qu'un Perceptron simple, avec ici une entrée de dimension 8 et un seul neurone donnant une prédiction <span class="arithmatex">\(\hat{y}\)</span>, la fonction d'activations <span class="arithmatex">\(\sigma\)</span> est ici quelconque, de même que la fonction de perte <span class="arithmatex">\(\mathcal{L}_{\vartheta}\)</span>, qui peut être une MSE, la log-vraissemblance négative, l'entropie croisée.</p>
+<p><img alt="Screenshot" src="../images/test.svg" /></p>
+<p><strong>Sans régularisation</strong>, la fonction de perte que l'on cherche à minimiser est alors définie par</p>
+<div class="arithmatex">\[
+        \mathcal{L}_{\vartheta} := \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}_{\vartheta}(y_{i}, \hat{y_{i}})
+\]</div>
+<p>Ajouter une régularisation <span class="arithmatex">\(L_{2}\)</span> revient à ajouter une pénalité à la fonction de perte, la nouvelle fonction de perte considérée est alors la suivante.</p>
+<div class="arithmatex">\[
+    \begin{align}
+        \mathcal{L}_{\vartheta} &amp; := \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}_{\vartheta}(y_{i}, \hat{y_{i}}) + \frac{\lambda}{N}  \sum_{j=1}^{8} w_{j}^{2} \\
+                            &amp; = \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}_{\vartheta}(y_{i}, \hat{y_{i}}) + \frac{\lambda}{N}  ||w||^{2}_{2}
+    \end{align}
+\]</div>
+<p>Ce que l'on a fait ici consiste à rajouter dans la fonction de perte <strong>la sommes des poids du réseau au carré</strong>, d'où le terme de régularisation <span class="arithmatex">\(L_{2}\)</span> puisque ce que l'on a fait ici est de <strong>calculer la norme euclidienne</strong> (norme <span class="arithmatex">\(L_{2}\)</span>) <strong>du vecteur de poids du réseau</strong>.</p>
+<p>Pour minimiser la fonction de perte, il est donc nécessaire pour le réseau de minimiser ses poids, sans pour autant qu'il soient tous nuls. Si la norme euclidienne du vecteur de poids est nulle, alors tous les poids sont nuls, et donc <span class="arithmatex">\(\hat{y}\)</span> ne dépendra entièrement que du biais, ce qui implique une prédiction relativement mauvaise.</p>
+<p>Ici, <span class="arithmatex">\(\lambda\)</span> est un hyperparamètre apprenable et <span class="arithmatex">\(N\)</span> correspond à la taille du minibatch dans la descente du gradient stochastique.</p>
+<p>Dans le cas d'un réseau avec plusieurs couches, comme un Perceptron multicouches, on somme d'abord les neurones d'une couche, puis on réitère cette somme sur chaque couche.</p>
+<p><img alt="Screenshot" src="../images/MLP_final.svg" /></p>
+<p>On obtient alors la formules de régularisation suivante,</p>
+<div class="arithmatex">\[
+    \mathcal{L}_{\vartheta} := \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}_{\vartheta}(y_{i}, \hat{y_{i}}) + \frac{\lambda}{N} \sum_{s = 1}^{\ell} ||\mathbf{W}_{s}||^{2}_{F}
+\]</div>
+<p>où <span class="arithmatex">\(||\mathbf{W}_{s}||^{2}_{F}\)</span> est <strong>la norme de Frobenius</strong> de la matrice des poids de la couche <span class="arithmatex">\(s\)</span>, <span class="arithmatex">\(\mathbf{W}_{s}\)</span>, ie la somme du carré de ses éléments.</p>
+<div class="arithmatex">\[
+    ||\mathbf{W}_{s}||^{2}_{F} := \sum_{i} \sum_{j} (w_{i,j}^{s})^{2}
+\]</div>
+<h4 L1="L1" id="###">Régularisation <span class="arithmatex">\(L_{1}\)</span></h4>
+<p>Dans le cas d'une régularisation <span class="arithmatex">\(L_{1}\)</span>, la norme euclidienne est alors remplacée par <strong>la somme des valeurs absolues des poids du réseau</strong>.</p>
+<div class="arithmatex">\[
+    \begin{align}
+    \mathcal{L}_{\vartheta} &amp; := \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}_{\vartheta}(y_{i}, \hat{y_{i}}) + \frac{\lambda}{N}  \sum_{j=1}^{8} |w_{j}| \\
+                            &amp; = \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}_{\vartheta}(y_{i}, \hat{y_{i}}) + \frac{\lambda}{N}  ||w||_{1}
+    \end{align}
+\]</div>
+<p>Dans le cas d'un réseau avec plusieurs couches, comme un Perceptron multicouches, on somme d'abord les neurones d'une couche, puis on réitère cette somme sur chaque couche.</p>
+<p>On obtient alors la formules de régularisation suivante,</p>
+<div class="arithmatex">\[
+    \mathcal{L}_{\vartheta} := \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}_{\vartheta}(y_{i}, \hat{y_{i}}) + \frac{\lambda}{N} \sum_{s = 1}^{\ell} ||\mathbf{W}_{s}||_{1}
+\]</div>
+<p>où <span class="arithmatex">\(||\mathbf{W}_{s}||_{1}\)</span> est la somme des valeurs absolues de ses éléments.</p>
+<div class="arithmatex">\[
+    ||\mathbf{W}_{s}||_{1} := \sum_{i} \sum_{j} |w_{i,j}^{s}|
+\]</div>
+<p>La régularisation <span class="arithmatex">\(L_{1}\)</span> encourage les matrices de poids à etre creuse, c'est à dire à avoir beaucoup de zéros dans leurs éléments. En pratique cette méthode est peu utilisée, du fait que la norme <span class="arithmatex">\(L_{1}\)</span> n'est pas différentiable, les réseaux régularisés avec cette méthode sont plus dur à optimiser.</p>
+<h4 id="interpretation-geometrique">Interprétation géométrique</h4>
+<p><img alt="Screenshot" src="../images/l1l2.svg" /></p>
+<h3 id="dropout">Dropout</h3>
+<h4 id="phase-dentrainement">Phase d'entraînement</h4>
+<p>Le dropout fait partie de l'état de l'art en ce qui concerne les techniques de régularisation des réseaux de neurones. Proposé par Geoffrey Hinton en 2012 (<em>Improving neural networks by preventing co-adaptation of feature detectors</em>, https://arxiv.org/pdf/1207.0580.pdf) et plus détaillé en 2014 par Nitish Srivastava et al. (<em>Dropout: A Simple Way to Prevent Neural Networks from Overfitting</em>, http://jmlr.org/papers/v15/srivastava14a.html).</p>
+<p>La technique de dropout c'est avérée très puissante, elle a permis d'améliorer la précision des réseaux de neurones faisant partie de l'état de l'art de <span class="arithmatex">\(1-2 \%\)</span> simplement en l'ajoutant à ces réseaux.</p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Une amélioration de <span class="arithmatex">\(2\%\)</span> peut sembler peu, mais si un modèle est dejà à <span class="arithmatex">\(95\%\)</span> de précision, alors une augmentation de <span class="arithmatex">\(2\%\)</span> signifie que l'on a réduit le taux d'erreur de <span class="arithmatex">\(40\%\)</span> (en allant de <span class="arithmatex">\(5\%\)</span> d'erreur à <span class="arithmatex">\(3\%\)</span>) !</p>
+<p>Si votre modèle classifiait mal <span class="arithmatex">\(20000\)</span> images, cela veut dire que <span class="arithmatex">\(8000\)</span> nouvelles images sont maintenant correctement classifiées.</p>
+</div>
+<p>L'idée est simple, à chaque étape d'entraînement, tous les neurones (hormis les neurones de sortie) ont une probabilité <span class="arithmatex">\(p\)</span> d'être temporairement désactivé, ie ils seront complètement ignoré durant cette étape, mais ils peuvent très bien être de nouveau actif à la prochaine étape.</p>
+<div class="admonition note">
+<p class="admonition-title">Détail de la méthode du dropout</p>
+<p>Le dropout est basé sur les techniques d'échantillonage de Bernoulli.</p>
+<p>Choisissons une couche de neurones <span class="arithmatex">\(\ell\)</span>, que l'on fixe, et notons <span class="arithmatex">\(y_{i}^{\ell}\)</span> la <span class="arithmatex">\(i\)</span>-ième sortie de cette couche. Dans le cadre classe classique d'un réseau de neurones, l'étape de feedforward pour cette couche est définie par les formules suivantes.</p>
+<div class="arithmatex">\[
+    \begin{align}
+    z_{i}^{\ell} &amp; := \mathbf{y}^{\ell - 1 } \mathbf{w}_{i}^{\ell} + \mathbf{b}^{\ell} \\
+    y_{i}^{\ell} &amp; := \sigma(z_{i}^{\ell})
+    \end{align}
+\]</div>
+<p>Dans le cadre où l'on rajoute un dropout l'étape est modifiée comme suit.</p>
+<ol>
+<li>
+<p>On fixe <span class="arithmatex">\(p\)</span> probabiblité de drop.</p>
+</li>
+<li>
+<p>A chaque élément <span class="arithmatex">\(y_{i}^{\ell}\)</span> du vecteur <span class="arithmatex">\(\mathbf{y}^{\ell}\)</span>, ie les éléments de sortie de cette couche, on associe une probabilité <span class="arithmatex">\(v_{i}\)</span> tiré suivant une loi uniforme sur l'intervalle <span class="arithmatex">\([0,1]\)</span>.</p>
+</li>
+<li>
+<p>Si pour <span class="arithmatex">\(y_{i}^{\ell}\)</span>, on a <span class="arithmatex">\(v_{i} &lt; p\)</span> alors, <span class="arithmatex">\(y_{i}^{\ell}=0\)</span>. Sinon <span class="arithmatex">\(y_{i}^{\ell}\)</span> est laissée tel quel.</p>
+</li>
+</ol>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ensemble des sous réseaux possibles via Dropout</p>
+<p><img alt="Screenshot" src="../images/dropout_final.svg" /></p>
+<p>Dans l'exemple ici, on peut appliquer deux couches de dropout, une sur la couche d'entrée, et une sur la couche cachée. Pour l'exemple, fixons <span class="arithmatex">\(p=0,5\)</span> pour ces deux couches.</p>
+<p>Dans le premier cas (coin supérieur droit), aucun neurone n'est désactivé, ce qui revient à dire la probabilité <span class="arithmatex">\(v_{i}\)</span> à chaque fois a été supérieur ou égale à <span class="arithmatex">\(p=0,5\)</span>.</p>
+<p>Dans le second cas, seul le neurone correspondant à l'entrée <span class="arithmatex">\(x_{1}\)</span> a été désactivé, ce qui veut donc dire que sa probabilité <span class="arithmatex">\(v_{i}\)</span> devait être inférieure strictement à <span class="arithmatex">\(0,5\)</span>.</p>
+</div>
+<p>Cela revient donc à chaque étape d'entraînement à choisir un nouveau sous réseau. Pour un entraînement via SGD avec un minibatch de taille <span class="arithmatex">\(N\)</span>, cela revient donc à rajouter une étape dans la partie feedforward.</p>
+<ol>
+<li>Sélection d'un Minibatch <span class="arithmatex">\(M\)</span>.</li>
+<li><strong>Désactivation des neurones par Dropout, ie sélection d'un sous réseau.</strong></li>
+<li>
+<p>Pour chaque observation <span class="arithmatex">\(\mathbf{x}_{i} \in \mathbf{R}^{m}\)</span> dans le minibatch <span class="arithmatex">\(M\)</span>.</p>
+<ol>
+<li>Calcul de la prédiction <span class="arithmatex">\(\hat{y}_{i}\)</span>.</li>
+<li>Calcul de la fonction de perte <span class="arithmatex">\(\mathcal{L}_{\vartheta}(\hat{y}_{i})\)</span>.</li>
+</ol>
+</li>
+<li>
+<p>Calcul de la perte moyenne <span class="arithmatex">\(\mathcal{L}_{\vartheta} = \frac{1}{N}\sum_{i=1}^{N}\mathcal{L}_{\vartheta}(\hat{y}_{i})\)</span>.</p>
+</li>
+<li>Calcul de <span class="arithmatex">\(\nabla \mathcal{L}_{\vartheta}\)</span>.</li>
+<li>Mise à jour des poids et biais <strong>du sous réseau</strong> par rétropropagation.</li>
+</ol>
+<h4 id="phase-de-test">Phase de test</h4>
+<p>Durant la phase de test, <strong>le dropout est désactivé</strong>, ie on considère le réseau complet. Il y a cependant une modification apportée. Supposons que la probabilité de dropout est de <span class="arithmatex">\(p=0,5\)</span> pour une couche donnée <span class="arithmatex">\(\ell\)</span>. A cause du dropou, durant la phase d'entraînement les neurones de la couche suivante <span class="arithmatex">\(\ell +1\)</span> n'ont été connectés en moyenne qu'à la moitiée des neurones de la couche <span class="arithmatex">\(\ell\)</span>. Or durant la phase de test ils seront connectés à 2 fois de neurones que ce que les poids n'ont été optimisés pour. Pour compenser cela, on multiplie par <span class="arithmatex">\(0,5\)</span> les valeurs de sortie de la couche <span class="arithmatex">\(\ell\)</span>, après l'entraînement.</p>
+<p>De façon générale, pour une probabilité de dropout de <span class="arithmatex">\(p\)</span> sur la donnée <span class="arithmatex">\(\ell\)</span>, on multiplie par <span class="arithmatex">\(1-p\)</span> les valeurs de sortie de la couche <span class="arithmatex">\(\ell\)</span>, après l'entraînement.</p>
+<p>Dans le cadre de Tensorflow (et Pytorch), la méthode d'implémentation choisie est celle dite de <strong>l'inverted Dropout</strong>, les valeurs de sortie sont multipliées par <span class="arithmatex">\(\frac{1}{1-p}\)</span> durant la phase d'entraînement, et non durant la période de test. Ce qui est moins coûteux au niveau de la puissance de calcul sur le long terme, si le modèle est fortement utilisé en production.</p>
+<h4 id="pourquoi-ca-marche">Pourquoi ça marche.</h4>
+<p>Comme un nouveau sous réseau à chaque nouvelle étape d'entraînement, cela force le réseau à ne pas se reposer sur un nombre limité de connexions. Le réseau considérera un nombre plus importants de connexions et par conséquent les poids seront moins concentré sur un petit nombre de neurones.</p>
+<p>Si l'on désigne par <span class="arithmatex">\(D\)</span> le nombre de neurones qui peuvent être susceptibles de dropout dans un réseau de neurones, c'est à dire le nombre de neurones présents dans les couche cachées, on a alors un total de <span class="arithmatex">\(2^{D}\)</span> sous réseau possibles.</p>
+<p>Par exemple si le dropout n'est activé que sur une seule couche avec 32 neurones denses, on a quand même un nombre de</p>
+<div class="arithmatex">\[
+        2^{32} - 1 = 4294967295
+\]</div>
+<p>sous réseaux possibles. Ce qui fait qu'il est virtuellement impossible pour le même sous réseau d'être sélectionné deux fois. Si l'entraînement s'arrête au bout de <span class="arithmatex">\(10000\)</span> étapes, cela veut dire que l'on a entraîné <span class="arithmatex">\(10000\)</span> sous réseaux différents. Ces sous réseaux ne sont pas complètement indépendants car ils partagent beaucoup de leur poids et biais, mais ils sont quand même différents. Le réseau de neurones obtenu peut être vu comme une moyenne de tous ces sous réseaux plus petits.</p>
+<p>La commande Tensorflow pour rajouter une couche de dropout est la suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<ol>
+<li>La probabilité dans l'article d'origine était de <span class="arithmatex">\(p=0,5\)</span>, il est courant qu'elle soit comprise dans l'intervalle <span class="arithmatex">\([0,2; 0,8]\)</span> aujourd'hui.</li>
+<li>Si le modèle n'est pas sujet au sur-apprentissage, le dropout peut avoir l'effet inverse que celui recherché.</li>
+<li>Dans ce cas là, il est conseillé d'augmenter la compléxité du modèle pour le faire rentrer en sur-apprentissage, puis de le ré-entraîner en ayant ajouter des couches de dropout.</li>
+<li>Dans le cas où l'on utilise un modèle préentraîné pour faire du transfert d'apprentissage. il n'est pas possible de rajouter des couches de dropout dans la partie entraînée, mais seulement dans la partie classifiante avec les réseaux de neurones denses.</li>
+<li>Dans le cas des CNN, les pixels adjacents sont généralement fortement corrélés, par conséquent l'idée que le dropout permet de se débarasser de la dépendances de certains poids ne marche pas ici. Dans le cadre là, l'idée est alors de désactiver entièrement une feature map, via un 'SpatialDropout'</li>
+</ol>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">SpatialDropout2D</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<h3 id="batchnorm">BatchNorm</h3>
+<p>Il est difficile d'entraîner des réseaux de neurones avec des observations ayant un ordre de magnitude important. Pour homogénéiser notre dataset avant l'entraînement, il est possible de standardiser nos entrées en utilisant la transformation suivante.</p>
+<div class="arithmatex">\[
+    \tilde{x}_{i,j} := \frac{x_{i,j} - \mu_{j}}{\sigma_{j}^{2}}
+\]</div>
+<p>où</p>
+<ol>
+<li><span class="arithmatex">\(x_{i,j}\)</span> correspond à la <span class="arithmatex">\(j\)</span>-ième feature de l'observation <span class="arithmatex">\(\mathbf{x}_{i} \in \mathbf{R}^{m}\)</span>.</li>
+<li><span class="arithmatex">\(\mu_{j}\)</span> correspond à la moyenne de la <span class="arithmatex">\(j\)</span>-ième feature prise sur l'ensemble du dataset.</li>
+<li><span class="arithmatex">\(\sigma_{j}\)</span> correspond à l'écart type de la <span class="arithmatex">\(j\)</span>-ième feature prise sur l'ensemble du dataset.</li>
+</ol>
+<p>Dans ce cas là, toutes nos features auront une moyenne de <span class="arithmatex">\(0\)</span> et un écart-type de <span class="arithmatex">\(1\)</span>, ie pour chaque feature, <span class="arithmatex">\(95\%\)</span> des valeurs seront comprises dans l'intervalle <span class="arithmatex">\([-2,2]\)</span>. Les poids seront alors eux aussi "normalisés" pour moins refléter l'influence des valeurs importantes.</p>
+<p>Cependant standardiser les entrées du réseau ne va affecter que les poids de la première couche cachée. Qu'en est il des autres couches, et de la distribution de leur features ?</p>
+<p><img alt="Screenshot" src="../images/features_final.svg" /></p>
+<p>De par l'algorithme de SGD et le procédé de mise à jour des poids et des biais, la distribution des features dans une même couche cachée peut changer d'une étape d'entraînement à l'autre. Ce qui n'est pas optimal pour l'apprentissage du réseau.</p>
+<p>On sait, grâce aux articles de LeCun &amp; al., 1998 (<em>Neural Networks : Tricks of the trade, Springer</em>) et Wiesler &amp; Ney, 2011 (<em>A convergence analysis of log-linera training, Advances in Neural Information Processing Systems</em>), que l'entraînement d'un réseau de neurones converge plus rapidement si les entrées du réseau sont standardisées (moyenne nulle et variance de <span class="arithmatex">\(1\)</span>), et décorrélées. Cependant le processus de décorrélation demande demande d'inverser une matrice ce qui est coûteux en temps de calcul.</p>
+<p>L'idée développée en 2015 dans un article de Ioffe &amp; Szegedy (<em>Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</em>, https://arxiv.org/abs/1502.03167) est alors de pratiquer l'opération dite de <strong>Batch Normalization</strong>, ou seule l'opération de standardisation sera appliquée, mais cette fois ci à toutes les couches cachées du réseau.</p>
+<h4 id="phase-dentrainement_1">Phase d'entraînement</h4>
+<p>Pour un entraînement via SGD avec un minibatch de taille <span class="arithmatex">\(N\)</span>, l'opération de Batch Normalization se déroule ainsi</p>
+<p>Pour chaque feature <span class="arithmatex">\(j \in \lbrace 1, \dots, m \rbrace\)</span> dans le minibatch <span class="arithmatex">\(M\)</span>.</p>
+<ol>
+<li>
+<p>Calcul de la moyenne de la <span class="arithmatex">\(j\)</span>-ième feature du batch <span class="arithmatex">\(M\)</span>,</p>
+<div class="arithmatex">\[
+    \mu_{j} := \frac{1}{N} \sum_{i=1}^{N} x_{i,j}
+\]</div>
+</li>
+<li>
+<p>Calcul de la variance de la <span class="arithmatex">\(j\)</span>-ième feature du batch <span class="arithmatex">\(M\)</span>,</p>
+<div class="arithmatex">\[
+    \sigma_{j}^{2} := \frac{1}{N} \sum_{i=1}^{N} (x_{i,j} - \mu_{j})^{2}
+\]</div>
+</li>
+<li>
+<p>Standardisation,</p>
+<div class="arithmatex">\[
+    \tilde{x}_{i,j} := \frac{x_{i,j} - \mu_{j}}{\sqrt{\sigma_{j}^{2}+ \varepsilon}} \quad \forall i
+\]</div>
+</li>
+</ol>
+<p><span class="arithmatex">\(\varepsilon\)</span> étant là pour éviter que l'on divise par zéro, en pratique il est de l'ordre de <span class="arithmatex">\(10^{-5}\)</span>.</p>
+<ol>
+<li>
+<p>Ajout des paramètres,</p>
+<div class="arithmatex">\[
+    z_{i,j} := \gamma_{j} \tilde{x}_{i,j} + \beta_{j}
+\]</div>
+</li>
+</ol>
+<p>Où <span class="arithmatex">\(\gamma_{j}\)</span> et <span class="arithmatex">\(\beta_{j}\)</span> sont des paramètres qui sont apprenables par le réseau. Ainsi, si la distribution des valeurs était déjà optimale, la mise à jour des poids fera en sorte que l'on obtienne les paramètres suivants,</p>
+<div class="arithmatex">\[
+    \begin{cases}
+    \gamma_{j} &amp; = \sqrt{\mathrm{Var}(x_{.,j})} \\
+    \beta_{j} &amp; = \mu_{j}
+    \end{cases}
+\]</div>
+<p>afin de retrouver la distribution initiale.</p>
+<p>On a donc une paire de paramètres <span class="arithmatex">\(\gamma, \beta\)</span> pour chaque features</p>
+<div class="arithmatex">\[
+    \lbrace (\gamma_{1}, \beta_{1}), (\gamma_{2}, \beta_{2}), \dots, (\gamma_{m}, \beta_{m}) \rbrace.
+\]</div>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>Rappelons ici que seuls les paramètres <span class="arithmatex">\(\gamma, \beta\)</span> sont apprenables par le réseau. La moyenne et la variance <span class="arithmatex">\(\mu, \sigma\)</span> sont des statistiques calculées sur le minibatch, donc fixes, leur valeurs peut cependant changer à chaque nouveau minibatch.</p>
+</div>
+<h4 id="phase-de-test_1">Phase de test</h4>
+<p>Durant la phase d'entraînement, la moyenne et la variance sont calculées sur les minibatchs. Or lors de la phase de test ou de production, il est hautement improbable que vous ayez à votre disposition un minibatch pour calculer ces statistiques. On souhaite que la prédiction ne dépende que de l'entrée et non pas de statistiques calculées ailleurs.</p>
+<p>Pour cela, les moyennes et variances calculées sur les minibatch sont sotckées en mémoire afin d'avoir une <strong>estimation précise de la moyenne et de la variance de chaque features sur le dataset complet</strong>.</p>
+<p>La moyenne et la variance sont calculées via des <strong>moyennes et variances mouvantes exponentielles pondérées</strong>, en temps réel durant la phase d'entraînement pour pouvoir être utilisées durant la phase de test.</p>
+<p>Pour l'étape <span class="arithmatex">\(t\)</span> d'entraînement, la moyenne et la variance mouvante <span class="arithmatex">\(\hat{\mu}_{j}[t]\)</span>, <span class="arithmatex">\(\hat{\sigma}_{j}^{2}[t]\)</span></p>
+<div class="arithmatex">\[
+    \begin{cases}
+    \hat{\mu}_{j}(t) &amp; = \hat{\mu}_{j}(t-1)\cdot \mathrm{moment} + (1- \mathrm{moment})\cdot \mu_{j}(t)   \\
+    \hat{\sigma}_{j}^{2}(t) &amp; = \hat{\sigma}_{j}^{2}(t-1)\cdot \mathrm{moment} + (1- \mathrm{moment})\cdot \sigma_{j}^{2}(t)
+    \end{cases}
+\]</div>
+<p>Le moment est un nombre réel qui permet de contrôler la mise à jour des ces statistiques, généralement on a <span class="arithmatex">\(\mathrm{moment} \simeq 0,1\)</span>.</p>
+<p>Dans les cas des CNN, le principe est le même, sauf qu'ici les features sont remplacées par les features maps. Les statistiques moyennes et variances calculées sur le minibatch et les statistiques mouvantes prennent donc ça en compte.</p>
+<div class="admonition info">
+<p class="admonition-title">BacthNorm dans les CNN</p>
+<p><img alt="Screenshot" src="../images/Bn_final.svg" /></p>
+</div>
+<p>Pour chaque feature map <span class="arithmatex">\(c \in \lbrace 1, \dots, r \rbrace\)</span> de hauteur <span class="arithmatex">\(H\)</span> et de largeur <span class="arithmatex">\(W\)</span>, dans le minibatch <span class="arithmatex">\(M\)</span>, on a</p>
+<ol>
+<li>
+<p>Calcul de la moyenne de la <span class="arithmatex">\(c\)</span>-ième feature du batch <span class="arithmatex">\(M\)</span>,</p>
+<div class="arithmatex">\[
+    \mu_{c} = \frac{1}{NHW} \sum_{i=1}^{N} \sum_{j=1}^{H} \sum_{k=1}^{W} x_{i,j,k,c}
+\]</div>
+</li>
+<li>
+<p>Calcul de la variance de la <span class="arithmatex">\(c\)</span>-ième feature du batch <span class="arithmatex">\(M\)</span>,</p>
+<div class="arithmatex">\[
+    \sigma_{c}^2 = \frac{1}{NHW} \sum_{i=1}^{N} \sum_{j=1}^{H} \sum_{k=1}^{W} (x_{i,j,k,c} - \mu_{c})^2
+\]</div>
+</li>
+<li>
+<p>Standardisation,</p>
+<div class="arithmatex">\[
+    \tilde{x}_{i,j,k,c} = \frac{x_{i,j,k,c}-\mu_{c}}{\sqrt{\sigma_{c}^2 + \epsilon}}
+\]</div>
+</li>
+<li>
+<p>Ajout des paramètres,</p>
+<div class="arithmatex">\[
+    z_{i,:,:,c} = \gamma_c \tilde{x}_{i,:,:,c} + \beta_c
+\]</div>
+</li>
+</ol>
+<h4 id="pourquoi-ca-marche_1">Pourquoi ça marche ?</h4>
+<p>On ne sait pas trop !</p>
+<p>Le papier d'origine émmettait l'hypothèse que le principe de Batch Normalization permettait de réduire le décalage interne covarié (ICS : Internal Covariate Shift), ie le fait qu'il y ait un changement de distribution entre l'entrée et la sortie d'une couche cachée. Hors, aucune preuve formelle ou empirique forte n'a été publiée.</p>
+<p>Un nouvel article, 2019 (<em>How Does Batch Normalization Help Optimization?</em>, https://arxiv.org/pdf/1805.11604.pdf) montre que la Batch Normalization permet de lisser la surface de la fonction de perte, ce qui permet une convergence plus rapide, avec des taux d'apprentissage plus élevé.</p>
+<p>Ce dont l'on est sûr, c'est que la Batch Normalization aide par rapport aux problèmes d'explosion ou de disparition du gradient, qu'il améliore la stabilité de l'entraînement et permet d'augmenter le taux d'apprentissage, et donc de faire converger le modèle en moins d'époques.</p>
+<h2 id="les-methodes-dinitialisation-des-poids-xavier-he">Les méthodes d'initialisation des poids (Xavier, He)</h2>
+<p>Maintenant que la distribution de nos features en sortie de chaque couche est optimisée grâce à l'opération de Batch Normlization, on peut se poser la question de savoir comment optimiser l'initialisation des poids et biais dans nos couches ? On a deux raisons de vouloir optimiser ce départ.</p>
+<ol>
+<li><strong>Briser la symétrie</strong> : si l'on initialise tous les poids et biais à la même constante <span class="arithmatex">\(\alpha\)</span>, alors tous les neurones d'une même couche seront parfaitement identiques, et la mise à jour via rétropropagation sera la même pour tous. Ce qui fait même si votre réseau de neurones à plusieurs couches avec des centaines de neurones dans chaque, une initialisation identique le fera se comporter comme une réseau avec un seul neurone par couches.</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Si les poids doivent être initialisés de manière aléatoire pour briser la symétrie, il est parfaitement correct d'initialiser tous les biais à zéro, c'est ce que fait Tensorflow.</p>
+</div>
+<ol>
+<li><strong>Diminuer les problèmes d'explosion ou de disparition du gradient</strong> : Regardons le réseau suivant.</li>
+</ol>
+<p><img alt="Screenshot" src="../images/backprop_final.svg" /></p>
+<p>Si l'on souhaite mettre à jour le poids <span class="arithmatex">\(w_{1,1}^{1}\)</span>, on doit calculer la dérivée partielle suivante.</p>
+<div class="arithmatex">\[
+    \frac{\partial \mathcal{L}_{\vartheta}}{ \partial w_{1,1}^{1}}
+\]</div>
+<p>Les poids et neurones intervenant dans cette dérivée partielle sont ici en rouge, on a alors :</p>
+<div class="arithmatex">\[
+    \begin{align}
+    \frac{\partial \mathcal{L}_{\vartheta}}{ \partial w_{1,1}^{1}} =  &amp; \frac{\partial \mathcal{L}_{\vartheta}}{\partial s} \cdot \frac{\partial s}{\partial h_{1}^{2}} \cdot \frac{\partial h_{1}^{2}}{\partial h_{1}^{1}} \cdot \frac{\partial h_{1}^{1}}{\partial w_{1,1}^{1}} \\
+                                                                    + &amp; \frac{\partial \mathcal{L}_{\vartheta}}{\partial s} \cdot \frac{\partial s}{\partial h_{2}^{2}}
+    \cdot \frac{\partial h_{2}^{2}}{\partial h_{1}^{1}} \cdot \frac{\partial h_{1}^{1}}{\partial w_{1,1}^{1}}
+    \end{align}
+\]</div>
+<p>Chacune de ses dérivés implique la dérivation d'une fonction d'activation, si la fonction d'activation des couches cachées et de la sortie est la sigmoïde</p>
+<div class="arithmatex">\[
+    \sigma(z) := \frac{1}{1 + \mathrm{e}^{-z}}
+\]</div>
+<p>alors sa dérivée est <span class="arithmatex">\(\sigma'(z) := \sigma(z)(1-\sigma(z))\)</span> et son maximum est en zéro avec <span class="arithmatex">\(\sigma'(0) = 0,25\)</span>. Ce qui veut dire que la valeur de la mise a jour du gradient ne sera pas plus grande que :</p>
+<div class="arithmatex">\[
+    (0.25)^{3} \cdot 2u = 0,015625\cdot (2u)
+\]</div>
+<p>Où <span class="arithmatex">\(2u\)</span> correspond ici au reste des calculs dans l'addition des dérivées. Le problème s'aggrave si l'on a un réseau de <span class="arithmatex">\(10\)</span> couches, dans ce cas là :</p>
+<div class="arithmatex">\[
+    (0.25)^{10} \simeq 10^{-6}
+\]</div>
+<p>Traditionnellement, les poids sont initialisés soit en effectuant un échantillonnage suivant une distribution uniforme <span class="arithmatex">\(\mathrm{Unif}([0,1])\)</span>, ou <span class="arithmatex">\(\mathrm{Unif}([-\frac{1}{2},\frac{1}{2}])\)</span>, soit en effectuant un échantillonnage suivant une distribution normale <span class="arithmatex">\(\mathcal{N}(0, \sigma^{2} = 0,01)\)</span>. Cependant ces initilisations ne sont pas optimales. Pour compenser cela on a principalement deux méthodes, le choix dépendant des fonctions d'activations que vous allez choisir.</p>
+<h3 id="terminologie">Terminologie</h3>
+<p>Pour la matrice de poids de la couche <span class="arithmatex">\(\ell\)</span>, le nombre de neurones dans le couche est noté <span class="arithmatex">\(\mathrm{Fan}_{out}\)</span>, et le nombre de neurones de la couche précédente est noté <span class="arithmatex">\(\mathrm{Fan}_{in}\)</span>. La moyenne des deux se note <span class="arithmatex">\(\mathrm{Fan}_{avg}\)</span>.</p>
+<p><img alt="Screenshot" src="../images/terminologie.svg" /></p>
+<h3 id="initilisation-de-xavier">Initilisation de Xavier</h3>
+<p>L'initialisation de Xavier, (<em>Understanding the difficulty of training deep feedforward neural networks</em>, http://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf), est une initilisation spécialisée pour la fonction d'activation tangente hyperbolique.</p>
+<div class="arithmatex">\[
+        \tanh(z) := 2 \sigma(2z) - 1
+\]</div>
+<p>Le fait est que la fonction <span class="arithmatex">\(\tanh\)</span> est légèrement plus robuste que la fonction sigmoïde en ce qui concerne les problèmes de disparition du gradient. Cependant, elle a les mêmes problèmes de saturation : la fonction étant bornée, le graident est proche de zéro pour des valeurs grande en valeur absolue. Le but de l'initialisation de Xavier est alors de modifier la génération initale des poids pour qu'ils restent dans la partie linéaire de la fonction <span class="arithmatex">\(\tanh\)</span>.</p>
+<p>La méthode d'initialisation se fait en deux étapes.</p>
+<ol>
+<li>On initialise les poids via un échantillonnage depuis une distribution Normale ou Uniforme.</li>
+<li>On corrige la valeur des poids par un facteur pour qu'elle soit proportionnelle au nombre d'inputs de la couche.</li>
+</ol>
+<p><strong>Si l'on initialise les poids via un échantillonnage depuis une distribution Normale</strong>, alors les 2 étapes sont les suivantes :</p>
+<ol>
+<li>Pour la couche <span class="arithmatex">\(\ell\)</span>, on initialise <span class="arithmatex">\(\mathbf{W}_{\ell, \mathrm{init}}\)</span>  en échantillonnant depuis une distribution Normale <span class="arithmatex">\(\mathcal{N}(0, \sigma^{2} = 1)\)</span>.</li>
+<li>On multiplie <span class="arithmatex">\(\mathbf{W}_{\ell, \mathrm{init}}\)</span> par le facteur <span class="arithmatex">\(\sqrt{\frac{1}{\mathrm{Fan}_{avg}}}\)</span>.</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Cela revient à faire directement un échantillonnage depuis une distribution Normale</p>
+<div class="arithmatex">\[
+    \mathcal{N}(0, \sigma = \sqrt{\frac{1}{\mathrm{Fan}_{avg}}})
+\]</div>
+</div>
+<p><strong>Si l'on initialise les poids via un échantillonnage depuis une distribution Uniforme</strong>, alors les 2 étapes sont les suivantes :</p>
+<ol>
+<li>Pour la couche <span class="arithmatex">\(\ell\)</span>, on initialise <span class="arithmatex">\(\mathbf{W}_{\ell, \mathrm{init}}\)</span> en échantillonnant depuis une distribution Uniforme <span class="arithmatex">\(\mathrm{Unif}([-\sqrt{3},\sqrt{3}])\)</span>.</li>
+<li>On multiplie <span class="arithmatex">\(\mathbf{W}_{\ell, \mathrm{init}}\)</span> par le facteur <span class="arithmatex">\(\sqrt{\frac{1}{\mathrm{Fan}_{avg}}}\)</span>.</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Cela revient à faire directement un échantillonnage depuis une distribution Uniforme</p>
+<div class="arithmatex">\[
+    \mathrm{Unif}([-\sqrt{\frac{3}{\mathrm{Fan}_{avg}}} , \sqrt{\frac{3}{\mathrm{Fan}_{avg}}}])
+\]</div>
+</div>
+<p><img alt="Screenshot" src="../images/glorot.svg" /></p>
+<p>Les graphes ci dessus sont tirés de l'article d'origine, montrant la différence au niveau des valeurs que peuvent peuvent prendre la fonction <span class="arithmatex">\(\tanh\)</span>, en tant que fonction d'activation, puis les valeurs du gradient lors de la rétropropagation.</p>
+<h3 id="initilisation-de-he">Initilisation de He</h3>
+<p>L'initialisation de Xavier suppose que les fonctions d'activations aient une dérivée égale à <span class="arithmatex">\(1\)</span>, et que les sorties de chaque couches sont de moyenne nulle, ce sont des hypothèses raisonnables pour <span class="arithmatex">\(\tanh\)</span>, mais pas si l'on souhaite utiliser la fonction d'activation <span class="arithmatex">\(\mathrm{ReLU}\)</span>. De plus, l'initialisation de Xavier n'est pas adaptée aux CNN dont l'architecture est très profonde, comme les architectures faisant parti de l'état de l'art actuel.</p>
+<p>L'initialisation de He (<em>Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification</em>, https://arxiv.org/abs/1502.01852)prend ce changement en compte et est optimisée pour la fonction d'activation <span class="arithmatex">\(\mathrm{ReLU}\)</span>.</p>
+<p>La méthode d'initialisation se fait en deux étapes.</p>
+<ol>
+<li>On initialise les poids via un échantillonnage depuis une distribution Normale ou Uniforme.</li>
+<li>On corrige la valeur des poids par un facteur pour qu'elle soit proportionnelle au nombre d'inputs de la couche.</li>
+</ol>
+<p><strong>Si l'on initialise les poids via un échantillonnage depuis une distribution Normale</strong>, alors les 2 étapes sont les suivantes :</p>
+<ol>
+<li>Pour la couche <span class="arithmatex">\(\ell\)</span>, on initialise <span class="arithmatex">\(\mathbf{W}_{\ell, \mathrm{init}}\)</span>  en échantillonnant depuis une distribution Normale <span class="arithmatex">\(\mathcal{N}(0, \sigma^{2} = 1)\)</span>.</li>
+<li>On multiplie <span class="arithmatex">\(\mathbf{W}_{\ell, \mathrm{init}}\)</span> par le facteur <span class="arithmatex">\(\sqrt{\frac{2}{\mathrm{Fan}_{in}}}\)</span>.</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Cela revient à faire directement un échantillonnage depuis une distribution Normale</p>
+<div class="arithmatex">\[
+    \mathcal{N}(0, \sigma = \sqrt{\frac{2}{\mathrm{Fan}_{in}}})
+\]</div>
+</div>
+<p><strong>Si l'on initialise les poids via un échantillonnage depuis une distribution Uniforme</strong>, alors les 2 étapes sont les suivantes :</p>
+<ol>
+<li>Pour la couche <span class="arithmatex">\(\ell\)</span>, on initialise <span class="arithmatex">\(\mathbf{W}_{\ell, \mathrm{init}}\)</span> en échantillonnant depuis une distribution Uniforme <span class="arithmatex">\(\mathrm{Unif}([-\sqrt{3},\sqrt{3}])\)</span>.</li>
+<li>On multiplie <span class="arithmatex">\(\mathbf{W}_{\ell, \mathrm{init}}\)</span> par le facteur <span class="arithmatex">\(\sqrt{\frac{2}{\mathrm{Fan}_{in}}}\)</span>.</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Cela revient à faire directement un échantillonnage depuis une distribution Uniforme</p>
+<div class="arithmatex">\[
+    \mathrm{Unif}([-\sqrt{\frac{6}{\mathrm{Fan}_{in}}} , \sqrt{\frac{6}{\mathrm{Fan}_{in}}}])
+\]</div>
+</div>
+<p><img alt="Screenshot" src="../images/He.svg" /></p>
+<p>Graphes tirés de l'article d'origine, montrant la différence au niveau des valeurs de la Top-1 erreur de validation. On voit aussi le fait que l'initilisation de He est spécialisée pour les CNN, pour un CNN de 30 couches l'initialisation de Xavier ne le fait pas converger.</p>
+<h3 id="le-cas-des-cnn">Le cas des CNN</h3>
+<p>Le cas de l'initialisation pour les couches convolutives est particuliers, en effet il n'est pas forcément clair de parler de <span class="arithmatex">\(\mathrm{Fan}_{in}\)</span> et de <span class="arithmatex">\(\mathrm{Fan}_{out}\)</span> dans une couche convolutive, qui n'est pas du tout structurée comme une couche dense.</p>
+<p>Dans une couche convolutive, les poids que l'on cherche à initialiser sont ceux des filtres (kernel), si l'on regarde comment on implémente une couche convolutive en Tensorflow, on a le code suivant.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="n">Conv2D</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+<p>Ici, <span class="arithmatex">\(d\)</span> correspond au nombre de filtre (qui correspondra aussi au nombre feature maps en sortie de la couche), ses filtres sont de dimension <span class="arithmatex">\((k,k)\)</span>. On a donc <span class="arithmatex">\(k^{2}d\)</span> poids à initialiser, par convention <span class="arithmatex">\(\mathrm{Fan}_{in}\)</span> est alors défini comme cela dans le cas d'une couche convolutive pour l'initialisation de He.</p>
+<div class="arithmatex">\[
+    \mathrm{Fan}_{in} := k^{2}d
+\]</div>
+<p>Pour "He Normal", on a :</p>
+<div class="arithmatex">\[
+    \mathcal{N}(0, \sigma = \sqrt{\frac{2}{k^{2}d}}).
+\]</div>
+<p>Pour "He Uniforme", on a :</p>
+<div class="arithmatex">\[
+    \mathrm{Unif}([-\sqrt{\frac{6}{k^{2}d}} , \sqrt{\frac{6}{k^{2}d}}]).
+\]</div>
+<p>Par défaut Tensorflow utilise l'initialisation de Xavier Uniforme (nommé 'glorot_uniform' de par son nom de famille), pour les couches denses comme pour les couches convolutive.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;glorot_uniform&#39;</span><span class="p">,</span> <span class="n">bias_initializer</span><span class="o">=</span><span class="s1">&#39;zeros&#39;</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;glorot_uniform&#39;</span><span class="p">,</span> <span class="n">bias_initializer</span><span class="o">=</span><span class="s1">&#39;zeros&#39;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Pour modifier cela, il suffit de changer la valeur de kernel_initializer.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span>
+<span class="normal"><a href="#__codelineno-5-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;glorot_normal&#39;</span><span class="p">,</span> <span class="n">bias_initializer</span><span class="o">=</span><span class="s1">&#39;zeros&#39;</span><span class="p">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;glorot_normal&#39;</span><span class="p">,</span> <span class="n">bias_initializer</span><span class="o">=</span><span class="s1">&#39;zeros&#39;</span><span class="p">)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_uniform&#39;</span><span class="p">,</span> <span class="n">bias_initializer</span><span class="o">=</span><span class="s1">&#39;zeros&#39;</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_uniform&#39;</span><span class="p">,</span> <span class="n">bias_initializer</span><span class="o">=</span><span class="s1">&#39;zeros&#39;</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">bias_initializer</span><span class="o">=</span><span class="s1">&#39;zeros&#39;</span><span class="p">)</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_normal&#39;</span><span class="p">,</span> <span class="n">bias_initializer</span><span class="o">=</span><span class="s1">&#39;zeros&#39;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="optimisation-de-la-descente-du-gradient-stochastique">Optimisation de la descente du gradient stochastique</h2>
+<p>Les techniques que l'on va voir ici ont été développées pour accélerer le processus de SGD, ie accélerer sa convergence, et sa précision. On se concentrera uniquement sur des techniques du premier ordre ici, qui ne prennent en compte que le gradient. Considérer des techniques d'optimisation du second ordre en considération les dérivées secondes et la Hessienne de la fonction de perte n'est pas efficace en Deep Learning du fait de la non convexité de la fonction de perte.</p>
+<h3 id="learning-rate-decay">Learning rate Decay</h3>
+<p>Dans le cas du Deep Learning, la méthode de descente du gradient la plus commune est la descente du gradient stochastique pas minibatch (MB-SGD). Chaque minibacth peut être considéré comme un échantillon du dataset, qui est lui même un échantillon de la population totale.</p>
+<p>Par conséquent, le gradient calculé lors de la MB-SGD</p>
+<div class="arithmatex">\[
+    \begin{align}
+            \nabla  \mathcal{L}_{\vartheta} &amp; := \nabla ( \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}_{\vartheta}(\hat{y}_{i})) \\
+                                     &amp; = \frac{1}{N} \sum_{i=1}^{N} \nabla \mathcal{L}_{\vartheta}(\hat{y}_{i})
+    \end{align}
+\]</div>
+<p>est une approximation du gradient</p>
+<div class="arithmatex">\[
+    \begin{align}
+        \nabla  \mathcal{L}_{\vartheta}^{\mathrm{tot}} &amp; := \nabla ( \frac{1}{n} \sum_{i=1}^{n} \mathcal{L}_{\vartheta}(\hat{y}_{i})) \\
+                                     &amp; = \frac{1}{n} \sum_{i=1}^{n} \nabla \mathcal{L}_{\vartheta}(\hat{y}_{i})
+    \end{align}
+\]</div>
+<p>prenant en compte le dataset complet. En d'autres termes, on a</p>
+<div class="arithmatex">\[
+    \nabla  \mathcal{L}_{\vartheta} \simeq  \nabla \mathcal{L}_{\vartheta}^{\mathrm{tot}} + \varepsilon.
+\]</div>
+<p>Ce qui au premier abord peut sembler poser un problème est en fait bénéfique. La fonction de perte étant non convexe, l'ajout du bruit peut nous permettre de sortir de minima locaux sous-optimaux.</p>
+<p>Un des inconvénients est néanmoins l'existence d'oscillations plus importantes de par la présence de bruit.</p>
+<p><img alt="Screenshot" src="../images/level_map.svg" /></p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Haut : Sans bruit, on resterait bloquer dans le premier minimal local observé, car le gradient serait nul. La présence du bruit nous permet de garder "une certaine inertie pour continuer d'avancer". Bas : Différence entre descente du gradient classique (flêches vertes), et MB-SGD (flêches rouges).</p>
+<p><img alt="Screenshot" src="../images/SGD_final.svg" /></p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Un autre avantage de la MB-SGD est sa vitesse de convergence car elle permet de la parallélisme.</p>
+</div>
+<p>Pour réduire l'effet des oscillations à la fin de l'entraînement, on réduit alors le taux d'apprentissage. C'est le principe du <strong>Learning Rate Decay</strong>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>Dangers du LRD : baisse trop rapide, trop tôt, qui impacterait la convergence du modèle.</p>
+<p><strong>Bonne pratique</strong> : Entraîner le modèle sans, puis réentraîner avec un LRD.</p>
+</div>
+<p>Les types de LRD les plus connus sont les suivants.</p>
+<p>Dans chacune des formules suivantes,</p>
+<ol>
+<li><span class="arithmatex">\(\eta_{0}\)</span> est le taux d'apprentissage initial,</li>
+<li><span class="arithmatex">\(t\)</span> est l'époque,</li>
+<li>et <span class="arithmatex">\(k\)</span> est le taux de décroissance (hyperparamètre).</li>
+</ol>
+<h4 id="lrd-exponentiel">LRD exponentiel</h4>
+<div class="arithmatex">\[
+    \eta_{t} := \eta_{0}\mathrm{e}^{(-kt)}
+\]</div>
+<h4 id="lrd-inverse">LRD inverse</h4>
+<div class="arithmatex">\[
+    \eta_{t} := \frac{\eta_{0}}{1+kt}
+\]</div>
+<h4 id="lrd-divise">LRD divisé</h4>
+<div class="arithmatex">\[
+    \eta_{t} := \frac{\eta_{t-1}}{2}
+\]</div>
+<p>En pratique, il est compliqué de savoir lequel utiliser, l'expérimentation est nécéssaire.</p>
+<p>La technique évoquée à l'instant ne fait que modifier le taux d'apprentissage. Pour les suivantes, on modifie directement la méthode de mise à jour des poids.</p>
+<h3 id="momentum">Momentum</h3>
+<p>La MB-SGD ne fait que des mises à jours locales ne prenant pas en compte les mises à jours précédentes : si <span class="arithmatex">\(||\nabla  \mathcal{L}_{\vartheta}||\)</span> est petit, alors la mise à jour des poids sera petite. Il serait intéressant de faire une mise à jour "ayant un spectre un peu plus global".</p>
+<p>La méthode suivante, proposée par Boris Polyak en 1964, et d'utiliser la notion de momentum, connue en physique. L'idée est la suivante : on ne souhaite plus uniquement bougée dans la direction oppposée au gradient, mais aussi bouger dans la direction moyenne des dernières mises à jours. Cela permet d'amoindrir les oscillations mais aussi d'échapper des minima locaux plus facilement.</p>
+<p>On rappelle que la méthode classique de mise à jours des poids, de l'étape <span class="arithmatex">\(t\)</span> à <span class="arithmatex">\(t+1\)</span> est donnée par la formule suivante.</p>
+<div class="arithmatex">\[
+    w_{i,j}^{\ell}(t+1) := w_{i,j}^{\ell}(t) - \eta \frac{\partial \mathcal{L}_{\vartheta}}{\partial w_{i,j}^{\ell}(t)}(\vartheta)
+\]</div>
+<p>Dans le cas de l'ajout du momentum, la modification est la suivante, on définit la vélocité <span class="arithmatex">\(\Delta w_{i,j}^{\ell}(t)\)</span> par</p>
+<div class="arithmatex">\[
+    \begin{align}
+    \Delta w_{i,j}^{\ell}(0) &amp; = 0 \\
+    \Delta w_{i,j}^{\ell}(t) &amp; := \alpha \Delta w_{i,j}^{\ell}(t-1) - \eta \frac{\partial \mathcal{L}_{\vartheta}}{\partial w_{i,j}^{\ell}(t)}(\vartheta)
+    \end{align}
+\]</div>
+<p><span class="arithmatex">\(\alpha \Delta w_{i,j}^{\ell}(t-1)\)</span> est alors le <strong>momentum</strong> ajouté. La mise à jour des poids est alors définie par la formule suivante.</p>
+<div class="arithmatex">\[
+    w_{i,j}^{\ell}(t+1) := w_{i,j}^{\ell}(t) + \Delta w_{i,j}^{\ell}(t)
+\]</div>
+<p>Si <span class="arithmatex">\(\alpha \in \mathbf{R}\)</span> est nul, alors on retombe sur la mise à jour classique des poids, <span class="arithmatex">\(\alpha\)</span> est un hyperparamètre qui est généralement compris entre <span class="arithmatex">\(0,9 \leq \alpha \leq 0,999\)</span>.</p>
+<p>Dans Tensorflow, ajouté le momentum dans la MB-SGD se fait de la façon suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p><img alt="Screenshot" src="../images/momentum_final.svg" /></p>
+<h3 id="nesterov">Nesterov</h3>
+<p>Une modification du momentum a été proposée par Yurii Nesterov en 1983, la modification est bénigne mais est pourtant presque toujours plus rapide à converger que le momentum classique.</p>
+<p>L'idée est qu'au lieu de mesurer le gradient <span class="arithmatex">\(\nabla  \mathcal{L}_{\vartheta}\)</span> à la position actuelle des poids <span class="arithmatex">\(\vartheta\)</span>, mais un peu en avance, dans la direction du moment, à <span class="arithmatex">\(\vartheta + \alpha \Delta w_{i,j}^{\ell}(t)\)</span>.</p>
+<div class="arithmatex">\[
+    \Delta w_{i,j}^{\ell}(t) := \alpha \Delta w_{i,j}^{\ell}(t-1) - \eta \frac{\partial \mathcal{L}_{\vartheta}}{\partial w_{i,j}^{\ell}(t)}(\vartheta + \alpha \Delta w_{i,j}^{\ell}(t-1))
+\]</div>
+<p>La mise à jour des poids est alors définie par la formule suivante.</p>
+<div class="arithmatex">\[
+    w_{i,j}^{\ell}(t+1) := w_{i,j}^{\ell}(t) + \Delta w_{i,j}^{\ell}(t)
+\]</div>
+<p>Cette modification marche parce qu'en général, le vecteur moment pointe dans la bonne direction, ie vers l'optimum.</p>
+<p>Dans Tensorflow, activer Nesterov dans la MB-SGD se fait de la façon suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>    tf.keras.optimizers.SGD(lr = 0.001, momentum=0.9, nesterov=True)
+</code></pre></div></td></tr></table></div>
+<h2 id="taux-dapprentissage-adaptatif">Taux d'apprentissage adaptatif</h2>
+<p>Les deux méthodes les plus populaires de Taux d'apprentissage adaptatif sont les suivantes.</p>
+<h3 id="rmsprop">RMSProp</h3>
+<p>Dans le cas de RMSProp (Root Mean Squared (Back)Propgation) proposé par Geoffrey Hinton en 2012, le taux d'apprentissage adaptatif est modélisé en gardant en mémoire le carré des gradients précédents. Pour chaque poids, on a la moyenne mouvante exponentielle suivante :</p>
+<div class="arithmatex">\[
+    \begin{align}
+    \mathrm{MS}(w_{i,j}^{\ell})(0) &amp; = 1 \\
+    \mathrm{MS}(w_{i,j}^{\ell})(t) &amp;:= \beta \mathrm{MS}(w_{i,j}^{\ell})(t-1) - (1-\beta) \left( \frac{\partial \mathcal{L}_{\vartheta}}{\partial w_{i,j}^{\ell}(t)} (\vartheta) \right)^{2}
+    \end{align}
+\]</div>
+<p>La mise à jour des poids est alors donnée par la formule suivante.</p>
+<div class="arithmatex">\[
+    w_{i,j}^{\ell}(t+1) := w_{i,j}^{\ell}(t) - \frac{\eta}{\sqrt{\mathrm{MS}(w_{i,j}^{\ell})(t)}+\varepsilon} \frac{\partial \mathcal{L}_{\vartheta}}{\partial w_{i,j}^{\ell}(t)}(\vartheta)
+\]</div>
+<p>Le taux d'apprentissage adaptatif pour chaque poids est alors donné par :</p>
+<div class="arithmatex">\[
+    \frac{\eta}{\sqrt{\mathrm{MS}(w_{i,j}^{\ell})(t)}+\varepsilon}
+\]</div>
+<p>Le coefficient <span class="arithmatex">\(\beta\)</span> est ici un hyperparamètre, par défaut il est fixé à 0.9 (Valeur proposée par Hinton lors de sa présentation).</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSProp</span><span class="p">(</span><span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="adam">Adam</h3>
+<p>Adam (ADAptative Moment estimation), proposé par Kingma, D. P., &amp; Ba, J. L. (2015), combine les idées du momentum et de RMSProp.</p>
+<p>En plus de garder en mémoire une moyenne exponentielle mouvante du carré des gradients précédents pour chaque poids, comme RMSProp, Adam garde aussi en mémoire une moyenne exponentielle mouvante des gradients précédents, comme Momentum.</p>
+<p><strong>Momentum-like</strong> terme :</p>
+<div class="arithmatex">\[
+    \begin{align}
+    m_{i,j}^{\ell}(0) &amp; = 0 \\
+    m_{i,j}^{\ell}(t) &amp; := \beta_{1} m_{i,j}^{\ell}(t-1) - (1-\beta_{1}) \frac{\partial \mathcal{L}_{\vartheta}}{\partial w_{i,j}^{\ell}(t)}(\vartheta)
+    \end{align}
+\]</div>
+<p><strong>RMSProp-like</strong> terme :</p>
+<div class="arithmatex">\[
+    \begin{align}
+    r_{i,j}^{\ell}(0) &amp; = 0 \\
+    r_{i,j}^{\ell}(t) &amp;:= \beta_{2} r_{i,j}^{\ell}(t-1) - (1-\beta_{2}) \left( \frac{\partial \mathcal{L}_{\vartheta}}{\partial w_{i,j}^{\ell}(t)}(\vartheta) \right)^{2}
+    \end{align}
+\]</div>
+<p>Commes les deux initialisation sont égales à 0, les auteurs ont observés que cela pouvait impliqué un biais, pour contrer ce biais, ils normalisent ces valeurs de la façon suivante.</p>
+<div class="arithmatex">\[
+    \begin{align}
+    \hat{m}_{i,j}^{\ell}(t)  &amp; := \frac{m_{i,j}^{\ell}(t)}{1- \beta_{1}^{t}} \\
+    \hat{r}_{i,j}^{\ell}(t) &amp;:= \frac{r_{i,j}^{\ell}(t)}{1- \beta_{2}^{t}}
+    \end{align}
+\]</div>
+<p>La mise à jour des poids est alors donnée par la formule suivante.</p>
+<div class="arithmatex">\[
+    w_{i,j}^{\ell}(t+1) := w_{i,j}^{\ell}(t) - \eta \frac{\hat{m}_{i,j}^{\ell}(t)}{\sqrt{\hat{r}_{i,j}^{\ell}(t)}+\varepsilon}
+\]</div>
+<h2 id="comparaison">Comparaison</h2>
+<p>En 2019 est paru une comparaison de certains des optimiseurs les plus populaires (<em>On Empirical Comparisons of Optimizers for Deep Learning</em>, https://arxiv.org/abs/1910.05446). Les auteurs en ont déduit le principe de relations d'inclusion suivante.</p>
+<div class="admonition note">
+<p class="admonition-title">Définition</p>
+<p>Etant données 2 règles de mises à jours des poids <span class="arithmatex">\(\mathcal{M, N}\)</span> pour une utilisation en tant que méthode d'optimisation du premier ordre. On dit que <span class="arithmatex">\(\mathcal{M}\)</span> est une sous spécialisation de <span class="arithmatex">\(\mathcal{N}\)</span> si, après un temps d'entraînement assez long, <span class="arithmatex">\(\mathcal{N}\)</span> est capable d'approximer les résultats de <span class="arithmatex">\(\mathcal{M}\)</span>, quitte à modifier les hyperparamètres de <span class="arithmatex">\(\mathcal{N}\)</span>.</p>
+<p>On note alors <span class="arithmatex">\(\mathcal{M} \subseteq \mathcal{N}\)</span>.</p>
+</div>
+<p>On laisse au lecteur le soin de lire l'article pour obtenir la définition exacte. La chose à retenir est la suivante. La méthode d'optimisation du premier ordre utilisée ici correspond au fait de calculer le gradient de la fonction de perte pour mettre à jour les poids, les règles de mises à jour elles sont toutes les méthodes listées plus haut.</p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Si 2 règles de mises à jours des poids sont en relation d'inclusion, alors <strong>la méthode la plus générale ne peut jamais être la plus mauvaise, peu importe la métrique de comparaison utilisée</strong>, tant que les hyperparamètressont suffisemment tunés. De plus, cette relation est valable sur :</p>
+<ul>
+<li>Le jeu de test,</li>
+<li>Le jeu de validation,</li>
+<li>La vitesse d'éxécution.</li>
+</ul>
+</div>
+<p>On a alors les inclusions suivantes :</p>
+<div class="arithmatex">\[
+    \begin{align}
+    (1) &amp;\quad \mathrm{SGD} \subseteq \mathrm{Momentum} \subseteq \mathrm{RMSProp} \\
+    (2)&amp; \quad \mathrm{SGD} \subseteq \mathrm{Momentum} \subseteq \mathrm{Adam} \\
+    (3) &amp;\quad \mathrm{SGD} \subseteq \mathrm{Nesterov}
+    \end{align}
+\]</div>
+<p>En d'autres termes, RMSProp ne peut jamais être moins performant que Momentum, qui lui même ne peut jamais être moins performant que SGD.</p>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>Cela ne veut absolument pas dire que SGD ne peut jamais être meilleur que RMSProp.</p>
+</div>
+<p>Pour la première liste d'inclusions, cela peut se voir via Tensorflow.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span> <span class="n">momentum</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">)</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">RMSProp</span><span class="p">(</span><span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span> <span class="n">rho</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">momentum</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">lr</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span> <span class="n">momentum</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>De cette article, les auteurs en ressortent alors la bonne pratique suivante.</p>
+<p><strong>Si l'on peut se permettre plusieurs dizaines de runs différents pour l'entraînement, il peut être bénéfique de tuner tous les hyperparamètres des méthodes d'optimisation populaires.</strong></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3025 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../../..">
+      
+      
+        <link rel="next" href="../tp1/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>Théorie - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-1-introduction-au-deep-learning-prise-en-main-de-tensorflow-et-keras" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Théorie
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../azure_ml/intro/" class="md-tabs__link">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../devops/linux/" class="md-tabs__link">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Théorie
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Théorie
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preliminaires-notations-et-conventions" class="md-nav__link">
+    Préliminaires, notations et conventions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-commencement-du-debut-les-neurosciences-le-fonctionnement-dun-neurone-biologique" class="md-nav__link">
+    Le commencement du début : les neurosciences &amp; le fonctionnement d'un neurone biologique
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-neurone-de-mcculloch-pitts-et-le-perceptron" class="md-nav__link">
+    Le neurone de McCulloch-Pitts et le perceptron
+  </a>
+  
+    <nav class="md-nav" aria-label="Le neurone de McCulloch-Pitts et le perceptron">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#le-neurone-de-mcculloch-pitts" class="md-nav__link">
+    Le neurone de McCulloch-Pitts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-perceptron" class="md-nav__link">
+    Le Perceptron
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generalisation-les-reseaux-de-neurones-denses" class="md-nav__link">
+    Genéralisation : Les réseaux de neurones denses
+  </a>
+  
+    <nav class="md-nav" aria-label="Genéralisation : Les réseaux de neurones denses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fonction-dactivation-et-etape-feedforward" class="md-nav__link">
+    Fonction d'activation et étape feedforward
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fonction-de-perte" class="md-nav__link">
+    Fonction de perte
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descente-du-gradient-stochastique" class="md-nav__link">
+    Descente du gradient stochastique
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resume" class="md-nav__link">
+    Résumé
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preliminaires-notations-et-conventions" class="md-nav__link">
+    Préliminaires, notations et conventions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-commencement-du-debut-les-neurosciences-le-fonctionnement-dun-neurone-biologique" class="md-nav__link">
+    Le commencement du début : les neurosciences &amp; le fonctionnement d'un neurone biologique
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#le-neurone-de-mcculloch-pitts-et-le-perceptron" class="md-nav__link">
+    Le neurone de McCulloch-Pitts et le perceptron
+  </a>
+  
+    <nav class="md-nav" aria-label="Le neurone de McCulloch-Pitts et le perceptron">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#le-neurone-de-mcculloch-pitts" class="md-nav__link">
+    Le neurone de McCulloch-Pitts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-perceptron" class="md-nav__link">
+    Le Perceptron
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generalisation-les-reseaux-de-neurones-denses" class="md-nav__link">
+    Genéralisation : Les réseaux de neurones denses
+  </a>
+  
+    <nav class="md-nav" aria-label="Genéralisation : Les réseaux de neurones denses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fonction-dactivation-et-etape-feedforward" class="md-nav__link">
+    Fonction d'activation et étape feedforward
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fonction-de-perte" class="md-nav__link">
+    Fonction de perte
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descente-du-gradient-stochastique" class="md-nav__link">
+    Descente du gradient stochastique
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resume" class="md-nav__link">
+    Résumé
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module-1-introduction-au-deep-learning-prise-en-main-de-tensorflow-et-keras">Module 1 : Introduction au deep learning, prise en main de Tensorflow et Keras</h1>
+<h2 id="preliminaires-notations-et-conventions">Préliminaires, notations et conventions</h2>
+<!-- !!! python "Python"
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa.
+
+??? tf "TensorFlow"
+    test Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa. -->
+
+<p>Dans la suite de ces modules, on se place de le cadre d'un <strong>apprentissage</strong> dit <strong>supervisé</strong>, on considérera donc la problématique suivante :</p>
+<div class="admonition note">
+<p class="admonition-title">Problématique</p>
+<p>On note <span class="arithmatex">\(\mathbf{R}^{j}\)</span> l'espace vectoriel réel de dimension <span class="arithmatex">\(j\)</span>. Etant donné le dataset (fini) suivant.</p>
+<div class="arithmatex">\[
+    \mathcal{X} = \lbrace (\mathbf{x}_{i}, \mathbf{y}_{i})\rbrace_{i \in I} \quad (\mathbf{x}_{i}, \mathbf{y}_{i}) \in \mathbf{R}^{m} \times \mathbf{R}^{k}
+\]</div>
+<p>On suppose que <span class="arithmatex">\(\mathbf{x}_{i}\)</span> et <span class="arithmatex">\(\mathbf{y}_{i}\)</span> sont reliés entre eux par une fonction <strong>inconnue</strong> <span class="arithmatex">\(f : \mathbf{R}^{m} \rightarrow \mathbf{R}^{k}\)</span> vérifiant la relation suivante.</p>
+<div class="arithmatex">\[
+    f(\mathbf{x}_{i}) = \mathbf{y}_{i} + \varepsilon
+\]</div>
+<p>Déterminer un algorithme estimant <span class="arithmatex">\(f\)</span>, c'est à dire produisant une fonction</p>
+<div class="arithmatex">\[
+    \hat{f} : \mathbf{R}^{m} \rightarrow \mathbf{R}^{k}
+\]</div>
+<p>telle que <span class="arithmatex">\(\hat{f}(\mathbf{x}_{i}) = \hat{\mathbf{y}}_{i}\)</span> avec <span class="arithmatex">\(\hat{\mathbf{y}}_{i}  \simeq \mathbf{y}_{i}\)</span>.</p>
+</div>
+<p>Pour déterminer <span class="arithmatex">\(\hat{f}\)</span>, on se place alors dans le cadre des réseaux de neurones. On utilisera les conventions suivantes.</p>
+<ul>
+<li><span class="arithmatex">\(I = \lbrace 1, \dots, n \rbrace\)</span> est un ensemble discret fini, son cardinal <span class="arithmatex">\(|I| = n\)</span> correspond au nombre d'<strong>observations</strong> dans le dataset.</li>
+<li>Le couple <span class="arithmatex">\((\mathbf{x}_{i}, \mathbf{y}_{i})\)</span> est alors appelé la <span class="arithmatex">\(i\)</span>-ième observation du dataset.</li>
+<li><span class="arithmatex">\(\mathbf{x}_{i} = (x_{i,1}, \dots, x_{i,m}) \in \mathbf{R}^{m}\)</span> est l'ensemble des <strong>features</strong> (caractéristiques) de la <span class="arithmatex">\(i\)</span>-ième observation du dataset et <span class="arithmatex">\(\mathbf{y}_{i} = (y_{i,1}, \dots, y_{i,k}) \in \mathbf{R}^{k}\)</span> est la <strong>cible</strong> de la <span class="arithmatex">\(i\)</span>-ième observation du dataset.</li>
+<li>La fonction <span class="arithmatex">\(\hat{f}\)</span> est un <strong>modèle</strong> de <span class="arithmatex">\(f\)</span>, et <span class="arithmatex">\(\hat{f}(\mathbf{x}_{i}) = \hat{\mathbf{y}}_{i}\)</span> est une <strong>prédiction</strong>.</li>
+</ul>
+<h2 id="le-commencement-du-debut-les-neurosciences-le-fonctionnement-dun-neurone-biologique">Le commencement du début : les neurosciences &amp; le fonctionnement d'un neurone biologique</h2>
+<p>Avant de parler des neurones artificiels, jetons un coup d'œil rapide sur un neurone biologique.</p>
+<p>Il s'agit d'une cellule d'apparence inhabituelle que l'on trouve surtout dans les cerveaux d'animaux. Elle est composée d'un corps cellulaire contenant le noyau et la plupart des éléments du complexe cellulaire, de nombreuses extensions de ramification appelées <strong>dendrites</strong>, plus une très longue extension appelée l'<strong>axone</strong>. La longueur de l'axone peut être juste quelques fois plus longue que la cellule, ou jusqu'à des dizaines de milliers de fois plus.</p>
+<p>Près de son extrémité, l'axone se détache en de nombreuses branches appelées <strong>télodendries</strong>, et à l'extrémité de ces branches se trouvent de minuscules structures appelées <strong>bornes synaptiques</strong> (ou simplement <strong>synapses</strong>), qui sont connectées à la dendrite ou aux corps d'autres neurones. Les neurones biologiques produisent de courtes impulsions électrique appelées <strong>potentiels d'action</strong> (PA, ou simplement des signaux) qui se déplacent le long des axones et font en sorte que les synapses émettent des signaux chimiques appelés neurotransmetteurs. <strong>Quand un neurone reçoit une quantité suffisante de ces neurotransmetteurs en quelques millisecondes, il envoie ses propres impulsions électriques</strong> (en fait, cela dépend des neurotransmetteurs, car certains d'entre eux empêchent le neurone de s'activer).</p>
+<div class="admonition info">
+<p class="admonition-title">Anatomie d'un neurone</p>
+<p><img alt="Screenshot" src="../images/1117px-Blausen_0657_MultipolarNeuron.png" /></p>
+<p><a href="https://en.wikipedia.org/wiki/Neuron#/media/File:Blausen_0657_MultipolarNeuron.png">source</a></p>
+</div>
+<p>Ainsi, les neurones biologiques individuels semblent se comporter de manière assez simple, mais <strong>ils sont organisés en un vaste réseau de plusieurs milliards</strong>, chaque neurone étant généralement connecté à des milliers d'autres neurones. Des calculs très complexes peuvent être effectués par un réseau de neurones assez simples, de la même façon que d'une fourmilière peut émerger les efforts combinés de simples fourmis.</p>
+<p>L'architecture des réseaux de neurones biologiques (BNN) fait toujours l'objet de recherches actives, mais certaines parties du cerveau ont été cartographiées et il semble que les neurones sont souvent organisés en couches consécutives, spécialement dans le <strong>cortex cérébral</strong> (la couche externe de votre cerveau).</p>
+<p><img alt="Screenshot" src="../images/Cajal_cortex_drawings.png" /></p>
+<h2 id="le-neurone-de-mcculloch-pitts-et-le-perceptron">Le neurone de McCulloch-Pitts et le perceptron</h2>
+<p>L'idée première de laquelle découle l'invention des neurones artificiels est la volontée d'avoir un algorithme de classification binaire.</p>
+<h3 id="le-neurone-de-mcculloch-pitts">Le neurone de McCulloch-Pitts</h3>
+<p>Le premier article scientifique modélisant de façon mathématique un neurone biologique a été rédigé en 1943 par le <strong>neurobiologiste Warren McCulloch et le mathématicien Walter Pitts</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">McCulloch (droite) et Pitts (gauche) en 1949</p>
+<p><img alt="Screenshot" src="../images/3-Figure2-1.png" /></p>
+<p><a href="https://www.semanticscholar.org/paper/On-the-legacy-of-W.S.-McCulloch-Moreno-D%C3%ADaz-Moreno-D%C3%ADaz/8056242a82ecc5e0064d4ff187fb07c5853fe8a6/figure/1">source</a></p>
+<p>En 1943, le neurophysiologiste et cybernéticien américain Warren McCulloch, de l'université de l'Illinois à Chicago, et l'autodidacte Walter Pitts, logicien et psychologue cognitif, ont publié "<a href="http://www.cse.chalmers.se/~coquand/AUTOMATA/mcp.pdf"><em>A Logical Calculus of the ideas Imminent in Nervous Activity</em></a>", qui décrit le "neurone McCulloch-Pitts", premier modèle mathématique d'un réseau de neurones.</p>
+<p>S'appuyant sur les idées contenues dans l'ouvrage d'Alan Turing "<a href="https://www.historyofinformation.com/detail.php?entryid=735"><em>On Computable Numbers</em></a>", l'article de McCulloch et Pitts a permis de décrire les fonctions cérébrales en termes abstraits, et a montré que de simples éléments connectés dans un réseau neuronal peuvent avoir une immense puissance de calcul. Le document a reçu peu d'attention jusqu'à ce que ses idées soient appliquées par John von Neumann, Norbert Wiener et d'autres.</p>
+</div>
+<p>Le neurone de McCulloch-Pitts est simple : Le neurone correspond à une fonction ayant une ou plusieurs entrée binaires et une sortie binaire (0 ou 1). Le neurone ne s'active (produit une sortie) que si le nombre d'entrée active dépasse un certain seuil.</p>
+<p>On rappelle que la fonction de Heaviside <span class="arithmatex">\(H\)</span> est définie par :</p>
+<div class="arithmatex">\[
+    \begin{array}{ccccc} H &amp; : &amp; \mathbf{R} &amp; \to &amp; [0,1] \\ &amp; &amp; x &amp; \mapsto &amp; H(x) \\ \end{array}
+\]</div>
+<p>avec</p>
+<div class="arithmatex">\[
+    H(x) = \begin{cases} 1 &amp; x \geq 0, \\
+                         0 &amp; x &lt; 0.\end{cases}
+\]</div>
+<p><img alt="Screenshot" src="../images/heaviside.svg" /></p>
+<div class="admonition note">
+<p class="admonition-title">Définition</p>
+<p>Un neurone de McCulloch-Pitts est donné par :</p>
+<ol>
+<li>des entrées binaires <span class="arithmatex">\((x_{1}, \dots, x_{m})\)</span>,</li>
+<li>un réel <span class="arithmatex">\(\vartheta \in \mathbf{R}\)</span>,</li>
+<li>une sortie <span class="arithmatex">\(\hat{y}\)</span>, définie par l'équation suivante.</li>
+</ol>
+<div class="arithmatex">\[
+    \hat{y} = H(\sum_{i=1}^{m} x_{i} - \vartheta), \quad \forall i \in I, x_{i} \in \lbrace 0,1 \rbrace
+\]</div>
+<p>où <span class="arithmatex">\(H\)</span> est la fonction de Heaviside, et <span class="arithmatex">\(\vartheta\)</span> est le seuil.</p>
+<p>On dit que le neurone s'active si <span class="arithmatex">\(\sum_{i=1}^{m} x_{i} - \vartheta \geq 0\)</span>.</p>
+</div>
+<p>Le neurone tel que défini par McCulloch et Pitts est considéré comme <strong>une simple porte logique</strong> : il n'y a pas d'algorithme associé afin de l'entraîner. Ils montrèrent cependant qu'un réseau constitué des neurones formels de leur invention a la même puissance de calcul qu'une machine de Turing, ie ce réseau est capable de calculer toutes les propositions logiques.</p>
+<div class="admonition example">
+<p class="admonition-title">Modélisons les portes logiques ET et OU via les neurones de McCulloch-Pitts.</p>
+<p>Quelle valeur de <span class="arithmatex">\(\vartheta\)</span> prendre ?</p>
+<p><img alt="Screenshot" src="../images/and_or_final.svg" /></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Définition</p>
+<p>La fonction brisant la linéarité à la sortie du neurone, dans notre cas pour l'instant la fonction de Heaviside <span class="arithmatex">\(H\)</span>, sera appelée <strong>fonction d'activation</strong> du neurone.</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>Le neurone de McCulloch Pitts possède les limites suivantes :</p>
+<ol>
+<li>Impossibilité de fournir des entrées non booléennes.</li>
+<li>Le seuil doit toujours être défini manuellement.</li>
+<li>Toutes les entrées sont également importante, on ne peut pas assigner une importance plus grande à certaines entrées.</li>
+</ol>
+</div>
+<h3 id="le-perceptron">Le Perceptron</h3>
+<p>En 1958, puis 1962, Frank Rosenblatt généralise les travaux de McCulloch et Pitts en développant le <strong>Perceptron</strong>. Le Perceptron de Rosenblatt est essentiellement un neurone de McCulloch-Pitts, où les entrées <span class="arithmatex">\((x_{1}, \dots, x_{m})\)</span> peuvent cette fois ci prendre des valeurs réelles. De plus, chaque entrée est maintenant pondérée, le poids <span class="arithmatex">\(w_{i}\)</span> étant lui aussi à valeur réelle. Un poids positif (<span class="arithmatex">\(w_{i} &gt; 0\)</span>) reflétant une synapse excitatrice, tandis qu'un poids négatif (<span class="arithmatex">\(w_{i} &lt; 0\)</span>) représente lui une synapse inhibitrice.</p>
+<div class="admonition info">
+<p class="admonition-title">Frank Rosenblatt</p>
+<p><img alt="Rosenblatt" src="../images/_Rosenblatt_21_big.jpg" /></p>
+<p>En novembre 1958, Frank Rosenblatt a inventé le Perceptron, ou Mark I, à l'université de Cornell. Achevé en 1960, c'était le premier ordinateur capable d'apprendre de nouvelles compétences par essais et erreurs, en utilisant une sorte de réseau neuronal qui simulait les processus de la pensée humaine.</p>
+<p><a href="https://www.historyofinformation.com/detail.php?id=770">source</a></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Définition</p>
+<p>Un Perceptron est donné par :</p>
+<ul>
+<li>des entrées <span class="arithmatex">\((x_{1}, \dots, x_{m}) \in \mathbf{R}^{m}\)</span>,</li>
+<li>des poids <span class="arithmatex">\((w_{1}, \dots, w_{m}) \in \mathbf{R}^{m}\)</span>,</li>
+<li>un réel <span class="arithmatex">\(\vartheta \in \mathbf{R}\)</span>,</li>
+<li>une sortie <span class="arithmatex">\(\hat{y}\)</span>, définie par l'équation suivante.</li>
+</ul>
+<div class="arithmatex">\[
+    \hat{y} = H(\sum_{i=1}^{m} w_{i}x_{i} - \vartheta), \forall i \in I, (w_{i}, x_{i}) \in \mathbf{R}^{2}
+\]</div>
+<p>où <span class="arithmatex">\(H\)</span> est la fonction de Heavyside, et <span class="arithmatex">\(\vartheta\)</span> est le seuil.</p>
+<p>On dit que le neurone s'active si <span class="arithmatex">\(\sum_{i=1}^{m} w_{i}x_{i} - \vartheta &gt; 0\)</span>.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Modélisons la porte logique A et (non B) via le Perceptron.</p>
+<p>Quelle valeur de <span class="arithmatex">\(\vartheta\)</span> prendre ?</p>
+<p><img alt="Screenshot" src="../images/and_not_final.svg" /></p>
+</div>
+<p><strong>Le Perceptron</strong>, contrairement au neurone de McCulloch-Pitts, <strong>est lui muni d'un algorithme d'entraînement</strong> afin de trouver les poids optimaux pour la prédiction.</p>
+<p>La règle d'apprentissage du Perceptron prend en compte l'erreur faite durant la prédiction, et modifie les poids du neurone afin de réduire l'erreur. Plus précisément, le Perceptron reçoit une observation à la fois (ie la batchsize = 1) et sort une prédiction <span class="arithmatex">\(\hat{y}\)</span>. Pour chaque mauvaise prédiction, les poids sont changés en renforçant ceux qui auraient contribué le plus à une prédiction correcte.</p>
+<p>Ainsi, pour passer de l'étape <span class="arithmatex">\(k\)</span> à l'étape <span class="arithmatex">\(k+1\)</span>, on mets à jour les poids via la formule suivante.</p>
+<div class="arithmatex">\[
+    w_{i}^{k+1} = w_{i}^{k} + \eta (y - \hat{y})x_{i}
+\]</div>
+<p>où :</p>
+<ul>
+<li><span class="arithmatex">\(w_{i}\)</span> est le poids de la connexion <span class="arithmatex">\(i\)</span>,</li>
+<li><span class="arithmatex">\(x_{i}\)</span> est la valeur d'entrée de la connexion <span class="arithmatex">\(i\)</span>,</li>
+<li><span class="arithmatex">\(\hat{y}\)</span> est la prédiction obtenue par <span class="arithmatex">\(H(\sum_{i=1}^{m} w_{i}x_{i} - \vartheta)\)</span>,</li>
+<li><span class="arithmatex">\(y\)</span> est la cible de la prédiction,</li>
+<li><span class="arithmatex">\(\eta\)</span> est le taux d'appentissage.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<ol>
+<li>Pour le neurone de McCulloch-Pitts, comme pour le Perceptron, la sortie <span class="arithmatex">\(\hat{y}\)</span> est binaire.</li>
+<li>Un neurone de McCulloch-Pitts est un Perceptron où tous les poids sont égaux à 1.</li>
+</ol>
+<div class="arithmatex">\[
+    w_{1} = \cdots = w_{n} = 1
+\]</div>
+<p><img alt="Screenshot" src="../images/MP_Perceptron.svg" /></p>
+<p>Schéma général d'un neurone de McCulloch-Pitts (haut) et d'un Perceptron (bas)</p>
+</div>
+<p>Un des premiers résultats lié au Perceptron est qu'il est capable de modéliser et de résoudre des problèmes où les données sont <strong>linéairement séparables</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Définition</p>
+<ol>
+<li>Une fonction binaire</li>
+</ol>
+<div class="arithmatex">\[
+\hat{y} \, : \, \mathbf{R}^{n} \longrightarrow \lbrace 0,1 \rbrace
+\]</div>
+<p>est dite <strong>Perceptron calculable</strong> s'il existe un seuil <span class="arithmatex">\(\vartheta\)</span> et des poids <span class="arithmatex">\((w_{1}, \dots, w_{n}) \in \mathbf{R}^{n}\)</span> tels que l'hyperplan d'équation</p>
+<div class="arithmatex">\[
+\sum_{i=1}^{n} w_{i}x_{i} = \vartheta
+\]</div>
+<p>divise l'espace <span class="arithmatex">\(\mathbf{R}^{n}\)</span> en deux regions</p>
+<div class="arithmatex">\[
+\mathbf{R}^{n} = R_{0} \bigcup R_{1} = \lbrace \hat{y} =0 \rbrace \bigcup \lbrace \hat{y}=1 \rbrace
+\]</div>
+<ol>
+<li>Un ensemble de points <span class="arithmatex">\((x_{1}, \dots, x_{n}) \in \mathbf{R}^{n}\)</span> pouvant être séparés par une fonction Perceptron calculabe est dit <strong>linéairement séparable</strong>.</li>
+</ol>
+</div>
+<div class="admonition example">
+<p class="admonition-title"> Ensemble de points linéairement séparables</p>
+<p><img alt="Screenshot" src="../images/lin_sep_final.svg" /></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Ensemble de points non linéairement séparables</p>
+<p><img alt="Screenshot" src="../images/no_lin_sep.svg" /></p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<ol>
+<li>
+<p>Linéairement indépendant <span class="arithmatex">\(\implies\)</span> Linéairement séparable.</p>
+</li>
+<li>
+<p>La réciproque est fausse : les points <span class="arithmatex">\(\lbrace (0,0), (1,0), (0,1) \rbrace\)</span> sont linéairement séparables dans <span class="arithmatex">\(\mathbf{R}^{2}\)</span>, mais ne sont pas linéairement indépendants.</p>
+</li>
+</ol>
+</div>
+<p>Cette propriété de séparabilité linéaire permet au Perceptron de résoudre certains problèmes de classification binaire.</p>
+<div class="admonition note">
+<p class="admonition-title">Théorème de convergence du Perceptron</p>
+<p>Etant donné un problème de classification binaire avec des classes linéairement séparables, si une solution <span class="arithmatex">\((\vartheta^{\ast}, w_{1}^{\ast}, \dots, w_{n}^{\ast}) \in \mathbf{R}^{n+1}\)</span> existe, alors l'algorithme du Perceptron trouvera cette solution en un nombre fini <span class="arithmatex">\(h_{\mathrm{max}}\)</span> d'itérations.</p>
+</div>
+<p>En d'autres termes, si on a un ensemble de points que l'on sait linéairement séparable, et qu'en plus on sait qu'une solution existe, alors le Perceptron la trouvera.</p>
+<p>Conceptuellement c'est un résultat important. Cependant, ce résultat a deux difficultées :</p>
+<ol>
+<li>Il est nécéssaire de savoir qu'une  solution <span class="arithmatex">\((\vartheta^{\ast}, w_{1}^{\ast}, \dots, w_{n}^{\ast}) \in \mathbf{R}^{n+1}\)</span> existe. En effet, il existe des problèmes pour lesquels aucune solution par le Perceptron n'existe.</li>
+<li>La seconde diffcultée est que, même si l'on sait que le Perceptron trouvera une solution en un nombre fini d'itérations, il nous est impossible de calculer <span class="arithmatex">\(h_{\mathrm{max}}\)</span> car il dépend du vecteur de solution <span class="arithmatex">\((\vartheta^{\ast}, w_{1}^{\ast}, \dots, w_{n}^{\ast}) \in \mathbf{R}^{n+1}\)</span>, qui nous est inconnu.</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>La fonction XOR n'est pas Perceptron calculabe, sa table de vérité étant la suivante.</p>
+<p><img align="left" alt="Screenshot" src="../images/XOR.svg" /></p>
+<table>
+<thead>
+<tr>
+<th align="center"><span class="arithmatex">\(x_{1}\)</span></th>
+<th align="center"><span class="arithmatex">\(x_{2}\)</span></th>
+<th align="center"><span class="arithmatex">\(x_{1} \oplus x_{2}\)</span></th>
+<th align="center">couleur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><span class="arithmatex">\(0\)</span></td>
+<td align="center"><span class="arithmatex">\(0\)</span></td>
+<td align="center"><span class="arithmatex">\(0\)</span></td>
+<td align="center">rouge</td>
+</tr>
+<tr>
+<td align="center"><span class="arithmatex">\(0\)</span></td>
+<td align="center"><span class="arithmatex">\(1\)</span></td>
+<td align="center"><span class="arithmatex">\(1\)</span></td>
+<td align="center">vert</td>
+</tr>
+<tr>
+<td align="center"><span class="arithmatex">\(1\)</span></td>
+<td align="center"><span class="arithmatex">\(0\)</span></td>
+<td align="center"><span class="arithmatex">\(1\)</span></td>
+<td align="center">vert</td>
+</tr>
+<tr>
+<td align="center"><span class="arithmatex">\(1\)</span></td>
+<td align="center"><span class="arithmatex">\(1\)</span></td>
+<td align="center"><span class="arithmatex">\(0\)</span></td>
+<td align="center">rouge</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Le problème de la fonction XOR a rapidement montré les limitations du Perceptron. Pour avoir plus de fléxibilité, l'idée est alors d'empiler de façon hiérarchique et en plusieurs couches des Perceptrons.</p>
+<div class="admonition question">
+<p class="admonition-title">Et les neurosciences dans tout ça ?</p>
+<p>De nouvelles recherches en neuroscience ont démontrées que les dendrites des neurones pyramidaux du néocortex (<strong>la couche de substance grise particulièrement développée chez les mammifères et qui forme la paroi des hémisphères cérébraux</strong>) sont en fait capables de classifier des entrées non linéairement séparabes. En d'autres termes, <strong>les dendrites sont capables de calculer la fonction XOR</strong>, et le cerveau est (encore une fois) bien plus complexe que nous le pensions.</p>
+<p>Concernant la fonction XOR, il faut un réseau de neurones denses à 2 couches pour pouvoir la calculer.</p>
+<p><a href="https://science.sciencemag.org/content/367/6473/83"><em>Dendritic action potentials and computation in human layer 2/3 cortical neurons</em></a>, Albert Gidon, Timothy Adam Zolnik, Pawel Fidzinski, Felix Bolduan, Athanasia Papoutsi, Panayiota Poirazi, Martin Holtkamp, Imre Vida, Matthew Evan Larkum</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Récaptulatif</p>
+<p>Récapitulatif et suite</p>
+<p><img alt="Screenshot" src="../images/box.svg" /></p>
+</div>
+<h2 id="generalisation-les-reseaux-de-neurones-denses">Genéralisation : Les réseaux de neurones denses</h2>
+<p>On peut donc résumer la partie précédente dans le diagramme suivant.</p>
+<p><img alt="Screenshot" src="../images/BNN.svg" /></p>
+<p>avec <span class="arithmatex">\(b = -\vartheta\)</span> et la fonction de Heaviside <span class="arithmatex">\(H\)</span> étant ici la fonction d'activation <span class="arithmatex">\(f\)</span>.</p>
+<div class="admonition danger">
+<p class="admonition-title">Attention</p>
+<p>Le Perceptron ne peut faire que de la classification binaire.</p>
+</div>
+<p>Pour résoudre le problème de la fonction XOR, l'idée est d'empiler de façon hiérarchique en plusieurs couches des Perceptrons succéssifs. On parle alors de <strong>Perceptron Multicouche</strong> (<strong>MLP</strong>), premier exemple de <strong>réseau de neurones artificiels</strong> (<strong>ANN</strong>).</p>
+<p>Pour avoir une notion plus intéréssante, il est nécéssaire de modifier la définition du Perceptron.</p>
+<p>Avant toute modification, posons une définition générale, qui nous sera utile dans toute la suite de la formation. c'est celle de <strong>graphe acyclique orienté</strong>.</p>
+<p><strong>Structurellement</strong>, un MLP, et donc un ANN, est <strong>un graphe orienté acyclique</strong> (**D**irected **A**cyclic **G**raph : DAG).</p>
+<div class="admonition note">
+<p class="admonition-title">Définition</p>
+<ol>
+<li>Un <strong>graphe</strong>, est une collection <span class="arithmatex">\(G = (S,A)\)</span> où <span class="arithmatex">\(S\)</span> correspond à la collection des <strong>sommets</strong> et <span class="arithmatex">\(A\)</span> correspond à la collection des <strong>arêtes</strong>.</li>
+<li>Un graphe est dit <strong>orienté</strong> lorsque chacune des arêtes possède une orientation.</li>
+<li>Un graphe orienté est dit <strong>acyclique</strong> s'il n'y a aucune boucles.</li>
+</ol>
+<p><img alt="Screenshot" src="../images/DAG.svg" /></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Définition</p>
+<p>Un Perceptron Multicouche est un DAG où chaque sommets est un Perceptron.</p>
+</div>
+<p>Les neurones correspondent aux sommets et les dendrites et axones correspondent aux arêtes du graphe.</p>
+<p>Les neurones, ou sommets, sont organisés en couches successives reliées entres elles par les arêtes, les MLP possèdent un point de départ, la couche d'entrée, et un point d'arrivée, la couche de sortie, les couches intermédiaires sont elles appelées les couches cachées.</p>
+<p>Généraliser la méthode d'aprentissage du Perceptron à un MLP à plusieurs couches cachées est compliquée, en partie dû au nombres importants de paramètres présents dans les réseaux de neurones.</p>
+<p>Le travail révolutionnaire permettant d'entrainer des ANN avec un nombre quelconque de couches cachées en un temps fini, date de 1986. Dans l'article <a href="https://web.stanford.edu/class/psych209a/ReadingsByDate/02_06/PDPVolIChapter8.pdf"><em>Learning internal representations by error propagations</em></a>, David Rumelhart, Geoffrey Hinton et Ronald Williams introduise <strong>l'algorithme de rétropropagation</strong> pour l'entraînement.</p>
+<p>Cependant, pour que cette algorithme fonctionne, il est nécéssaire de faire des changements dans la définition du MLP. <strong>Voyons les changements à éffectuer points par points</strong>.</p>
+<h3 id="fonction-dactivation-et-etape-feedforward">Fonction d'activation et étape feedforward</h3>
+<p>Les fonctions d'activations utilisées dans le Perceptron sont des fonctions de Heaviside.</p>
+<p>Cette fonction n'est pas adaptée à l'algorithme de rétropropagation, <strong>le point clé de cette algorithme</strong>, qui sera détaillé plus tard, <strong>est l'utilisation de la descente du gradient</strong>. La fonction de Heaviside étant <strong>constante par morceaux</strong> (et possède donc une dérivée nulle en tout point), une telle technique ne marche pas dessus.</p>
+<p>Il est donc nécéssaire de remplacer ces fonctions de Heaviside par une autre fonction, la fonction d'activation choisie par Rumelhart, Hinton, et Williams pour la remplacer est la fonction sigmoïde (logistique).</p>
+<div class="admonition note">
+<p class="admonition-title">Définition : fonction logistique</p>
+<div class="arithmatex">\[
+    \begin{array}{ccccc} \sigma &amp; : &amp; \mathbf{R} &amp; \to &amp; [0,1] \\ &amp; &amp; x &amp; \mapsto &amp; \sigma(x) \\ \end{array}
+\]</div>
+<div class="arithmatex">\[
+    \sigma(x) := \frac{1}{1 + \exp(-x)}
+\]</div>
+<p><img alt="Screenshot" src="../images/Logistic.svg" /></p>
+</div>
+<p>La fonction logistique possède, au contraire de la fonction de Heaviside, une dérivée bien définie et non nulle en tout point.</p>
+<p>L'algorithme de rétropropagation fonctionne avec de nombreuses autres fonctions d'activations. Avant de définir les autres fonctions, il est utile de distinguer deux types de fonctions d'activations :</p>
+<ol>
+<li>Les fonctions d'activations uniquement présentes en sortie de couches cachées,</li>
+<li>Les fonctions d'activations pouvant être présentes aussi en en sortie du DAG.</li>
+</ol>
+<p>Le deuxième type de fonction d'activation est très restreint et <strong>dépend de la problématique que l'on souhaite résoudre</strong>.</p>
+<ol>
+<li><strong>Dans le cas d'un problème de régression linéaire</strong>, aucune fonction d'activation en sortie n'est demandée.</li>
+<li><strong>Dans le cas d'un problème de classification binaire</strong>, la fonction d'activation en sortie sera la fonction logistique</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Et dans le cas d'une classification multinomiale ?</p>
+<p>Pour une classification multinomiale, la fonction d'activation privilégiée en sortie du réseau est la fonction softmax</p>
+<div class="arithmatex">\[
+    \begin{array}{ccccc}
+    \mathrm{softmax} &amp; : &amp; \mathbf{R}^{k} &amp; \to     &amp; [0,1]^{k} \\
+                    &amp;   &amp; x              &amp; \mapsto &amp; \mathrm{softmax}(x) \\
+    \end{array}
+\]</div>
+<div class="arithmatex">\[\mathrm{softmax}(x) := (\frac{\exp(x_{1})}{\sum_{i=1}^{k}\exp(x_{i})}, \dots, \frac{\exp(x_{k})}{\sum_{i=1}^{k}\exp(x_{i})})\]</div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Dans le cas d'un problème de classification binaire, il est aussi possible d'utiliser en sortie la fonction softmax <strong>à condition d'avoir modifier la cible</strong> <span class="arithmatex">\(\mathbf{y}_{i}\)</span> <strong>par un One-hot Encoding</strong>, ce cas là sera traîté en TP.</p>
+</div>
+<p>Dans le cas des  fonctions d'activations uniquement présentes en sortie de couches cachées, on a un plus grand choix possibles. Dans la pratique cependant, 2 fonctions d'activations sont plus utilisées que les autres.</p>
+<p>La fonction d'activation devenue un standard est la fonction <span class="arithmatex">\(\mathrm{ReLU}\)</span> : **Re**ctified **L**inear **U**nit, définie de la façon suivnate.</p>
+<div class="admonition note">
+<p class="admonition-title">Définition : fonction ReLU</p>
+<div class="arithmatex">\[
+    \begin{array}{ccccc} \mathrm{ReLU} &amp; : &amp; \mathbf{R} &amp; \to     &amp; \mathbf{R} \\
+                                    &amp;   &amp; x              &amp; \mapsto &amp; \mathrm{ReLU}(x) \\
+    \end{array}
+\]</div>
+<div class="arithmatex">\[\mathrm{ReLU}(x) := \max(0,x)\]</div>
+<p><img alt="Screenshot" src="../images/relu.svg" /></p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<ol>
+<li>
+<p>La fonction <span class="arithmatex">\(\mathrm{ReLU}\)</span> n'est utilisée qu'en sortie des couches cachées, et non pas en sortie du  réseau.</p>
+</li>
+<li>
+<p>La fonction <span class="arithmatex">\(\mathrm{ReLU}\)</span> n'est pas différentiable en 0, et sa dérivée est nulle pour <span class="arithmatex">\(x&lt;0\)</span>. Dans la pratique cependant, elle fonctionne très bien et surtout, sa dérivée est très rapide à calculer.</p>
+</li>
+</ol>
+</div>
+<p>Un deuxième choix, aussi très courant, est la fonction tangente hyperbolique, <span class="arithmatex">\(\tanh\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Définition : fonction <span class="arithmatex">\(\tanh\)</span></p>
+<div class="arithmatex">\[
+    \begin{array}{ccccc} \tanh         &amp; : &amp; \mathbf{R} &amp; \to     &amp; [-1,1] \\
+                                    &amp;   &amp; x          &amp; \mapsto &amp; \frac{\mathrm{e}^{x}-\mathrm{e}^{-x}}{\mathrm{e}^{x}+\mathrm{e}^{-x}} \\
+    \end{array}
+\]</div>
+<p><img alt="Screenshot" src="../images/tanh.svg" /></p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Les fonctions d'activations doivent posséder les caractéristiques suivantes.</p>
+<ul>
+<li>La fonction doit être continue et définie partout,</li>
+<li>La fonction doit être monotone,</li>
+<li>La fonction ne doit pas être linéaire,</li>
+<li>La fonction, et ses dérivées, doit être facilement calculable.</li>
+</ul>
+</div>
+<p>Le parcours complet d'une observation <span class="arithmatex">\(\mathbf{x}_{i}\)</span> à travers le DAG se nomme dans le jargon l'étape de feedforward. Pour que cela soit plus clair, voyons cela sur un exemple.</p>
+<p><img alt="Screenshot" src="../images/activation_functions_plot.svg" /></p>
+<div class="admonition example">
+<p class="admonition-title">Exemple d'étape feedforward</p>
+<p><img alt="Screenshot" src="../images/ANN_final.svg" /></p>
+<p>On a deux entrées <span class="arithmatex">\(x_{1}, x_{2}\)</span>, et une sortie <span class="arithmatex">\(\hat{y}\)</span>. On peut donc supposer que les observations du dataset sont de la forme <span class="arithmatex">\((x_{1}, x_{2}, y)\)</span>.</p>
+<ol>
+<li>
+<p><strong>Etape 1</strong> : Les features de l'observation <span class="arithmatex">\((x_{1}, x_{2})\)</span> sont passées en entrée, chacune de ces features est envoyée à chaucn des neurones <span class="arithmatex">\(h_{1}, h_{2}\)</span> de l'unique couche cachée. Les connexions étant pondérées, <strong>la règle des noeuds</strong> s'applique et au niveau de la couche cachée on se retrouve avec les valeurs <span class="arithmatex">\(z_{1}, z_{2}\)</span> définiées par l'équation <span class="arithmatex">\((1)\)</span>, ou de façon équivalente par l'équation <span class="arithmatex">\((2)\)</span> sous forme matricielle. La matrice <span class="arithmatex">\(2 \times 2\)</span> de l'équation <span class="arithmatex">\((2)\)</span> est la matrice de poids de la couche cachée.</p>
+</li>
+<li>
+<p><strong>Etape 2</strong> : En sortie de la couche cachée, la fonction d'activation <span class="arithmatex">\(\sigma^{1}\)</span> s'applique, on est alors à l'équation <span class="arithmatex">\((3)\)</span> avec les valeurs <span class="arithmatex">\((y_{1}, y_{2})\)</span>.</p>
+</li>
+<li>
+<p><strong>Etape 3</strong> : En arrivant au neurone de sortie, une nouvelle loi des noeuds s'applique à l'intérieur du neurone rouge, puis la fonction d'activation <span class="arithmatex">\(\sigma^{2}\)</span>. D'où l'équation <span class="arithmatex">\((4)\)</span>.</p>
+</li>
+</ol>
+</div>
+<p>Le vecteur <span class="arithmatex">\(\hat{y}\)</span> que l'on a en sortie de l'étape de feedforward pour l'observation <span class="arithmatex">\(x_{1}, x_{2}\)</span> est alors la cible prédite (<strong>ou simplement prédiction</strong>) par l'ANN. Comment alors mesurer l'erreur faite en prédisant <span class="arithmatex">\(\hat{y}\)</span> par rapport à la cible <span class="arithmatex">\(y\)</span> ?</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p><img alt="Screenshot" src="../images/DAG.svg" /></p>
+<p>Un réseau de neurones dense avec 3 couches cachées, 5 entrées et 3 sorties, on peut supposer que l'on est dans le cas d'un problème de classification avec 3 classes distinctes.</p>
+</div>
+<h3 id="fonction-de-perte">Fonction de perte</h3>
+<p>La fonction de perte est là pour calculer l'erreur obtenue entre la prédiction et la cible. Elle est traditionnelement notée <span class="arithmatex">\(\mathcal{L}_{\theta}\)</span>.</p>
+<p>Suivant le but du réseau de neurone on a plusieurs fonctions de pertes standards.</p>
+<table>
+<thead>
+<tr>
+<th align="center">But</th>
+<th align="center">Fonction de pertes</th>
+<th align="center">Activation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Régression</td>
+<td align="center">Erreur Moyenne Absolue (MAE)</td>
+<td align="center">aucune</td>
+</tr>
+<tr>
+<td align="center">Régression</td>
+<td align="center">Erreur Moyenne Quadratique (MSE)</td>
+<td align="center">aucune</td>
+</tr>
+<tr>
+<td align="center">Classification Binomiale</td>
+<td align="center">Entropie Croisée Binomiale  (BCE)</td>
+<td align="center">sigmoïde</td>
+</tr>
+<tr>
+<td align="center">Classification Binomiale (One Hot Encoding)</td>
+<td align="center">Entropie Croisée Catégorielle (CCE)</td>
+<td align="center">softmax</td>
+</tr>
+<tr>
+<td align="center">Classification multinomiale</td>
+<td align="center">Entropie Croisée Catégorielle Eparse (SCCE)</td>
+<td align="center">softmax</td>
+</tr>
+<tr>
+<td align="center">Classification multinomiale (One Hot Encoding)</td>
+<td align="center">Entropie Croisée Catégorielle (CCE)</td>
+<td align="center">softmax</td>
+</tr>
+</tbody>
+</table>
+<p>Dans le cadre des problèmes de classification, les noms des fonctions de pertes peut être différents mais la formule est fondamentalement la même. les modifications apportées ne sont là que pour prendre en compte la forme des prédictions et cibles : est ce que la classe est représentée par un vecteur ou simplement par un nombre ?</p>
+<div class="arithmatex">\[
+    MAE := \frac{1}{N}\sum_{i=1}^{N} ||y_{i} - \hat{y}_{i}||_{1}
+\]</div>
+<div class="arithmatex">\[
+    MSE := \frac{1}{N}\sum_{i=1}^{N} ||y_{i} - \hat{y}_{i}||^{2}_{2}
+\]</div>
+<div class="arithmatex">\[
+    CE := -\frac{1}{N}\sum_{i=1}^{N} \langle y_{i}, \log(\hat{y}_{i}) \rangle
+\]</div>
+<p>Le nombre <span class="arithmatex">\(N\)</span> présent dans les formules ci dessus est la taille du minibatch d'observations, pour l'instant on peut supposer que <span class="arithmatex">\(N=32\)</span>. Sa définition sera claire par la suite.</p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Dans le jargon, elle est appelée <strong>loss function</strong> et est traditionnelement notée <span class="arithmatex">\(\mathcal{L}_{\theta}\)</span>, où <span class="arithmatex">\(\theta\)</span> représente les poids et biais du réseau.</p>
+</div>
+<p>On a fait une étape de feedforward, on a obtenu une prédiction <span class="arithmatex">\(\hat{y}\)</span> dont on a calculée l'erreur <span class="arithmatex">\(\mathcal{L}_{\theta}(\hat{y})\)</span> grâce à a fonction de perte <span class="arithmatex">\(\mathcal{L}_{\theta}\)</span>. La question qui se pose maintenant est la suivante.</p>
+<p><strong>Comment minimiser cette erreur ?</strong></p>
+<h3 id="descente-du-gradient-stochastique">Descente du gradient stochastique</h3>
+<p>De façon succinte, on utilise la methode de la technique du gradient couplée à une méthode efficace pour calculer automatiquement le gradient.</p>
+<div class="admonition note">
+<p class="admonition-title">Descente du gradient</p>
+<p>La méthode de la descente du gradient est un algorithme d'optimisation permettant de trouver le minimum d'une fonction <span class="arithmatex">\(f\)</span>. Pour simplifier l'explication, supposons que l'on considère la fonction d'une seule variable.</p>
+<div class="arithmatex">\[
+    \begin{array}{ccccc}
+    C &amp; : &amp; \mathbf{R} &amp; \to     &amp; \mathbf{R} \\
+      &amp;   &amp; w          &amp; \mapsto &amp; C(w) \\
+    \end{array}
+\]</div>
+<p>La méthode pour trouver un minimum de <span class="arithmatex">\(C\)</span> est alors d'appliquer l'algorithme suivant :</p>
+<p><strong>Initialisation</strong></p>
+<ol>
+<li>Choisir un point de départ <span class="arithmatex">\(w \in \mathrm{dom}(C)\)</span>.</li>
+<li>Choisir un pas <span class="arithmatex">\(\eta\)</span> "très petit", <strong>et répéter :</strong><ol>
+<li>Calculer <span class="arithmatex">\(C'(w)\)</span></li>
+<li>Mettre à jour <span class="arithmatex">\(w := w - \eta C'(w)\)</span></li>
+</ol>
+</li>
+</ol>
+<p>Si <span class="arithmatex">\(w\)</span> est un minimum de <span class="arithmatex">\(C\)</span>, alors <span class="arithmatex">\(C'(w) = 0\)</span> et l'étape 2 de la phase de répétition reste bloquée sur <span class="arithmatex">\(w\)</span>.</p>
+<p><img alt="Screenshot" src="../images/gradient-descent-optimized.gif" /></p>
+<p>Exemple de descente du gradient (mlfromscratch)</p>
+</div>
+<p>La descente du gradient se généralise de la même façon à une fonction de plusieurs variables. Pour une fonction</p>
+<div class="arithmatex">\[f \, : \, \mathbf{R}^{k} \longrightarrow \mathbf{R}\]</div>
+<p>Les étapes 2.a et 2.b ci dessus sont alors remplacées par les étapes suivantes.</p>
+<ol>
+<li>Calculer <span class="arithmatex">\(\nabla f := ( \frac{\partial f}{\partial w_{1}}, \dots, \frac{\partial f}{\partial w_{k}})\)</span></li>
+<li>Mettre à jour <span class="arithmatex">\(w := w - \eta \nabla f\)</span></li>
+</ol>
+<p>Le but de la descente du gradient étant de déterminer le minimum d'une fonction, la question que l'on peut se poser de façon légitime est alors la suivante.</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Si l'on utilise la descente du gradient ici, quelle fonction souhaite-t-on minimiser ?</p>
+</div>
+<p>Dans le cas du Deep Learning, la fonction que l'on cherche à minimiser est <strong>la fonction de perte moyenne totale</strong>.</p>
+<div class="arithmatex">\[
+    \mathcal{L}_{\theta}^{\mathrm{tot}} := \frac{1}{n} \sum_{i=1}^{n} \mathcal{L}_{\theta}(\hat{y}_{i})
+\]</div>
+<p>On rappelle que <span class="arithmatex">\(n\)</span> est le cardinal de <span class="arithmatex">\(\mathcal{X}\)</span>, ie le nombre total d'observations dans le dataset. On notera <span class="arithmatex">\(\theta\)</span> <strong>l'ensemble des paramètres du réseau</strong>, on pose <span class="arithmatex">\(p\)</span> son cardinal, (le nombre total de paramètres, poids et biais combinés) il peut aller d'une dizaine à plusieurs milliards pour les modèles les plus récents.</p>
+<p>On a donc l'ensemble suivant,</p>
+<div class="arithmatex">\[
+    \theta := \lbrace w_{1}, \dots, w_{\alpha}, b_{1}, \dots, b_{\beta} \rbrace \quad \alpha + \beta = p
+\]</div>
+<p>Reste alors à savoir par rapport à quelles variables l'on souhaite calculer le gradient.</p>
+<p>Rapellons nous que dans la fonction de perte, pour une observation donnée <span class="arithmatex">\((\mathbf{x}_{i}, \mathbf{y}_{i})\)</span>, la prédiction <span class="arithmatex">\(\hat{y}_{i}\)</span> est une combinaison des éléments de <span class="arithmatex">\(\mathbf{x}_{i}= (x_{i,1}, \dots, x_{i,m})\)</span>, des paramètres du réseau, et des fonctions d'activations. La valeur de <span class="arithmatex">\(\mathbf{x}_{i}=(x_{i,1}, \dots, x_{i,m})\)</span> étant fixe, <strong>la seule chose qui peut varier dans la fonction de perte est la valeur des paramètres</strong> <span class="arithmatex">\(\theta\)</span>.</p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Le but de l'algorithme de rétropropagation du gradient est de trouver les paramètres <span class="arithmatex">\(\theta\)</span> optimaux pour minimiser la fonction de perte. Le gradient à calculer est donc le suivant.</p>
+<div class="arithmatex">\[
+    \nabla_{\theta} \mathcal{L}_{\theta}^{\mathrm{tot}} := \begin{pmatrix}
+    \frac{\partial \mathcal{L}_{\theta}^{\mathrm{tot}}}{\partial w_{1}} \\
+    \frac{\partial \mathcal{L}_{\theta}^{\mathrm{tot}}}{\partial w_{2}} \\
+    \vdots  \\
+    \frac{\partial \mathcal{L}_{\theta}^{\mathrm{tot}}}{\partial w_{\alpha}} \\
+    \frac{\partial \mathcal{L}_{\theta}^{\mathrm{tot}}}{\partial b_{1}} \\
+    \vdots \\
+    \frac{\partial \mathcal{L}_{\theta}^{\mathrm{tot}}}{\partial b_{\beta}}
+    \end{pmatrix}
+\]</div>
+</div>
+<p>Calculer ce gradient se fait alors via l'algorithme dit <strong>d'auto-différentiation inverse</strong>, c'est le choix fait par Tensorflow.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple : Graphe de calcul et auto-différentiation inverse</p>
+<p>On prend l'exemple de la fonction suivante.</p>
+<div class="arithmatex">\[
+    f(x) := \log(x) + \sqrt{\log(x)}
+\]</div>
+<p>On souhaite calculer sa dérivé, son graphe de calcul est alors le suivant.</p>
+<p><img alt="Screenshot" src="../images/autodiff_final.svg" /></p>
+<p>L'algorithme d'auto-différentiation prend alors la forme suivante.</p>
+<div class="arithmatex">\[
+    \begin{align}
+    (1) \quad \frac{\partial f}{\partial f} &amp; = 1 \\
+    (2) \quad \frac{\partial f}{\partial z} &amp; = \frac{\partial f}{\partial f} \cdot \frac{\partial f}{\partial z} =\frac{\partial f}{\partial f}1 \\
+    (3) \quad \frac{\partial f}{\partial y} &amp; = \frac{\partial f}{\partial z} \cdot \frac{\partial z}{\partial y} + \frac{\partial f}{\partial f}\cdot \frac{\partial f}{\partial y} = \frac{\partial f}{\partial z}\cdot \frac{1}{2\sqrt{y}} + \frac{\partial f}{\partial f}1 \\
+    (4) \quad \frac{\partial f}{\partial x} &amp; = \frac{\partial f}{\partial y}\cdot \frac{\partial y}{\partial x} = \frac{\partial f}{\partial y} \cdot\frac{1}{x}
+    \end{align}
+\]</div>
+</div>
+<p>Le but de la descente du gradient dans l'algorithme de rétropropagation est alors de minimiser cette fonction de perte, <strong>et donc de minimiser l'erreur moyenne faite durant la prédiction</strong>. Cependant pour un dataset comprenant plusieurs millions d'observations calculer le gradient <strong>complet</strong> <span class="arithmatex">\(\nabla_{\theta}\mathcal{L}_{\theta}\)</span> est prohibitf. L'idée est alors d'échanger ce gradient complet pour un gradient <strong>approximatif mais plus simple à calculer</strong>. C'est le principe du minibatch.</p>
+<p>De façon plus détaillée, voici comment fonctionne l'algorithme :</p>
+<div class="admonition note">
+<p class="admonition-title">Algorithme de rétropropagation</p>
+<ol>
+<li>
+<p>L'algorithme considère <strong>un minibatch de taile</strong> <span class="arithmatex">\(N\)</span> <strong>à la fois</strong> (par exemple, avec <span class="arithmatex">\(N=32\)</span> observations à chaque fois), lorsque l'on parle de mini-batch de taille <span class="arithmatex">\(N\)</span> il faut comprendre <strong>sélection de</strong> <span class="arithmatex">\(N\)</span> <strong>observations par un tirage sans remise</strong>. Chaque passage du dataset complet s'appelle <strong>une époque</strong>.</p>
+</li>
+<li>
+<p>Durant l'étape de feedforward, à chaque passage du mini-batch dans une couche du réseau le résultat obtenu est conservé en mémoire.</p>
+</li>
+<li>
+<p>Une fois le mini-batch passé complètement dans l'ANN, la prédiction est alors évaluée avec <strong>la fonction de perte</strong> pour en déduire l'erreur de prédiction faite par rapport par rapport à la cible.</p>
+</li>
+<li>
+<p>L'algorithme calcule alors la contribution de chacun des poids et biais dans le calcul de l'erreur obtenue par la fonction de perte.</p>
+</li>
+<li>
+<p><strong>Une descente du gradient sur la fonction de perte</strong> est alors appliquée pour modifier les poids et les biais, et à terme minimiser la fonction de perte.</p>
+</li>
+</ol>
+</div>
+<p>La mise à jour des paramètres de l'ANN se faisant suite au passage du mini-batch, la technique de descente du gradient utilisée ici est dite <strong>descente du gradient stochastique</strong>, stochastique faisant référence ici à la manière aléatoire par laquelle sont sélectionnées les observations composants le mini-batch.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>La méthode du gradient est utilisé pour optimiser les paramètres du réseau de neurones. Les étapes sont les suivantes.</p>
+<ol>
+<li>Comme on travaille en mini-batch de taille <span class="arithmatex">\(N\)</span> (eg <span class="arithmatex">\(N=32\)</span>) on a une valeur d'erreur pour chaque prédictions faite sur ce mini-batch.</li>
+</ol>
+<div class="arithmatex">\[
+    \mathcal{L}_{\theta}(\hat{y}_{1}), \mathcal{L}_{\theta}(\hat{y}_{2}), \dots, \mathcal{L}_{\theta}(\hat{y}_{N})
+\]</div>
+<ol>
+<li>La fonction que l'on va donc utiliser pour appliquer la méthode du gradient est <strong>la fonction de perte moyenne</strong> sur ce mini-batch.</li>
+</ol>
+<div class="arithmatex">\[
+    \mathcal{L}_{\theta} := \frac{1}{N} \sum_{i=1}^{N} \mathcal{L}_{\theta}(\hat{y}_{i})
+\]</div>
+<ol>
+<li>Le gradient de cette fonction est alors défini par :</li>
+</ol>
+<div class="arithmatex">\[
+    \nabla_{\theta} \mathcal{L}_{\theta} := \begin{pmatrix}
+    \frac{\partial \mathcal{L}_{\theta}}{\partial w_{1}} \\
+    \frac{\partial \mathcal{L}_{\theta}}{\partial w_{2}} \\
+    \vdots  \\
+    \frac{\partial \mathcal{L}_{\theta}}{\partial w_{\alpha}} \\
+    \frac{\partial \mathcal{L}_{\theta}}{\partial b_{1}} \\
+    \vdots \\
+    \frac{\partial \mathcal{L}_{\theta}}{\partial b_{\beta}}
+    \end{pmatrix}
+\]</div>
+<ol>
+<li>La mise à jour des paramètres se fait alors via la formule suivante :</li>
+</ol>
+<div class="arithmatex">\[
+   w_{i} \leftarrow w_{i} - \eta \frac{\partial \mathcal{L}_{\theta}}{\partial w_{i}}(\theta)
+\]</div>
+<div class="arithmatex">\[
+    b_{i} \leftarrow b_{i} - \eta \frac{\partial \mathcal{L}_{\theta}}{\partial b_{i}}(\theta)
+\]</div>
+<p><span class="arithmatex">\(\eta\)</span> est ici un nombre réel que l'on appelle <strong>le taux d'apprentissage</strong>, il n'est pas appris par l'algorithme et doit être fixé à la main (<strong>c'est un hyperparamètre</strong>).</p>
+</div>
+<div class="admonition question">
+<p class="admonition-title">Pourquoi choisir une méthode stochastique ?</p>
+<p>Etant donnée une fonction différentiable, il est théoriquement possible de trouver son minimum de façon purement analytique : une fonction <span class="arithmatex">\(f : \mathbf{R} \rightarrow \mathbf{R}\)</span> possède un extremum en un point <span class="arithmatex">\(x\)</span> si sa dérivée <span class="arithmatex">\(f'(x)\)</span> est nulle. Une fois trouvé tous ces points on prend celui pour lequel <span class="arithmatex">\(f(x)\)</span> est la plus petite valeur.</p>
+<p>Dans le cadre des réseaux de neurones, cela revient à devoir résoudre <span class="arithmatex">\(\nabla \mathcal{L}_{\theta} = 0\)</span>. C'est une équation polynomiale en <span class="arithmatex">\(p\)</span> variables, où <span class="arithmatex">\(p\)</span> est le cardinal de <span class="arithmatex">\(\theta\)</span> ensemble des paramètres du réseau.</p>
+<p>Premièrement, si cela est faisable pour <span class="arithmatex">\(p=2\)</span> ou <span class="arithmatex">\(p=3\)</span>, c'est difficilement réalisable dans la pratique d'une réseau de neurones où <span class="arithmatex">\(p\)</span> dépasse facilement la centaine de milliers.</p>
+<p>Deuxièmement, effectuer une descente du gradient classique supposerait d'avoir calculé les prédictions sur l'ensemble du dataset, et de garder en mémoire ces valeurs afin de calculer <span class="arithmatex">\(\nabla \mathcal{L}_{\theta}\)</span>.</p>
+<p><strong>Du point de vue de la complexité algorithmique, le coût de calcul de</strong> <span class="arithmatex">\(\nabla \mathcal{L}_{\theta}=0\)</span> <strong>croît alors de façon linéaire avec la taille du dataset</strong>.</p>
+<p>Dans une méthode stochastique, la taille du mini-batch étant fixée (eg <span class="arithmatex">\(N=32\)</span>) et relativement petite par rapport à la taille du dataset, la compléxité est moindre et constante tout au long de l'algorithme. Les mises à jour des paramètres étant plus fréquentes,
+l'algorithme converge plus rapidement vers un optimum.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>La descente du gradient, stochastique ou non, est à la base une méthode d'<strong>optimisation convexe</strong>, hors <strong>les fonctions de pertes utilisées dans la pratique ne sont pas convexes</strong>. On se retrouve donc généralement uniquement avec des minima locaux pour la fonction de perte. Dans la pratique ce n'est pas un soucis, et de nombreuses techniques d'optimisation ont été introduites pour pouvoir converger vers un minimum global au lieu de "rester coincé dans un minimum local". Méthodes que l'on verra dans les modules suivants.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Symétrie des poids</p>
+<p><img alt="Screenshot" src="../images/symmetry_final.svg" /></p>
+<p><img alt="Screenshot" src="../images/symmetry_matrix.svg" /></p>
+</div>
+<p>La descente du gradient stochastique, n'est qu'une des méthodes d'optimisation afin de minimiser la fonction de perte. Il existe aujourd'hui de nombreux <strong>optimiseurs</strong> pour la descente du gradient.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p>Définissons un exemple de l'étape de rétropropagation du gradient.</p>
+<p><img alt="Screenshot" src="../images/backprop_final.svg" /></p>
+<div class="arithmatex">\[
+\begin{align}
+    \frac{\partial \mathcal{L}_{\vartheta}}{ \partial w_{1,1}^{1}} =  &amp; \frac{\partial \mathcal{L}_{\vartheta}}{\partial s} \cdot \frac{\partial s}{\partial h_{1}^{2}} \cdot \frac{\partial h_{1}^{2}}{\partial h_{1}^{1}} \cdot \frac{\partial h_{1}^{1}}{\partial w_{1,1}^{1}} \\
+                                                                    + &amp; \frac{\partial \mathcal{L}_{\vartheta}}{\partial s} \cdot \frac{\partial s}{\partial h_{2}^{2}}
+    \cdot \frac{\partial h_{2}^{2}}{\partial h_{1}^{1}} \cdot \frac{\partial h_{1}^{1}}{\partial w_{1,1}^{1}}
+\end{align}
+\]</div>
+<div class="arithmatex">\[
+    w_{1,1}^{1} \leftarrow w_{1,1}^{1} - \eta \frac{\partial \mathcal{L}_{\vartheta}}{ \partial w_{1,1}^{1}}.
+\]</div>
+</div>
+<p>Les neurones denses sont une généralisation très puissante des MLP, car <strong>ce sont des approximateurs universels</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Théorème d'approximation universelle de Kolmogorov</p>
+<p>Toute fonction continue définie sur un compact <span class="arithmatex">\(K \subset \mathbf{R}^{r}\)</span> peut être uniformément approximée par un réseau de neurones denses avec une couche cachée.</p>
+</div>
+<h2 id="resume">Résumé</h2>
+<p>Mathématiquement, un MLP peut se représenter par la fonction suivante.</p>
+<div class="arithmatex">\[
+    \begin{array}{ccccc} f_{NN} &amp; : &amp; \mathbf{R}^{m} &amp; \to &amp; \mathbf{R}^{k} \\ &amp; &amp; \mathbf{x} &amp; \mapsto &amp; f_{NN}(\mathbf{x}) \\ \end{array}
+\]</div>
+<div class="arithmatex">\[
+    \hat{\mathbf{y}} := f_{NN}(\mathbf{x}) = \sigma^{r} \circ \cdots \circ \sigma^{1} (\mathbf{x})
+\]</div>
+<p>L'entier <span class="arithmatex">\(m\)</span> dépend du nombre de features dans le dataset, l'entier <span class="arithmatex">\(k\)</span> dépend lui du problème considéré.</p>
+<p>Le nombre de fonctions <span class="arithmatex">\(\sigma^{i}\)</span> dépend de l'architecture du réseau et correspond au nombre de couches cachées.</p>
+<div class="arithmatex">\[
+    \mathbf{y}^{\ell} := \sigma^{\ell}(\mathbf{X}\mathbf{W}_{\ell} + \mathbf{b}_{\ell})
+\]</div>
+<p>Où <span class="arithmatex">\(\mathbf{W}_{\ell}\)</span> correspond à la matrice de poids de la couche <span class="arithmatex">\(\ell\)</span> et <span class="arithmatex">\(\mathbf{b}_{\ell}\)</span> au vecteur de biais correspondant. On a</p>
+<ol>
+<li>Une ligne par features dans <span class="arithmatex">\(\mathbf{X}\)</span>,</li>
+<li>Une colonne par neurones dans la couche cachée,</li>
+<li>Autant de biais que de neurones dans la couche cachée.</li>
+</ol>
+<div class="arithmatex">\[
+    \begin{equation*}
+    \mathbf{W}_{\ell} = \begin{pmatrix}
+    w_{1,1}^{\ell} &amp; w_{1,2}^{\ell} &amp; \cdots &amp; w_{1,r}^{\ell} \\
+    w_{2,1}^{\ell} &amp; w_{2,2}^{\ell} &amp; \cdots &amp; w_{2,r}^{\ell} \\
+    \vdots  &amp; \vdots  &amp; \ddots &amp; \vdots  \\
+    w_{l,1}^{\ell} &amp; w_{l,2}^{\ell} &amp; \cdots &amp; w_{l,r}^{\ell}
+    \end{pmatrix}\end{equation*}
+    \in \mathcal{M}_{l,r}(\mathbf{R}) \quad \mathbf{b}_{\ell} = \begin{pmatrix}b_{1}^{\ell} &amp; b_{2}^{i} &amp; \cdots &amp; b_{r}^{\ell} \end{pmatrix}
+\]</div>
+<p><strong>La topologie du réseau</strong> : Le nombres de neurones, de couches, de neurones par couches, et d'arrêtes dépendent du problème considéré. Il existe toutefois des architectures connues et spécialisées dans certains problèmes. Certaines couches de neurones sont ainsi spécialisées dans le traitement d'images, d'autres encore dans le traitement des séries temporelles.</p>
+<div class="admonition example">
+<p class="admonition-title">Exemple</p>
+<p><img alt="Screenshot" src="../images/DAG.svg" /></p>
+<p>Un réseau de neurones dense avec 3 couches cachées, 5 entrées et 3 sorties, on peut supposer que l'on est dans le cas d'un problème de classification avec 3 classes distinctes.</p>
+<ol>
+<li>La première couche cachée a pour matrice de poids une matrice de taille <span class="arithmatex">\(5\times 10\)</span>,  <span class="arithmatex">\(\mathbf{W}_{1} \in \mathcal{M}_{5,10}(\mathbf{R})\)</span>,</li>
+<li>La deuxième couche cachée a pour matrice de poids une matrice de taille <span class="arithmatex">\(10\times 10\)</span>,  <span class="arithmatex">\(\mathbf{W}_{2} \in \mathcal{M}_{10,10}(\mathbf{R})\)</span>,</li>
+<li>La troisème couche cachée a pour matrice de poids une matrice de taille <span class="arithmatex">\(10\times 10\)</span>,  <span class="arithmatex">\(\mathbf{W}_{3} \in \mathcal{M}_{10,10}(\mathbf{R})\)</span>,</li>
+<li>La couche de sortie a pour matrice de poids une matrice de taille <span class="arithmatex">\(10\times 3\)</span>,  <span class="arithmatex">\(\mathbf{W}_{4} \in \mathcal{M}_{10,3}(\mathbf{R})\)</span>.</li>
+</ol>
+<p>Concernant les biais on a des vecteurs :</p>
+<ol>
+<li><span class="arithmatex">\(\mathbf{b}_{1} \in \mathbf{R}^{10}\)</span> pour la première couche cachée,</li>
+<li><span class="arithmatex">\(\mathbf{b}_{2} \in \mathbf{R}^{10}\)</span> pour la deuxième couche cachée,</li>
+<li><span class="arithmatex">\(\mathbf{b}_{3} \in \mathbf{R}^{10}\)</span> pour la troisième couche cachée,</li>
+<li><span class="arithmatex">\(\mathbf{b}_{4} \in \mathbf{R}^{3}\)</span> pour la couche de sortie.</li>
+</ol>
+<p>Ce qui nous fait un nombre total de paramètres égal à</p>
+<p><span class="arithmatex">\(\dim( \mathcal{M}_{5,10}(\mathbf{R})) + \dim(\mathbf{R}^{10}) + \dim( \mathcal{M}_{10,10}(\mathbf{R})) + \dim(\mathbf{R}^{10}) +\dim( \mathcal{M}_{10,10}(\mathbf{R})) + \\ \dim(\mathbf{R}^{10}) + \dim( \mathcal{M}_{10,3}(\mathbf{R})) + \dim(\mathbf{R}^{3}) = 313\)</span></p>
+<p>313 paramètres, ce qui est loin d'être énorme.</p>
+<p>En python, avec tensorflow, un tel réseau ce code de la manière suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="n">model</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Input&#39;</span><span class="p">),</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;relu&#39;</span><span class="p">),</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="n">Activation</span><span class="p">(</span><span class="s1">&#39;softmax&#39;</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;SeqAPI&#39;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

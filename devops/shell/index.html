@@ -1,0 +1,3327 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../git/">
+      
+      
+        <link rel="next" href="../network/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>Shell scripts - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#shell-scripting" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Shell scripts
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-tabs__link">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../azure_ml/intro/" class="md-tabs__link">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../linux/" class="md-tabs__link md-tabs__link--active">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../azure_ml/annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Shell scripts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Shell scripts
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution" class="md-nav__link">
+    Exécution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-variables" class="md-nav__link">
+    Les variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Les variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-statique" class="md-nav__link">
+    Définition statique
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definiion-dynamique" class="md-nav__link">
+    Définiion dynamique
+  </a>
+  
+    <nav class="md-nav" aria-label="Définiion dynamique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-arguments-en-ligne-de-commande" class="md-nav__link">
+    Les arguments en ligne de commande
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arithmetique" class="md-nav__link">
+    Arithmétique
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-controles-logiques" class="md-nav__link">
+    Les contrôles logiques
+  </a>
+  
+    <nav class="md-nav" aria-label="Les contrôles logiques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if" class="md-nav__link">
+    if
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for" class="md-nav__link">
+    for
+  </a>
+  
+    <nav class="md-nav" aria-label="for">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecriture-de-la-boucle-en-style-c" class="md-nav__link">
+    Ecriture de la boucle en style C
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples" class="md-nav__link">
+    Exemples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    while
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case" class="md-nav__link">
+    case
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shebang" class="md-nav__link">
+    Shebang
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-codes" class="md-nav__link">
+    Exit codes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-fonctions" class="md-nav__link">
+    Les fonctions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking" class="md-nav__link">
+    Checking
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lire-un-fichier-csv" class="md-nav__link">
+    Lire un fichier CSV
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#misc" class="md-nav__link">
+    Misc
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution" class="md-nav__link">
+    Exécution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-variables" class="md-nav__link">
+    Les variables
+  </a>
+  
+    <nav class="md-nav" aria-label="Les variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition-statique" class="md-nav__link">
+    Définition statique
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#definiion-dynamique" class="md-nav__link">
+    Définiion dynamique
+  </a>
+  
+    <nav class="md-nav" aria-label="Définiion dynamique">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-arguments-en-ligne-de-commande" class="md-nav__link">
+    Les arguments en ligne de commande
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    Inputs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arithmetique" class="md-nav__link">
+    Arithmétique
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-controles-logiques" class="md-nav__link">
+    Les contrôles logiques
+  </a>
+  
+    <nav class="md-nav" aria-label="Les contrôles logiques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if" class="md-nav__link">
+    if
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#for" class="md-nav__link">
+    for
+  </a>
+  
+    <nav class="md-nav" aria-label="for">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ecriture-de-la-boucle-en-style-c" class="md-nav__link">
+    Ecriture de la boucle en style C
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemples" class="md-nav__link">
+    Exemples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#while" class="md-nav__link">
+    while
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case" class="md-nav__link">
+    case
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shebang" class="md-nav__link">
+    Shebang
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exit-codes" class="md-nav__link">
+    Exit codes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-fonctions" class="md-nav__link">
+    Les fonctions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking" class="md-nav__link">
+    Checking
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lire-un-fichier-csv" class="md-nav__link">
+    Lire un fichier CSV
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#misc" class="md-nav__link">
+    Misc
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="shell-scripting">Shell scripting</h1>
+<ul>
+<li><a href="https://google.github.io/styleguide/shellguide.html">Google Shell Style Guide</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>Un script shell est une suite d'instruction shell le tout encapsulé dans un fichier avec l'extension <code>.sh</code>.</p>
+<p><div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello World shell&quot;</span>
+</code></pre></div></td></tr></table></div>
+On peut alors lancer un tel script via la commande suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a>bash<span class="w"> </span>helloworld.sh
+</code></pre></div></td></tr></table></div>
+<h2 id="execution">Exécution</h2>
+<p>Les scripts shell peuvent aussi être définis comme des commandes exécutables.</p>
+<p>La convention veut alors que l'on ne met pas l'extension à la fin, le fichier s'appelant alors simplement <code>helloworld</code>.</p>
+<p>Si on essaye tout de suite de lancer le script comme un exécutable, on aura l'erreur suivante.</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a>❯<span class="w"> </span>helloworld
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>zsh:<span class="w"> </span><span class="nb">command</span><span class="w"> </span>not<span class="w"> </span>found:<span class="w"> </span>helloworld
+</code></pre></div></td></tr></table></div>
+Pour pouvoir le lancer en tant qu'exécutable, Linux a besoin de savoir dans quel chemin chercher ce script.</p>
+<p>On peut trouver la liste des chemins en tapant <code>echo $PATH</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$PATH</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>/home/vorph/gems/bin:/home/vorph/miniconda3/bin:/home/vorph/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+</code></pre></div></td></tr></table></div>
+<p>Pour rajouter le chemin du script en tant qu'exécutable, on utilise la commande suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:chemin
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$pwd</span>
+</code></pre></div></td></tr></table></div>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;echo &#39;Hello World Shell&#39;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>helloworld
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a>❯<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/vorph
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>❯<span class="w"> </span>helloworld
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a>zsh:<span class="w"> </span>permission<span class="w"> </span>non<span class="w"> </span>accordée:<span class="w"> </span>helloworld
+</code></pre></div></td></tr></table></div>
+Reste à définir la bonne permission pour qu'il soit disponible comme un exécutable. Cela se fait avec la commande <code>chmod</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Autorise l'éxécution</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>chmod<span class="w"> </span>+x<span class="w"> </span>helloworld
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Cette fois ci ça va marcher</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span>
+<span class="normal"><a href="#__codelineno-8-7">7</a></span>
+<span class="normal"><a href="#__codelineno-8-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;echo &#39;Hello World Shell&#39;&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>helloworld
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a>❯<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/vorph
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a>❯<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>helloworld
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a>❯<span class="w"> </span>helloworld
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a>Hello<span class="w"> </span>World<span class="w"> </span>Shell
+</code></pre></div></td></tr></table></div>
+<h2 id="les-variables">Les variables</h2>
+<h3 id="definition-statique">Définition statique</h3>
+<p>Dans un script schell, les variables sont définies avec le symbole <code>$</code>, comme dans la commande permettant de voir le shell que l'on utilise.</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$SHELL</span>
+</code></pre></div></td></tr></table></div>
+Il suffit alors de définir la valeur de la variable en début de script.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld-variables.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="nv">user</span><span class="o">=</span>Vorphus
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello World shell, it&#39;s </span><span class="nv">$user</span><span class="s2">&quot;</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Un nom de variable ne peut contenir que des caractères alphanumériques ou underscore <code>_</code>. Shell est aussi sensible à la casse.</p>
+<p><code>$variable_1</code> fontionnne, mais pas <code>$variable-1</code>.</p>
+</div>
+<p>Une varible peut aussi stocker le résultat d'un autre script, dans ce as là, on définit alors la variable avec des parenthèses en plus.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="nv">variable</span><span class="o">=</span><span class="k">$(</span>script<span class="k">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span>
+<span class="normal"><a href="#__codelineno-12-12">12</a></span>
+<span class="normal"><a href="#__codelineno-12-13">13</a></span>
+<span class="normal"><a href="#__codelineno-12-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>❯<span class="w"> </span><span class="nv">variable</span><span class="o">=</span><span class="k">$(</span>ls<span class="k">)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>❯<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$variable</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>demo_deploy
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a>docs
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a>includes
+<a id="__codelineno-12-7" name="__codelineno-12-7"></a>site
+<a id="__codelineno-12-8" name="__codelineno-12-8"></a>azure_sdk.md
+<a id="__codelineno-12-9" name="__codelineno-12-9"></a>Dockerfile.dev
+<a id="__codelineno-12-10" name="__codelineno-12-10"></a>LICENSE
+<a id="__codelineno-12-11" name="__codelineno-12-11"></a>makefile
+<a id="__codelineno-12-12" name="__codelineno-12-12"></a>mkdocs.yml
+<a id="__codelineno-12-13" name="__codelineno-12-13"></a>README.md
+<a id="__codelineno-12-14" name="__codelineno-12-14"></a>requirements.txt
+</code></pre></div></td></tr></table></div>
+<p>Une variable à laquelle ont rajouter quelque chose, comme du text, doit être encapsulé entre accolades <code>${...}</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="nv">file_name</span><span class="o">=</span><span class="nb">test</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>cp<span class="w"> </span><span class="nv">$file_name</span><span class="w"> </span><span class="si">${</span><span class="nv">file_name</span><span class="si">}</span>_bkp
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span>
+<span class="normal"><a href="#__codelineno-14-13">13</a></span>
+<span class="normal"><a href="#__codelineno-14-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="nv">FILE01</span><span class="o">=</span><span class="s2">&quot;Japan&quot;</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="nv">FILE02</span><span class="o">=</span><span class="s2">&quot;Egypt&quot;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="nv">FILE03</span><span class="o">=</span><span class="s2">&quot;Canada&quot;</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="nb">cd</span><span class="w"> </span>/home/vorph
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creating file called </span><span class="nv">$FILE01</span><span class="s2">&quot;</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8"></a>touch<span class="w"> </span><span class="nv">$FILE01</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9"></a>
+<a id="__codelineno-14-10" name="__codelineno-14-10"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creating file called </span><span class="nv">$FILE02</span><span class="s2">&quot;</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11"></a>touch<span class="w"> </span><span class="nv">$FILE02</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12"></a>
+<a id="__codelineno-14-13" name="__codelineno-14-13"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Creating file called </span><span class="nv">$FILE03</span><span class="s2">&quot;</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14"></a>touch<span class="w"> </span><span class="nv">$FILE03</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="definiion-dynamique">Définiion dynamique</h3>
+<h4 id="les-arguments-en-ligne-de-commande">Les arguments en ligne de commande</h4>
+<p>Dans un terminal, les arguments définis pour un script shell sont des variables spécifiques stockées sous la variables <code>$k</code> où k correspond au k-ième argument défini dans le terminal.</p>
+<ul>
+<li><code>$0</code> correspond au nom du script,</li>
+<li><code>$1</code> correspond au premier argument après le nom du script,</li>
+<li>etc.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld-cli.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="nv">user</span><span class="o">=</span><span class="nv">$1</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello World shell, it&#39;s </span><span class="nv">$user</span><span class="s2">&quot;</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span>
+<span class="normal"><a href="#__codelineno-16-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>❯<span class="w"> </span>sh<span class="w"> </span>helloworld-cli.sh<span class="w"> </span>mathieu
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a>Hello<span class="w"> </span>World<span class="w"> </span>shell,<span class="w"> </span>its<span class="w"> </span>mathieu
+</code></pre></div></td></tr></table></div>
+<h4 id="inputs">Inputs</h4>
+<p>Autre autre façon de définir une variable est de la demander comme input dans le terminal, cela se fait avoir la commande <code>read</code>, on peut rajouter l'argument <code>-p</code> (p pour "prompt") pour définir un texte à afficher dans le terminal avant de donner la variable d'input.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld-input.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;What&#39;s your name ? &quot;</span><span class="w"> </span>user
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello World shell, it&#39;s </span><span class="nv">$user</span><span class="s2">&quot;</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="arithmetique">Arithmétique</h2>
+<p>Pour faire des calculs, on peut utiliser la commande <code>expr</code>, chacun des éléments de l'opération doit alors être sépaaré par un espace.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>expr<span class="w"> </span><span class="m">6</span><span class="w"> </span>+<span class="w"> </span><span class="m">3</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Pour une multiplication, le symbole * doit être échappé</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a>expr<span class="w"> </span><span class="m">6</span><span class="w"> </span><span class="se">\*</span><span class="w"> </span><span class="m">3</span>
+</code></pre></div></td></tr></table></div>
+<p>Au lieu d'utiliser une commande particulière, on peut utiliser <code>echo</code>, il faut alors mettre le calcul entre double parenthèses.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span>
+<span class="normal"><a href="#__codelineno-20-4">4</a></span>
+<span class="normal"><a href="#__codelineno-20-5">5</a></span>
+<span class="normal"><a href="#__codelineno-20-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="nv">A</span><span class="o">=</span><span class="m">6</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="nv">B</span><span class="o">=</span><span class="m">3</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>A+B<span class="k">))</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>A-B<span class="k">))</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>A/B<span class="k">))</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6"></a><span class="nb">echo</span><span class="w"> </span><span class="k">$((</span>A*B<span class="k">))</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">bc pour basic computer -l pour les floats</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$A</span>/<span class="nv">$B</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc<span class="w"> </span>-l
+</code></pre></div></td></tr></table></div>
+<h2 id="les-controles-logiques">Les contrôles logiques</h2>
+<h3 id="if"><code>if</code></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span>
+<span class="normal"><a href="#__codelineno-22-3">3</a></span>
+<span class="normal"><a href="#__codelineno-22-4">4</a></span>
+<span class="normal"><a href="#__codelineno-22-5">5</a></span>
+<span class="normal"><a href="#__codelineno-22-6">6</a></span>
+<span class="normal"><a href="#__codelineno-22-7">7</a></span>
+<span class="normal"><a href="#__codelineno-22-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condition1<span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a><span class="k">then</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="w">    </span>statement1
+<a id="__codelineno-22-4" name="__codelineno-22-4"></a><span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condition2<span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5"></a><span class="w">    </span>statement2
+<a id="__codelineno-22-6" name="__codelineno-22-6"></a><span class="k">else</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7"></a><span class="w">    </span>statement3
+<a id="__codelineno-22-8" name="__codelineno-22-8"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<p>La condition définissant <code>if</code> est toujours comprises entre crochets, et un espace doit être présent entre chaque membre de la condition.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld-if.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span>
+<span class="normal"><a href="#__codelineno-23-3">3</a></span>
+<span class="normal"><a href="#__codelineno-23-4">4</a></span>
+<span class="normal"><a href="#__codelineno-23-5">5</a></span>
+<span class="normal"><a href="#__codelineno-23-6">6</a></span>
+<span class="normal"><a href="#__codelineno-23-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;What&#39;s your name ? &quot;</span><span class="w"> </span>user
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mathieu<span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="w">  </span><span class="k">then</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello World shell, it&#39;s </span><span class="nv">$user</span><span class="s2">&quot;</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5"></a><span class="k">else</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello stranger !&quot;</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>=</li>
+<li>!=</li>
+<li>-eq</li>
+<li>-ne</li>
+<li>-gt</li>
+<li>-lt</li>
+</ul>
+<p>Les doubles crochets pour les conditions <code>[[ condtion ]]</code> sont une amélioration des crochets simples, ils ne sont disponibles que pour <code>bash</code> et les shells plus récents. Ils permettents l'écriture de conditions plus fines.</p>
+<p>Pour gérer plusieurs conditions à la fois,</p>
+<ul>
+<li>on utilise <code>&amp;&amp;</code> pour l'intersection.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Si condition1 et condition2 sont vraies, alors...</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span>
+<span class="normal"><a href="#__codelineno-24-2">2</a></span>
+<span class="normal"><a href="#__codelineno-24-3">3</a></span>
+<span class="normal"><a href="#__codelineno-24-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condition1<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condition2<span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="k">then</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="w">    </span>...
+<a id="__codelineno-24-4" name="__codelineno-24-4"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Si condition1 et condition2 sont vraies, alors...</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
+<span class="normal"><a href="#__codelineno-25-2">2</a></span>
+<span class="normal"><a href="#__codelineno-25-3">3</a></span>
+<span class="normal"><a href="#__codelineno-25-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>condition1<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>condition2<span class="w"> </span><span class="o">]]</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="k">then</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="w">    </span>...
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>on utilise <code>||</code> pour l'union.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Si condition1 ou condition2 est vraie, alors...</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span>
+<span class="normal"><a href="#__codelineno-26-2">2</a></span>
+<span class="normal"><a href="#__codelineno-26-3">3</a></span>
+<span class="normal"><a href="#__codelineno-26-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condition1<span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condition2<span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a><span class="k">then</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3"></a><span class="w">    </span>...
+<a id="__codelineno-26-4" name="__codelineno-26-4"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Si condition1 ou condition2 est vraie, alors...</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span>
+<span class="normal"><a href="#__codelineno-27-2">2</a></span>
+<span class="normal"><a href="#__codelineno-27-3">3</a></span>
+<span class="normal"><a href="#__codelineno-27-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>condition1<span class="w"> </span><span class="o">||</span><span class="w"> </span>condition2<span class="w"> </span><span class="o">]]</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2"></a><span class="k">then</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3"></a><span class="w">    </span>...
+<a id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<p>Pour le système de fichier, on a les commandes suivantes.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Commande</th>
+<th align="center">Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>[ -e FILE ]</code></td>
+<td align="center">si le fichier existe</td>
+</tr>
+<tr>
+<td align="center"><code>[ -d FILE ]</code></td>
+<td align="center">si le fichier existe et est un répertoire</td>
+</tr>
+<tr>
+<td align="center"><code>[ -s FILE ]</code></td>
+<td align="center">si le fichier existe et a un taille plus grande que 0</td>
+</tr>
+<tr>
+<td align="center"><code>[ -x FILE ]</code></td>
+<td align="center">si le fichier est éxecutable</td>
+</tr>
+<tr>
+<td align="center"><code>[ -w FILE ]</code></td>
+<td align="center">si le fichier est écrivable</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span>
+<span class="normal"><a href="#__codelineno-28-3">3</a></span>
+<span class="normal"><a href="#__codelineno-28-4">4</a></span>
+<span class="normal"><a href="#__codelineno-28-5">5</a></span>
+<span class="normal"><a href="#__codelineno-28-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;/home/vorph/caleston&quot;</span><span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a><span class="k">then</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Directory exists&quot;</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4"></a><span class="k">else</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Directory not found&quot;</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="for"><code>for</code></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span>
+<span class="normal"><a href="#__codelineno-29-2">2</a></span>
+<span class="normal"><a href="#__codelineno-29-3">3</a></span>
+<span class="normal"><a href="#__codelineno-29-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a><span class="k">for</span><span class="w"> </span>machin<span class="w"> </span><span class="k">in</span><span class="w"> </span>list_of_machin
+<a id="__codelineno-29-2" name="__codelineno-29-2"></a><span class="k">do</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3"></a><span class="w">    </span>commande<span class="w"> </span><span class="nv">$machin</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">La liste peut être sstockée dans un autre fichier</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
+<span class="normal"><a href="#__codelineno-30-2">2</a></span>
+<span class="normal"><a href="#__codelineno-30-3">3</a></span>
+<span class="normal"><a href="#__codelineno-30-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="k">for</span><span class="w"> </span>machin<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>list.txt<span class="k">)</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2"></a><span class="k">do</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3"></a><span class="w">    </span>commande<span class="w"> </span><span class="nv">$machin</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld-for.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-31-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-31-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-31-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-31-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-31-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-31-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-31-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-31-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-31-10">10</a></span>
+<span class="normal"><a href="#__codelineno-31-11">11</a></span>
+<span class="normal"><a href="#__codelineno-31-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;What&#39;s your name ? &quot;</span><span class="w"> </span>user
+<a id="__codelineno-31-2" name="__codelineno-31-2"></a>
+<a id="__codelineno-31-3" name="__codelineno-31-3"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$user</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mathieu<span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4"></a><span class="w">  </span><span class="k">then</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello World shell, it&#39;s </span><span class="nv">$user</span><span class="s2">&quot;</span>
+<a id="__codelineno-31-6" name="__codelineno-31-6"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span>item<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>list.txt<span class="k">)</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7"></a><span class="w">    </span><span class="k">do</span>
+<a id="__codelineno-31-8" name="__codelineno-31-8"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$item</span><span class="s2">&quot;</span>
+<a id="__codelineno-31-9" name="__codelineno-31-9"></a><span class="w">    </span><span class="k">done</span>
+<a id="__codelineno-31-10" name="__codelineno-31-10"></a><span class="k">else</span>
+<a id="__codelineno-31-11" name="__codelineno-31-11"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello stranger !&quot;</span>
+<a id="__codelineno-31-12" name="__codelineno-31-12"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<p>Pour faire une itération sur des entiers, on peut utiliser la commande <code>{0..k}</code>, comme <code>range(k)</code> en python.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld-for2.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-32-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-32-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-32-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-32-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-32-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-32-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-32-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-32-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-32-10">10</a></span>
+<span class="normal"><a href="#__codelineno-32-11">11</a></span>
+<span class="normal"><a href="#__codelineno-32-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;What&#39;s your name ? &quot;</span><span class="w"> </span>user
+<a id="__codelineno-32-2" name="__codelineno-32-2"></a>
+<a id="__codelineno-32-3" name="__codelineno-32-3"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mathieu<span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4"></a><span class="w">  </span><span class="k">then</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello World shell, it&#39;s </span><span class="nv">$user</span><span class="s2">&quot;</span>
+<a id="__codelineno-32-6" name="__codelineno-32-6"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span>item<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..5<span class="o">}</span>
+<a id="__codelineno-32-7" name="__codelineno-32-7"></a><span class="w">    </span><span class="k">do</span>
+<a id="__codelineno-32-8" name="__codelineno-32-8"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$item</span>
+<a id="__codelineno-32-9" name="__codelineno-32-9"></a><span class="w">    </span><span class="k">done</span>
+<a id="__codelineno-32-10" name="__codelineno-32-10"></a><span class="k">else</span>
+<a id="__codelineno-32-11" name="__codelineno-32-11"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello stranger !&quot;</span>
+<a id="__codelineno-32-12" name="__codelineno-32-12"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="ecriture-de-la-boucle-en-style-c">Ecriture de la boucle en style C</h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span>
+<span class="normal"><a href="#__codelineno-33-2">2</a></span>
+<span class="normal"><a href="#__codelineno-33-3">3</a></span>
+<span class="normal"><a href="#__codelineno-33-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="w"> </span><span class="nv">machin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"> </span>machin<span class="w"> </span>&lt;<span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="p">;</span><span class="w"> </span>machin++<span class="w"> </span><span class="o">))</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2"></a><span class="k">do</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3"></a><span class="w">    </span>commande<span class="w"> </span><span class="nv">$machin</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="exemples">Exemples</h4>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Compte le nombre de lignes dans des fichiers</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1">1</a></span>
+<span class="normal"><a href="#__codelineno-34-2">2</a></span>
+<span class="normal"><a href="#__codelineno-34-3">3</a></span>
+<span class="normal"><a href="#__codelineno-34-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>ls<span class="k">)</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2"></a><span class="k">do</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Line count of </span><span class="nv">$file</span><span class="s2"> is </span><span class="k">$(</span>cat<span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+<a id="__codelineno-34-4" name="__codelineno-34-4"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Installer les packages d'une liste</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1">1</a></span>
+<span class="normal"><a href="#__codelineno-35-2">2</a></span>
+<span class="normal"><a href="#__codelineno-35-3">3</a></span>
+<span class="normal"><a href="#__codelineno-35-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1"></a><span class="k">for</span><span class="w"> </span>package<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>install-packages.txt<span class="k">)</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2"></a><span class="k">do</span>
+<a id="__codelineno-35-3" name="__codelineno-35-3"></a><span class="w">    </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span><span class="nv">$package</span>
+<a id="__codelineno-35-4" name="__codelineno-35-4"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Compte le nombre de requêtes GET POST DELETE dans des fichiers de log</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-36-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-36-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-36-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-36-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-36-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-36-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-36-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-36-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-36-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-36-10">10</a></span>
+<span class="normal"><a href="#__codelineno-36-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot; Log name   \t      GET      \t      POST    \t   DELETE &quot;</span>
+<a id="__codelineno-36-2" name="__codelineno-36-2"></a><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;------------------------------------------------------------&quot;</span>
+<a id="__codelineno-36-3" name="__codelineno-36-3"></a>
+<a id="__codelineno-36-4" name="__codelineno-36-4"></a><span class="k">for</span><span class="w"> </span>app<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>/tmp/assets/apps.txt<span class="k">)</span>
+<a id="__codelineno-36-5" name="__codelineno-36-5"></a><span class="k">do</span>
+<a id="__codelineno-36-6" name="__codelineno-36-6"></a><span class="w">  </span><span class="nv">get_requests</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/var/log/apps/<span class="si">${</span><span class="nv">app</span><span class="si">}</span>_app.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;GET&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span>
+<a id="__codelineno-36-7" name="__codelineno-36-7"></a><span class="w">  </span><span class="nv">post_requests</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/var/log/apps/<span class="si">${</span><span class="nv">app</span><span class="si">}</span>_app.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;POST&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span>
+<a id="__codelineno-36-8" name="__codelineno-36-8"></a><span class="w">  </span><span class="nv">delete_requests</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/var/log/apps/<span class="si">${</span><span class="nv">app</span><span class="si">}</span>_app.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;DELETE&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span>
+<a id="__codelineno-36-9" name="__codelineno-36-9"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot; </span><span class="si">${</span><span class="nv">app</span><span class="si">}</span><span class="s2">    \t </span><span class="si">${</span><span class="nv">get_requests</span><span class="si">}</span><span class="s2">    \t    </span><span class="si">${</span><span class="nv">post_requests</span><span class="si">}</span><span class="s2">   \t   </span><span class="si">${</span><span class="nv">delete_requests</span><span class="si">}</span><span class="s2">&quot;</span>
+<a id="__codelineno-36-10" name="__codelineno-36-10"></a>
+<a id="__codelineno-36-11" name="__codelineno-36-11"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">rename all files within the images folder that has extension jpeg to jpg</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-37-1">1</a></span>
+<span class="normal"><a href="#__codelineno-37-2">2</a></span>
+<span class="normal"><a href="#__codelineno-37-3">3</a></span>
+<span class="normal"><a href="#__codelineno-37-4">4</a></span>
+<span class="normal"><a href="#__codelineno-37-5">5</a></span>
+<span class="normal"><a href="#__codelineno-37-6">6</a></span>
+<span class="normal"><a href="#__codelineno-37-7">7</a></span>
+<span class="normal"><a href="#__codelineno-37-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1"></a><span class="k">for</span><span class="w"> </span>file<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>ls<span class="w"> </span>images<span class="k">)</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2"></a><span class="k">do</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>*.jpeg<span class="w"> </span><span class="o">]]</span>
+<a id="__codelineno-37-4" name="__codelineno-37-4"></a><span class="w">                </span><span class="k">then</span>
+<a id="__codelineno-37-5" name="__codelineno-37-5"></a><span class="w">                </span><span class="nv">new_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$file</span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/jpeg/jpg/g&#39;</span><span class="k">)</span>
+<a id="__codelineno-37-6" name="__codelineno-37-6"></a><span class="w">                </span>mv<span class="w"> </span>images/<span class="nv">$file</span><span class="w"> </span>images/<span class="nv">$new_name</span>
+<a id="__codelineno-37-7" name="__codelineno-37-7"></a><span class="w">        </span><span class="k">fi</span>
+<a id="__codelineno-37-8" name="__codelineno-37-8"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="while"><code>while</code></h3>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Structure globale</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-38-1">1</a></span>
+<span class="normal"><a href="#__codelineno-38-2">2</a></span>
+<span class="normal"><a href="#__codelineno-38-3">3</a></span>
+<span class="normal"><a href="#__codelineno-38-4">4</a></span>
+<span class="normal"><a href="#__codelineno-38-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1"></a><span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>condition<span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2"></a><span class="k">do</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3"></a><span class="w">    </span>intruction
+<a id="__codelineno-38-4" name="__codelineno-38-4"></a><span class="w">    </span>réévaluation_de_la_condition
+<a id="__codelineno-38-5" name="__codelineno-38-5"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld-while.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-39-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-39-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-39-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-39-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-39-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-39-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-39-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-39-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-39-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-39-10">10</a></span>
+<span class="normal"><a href="#__codelineno-39-11">11</a></span>
+<span class="normal"><a href="#__codelineno-39-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;What&#39;s your name ? &quot;</span><span class="w"> </span>user
+<a id="__codelineno-39-2" name="__codelineno-39-2"></a>
+<a id="__codelineno-39-3" name="__codelineno-39-3"></a><span class="k">while</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mathieu<span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-39-4" name="__codelineno-39-4"></a><span class="k">do</span>
+<a id="__codelineno-39-5" name="__codelineno-39-5"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello World shell, it&#39;s </span><span class="nv">$user</span><span class="s2">&quot;</span>
+<a id="__codelineno-39-6" name="__codelineno-39-6"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span>item<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span>list.txt<span class="k">)</span>
+<a id="__codelineno-39-7" name="__codelineno-39-7"></a><span class="w">    </span><span class="k">do</span>
+<a id="__codelineno-39-8" name="__codelineno-39-8"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$item</span>
+<a id="__codelineno-39-9" name="__codelineno-39-9"></a><span class="w">    </span><span class="k">done</span>
+<a id="__codelineno-39-10" name="__codelineno-39-10"></a><span class="w">  </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;What&#39;s your name ? &quot;</span><span class="w"> </span>user
+<a id="__codelineno-39-11" name="__codelineno-39-11"></a><span class="k">done</span>
+<a id="__codelineno-39-12" name="__codelineno-39-12"></a><span class="nb">exit</span>
+</code></pre></div></td></tr></table></div>
+<p>Tant que le nom d'utilisateur donné dans le terminal est <code>mathieu</code>, il écrira et listera les élements qui sont présents dans <code>list.txt</code>. avant le <code>done</code>, il est nécessaire de réévaluer la valeur de <code>user</code> pour savoir si l'on reste dans la boule <code>while</code> où si l'on en sort.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Exemple</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-40-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-40-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-40-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-40-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-40-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-40-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-40-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-40-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-40-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-40-10">10</a></span>
+<span class="normal"><a href="#__codelineno-40-11">11</a></span>
+<span class="normal"><a href="#__codelineno-40-12">12</a></span>
+<span class="normal"><a href="#__codelineno-40-13">13</a></span>
+<span class="normal"><a href="#__codelineno-40-14">14</a></span>
+<span class="normal"><a href="#__codelineno-40-15">15</a></span>
+<span class="normal"><a href="#__codelineno-40-16">16</a></span>
+<span class="normal"><a href="#__codelineno-40-17">17</a></span>
+<span class="normal"><a href="#__codelineno-40-18">18</a></span>
+<span class="normal"><a href="#__codelineno-40-19">19</a></span>
+<span class="normal"><a href="#__codelineno-40-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1"></a><span class="k">while</span><span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2"></a><span class="k">do</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1. Shutdown&quot;</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;2. Restart&quot;</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;3. Exit Menu&quot;</span>
+<a id="__codelineno-40-6" name="__codelineno-40-6"></a><span class="w">    </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter your choice : &quot;</span><span class="w"> </span>choice
+<a id="__codelineno-40-7" name="__codelineno-40-7"></a>
+<a id="__codelineno-40-8" name="__codelineno-40-8"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$choice</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-40-9" name="__codelineno-40-9"></a><span class="w">    </span><span class="k">then</span>
+<a id="__codelineno-40-10" name="__codelineno-40-10"></a><span class="w">        </span>shutdown<span class="w"> </span>now
+<a id="__codelineno-40-11" name="__codelineno-40-11"></a><span class="w">    </span><span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$choice</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-40-12" name="__codelineno-40-12"></a><span class="w">    </span><span class="k">then</span>
+<a id="__codelineno-40-13" name="__codelineno-40-13"></a><span class="w">        </span>shutdown<span class="w"> </span>-r<span class="w"> </span>now
+<a id="__codelineno-40-14" name="__codelineno-40-14"></a><span class="w">    </span><span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$choice</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-40-15" name="__codelineno-40-15"></a><span class="w">    </span><span class="k">then</span>
+<a id="__codelineno-40-16" name="__codelineno-40-16"></a><span class="w">        </span><span class="nb">break</span>
+<a id="__codelineno-40-17" name="__codelineno-40-17"></a><span class="w">    </span><span class="k">else</span>
+<a id="__codelineno-40-18" name="__codelineno-40-18"></a><span class="w">        </span><span class="k">continue</span>
+<a id="__codelineno-40-19" name="__codelineno-40-19"></a><span class="w">    </span><span class="k">fi</span>
+<a id="__codelineno-40-20" name="__codelineno-40-20"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">calculatrice basique</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-41-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-41-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-41-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-41-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-41-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-41-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-41-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-41-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-41-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-41-10">10</a></span>
+<span class="normal"><a href="#__codelineno-41-11">11</a></span>
+<span class="normal"><a href="#__codelineno-41-12">12</a></span>
+<span class="normal"><a href="#__codelineno-41-13">13</a></span>
+<span class="normal"><a href="#__codelineno-41-14">14</a></span>
+<span class="normal"><a href="#__codelineno-41-15">15</a></span>
+<span class="normal"><a href="#__codelineno-41-16">16</a></span>
+<span class="normal"><a href="#__codelineno-41-17">17</a></span>
+<span class="normal"><a href="#__codelineno-41-18">18</a></span>
+<span class="normal"><a href="#__codelineno-41-19">19</a></span>
+<span class="normal"><a href="#__codelineno-41-20">20</a></span>
+<span class="normal"><a href="#__codelineno-41-21">21</a></span>
+<span class="normal"><a href="#__codelineno-41-22">22</a></span>
+<span class="normal"><a href="#__codelineno-41-23">23</a></span>
+<span class="normal"><a href="#__codelineno-41-24">24</a></span>
+<span class="normal"><a href="#__codelineno-41-25">25</a></span>
+<span class="normal"><a href="#__codelineno-41-26">26</a></span>
+<span class="normal"><a href="#__codelineno-41-27">27</a></span>
+<span class="normal"><a href="#__codelineno-41-28">28</a></span>
+<span class="normal"><a href="#__codelineno-41-29">29</a></span>
+<span class="normal"><a href="#__codelineno-41-30">30</a></span>
+<span class="normal"><a href="#__codelineno-41-31">31</a></span>
+<span class="normal"><a href="#__codelineno-41-32">32</a></span>
+<span class="normal"><a href="#__codelineno-41-33">33</a></span>
+<span class="normal"><a href="#__codelineno-41-34">34</a></span>
+<span class="normal"><a href="#__codelineno-41-35">35</a></span>
+<span class="normal"><a href="#__codelineno-41-36">36</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1"></a><span class="k">while</span><span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2"></a><span class="k">do</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1. Add&quot;</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;2. Subtract&quot;</span>
+<a id="__codelineno-41-5" name="__codelineno-41-5"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;3. Multiply&quot;</span>
+<a id="__codelineno-41-6" name="__codelineno-41-6"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;4. Divide&quot;</span>
+<a id="__codelineno-41-7" name="__codelineno-41-7"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;5. Quit&quot;</span>
+<a id="__codelineno-41-8" name="__codelineno-41-8"></a>
+<a id="__codelineno-41-9" name="__codelineno-41-9"></a><span class="w">  </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter your choice: &quot;</span><span class="w"> </span>choice
+<a id="__codelineno-41-10" name="__codelineno-41-10"></a>
+<a id="__codelineno-41-11" name="__codelineno-41-11"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$choice</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-41-12" name="__codelineno-41-12"></a><span class="w">  </span><span class="k">then</span>
+<a id="__codelineno-41-13" name="__codelineno-41-13"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number1: &quot;</span><span class="w"> </span>number1
+<a id="__codelineno-41-14" name="__codelineno-41-14"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number2: &quot;</span><span class="w"> </span>number2
+<a id="__codelineno-41-15" name="__codelineno-41-15"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">Answer</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">$number1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$number2</span><span class="w"> </span><span class="k">))</span>
+<a id="__codelineno-41-16" name="__codelineno-41-16"></a><span class="w">  </span><span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$choice</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-41-17" name="__codelineno-41-17"></a><span class="w">  </span><span class="k">then</span>
+<a id="__codelineno-41-18" name="__codelineno-41-18"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number1: &quot;</span><span class="w"> </span>number1
+<a id="__codelineno-41-19" name="__codelineno-41-19"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number2: &quot;</span><span class="w"> </span>number2
+<a id="__codelineno-41-20" name="__codelineno-41-20"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">Answer</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">$number1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">$number2</span><span class="w"> </span><span class="k">))</span>
+<a id="__codelineno-41-21" name="__codelineno-41-21"></a><span class="w">  </span><span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$choice</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-41-22" name="__codelineno-41-22"></a><span class="w">  </span><span class="k">then</span>
+<a id="__codelineno-41-23" name="__codelineno-41-23"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number1: &quot;</span><span class="w"> </span>number1
+<a id="__codelineno-41-24" name="__codelineno-41-24"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number2: &quot;</span><span class="w"> </span>number2
+<a id="__codelineno-41-25" name="__codelineno-41-25"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">Answer</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">$number1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">$number2</span><span class="w"> </span><span class="k">))</span>
+<a id="__codelineno-41-26" name="__codelineno-41-26"></a><span class="w">  </span><span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$choice</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-41-27" name="__codelineno-41-27"></a><span class="w">  </span><span class="k">then</span>
+<a id="__codelineno-41-28" name="__codelineno-41-28"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number1: &quot;</span><span class="w"> </span>number1
+<a id="__codelineno-41-29" name="__codelineno-41-29"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number2: &quot;</span><span class="w"> </span>number2
+<a id="__codelineno-41-30" name="__codelineno-41-30"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">Answer</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">$number1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nv">$number2</span><span class="w"> </span><span class="k">))</span>
+<a id="__codelineno-41-31" name="__codelineno-41-31"></a><span class="w">  </span><span class="k">elif</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$choice</span><span class="w"> </span>-eq<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-41-32" name="__codelineno-41-32"></a><span class="w">  </span><span class="k">then</span>
+<a id="__codelineno-41-33" name="__codelineno-41-33"></a><span class="w">    </span><span class="nb">break</span>
+<a id="__codelineno-41-34" name="__codelineno-41-34"></a><span class="w">  </span><span class="k">fi</span>
+<a id="__codelineno-41-35" name="__codelineno-41-35"></a>
+<a id="__codelineno-41-36" name="__codelineno-41-36"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="case"><code>case</code></h3>
+<p><code>case</code> permet de remplacer les longues listes de <code>if-then-else</code> en définissant les choix différements.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Exemple</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-42-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-42-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-42-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-42-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-42-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-42-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-42-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-42-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-42-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-42-10">10</a></span>
+<span class="normal"><a href="#__codelineno-42-11">11</a></span>
+<span class="normal"><a href="#__codelineno-42-12">12</a></span>
+<span class="normal"><a href="#__codelineno-42-13">13</a></span>
+<span class="normal"><a href="#__codelineno-42-14">14</a></span>
+<span class="normal"><a href="#__codelineno-42-15">15</a></span>
+<span class="normal"><a href="#__codelineno-42-16">16</a></span>
+<span class="normal"><a href="#__codelineno-42-17">17</a></span>
+<span class="normal"><a href="#__codelineno-42-18">18</a></span>
+<span class="normal"><a href="#__codelineno-42-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1"></a><span class="k">while</span><span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2"></a><span class="k">do</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1. Shutdown&quot;</span>
+<a id="__codelineno-42-4" name="__codelineno-42-4"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;2. Restart&quot;</span>
+<a id="__codelineno-42-5" name="__codelineno-42-5"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;3. Exit Menu&quot;</span>
+<a id="__codelineno-42-6" name="__codelineno-42-6"></a><span class="w">    </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter your choice : &quot;</span><span class="w"> </span>choice
+<a id="__codelineno-42-7" name="__codelineno-42-7"></a>
+<a id="__codelineno-42-8" name="__codelineno-42-8"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nv">$choice</span><span class="w"> </span><span class="k">in</span>
+<a id="__codelineno-42-9" name="__codelineno-42-9"></a>
+<a id="__codelineno-42-10" name="__codelineno-42-10"></a><span class="w">        </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>shutdown<span class="w"> </span>now
+<a id="__codelineno-42-11" name="__codelineno-42-11"></a><span class="w">        </span><span class="p">;;</span>
+<a id="__codelineno-42-12" name="__codelineno-42-12"></a><span class="w">        </span><span class="m">2</span><span class="o">)</span><span class="w"> </span>shutdown<span class="w"> </span>-r<span class="w"> </span>now
+<a id="__codelineno-42-13" name="__codelineno-42-13"></a><span class="w">        </span><span class="p">;;</span>
+<a id="__codelineno-42-14" name="__codelineno-42-14"></a><span class="w">        </span><span class="m">3</span><span class="o">)</span><span class="w"> </span><span class="nb">break</span>
+<a id="__codelineno-42-15" name="__codelineno-42-15"></a><span class="w">        </span><span class="p">;;</span>
+<a id="__codelineno-42-16" name="__codelineno-42-16"></a><span class="w">        </span>*<span class="o">)</span><span class="w"> </span><span class="k">continue</span>
+<a id="__codelineno-42-17" name="__codelineno-42-17"></a><span class="w">        </span><span class="p">;;</span>
+<a id="__codelineno-42-18" name="__codelineno-42-18"></a><span class="w">    </span><span class="k">esac</span>
+<a id="__codelineno-42-19" name="__codelineno-42-19"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">calculatrice avec case</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-43-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-43-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-43-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-43-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-43-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-43-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-43-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-43-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-43-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-43-10">10</a></span>
+<span class="normal"><a href="#__codelineno-43-11">11</a></span>
+<span class="normal"><a href="#__codelineno-43-12">12</a></span>
+<span class="normal"><a href="#__codelineno-43-13">13</a></span>
+<span class="normal"><a href="#__codelineno-43-14">14</a></span>
+<span class="normal"><a href="#__codelineno-43-15">15</a></span>
+<span class="normal"><a href="#__codelineno-43-16">16</a></span>
+<span class="normal"><a href="#__codelineno-43-17">17</a></span>
+<span class="normal"><a href="#__codelineno-43-18">18</a></span>
+<span class="normal"><a href="#__codelineno-43-19">19</a></span>
+<span class="normal"><a href="#__codelineno-43-20">20</a></span>
+<span class="normal"><a href="#__codelineno-43-21">21</a></span>
+<span class="normal"><a href="#__codelineno-43-22">22</a></span>
+<span class="normal"><a href="#__codelineno-43-23">23</a></span>
+<span class="normal"><a href="#__codelineno-43-24">24</a></span>
+<span class="normal"><a href="#__codelineno-43-25">25</a></span>
+<span class="normal"><a href="#__codelineno-43-26">26</a></span>
+<span class="normal"><a href="#__codelineno-43-27">27</a></span>
+<span class="normal"><a href="#__codelineno-43-28">28</a></span>
+<span class="normal"><a href="#__codelineno-43-29">29</a></span>
+<span class="normal"><a href="#__codelineno-43-30">30</a></span>
+<span class="normal"><a href="#__codelineno-43-31">31</a></span>
+<span class="normal"><a href="#__codelineno-43-32">32</a></span>
+<span class="normal"><a href="#__codelineno-43-33">33</a></span>
+<span class="normal"><a href="#__codelineno-43-34">34</a></span>
+<span class="normal"><a href="#__codelineno-43-35">35</a></span>
+<span class="normal"><a href="#__codelineno-43-36">36</a></span>
+<span class="normal"><a href="#__codelineno-43-37">37</a></span>
+<span class="normal"><a href="#__codelineno-43-38">38</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1"></a><span class="k">while</span><span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-43-2" name="__codelineno-43-2"></a><span class="k">do</span>
+<a id="__codelineno-43-3" name="__codelineno-43-3"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;1. Add&quot;</span>
+<a id="__codelineno-43-4" name="__codelineno-43-4"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;2. Subtract&quot;</span>
+<a id="__codelineno-43-5" name="__codelineno-43-5"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;3. Multiply&quot;</span>
+<a id="__codelineno-43-6" name="__codelineno-43-6"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;4. Divide&quot;</span>
+<a id="__codelineno-43-7" name="__codelineno-43-7"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;5. Quit&quot;</span>
+<a id="__codelineno-43-8" name="__codelineno-43-8"></a>
+<a id="__codelineno-43-9" name="__codelineno-43-9"></a><span class="w">  </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter your choice: &quot;</span><span class="w"> </span>choice
+<a id="__codelineno-43-10" name="__codelineno-43-10"></a>
+<a id="__codelineno-43-11" name="__codelineno-43-11"></a><span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nv">$choice</span><span class="w"> </span><span class="k">in</span>
+<a id="__codelineno-43-12" name="__codelineno-43-12"></a><span class="w">    </span><span class="m">1</span><span class="o">)</span>
+<a id="__codelineno-43-13" name="__codelineno-43-13"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number1: &quot;</span><span class="w"> </span>number1
+<a id="__codelineno-43-14" name="__codelineno-43-14"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number2: &quot;</span><span class="w"> </span>number2
+<a id="__codelineno-43-15" name="__codelineno-43-15"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">Answer</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">$number1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$number2</span><span class="w"> </span><span class="k">))</span>
+<a id="__codelineno-43-16" name="__codelineno-43-16"></a><span class="w">        </span><span class="p">;;</span>
+<a id="__codelineno-43-17" name="__codelineno-43-17"></a><span class="w">    </span><span class="m">2</span><span class="o">)</span>
+<a id="__codelineno-43-18" name="__codelineno-43-18"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number1: &quot;</span><span class="w"> </span>number1
+<a id="__codelineno-43-19" name="__codelineno-43-19"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number2: &quot;</span><span class="w"> </span>number2
+<a id="__codelineno-43-20" name="__codelineno-43-20"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">Answer</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">$number1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">$number2</span><span class="w"> </span><span class="k">))</span>
+<a id="__codelineno-43-21" name="__codelineno-43-21"></a><span class="w">        </span><span class="p">;;</span>
+<a id="__codelineno-43-22" name="__codelineno-43-22"></a>
+<a id="__codelineno-43-23" name="__codelineno-43-23"></a><span class="w">    </span><span class="m">3</span><span class="o">)</span>
+<a id="__codelineno-43-24" name="__codelineno-43-24"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number1: &quot;</span><span class="w"> </span>number1
+<a id="__codelineno-43-25" name="__codelineno-43-25"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number2: &quot;</span><span class="w"> </span>number2
+<a id="__codelineno-43-26" name="__codelineno-43-26"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">Answer</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">$number1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nv">$number2</span><span class="w"> </span><span class="k">))</span>
+<a id="__codelineno-43-27" name="__codelineno-43-27"></a><span class="w">        </span><span class="p">;;</span>
+<a id="__codelineno-43-28" name="__codelineno-43-28"></a><span class="w">    </span><span class="m">4</span><span class="o">)</span>
+<a id="__codelineno-43-29" name="__codelineno-43-29"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number1: &quot;</span><span class="w"> </span>number1
+<a id="__codelineno-43-30" name="__codelineno-43-30"></a><span class="w">        </span><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;Enter Number2: &quot;</span><span class="w"> </span>number2
+<a id="__codelineno-43-31" name="__codelineno-43-31"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="nv">Answer</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">$number1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nv">$number2</span><span class="w"> </span><span class="k">))</span>
+<a id="__codelineno-43-32" name="__codelineno-43-32"></a><span class="w">        </span><span class="p">;;</span>
+<a id="__codelineno-43-33" name="__codelineno-43-33"></a><span class="w">    </span><span class="m">5</span><span class="o">)</span>
+<a id="__codelineno-43-34" name="__codelineno-43-34"></a><span class="w">        </span><span class="nb">break</span>
+<a id="__codelineno-43-35" name="__codelineno-43-35"></a><span class="w">        </span><span class="p">;;</span>
+<a id="__codelineno-43-36" name="__codelineno-43-36"></a><span class="w">  </span><span class="k">esac</span>
+<a id="__codelineno-43-37" name="__codelineno-43-37"></a>
+<a id="__codelineno-43-38" name="__codelineno-43-38"></a><span class="k">done</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="shebang">Shebang</h2>
+<p>Comme expliqué dans la partie sur Linux, il existe plusieurs types de shells, et chaque shell peut avoir un jeu de commandes spécifiques qui ne marcheront pas dans un autre shell.</p>
+<p>Par exemple, si l'on reprend le script suivant.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">helloworld-for2.sh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-44-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-44-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-44-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-44-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-44-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-44-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-44-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-44-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-44-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-44-10">10</a></span>
+<span class="normal"><a href="#__codelineno-44-11">11</a></span>
+<span class="normal"><a href="#__codelineno-44-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1"></a><span class="nb">read</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;What&#39;s your name ? &quot;</span><span class="w"> </span>user
+<a id="__codelineno-44-2" name="__codelineno-44-2"></a>
+<a id="__codelineno-44-3" name="__codelineno-44-3"></a><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>mathieu<span class="w"> </span><span class="o">]</span>
+<a id="__codelineno-44-4" name="__codelineno-44-4"></a><span class="w">  </span><span class="k">then</span>
+<a id="__codelineno-44-5" name="__codelineno-44-5"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello World shell, it&#39;s </span><span class="nv">$user</span><span class="s2">&quot;</span>
+<a id="__codelineno-44-6" name="__codelineno-44-6"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span>item<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..5<span class="o">}</span>
+<a id="__codelineno-44-7" name="__codelineno-44-7"></a><span class="w">    </span><span class="k">do</span>
+<a id="__codelineno-44-8" name="__codelineno-44-8"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$item</span>
+<a id="__codelineno-44-9" name="__codelineno-44-9"></a><span class="w">    </span><span class="k">done</span>
+<a id="__codelineno-44-10" name="__codelineno-44-10"></a><span class="k">else</span>
+<a id="__codelineno-44-11" name="__codelineno-44-11"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Hello stranger !&quot;</span>
+<a id="__codelineno-44-12" name="__codelineno-44-12"></a><span class="k">fi</span>
+</code></pre></div></td></tr></table></div>
+<p>la commande <code>{1..5}</code> permettant de définir un intervalle n'est valable que pour le shell <code>bash</code>, pour le <code>dash</code> : Debian Almquist SHell, on aura le résultat suivant.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">erreur</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-45-1">1</a></span>
+<span class="normal"><a href="#__codelineno-45-2">2</a></span>
+<span class="normal"><a href="#__codelineno-45-3">3</a></span>
+<span class="normal"><a href="#__codelineno-45-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1"></a>sh helloworld-for2.sh
+<a id="__codelineno-45-2" name="__codelineno-45-2"></a>What&#39;s your name ? mathieu
+<a id="__codelineno-45-3" name="__codelineno-45-3"></a>Hello World shell, it&#39;s mathieu
+<a id="__codelineno-45-4" name="__codelineno-45-4"></a>{1..5}
+</code></pre></div></td></tr></table></div>
+<p>Pour faire comprendre à votre terminal quel environnement utiliser pour lancer le script, on utilise un <strong>shebang</strong>. Un shebang est une ligne rajoutée au tout début d'un script définissant quel shell doit être utiliser pour lancer le script.</p>
+<p>Un shebang s'écrit de cette façon : <code>#!/bin/bash</code>, <code>#!</code> suivi de l'adresse du shell à utiliser. Cela va automatiquement instruire le terminal qu'il faudra alors lancer le script via le shell bash.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Le shebang n'est utile que si le script doit se lancer en éxecutable, ie avec <code>chmod +x</code>.</p>
+<p>Taper <code>sh helloworld-for2.sh</code>, même avec le shebang <code>#!/bin/bash</code> ajouté résultera en une erreur comme au dessus car là on a <strong>explicitement spécifié</strong> que l'on voulait utilser <code>sh</code> et non <code>bash</code>.</p>
+<p>Par contre, lancer <code>./helloworld-for2.sh</code> ne posera aucun soucis, le shebang disant d'utiliser <code>bash</code> pour lancer le script.</p>
+</div>
+<p><code>#!/bin/sh</code> est par exemple le shebang pour utiliser le <code>shell</code> classique.</p>
+<h2 id="exit-codes">Exit codes</h2>
+<p>Tout script shell qui finit son éxecution produit un code de sortie (exit code) et un statut de sortie (exit status).</p>
+<ul>
+<li>Si <code>exit status = 0</code> alors le script s'est terminé sans encombres.</li>
+<li>Si <code>exit status &gt; 0</code> alors le script s'est terminé suite à une erreur.</li>
+</ul>
+<p>Les codes de sorties ne sont pas affichés dans le terminal une fois le script fini. Le code de sortie d'un script est stocké dans une variable spécifique : <code>?</code>, pour voir le code de sortie d'une commande, on tape alors <code>echo $?</code>.</p>
+<p>Pour définir explicitement le code de sortie à retourner lors d'un problème ou autre dans votre script, on utilise la commande <code>exit k</code> où k est un chiffre compris en 0 et 255, généralement on utilise 1 pour dire qu'il y a eu un problème.</p>
+<h2 id="les-fonctions">Les fonctions</h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-46-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-46-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-46-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-46-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-46-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-46-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-46-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-46-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-46-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-46-10">10</a></span>
+<span class="normal"><a href="#__codelineno-46-11">11</a></span>
+<span class="normal"><a href="#__codelineno-46-12">12</a></span>
+<span class="normal"><a href="#__codelineno-46-13">13</a></span>
+<span class="normal"><a href="#__codelineno-46-14">14</a></span>
+<span class="normal"><a href="#__codelineno-46-15">15</a></span>
+<span class="normal"><a href="#__codelineno-46-16">16</a></span>
+<span class="normal"><a href="#__codelineno-46-17">17</a></span>
+<span class="normal"><a href="#__codelineno-46-18">18</a></span>
+<span class="normal"><a href="#__codelineno-46-19">19</a></span>
+<span class="normal"><a href="#__codelineno-46-20">20</a></span>
+<span class="normal"><a href="#__codelineno-46-21">21</a></span>
+<span class="normal"><a href="#__codelineno-46-22">22</a></span>
+<span class="normal"><a href="#__codelineno-46-23">23</a></span>
+<span class="normal"><a href="#__codelineno-46-24">24</a></span>
+<span class="normal"><a href="#__codelineno-46-25">25</a></span>
+<span class="normal"><a href="#__codelineno-46-26">26</a></span>
+<span class="normal"><a href="#__codelineno-46-27">27</a></span>
+<span class="normal"><a href="#__codelineno-46-28">28</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1"></a><span class="ch">#!/bin/bash</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2"></a>
+<a id="__codelineno-46-3" name="__codelineno-46-3"></a>create_dataset<span class="o">(){</span>
+<a id="__codelineno-46-4" name="__codelineno-46-4"></a><span class="w">    </span><span class="c1">#creation d&#39;un repertoire</span>
+<a id="__codelineno-46-5" name="__codelineno-46-5"></a><span class="w">    </span>mkdir<span class="w"> </span>./datas/raw_dataset
+<a id="__codelineno-46-6" name="__codelineno-46-6"></a><span class="w">    </span><span class="c1">#boucle sur tous les éléments d&#39;un repertoire donné</span>
+<a id="__codelineno-46-7" name="__codelineno-46-7"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span>./datas/raw_datas/*<span class="p">;</span>
+<a id="__codelineno-46-8" name="__codelineno-46-8"></a><span class="w">    </span><span class="k">do</span>
+<a id="__codelineno-46-9" name="__codelineno-46-9"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span>
+<a id="__codelineno-46-10" name="__codelineno-46-10"></a><span class="w">        </span><span class="k">then</span>
+<a id="__codelineno-46-11" name="__codelineno-46-11"></a><span class="w">            </span><span class="c1"># $f is a directory</span>
+<a id="__codelineno-46-12" name="__codelineno-46-12"></a><span class="w">            </span><span class="nv">b</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="nv">$f</span><span class="k">)</span>
+<a id="__codelineno-46-13" name="__codelineno-46-13"></a><span class="w">            </span><span class="c1"># on récupère le nom du repertoire</span>
+<a id="__codelineno-46-14" name="__codelineno-46-14"></a><span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Making new directories for&quot;</span><span class="w"> </span><span class="nv">$b</span>
+<a id="__codelineno-46-15" name="__codelineno-46-15"></a><span class="w">            </span>mkdir<span class="w"> </span>./datas/raw_dataset/<span class="nv">$b</span>
+<a id="__codelineno-46-16" name="__codelineno-46-16"></a><span class="w">            </span><span class="c1">#on crée un dossier avec le même nom</span>
+<a id="__codelineno-46-17" name="__codelineno-46-17"></a><span class="w">            </span><span class="c1">#ls $f/ | head -$1</span>
+<a id="__codelineno-46-18" name="__codelineno-46-18"></a><span class="w">            </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Copying the first </span><span class="nv">$1</span><span class="s2"> pictures for folder </span><span class="nv">$b</span><span class="s2">&quot;</span>
+<a id="__codelineno-46-19" name="__codelineno-46-19"></a><span class="w">            </span><span class="k">for</span><span class="w"> </span>F<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>ls<span class="w"> </span><span class="nv">$f</span>/<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-<span class="nv">$1</span><span class="k">)</span><span class="p">;</span>
+<a id="__codelineno-46-20" name="__codelineno-46-20"></a><span class="w">            </span><span class="k">do</span>
+<a id="__codelineno-46-21" name="__codelineno-46-21"></a><span class="w">                </span>cp<span class="w"> </span><span class="nv">$f</span>/<span class="nv">$F</span><span class="w"> </span>./datas/raw_dataset/<span class="nv">$b</span>/<span class="nv">$F</span>
+<a id="__codelineno-46-22" name="__codelineno-46-22"></a><span class="w">            </span><span class="k">done</span>
+<a id="__codelineno-46-23" name="__codelineno-46-23"></a><span class="w">        </span><span class="k">fi</span>
+<a id="__codelineno-46-24" name="__codelineno-46-24"></a><span class="w">    </span><span class="k">done</span>
+<a id="__codelineno-46-25" name="__codelineno-46-25"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Done.&quot;</span>
+<a id="__codelineno-46-26" name="__codelineno-46-26"></a><span class="o">}</span>
+<a id="__codelineno-46-27" name="__codelineno-46-27"></a>
+<a id="__codelineno-46-28" name="__codelineno-46-28"></a>create_dataset<span class="w"> </span><span class="nv">$1</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">The function add must echo the result so that it can be captured in the result variable.</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-47-1">1</a></span>
+<span class="normal"><a href="#__codelineno-47-2">2</a></span>
+<span class="normal"><a href="#__codelineno-47-3">3</a></span>
+<span class="normal"><a href="#__codelineno-47-4">4</a></span>
+<span class="normal"><a href="#__codelineno-47-5">5</a></span>
+<span class="normal"><a href="#__codelineno-47-6">6</a></span>
+<span class="normal"><a href="#__codelineno-47-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1"></a><span class="k">function</span><span class="w"> </span>add<span class="o">(){</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2"></a><span class="w">  </span><span class="nv">sum</span><span class="o">=</span><span class="k">$((</span><span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">$2</span><span class="w"> </span><span class="k">))</span>
+<a id="__codelineno-47-3" name="__codelineno-47-3"></a><span class="w">  </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$sum</span>
+<a id="__codelineno-47-4" name="__codelineno-47-4"></a><span class="o">}</span>
+<a id="__codelineno-47-5" name="__codelineno-47-5"></a>
+<a id="__codelineno-47-6" name="__codelineno-47-6"></a><span class="nv">result</span><span class="o">=</span><span class="k">$(</span>add<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="m">5</span><span class="k">)</span>
+<a id="__codelineno-47-7" name="__codelineno-47-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;The result is </span><span class="nv">$result</span><span class="s2">&quot;</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="checking">Checking</h2>
+<p>ShellCheck</p>
+<h2 id="lire-un-fichier-csv">Lire un fichier CSV</h2>
+<h2 id="misc">Misc</h2>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-48-1">1</a></span>
+<span class="normal"><a href="#__codelineno-48-2">2</a></span>
+<span class="normal"><a href="#__codelineno-48-3">3</a></span>
+<span class="normal"><a href="#__codelineno-48-4">4</a></span>
+<span class="normal"><a href="#__codelineno-48-5">5</a></span>
+<span class="normal"><a href="#__codelineno-48-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>setup-db.sql<span class="w"> </span><span class="s">&lt;&lt;-EOF</span>
+<a id="__codelineno-48-2" name="__codelineno-48-2"></a><span class="s">  CREATE DATABASE ecomdb;</span>
+<a id="__codelineno-48-3" name="__codelineno-48-3"></a><span class="s">  CREATE USER &#39;ecomuser&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;ecompassword&#39;;</span>
+<a id="__codelineno-48-4" name="__codelineno-48-4"></a><span class="s">  GRANT ALL PRIVILEGES ON *.* TO &#39;ecomuser&#39;@&#39;localhost&#39;;</span>
+<a id="__codelineno-48-5" name="__codelineno-48-5"></a><span class="s">  FLUSH PRIVILEGES;</span>
+<a id="__codelineno-48-6" name="__codelineno-48-6"></a><span class="s">EOF</span>
+</code></pre></div></td></tr></table></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

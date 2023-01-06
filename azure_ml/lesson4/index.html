@@ -1,0 +1,3321 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../lesson3/">
+      
+      
+        <link rel="next" href="../annex1/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>Pipelines - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lesson-4-pipeline-automation" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pipelines
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-tabs__link">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../intro/" class="md-tabs__link md-tabs__link--active">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../devops/linux/" class="md-tabs__link">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/module9/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deep_learning/module9/bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Pipelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Pipelines
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-pipeline" class="md-nav__link">
+    Create a Pipeline
+  </a>
+  
+    <nav class="md-nav" aria-label="Create a Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-class" class="md-nav__link">
+    Pipeline Class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-pipeline-parameters" class="md-nav__link">
+    Using Pipeline Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduling-a-recurring-pipeline" class="md-nav__link">
+    Scheduling a recurring Pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-inference-pipeline" class="md-nav__link">
+    Batch Inference Pipeline
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    Exercise
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-a-pipeline" class="md-nav__link">
+    Step 1 : Create a Pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-publish-a-pipeline" class="md-nav__link">
+    Step 2 : Publish a pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-machine-learning-pipeline-with-automlstep" class="md-nav__link">
+    Azure Machine Learning Pipeline with AutoMLStep
+  </a>
+  
+    <nav class="md-nav" aria-label="Azure Machine Learning Pipeline with AutoMLStep">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialize-workspace" class="md-nav__link">
+    Initialize Workspace
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-an-azure-ml-experiment" class="md-nav__link">
+    Create an Azure ML experiment
+  </a>
+  
+    <nav class="md-nav" aria-label="Create an Azure ML experiment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-or-attach-an-amlcompute-cluster" class="md-nav__link">
+    Create or Attach an AmlCompute cluster
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#train" class="md-nav__link">
+    Train
+  </a>
+  
+    <nav class="md-nav" aria-label="Train">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-pipeline-and-automlstep" class="md-nav__link">
+    Create Pipeline and AutoMLStep
+  </a>
+  
+    <nav class="md-nav" aria-label="Create Pipeline and AutoMLStep">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#define-outputs" class="md-nav__link">
+    Define outputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-an-automlstep" class="md-nav__link">
+    Create an AutoMLStep
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-the-pipeline" class="md-nav__link">
+    Define the pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-pipeline" class="md-nav__link">
+    Run the pipeline
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examine-results" class="md-nav__link">
+    Examine Results
+  </a>
+  
+    <nav class="md-nav" aria-label="Examine Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-the-metrics-of-all-child-runs" class="md-nav__link">
+    Retrieve the metrics of all child runs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-the-best-model" class="md-nav__link">
+    Retrieve the Best Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-the-model" class="md-nav__link">
+    Test the Model
+  </a>
+  
+    <nav class="md-nav" aria-label="Test the Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-test-data" class="md-nav__link">
+    Load Test Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-our-best-fitted-model" class="md-nav__link">
+    Testing Our Best Fitted Model
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-and-run-from-rest-endpoint" class="md-nav__link">
+    Publish and run from REST endpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consume-pipeline-endpoint-api" class="md-nav__link">
+    Consume Pipeline Endpoint (API)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-azure-machine-learning-pipelines" class="md-nav__link">
+    Best Practices for Azure Machine Learning Pipelines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devops/terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-pipeline" class="md-nav__link">
+    Create a Pipeline
+  </a>
+  
+    <nav class="md-nav" aria-label="Create a Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-class" class="md-nav__link">
+    Pipeline Class
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-pipeline-parameters" class="md-nav__link">
+    Using Pipeline Parameters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduling-a-recurring-pipeline" class="md-nav__link">
+    Scheduling a recurring Pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-inference-pipeline" class="md-nav__link">
+    Batch Inference Pipeline
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    Exercise
+  </a>
+  
+    <nav class="md-nav" aria-label="Exercise">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-create-a-pipeline" class="md-nav__link">
+    Step 1 : Create a Pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-publish-a-pipeline" class="md-nav__link">
+    Step 2 : Publish a pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-machine-learning-pipeline-with-automlstep" class="md-nav__link">
+    Azure Machine Learning Pipeline with AutoMLStep
+  </a>
+  
+    <nav class="md-nav" aria-label="Azure Machine Learning Pipeline with AutoMLStep">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initialize-workspace" class="md-nav__link">
+    Initialize Workspace
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-an-azure-ml-experiment" class="md-nav__link">
+    Create an Azure ML experiment
+  </a>
+  
+    <nav class="md-nav" aria-label="Create an Azure ML experiment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-or-attach-an-amlcompute-cluster" class="md-nav__link">
+    Create or Attach an AmlCompute cluster
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data" class="md-nav__link">
+    Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#train" class="md-nav__link">
+    Train
+  </a>
+  
+    <nav class="md-nav" aria-label="Train">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-pipeline-and-automlstep" class="md-nav__link">
+    Create Pipeline and AutoMLStep
+  </a>
+  
+    <nav class="md-nav" aria-label="Create Pipeline and AutoMLStep">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#define-outputs" class="md-nav__link">
+    Define outputs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-an-automlstep" class="md-nav__link">
+    Create an AutoMLStep
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#define-the-pipeline" class="md-nav__link">
+    Define the pipeline
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-pipeline" class="md-nav__link">
+    Run the pipeline
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examine-results" class="md-nav__link">
+    Examine Results
+  </a>
+  
+    <nav class="md-nav" aria-label="Examine Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-the-metrics-of-all-child-runs" class="md-nav__link">
+    Retrieve the metrics of all child runs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retrieve-the-best-model" class="md-nav__link">
+    Retrieve the Best Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-the-model" class="md-nav__link">
+    Test the Model
+  </a>
+  
+    <nav class="md-nav" aria-label="Test the Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-test-data" class="md-nav__link">
+    Load Test Data
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing-our-best-fitted-model" class="md-nav__link">
+    Testing Our Best Fitted Model
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-and-run-from-rest-endpoint" class="md-nav__link">
+    Publish and run from REST endpoint
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consume-pipeline-endpoint-api" class="md-nav__link">
+    Consume Pipeline Endpoint (API)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    Documentation
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-azure-machine-learning-pipelines" class="md-nav__link">
+    Best Practices for Azure Machine Learning Pipelines
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="lesson-4-pipeline-automation">Lesson 4 : Pipeline automation</h1>
+<p>https://docs.microsoft.com/fr-fr/azure/machine-learning/how-to-use-automlstep-in-pipelines#configure-and-create-the-automated-ml-pipeline-step</p>
+<p>https://docs.microsoft.com/fr-fr/python/api/azureml-core/azureml.core.model.model?view=azure-ml-py</p>
+<p>https://docs.microsoft.com/fr-fr/python/api/azureml-pipeline-core/azureml.pipeline.core.portdatareference?view=azure-ml-py#azureml-pipeline-core-portdatareference-path-on-datastore</p>
+<p>https://docs.microsoft.com/en-us/azure/machine-learning/how-to-deploy-azure-container-instance</p>
+<p>https://docs.microsoft.com/en-us/azure/machine-learning/how-to-secure-web-service</p>
+<h2 id="create-a-pipeline">Create a Pipeline</h2>
+<div class="admonition summary">
+<p class="admonition-title">Summary</p>
+<p>The most common SDK class is the Pipeline class. You will use this when creating a Pipeline. Pipelines can take configuration and different steps, like AutoML for example.</p>
+<p>Different steps can have different arguments and parameters. Parameters are just like variables in a Python script.</p>
+</div>
+<p>There are areas you can play with when creating a pipeline and we covered two:</p>
+<ul>
+<li>Use pipeline parameters</li>
+<li>Recurring Scheduled Pipelines</li>
+<li>Batch Inference Pipelines</li>
+</ul>
+<h3 id="pipeline-class">Pipeline Class</h3>
+<p><strong>This is the most common Python SDK class you will see when dealing with Pipelines.</strong> Aside from accepting a workspace and allowing multiple steps to be passed in, it uses a description that is useful to identify it later.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span>
+<span class="normal"><a href="#__codelineno-0-5">5</a></span>
+<span class="normal"><a href="#__codelineno-0-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">azureml.pipeline.core</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;pipeline_with_automlstep&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>    <span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>    <span class="n">steps</span><span class="o">=</span><span class="p">[</span><span class="n">automl_step</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="using-pipeline-parameters">Using Pipeline Parameters</h3>
+<p><strong>Pipeline parameters are also available as a class.</strong> You configure this class with the various different parameters needed so that they can later be used.</p>
+<p>In this example, the <code>avg_rate_param</code> is used in the arguments attribute of the PythonScriptStep.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span>
+<span class="normal"><a href="#__codelineno-1-7">7</a></span>
+<span class="normal"><a href="#__codelineno-1-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="kn">from</span> <span class="nn">azureml.pipeline.steps</span> <span class="kn">import</span> <span class="n">PythonScriptStep</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="kn">from</span> <span class="nn">azureml.pipeline.core</span> <span class="kn">import</span> <span class="n">PipelineParameter</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="n">avg_rate_param</span> <span class="o">=</span> <span class="n">PipelineParameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;avg_rate&quot;</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="n">train_step</span> <span class="o">=</span> <span class="n">PythonScriptStep</span><span class="p">(</span><span class="n">script_name</span><span class="o">=</span><span class="s2">&quot;train.py&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>                              <span class="n">arguments</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;--input&quot;</span><span class="p">,</span> <span class="n">avg_rate_param</span><span class="p">],</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>                              <span class="n">target</span><span class="o">=</span><span class="n">compute_target</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>                              <span class="n">source_directory</span><span class="o">=</span><span class="n">project_folder</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="scheduling-a-recurring-pipeline">Scheduling a recurring Pipeline</h3>
+<p><strong>To schedule a Pipeline, you must use the ScheduleRecurrence class which has the information necessary to set the interval.</strong></p>
+<p>Once that has been created, it has to be passed into the <code>create()</code> method of the <code>Schedule</code> class as a recurrence value.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="kn">from</span> <span class="nn">azureml.pipeline.core.schedule</span> <span class="kn">import</span> <span class="n">ScheduleRecurrence</span><span class="p">,</span> <span class="n">Schedule</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="n">hourly</span> <span class="o">=</span> <span class="n">ScheduleRecurrence</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="s2">&quot;Hourly&quot;</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="n">pipeline_schedule</span> <span class="o">=</span> <span class="n">Schedule</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;RecurringSchedule&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a>                            <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Trains model every few hours&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>                            <span class="n">pipeline_id</span><span class="o">=</span><span class="n">pipeline_id</span><span class="p">,</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a>                            <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;Recurring_Pipeline_name&quot;</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a>                            <span class="n">recurrence</span><span class="o">=</span><span class="n">hourly</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="batch-inference-pipeline">Batch Inference Pipeline</h3>
+<p>One of the core responsibilities of a batch inference pipeline is to run in parallel. For this to happen, you must use the ParallelRunConfig class which helps define the configuration needed to run in parallel.</p>
+<p>Some important aspects of this are the script that will do the work (<code>entry_script</code> parameter), how many failures it should tolerate (<code>error_threshold</code> parameter), and the number of nodes/batches needed to run (<code>mini_batch_size</code> parameter, 5 in this example).</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="kn">from</span> <span class="nn">azureml.pipeline.steps</span> <span class="kn">import</span> <span class="n">ParallelRunConfig</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="n">parallel_run_config</span> <span class="o">=</span> <span class="n">ParallelRunConfig</span><span class="p">(</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>    <span class="n">source_directory</span><span class="o">=</span><span class="s1">&#39;scripts&#39;</span><span class="p">,</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a>    <span class="n">entry_script</span><span class="o">=</span><span class="s2">&quot;scoring.py&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a>    <span class="n">mini_batch_size</span><span class="o">=</span><span class="s2">&quot;5&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a>    <span class="n">error_threshold</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a>    <span class="n">output_action</span><span class="o">=</span><span class="s2">&quot;append_row&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a>    <span class="n">environment</span><span class="o">=</span><span class="n">batch_env</span><span class="p">,</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a>    <span class="n">compute_target</span><span class="o">=</span><span class="n">aml_target</span><span class="p">,</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>    <span class="n">node_count</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="n">parallelrun_step</span> <span class="o">=</span> <span class="n">ParallelRunStep</span><span class="p">(</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;batch-score&quot;</span><span class="p">,</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a>    <span class="n">parallel_run_config</span><span class="o">=</span><span class="n">parallel_run_config</span><span class="p">,</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a>    <span class="n">inputs</span><span class="o">=</span><span class="p">[</span><span class="n">batch_data_set</span><span class="o">.</span><span class="n">as_named_input</span><span class="p">(</span><span class="s1">&#39;batch_data&#39;</span><span class="p">)],</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a>    <span class="n">output</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a>    <span class="n">arguments</span><span class="o">=</span><span class="p">[],</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a>    <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20"></a><span class="p">)</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="c1"># create the pipeline</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="p">[</span><span class="n">parallerun_step</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition info">
+<p class="admonition-title">Définition</p>
+<ul>
+<li>Batch inference: The process of doing predictions using parallelism. In a pipeline, it will usually be on a recurring schedule</li>
+<li>Recurring schedule: A way to schedule pipelines to run at a given interval</li>
+<li>Pipeline parameters: Like variables in a Python script, these can be passed into a script argument</li>
+</ul>
+</div>
+<h2 id="exercise">Exercise</h2>
+<h3 id="step-1-create-a-pipeline">Step 1 : Create a Pipeline</h3>
+<div class="admonition summary">
+<p class="admonition-title">Summary</p>
+<p>Pipelines are very useful and are a foundation of automation and operations in general. Being able to create a Pipeline allows for easier interaction with model deployments.</p>
+</div>
+<p>This demo shows you <strong>how to use the Python SDK to create a pipeline with AutoML steps</strong>.</p>
+<p>For this exercise, you will create a pipeline using the python SDK.</p>
+<p>First, create a pipeline using the Python SDK. (This is the part that up until the Examine Results section in the provided notebook)</p>
+<p>It is optional, you can copy and run cells in Examine Results section to test the pipeline and retrieve the best model. This step involves running an Automated ML experiment so it will take about 30 min to complete. Please keep track of the remaining time before you run these cells.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Make sure you update cells to match your dataset and other variables. These are noted in comments like this:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c1"># Choose a name for the run history container in the workspace.</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="c1"># NOTE: update these to match your existing experiment name</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="n">experiment_name</span> <span class="o">=</span> <span class="s1">&#39;ml-experiment-1&#39;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="n">project_folder</span> <span class="o">=</span> <span class="s1">&#39;./pipeline-project&#39;</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<p>Free free to modify the code to explore the different pipeline features and parameters. To speed up and shorten the total amount to train the model, you can change the <code>experiment_timeout_minutes</code> value from 20 to 10. These settings are in the Python Notebook, which are currently set to 20 minutes:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="n">automl_settings</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a>    <span class="s2">&quot;experiment_timeout_minutes&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a>    <span class="s2">&quot;max_concurrent_iterations&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a>    <span class="s2">&quot;primary_metric&quot;</span> <span class="p">:</span> <span class="s1">&#39;normalized_root_mean_squared_error&#39;</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a>    <span class="s2">&quot;n_cross_validations&quot;</span><span class="p">:</span> <span class="mi">5</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Create and run the pipelines using the Python SDK.</p>
+<h3 id="step-2-publish-a-pipeline">Step 2 : Publish a pipeline</h3>
+<p>In this part, you need to publish a pipeline using the both Azure ML studio and the Python SDK. Please re-use the Pipeline created in the previous part.</p>
+<p>You are recommended to write your own code to publish the pipeline. If you get stuck, review the first a few cells in the <strong>Publish and run from REST endpoint</strong> section in the provided notebook.</p>
+<h3 id="azure-machine-learning-pipeline-with-automlstep">Azure Machine Learning Pipeline with AutoMLStep</h3>
+<p>We demonstrate the use of AutoMLStep in Azure Machine Learning Pipeline.</p>
+<h4 id="introduction">Introduction</h4>
+<p>In this example we showcase how you can use AzureML Dataset to load data for AutoML via AML Pipeline.</p>
+<p>If you are using an Azure Machine Learning Notebook VM, you are all set. Otherwise, make sure you have executed the <a href="https://aka.ms/pl-config">configuration</a> before running this notebook.</p>
+<p>Here, you will learn how to:</p>
+<ol>
+<li>Create an <code>Experiment</code> in an existing <code>Workspace</code>.</li>
+<li>Create or Attach existing AmlCompute to a workspace.</li>
+<li>Define data loading in a <code>TabularDataset</code>.</li>
+<li>Configure AutoML using <code>AutoMLConfig</code>.</li>
+<li>Use <code>AutoMLStep</code>.</li>
+<li>Train the model using AmlCompute.</li>
+<li>Explore the results.</li>
+<li>Test the best fitted model.</li>
+</ol>
+<h4 id="initialize-workspace">Initialize Workspace</h4>
+<p>Initialize a workspace object from persisted configuration. Make sure the config file is present at <code>.\config.json</code>.</p>
+<h4 id="create-an-azure-ml-experiment">Create an Azure ML experiment</h4>
+<p>Let's create an experiment named "automlstep-classification" and a folder to hold the training scripts. The script runs will be recorded under the experiment in Azure.</p>
+<p><strong>The best practice is to use separate folders for scripts and its dependent files for each step and specify that folder as the <code>source_directory</code> for the step.</strong></p>
+<p>This helps reduce the size of the snapshot created for the step (only the specific folder is snapshotted). Since changes in any files in the <code>source_directory</code> would trigger a re-upload of the snapshot, this helps keep the reuse of the step when there are no changes in the <code>source_directory</code> of the step.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span>
+<span class="normal"><a href="#__codelineno-6-4">4</a></span>
+<span class="normal"><a href="#__codelineno-6-5">5</a></span>
+<span class="normal"><a href="#__codelineno-6-6">6</a></span>
+<span class="normal"><a href="#__codelineno-6-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c1"># Choose a name for the run history container in the workspace.</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="c1"># NOTE: update these to match your existing experiment name</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="n">experiment_name</span> <span class="o">=</span> <span class="s2">&quot;automlstep-regression&quot;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="n">project_folder</span> <span class="o">=</span> <span class="s1">&#39;./pipeline-project&#39;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="n">experiment</span> <span class="o">=</span> <span class="n">Experiment</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="n">experiment</span>
+</code></pre></div></td></tr></table></div>
+<h5 id="create-or-attach-an-amlcompute-cluster">Create or Attach an AmlCompute cluster</h5>
+<p>You will need to create a <a href="https://docs.microsoft.com/azure/machine-learning/service/concept-azure-machine-learning-architecture#compute-target">compute target</a> for your AutoML run. In this tutorial, you get the default <code>AmlCompute</code> as your training compute resource.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span>
+<span class="normal"><a href="#__codelineno-7-11">11</a></span>
+<span class="normal"><a href="#__codelineno-7-12">12</a></span>
+<span class="normal"><a href="#__codelineno-7-13">13</a></span>
+<span class="normal"><a href="#__codelineno-7-14">14</a></span>
+<span class="normal"><a href="#__codelineno-7-15">15</a></span>
+<span class="normal"><a href="#__codelineno-7-16">16</a></span>
+<span class="normal"><a href="#__codelineno-7-17">17</a></span>
+<span class="normal"><a href="#__codelineno-7-18">18</a></span>
+<span class="normal"><a href="#__codelineno-7-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="kn">from</span> <span class="nn">azureml.core.compute</span> <span class="kn">import</span> <span class="n">AmlCompute</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="kn">from</span> <span class="nn">azureml.core.compute</span> <span class="kn">import</span> <span class="n">ComputeTarget</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="kn">from</span> <span class="nn">azureml.core.compute_target</span> <span class="kn">import</span> <span class="n">ComputeTargetException</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="c1"># NOTE: update the cluster name to match the existing cluster</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="c1"># Choose a name for your CPU cluster</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="n">amlcompute_cluster_name</span> <span class="o">=</span> <span class="s2">&quot;cpu-cluster&quot;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="c1"># Verify that cluster does not exist already</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11"></a>    <span class="n">compute_target</span> <span class="o">=</span> <span class="n">ComputeTarget</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">amlcompute_cluster_name</span><span class="p">)</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12"></a>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Found existing cluster, use it.&#39;</span><span class="p">)</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13"></a><span class="k">except</span> <span class="n">ComputeTargetException</span><span class="p">:</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14"></a>    <span class="n">compute_config</span> <span class="o">=</span> <span class="n">AmlCompute</span><span class="o">.</span><span class="n">provisioning_configuration</span><span class="p">(</span><span class="n">vm_size</span><span class="o">=</span><span class="s1">&#39;STANDARD_D2_V2&#39;</span><span class="p">,</span><span class="c1"># for GPU, use &quot;STANDARD_NC6&quot;</span>
+<a id="__codelineno-7-15" name="__codelineno-7-15"></a>                                                           <span class="c1">#vm_priority = &#39;lowpriority&#39;, # optional</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16"></a>                                                           <span class="n">max_nodes</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17"></a>    <span class="n">compute_target</span> <span class="o">=</span> <span class="n">ComputeTarget</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">ws</span><span class="p">,</span> <span class="n">amlcompute_cluster_name</span><span class="p">,</span> <span class="n">compute_config</span><span class="p">)</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18"></a>    <span class="n">compute_target</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">(</span><span class="n">show_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_node_count</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">timeout_in_minutes</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19"></a><span class="c1"># For a more detailed view of current AmlCompute status, use get_status().</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="data">Data</h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span>
+<span class="normal"><a href="#__codelineno-8-14">14</a></span>
+<span class="normal"><a href="#__codelineno-8-15">15</a></span>
+<span class="normal"><a href="#__codelineno-8-16">16</a></span>
+<span class="normal"><a href="#__codelineno-8-17">17</a></span>
+<span class="normal"><a href="#__codelineno-8-18">18</a></span>
+<span class="normal"><a href="#__codelineno-8-19">19</a></span>
+<span class="normal"><a href="#__codelineno-8-20">20</a></span>
+<span class="normal"><a href="#__codelineno-8-21">21</a></span>
+<span class="normal"><a href="#__codelineno-8-22">22</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="c1"># Try to load the dataset from the Workspace. Otherwise, create it from the file</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="c1"># NOTE: update the key to match the dataset name</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="n">found</span> <span class="o">=</span> <span class="kc">False</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;bike-no-aci-deployment&quot;</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="n">description_text</span> <span class="o">=</span> <span class="s2">&quot;dataset used for testing ACI deployment in udacity nanodegree&quot;</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">ws</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8"></a>        <span class="n">found</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9"></a>        <span class="n">dataset</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10"></a>
+<a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="k">if</span> <span class="ow">not</span> <span class="n">found</span><span class="p">:</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12"></a>        <span class="c1"># Create AML Dataset and register it into Workspace</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13"></a>        <span class="n">example_data</span> <span class="o">=</span> <span class="s2">&quot;your_csv_url.csv&quot;</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14"></a>        <span class="n">dataset</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">Tabular</span><span class="o">.</span><span class="n">from_delimited_files</span><span class="p">(</span><span class="n">example_data</span><span class="p">)</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15"></a>        <span class="c1">#Register Dataset in Workspace</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16"></a>        <span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17"></a>                                   <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18"></a>                                   <span class="n">description</span><span class="o">=</span><span class="n">description_text</span><span class="p">)</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19"></a>
+<a id="__codelineno-8-20" name="__codelineno-8-20"></a>
+<a id="__codelineno-8-21" name="__codelineno-8-21"></a><span class="n">df</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">to_pandas_dataframe</span><span class="p">()</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22"></a><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="train">Train</h4>
+<p>This creates a general AutoML settings object.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="n">automl_settings</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>    <span class="s2">&quot;experiment_timeout_minutes&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>    <span class="s2">&quot;max_concurrent_iterations&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>    <span class="s2">&quot;primary_metric&quot;</span> <span class="p">:</span> <span class="s1">&#39;normalized_root_mean_squared_error&#39;</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>    <span class="s2">&quot;n_cross_validations&quot;</span><span class="p">:</span> <span class="mi">5</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="p">}</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a>
+<a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="n">automl_config</span> <span class="o">=</span> <span class="n">AutoMLConfig</span><span class="p">(</span><span class="n">compute_target</span><span class="o">=</span><span class="n">compute_target</span><span class="p">,</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9"></a>                             <span class="n">task</span> <span class="o">=</span> <span class="s2">&quot;regression&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10"></a>                             <span class="n">training_data</span><span class="o">=</span><span class="n">dataset</span><span class="p">,</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11"></a>                             <span class="n">label_column_name</span><span class="o">=</span><span class="s2">&quot;cnt&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12"></a>                             <span class="n">path</span> <span class="o">=</span> <span class="n">project_folder</span><span class="p">,</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13"></a>                             <span class="n">enable_early_stopping</span><span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14"></a>                             <span class="n">featurization</span><span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15"></a>                             <span class="n">debug_log</span> <span class="o">=</span> <span class="s2">&quot;automl_errors.log&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16"></a>                             <span class="o">**</span><span class="n">automl_settings</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17"></a>                            <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h5 id="create-pipeline-and-automlstep">Create Pipeline and AutoMLStep</h5>
+<h6 id="define-outputs">Define outputs</h6>
+<p>You can define outputs for the AutoMLStep using <code>TrainingOutput</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kn">from</span> <span class="nn">azureml.pipeline.core</span> <span class="kn">import</span> <span class="n">PipelineData</span><span class="p">,</span> <span class="n">TrainingOutput</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="n">ds</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">get_default_datastore</span><span class="p">()</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="n">metrics_output_name</span> <span class="o">=</span> <span class="s1">&#39;metrics_output&#39;</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="n">best_model_output_name</span> <span class="o">=</span> <span class="s1">&#39;best_model_output&#39;</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="n">metrics_data</span> <span class="o">=</span> <span class="n">PipelineData</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;metrics_data&#39;</span><span class="p">,</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8"></a>                           <span class="n">datastore</span><span class="o">=</span><span class="n">ds</span><span class="p">,</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9"></a>                           <span class="n">pipeline_output_name</span><span class="o">=</span><span class="n">metrics_output_name</span><span class="p">,</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10"></a>                           <span class="n">training_output</span><span class="o">=</span><span class="n">TrainingOutput</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;Metrics&#39;</span><span class="p">))</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="n">model_data</span> <span class="o">=</span> <span class="n">PipelineData</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;model_data&#39;</span><span class="p">,</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13"></a>                           <span class="n">datastore</span><span class="o">=</span><span class="n">ds</span><span class="p">,</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14"></a>                           <span class="n">pipeline_output_name</span><span class="o">=</span><span class="n">best_model_output_name</span><span class="p">,</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15"></a>                           <span class="n">training_output</span><span class="o">=</span><span class="n">TrainingOutput</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;Model&#39;</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+<p><a href="https://docs.microsoft.com/en-us/python/api/azureml-pipeline-core/azureml.pipeline.core.pipelinedata?view=azure-ml-py"><code>PipelineData</code> Class</a>.</p>
+<div class="admonition info">
+<p class="admonition-title"><code>name</code> (str, Required)</p>
+<p>The name of the <code>PipelineData</code> object, which can contain only letters, digits, and underscores.</p>
+<p><code>PipelineData</code> names are used to identify the outputs of a step. After a pipeline run has completed, you can use the step name with an output name to access a particular output. Names should be unique within a single step in a pipeline.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title"><code>pipeline_output_name</code> (Required)</p>
+<p>If provided this output will be available by using <code>PipelineRun.get_pipeline_output()</code>. Pipeline output names must be unique in the pipeline.</p>
+</div>
+<p>More on <a href="https://docs.microsoft.com/en-us/python/api/azureml-pipeline-core/azureml.pipeline.core.trainingoutput?view=azure-ml-py"><code>TrainingOutput</code></a>.</p>
+<div class="admonition info">
+<p class="admonition-title">Définition</p>
+<p>Defines a specialized output of certain <code>PipelineSteps</code> for use in a pipeline.</p>
+<p><code>TrainingOutput</code> enables an automated machine learning metric or model to be made available as a step output to be consumed by another step in an Azure Machine Learning Pipeline. Can be used with <code>AutoMLStep</code> or <code>HyperDriveStep</code>.</p>
+<p><code>TrainingOutput</code> is used with <code>PipelineData</code> when constructing a Pipeline <strong>to enable other steps to consume the metrics or models generated</strong> by an <code>AutoMLStep</code> or <code>HyperDriveStep</code>.</p>
+</div>
+<h6 id="create-an-automlstep">Create an AutoMLStep</h6>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="n">automl_step</span> <span class="o">=</span> <span class="n">AutoMLStep</span><span class="p">(</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;automl_module&#39;</span><span class="p">,</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>    <span class="n">automl_config</span><span class="o">=</span><span class="n">automl_config</span><span class="p">,</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>    <span class="n">outputs</span><span class="o">=</span><span class="p">[</span><span class="n">metrics_data</span><span class="p">,</span> <span class="n">model_data</span><span class="p">],</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>    <span class="n">allow_reuse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h6 id="define-the-pipeline">Define the pipeline</h6>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="kn">from</span> <span class="nn">azureml.pipeline.core</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;pipeline_with_automlstep&quot;</span><span class="p">,</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>    <span class="n">workspace</span><span class="o">=</span><span class="n">ws</span><span class="p">,</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a>    <span class="n">steps</span><span class="o">=</span><span class="p">[</span><span class="n">automl_step</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+<h6 id="run-the-pipeline">Run the pipeline</h6>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="kn">from</span> <span class="nn">azureml.widgets</span> <span class="kn">import</span> <span class="n">RunDetails</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="n">pipeline_run</span> <span class="o">=</span> <span class="n">experiment</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">pipeline</span><span class="p">)</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="n">RunDetails</span><span class="p">(</span><span class="n">pipeline_run</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="n">pipeline_run</span><span class="o">.</span><span class="n">wait_for_completion</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="examine-results">Examine Results</h4>
+<h5 id="retrieve-the-metrics-of-all-child-runs">Retrieve the metrics of all child runs</h5>
+<p>Outputs of above run can be used as inputs of other steps in pipeline. In this tutorial, we will examine the outputs by retrieve output data and running some tests.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="n">metrics_output</span> <span class="o">=</span> <span class="n">pipeline_run</span><span class="o">.</span><span class="n">get_pipeline_output</span><span class="p">(</span><span class="n">metrics_output_name</span><span class="p">)</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="n">num_file_downloaded</span> <span class="o">=</span> <span class="n">metrics_output</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span>
+<span class="normal"><a href="#__codelineno-15-3">3</a></span>
+<span class="normal"><a href="#__codelineno-15-4">4</a></span>
+<span class="normal"><a href="#__codelineno-15-5">5</a></span>
+<span class="normal"><a href="#__codelineno-15-6">6</a></span>
+<span class="normal"><a href="#__codelineno-15-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="kn">import</span> <span class="nn">json</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">metrics_output</span><span class="o">.</span><span class="n">_path_on_datastore</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a>    <span class="n">metrics_output_result</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="n">deserialized_metrics_output</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">metrics_output_result</span><span class="p">)</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">deserialized_metrics_output</span><span class="p">)</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="n">df</span>
+</code></pre></div></td></tr></table></div>
+<h5 id="retrieve-the-best-model">Retrieve the Best Model</h5>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span>
+<span class="normal"><a href="#__codelineno-16-2">2</a></span>
+<span class="normal"><a href="#__codelineno-16-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="c1"># Retrieve best model from Pipeline Run</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="n">best_model_output</span> <span class="o">=</span> <span class="n">pipeline_run</span><span class="o">.</span><span class="n">get_pipeline_output</span><span class="p">(</span><span class="n">best_model_output_name</span><span class="p">)</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="n">num_file_downloaded</span> <span class="o">=</span> <span class="n">best_model_output</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="kn">import</span> <span class="nn">pickle</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="n">model_filename</span> <span class="o">=</span> <span class="n">best_model_output</span><span class="o">.</span><span class="n">_path_on_datastore</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="c1"># model_filename = path to downloaded file</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="n">model_filename</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span>
+<span class="normal"><a href="#__codelineno-18-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span> <span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a>    <span class="n">best_model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a>
+<a id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="n">best_model</span><span class="o">.</span><span class="n">steps</span>
+</code></pre></div></td></tr></table></div>
+<h5 id="test-the-model">Test the Model</h5>
+<h6 id="load-test-data">Load Test Data</h6>
+<p>For the test data, it should have the same preparation step as the train data. Otherwise it might get failed at the preprocessing step.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span>
+<span class="normal"><a href="#__codelineno-19-3">3</a></span>
+<span class="normal"><a href="#__codelineno-19-4">4</a></span>
+<span class="normal"><a href="#__codelineno-19-5">5</a></span>
+<span class="normal"><a href="#__codelineno-19-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="n">dataset_test</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">Tabular</span><span class="o">.</span><span class="n">from_delimited_files</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_test.csv&#39;</span><span class="p">)</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="n">df_test</span> <span class="o">=</span> <span class="n">dataset_test</span><span class="o">.</span><span class="n">to_pandas_dataframe</span><span class="p">()</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="n">df_test</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">])]</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4"></a>
+<a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="n">y_test</span> <span class="o">=</span> <span class="n">df_test</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="n">X_test</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h6 id="testing-our-best-fitted-model">Testing Our Best Fitted Model</h6>
+<p>We will use confusion matrix to see how our model works.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span>
+<span class="normal"><a href="#__codelineno-20-4">4</a></span>
+<span class="normal"><a href="#__codelineno-20-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="n">ypred</span> <span class="o">=</span> <span class="n">best_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">ypred</span><span class="p">)</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="c1"># Visualize the confusion matrix</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5"></a><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="publish-and-run-from-rest-endpoint">Publish and run from REST endpoint</h4>
+<p>Run the following code to publish the pipeline to your workspace. In your workspace in the portal, you can see metadata for the pipeline including run history and durations. You can also run the pipeline manually from the portal.</p>
+<p>Additionally, publishing the pipeline enables a REST endpoint to rerun the pipeline from any HTTP library on any platform.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span>
+<span class="normal"><a href="#__codelineno-21-2">2</a></span>
+<span class="normal"><a href="#__codelineno-21-3">3</a></span>
+<span class="normal"><a href="#__codelineno-21-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="n">published_pipeline</span> <span class="o">=</span> <span class="n">pipeline_run</span><span class="o">.</span><span class="n">publish_pipeline</span><span class="p">(</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Bike sharing Train&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Training bike sharing pipeline&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0&quot;</span><span class="p">)</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4"></a><span class="n">published_pipeline</span>
+</code></pre></div></td></tr></table></div>
+<p>Authenticate once again, to retrieve the <code>auth_header</code> so that the endpoint can be used.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span>
+<span class="normal"><a href="#__codelineno-22-3">3</a></span>
+<span class="normal"><a href="#__codelineno-22-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="kn">from</span> <span class="nn">azureml.core.authentication</span> <span class="kn">import</span> <span class="n">InteractiveLoginAuthentication</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a>
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a><span class="n">interactive_auth</span> <span class="o">=</span> <span class="n">InteractiveLoginAuthentication</span><span class="p">()</span>
+<a id="__codelineno-22-4" name="__codelineno-22-4"></a><span class="n">auth_header</span> <span class="o">=</span> <span class="n">interactive_auth</span><span class="o">.</span><span class="n">get_authentication_header</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>Get the REST url from the endpoint property of the published pipeline object. You can also find the REST url in your workspace in the portal. Build an HTTP POST request to the endpoint, specifying your authentication header. Additionally, add a JSON payload object with the experiment name and the batch size parameter. As a reminder, the process_count_per_node is passed through to ParallelRunStep because you defined it is defined as a PipelineParameter object in the step configuration.</p>
+<p>Make the request to trigger the run. Access the Id key from the response dict to get the value of the run id.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span>
+<span class="normal"><a href="#__codelineno-23-3">3</a></span>
+<span class="normal"><a href="#__codelineno-23-4">4</a></span>
+<span class="normal"><a href="#__codelineno-23-5">5</a></span>
+<span class="normal"><a href="#__codelineno-23-6">6</a></span>
+<span class="normal"><a href="#__codelineno-23-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="kn">import</span> <span class="nn">requests</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a><span class="n">rest_endpoint</span> <span class="o">=</span> <span class="n">published_pipeline</span><span class="o">.</span><span class="n">endpoint</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4"></a><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">rest_endpoint</span><span class="p">,</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5"></a>                         <span class="n">headers</span><span class="o">=</span><span class="n">auth_header</span><span class="p">,</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6"></a>                         <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ExperimentName&quot;</span><span class="p">:</span> <span class="s2">&quot;pipeline-rest-endpoint&quot;</span><span class="p">}</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7"></a>                        <span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-24-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-24-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-24-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-24-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-24-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-24-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-24-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-24-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-24-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2"></a>    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4"></a>    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Received bad response from the endpoint: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5"></a>                    <span class="s2">&quot;Response Code: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6"></a>                    <span class="s2">&quot;Headers: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7"></a>                    <span class="s2">&quot;Content: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rest_endpoint</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8"></a>
+<a id="__codelineno-24-9" name="__codelineno-24-9"></a><span class="n">run_id</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;Id&#39;</span><span class="p">)</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10"></a><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Submitted pipeline run: &#39;</span><span class="p">,</span> <span class="n">run_id</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Use the run id to monitor the status of the new run. This will take another 10-15 min to run and will look similar to the previous pipeline run, so if you don't need to see another pipeline run, you can skip watching the full output.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
+<span class="normal"><a href="#__codelineno-25-2">2</a></span>
+<span class="normal"><a href="#__codelineno-25-3">3</a></span>
+<span class="normal"><a href="#__codelineno-25-4">4</a></span>
+<span class="normal"><a href="#__codelineno-25-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="kn">from</span> <span class="nn">azureml.pipeline.core.run</span> <span class="kn">import</span> <span class="n">PipelineRun</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="kn">from</span> <span class="nn">azureml.widgets</span> <span class="kn">import</span> <span class="n">RunDetails</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a>
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a><span class="n">published_pipeline_run</span> <span class="o">=</span> <span class="n">PipelineRun</span><span class="p">(</span><span class="n">ws</span><span class="o">.</span><span class="n">experiments</span><span class="p">[</span><span class="s2">&quot;pipeline-rest-endpoint&quot;</span><span class="p">],</span> <span class="n">run_id</span><span class="p">)</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5"></a><span class="n">RunDetails</span><span class="p">(</span><span class="n">published_pipeline_run</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="consume-pipeline-endpoint-api">Consume Pipeline Endpoint (API)</h4>
+<div class="admonition summary">
+<p class="admonition-title">Summary</p>
+<p>Pipeline endpoints can be consumed via HTTP, but it is also possible to do so via the Python SDK. Since there are different ways to interact with published Pipelines, this makes the whole pipeline environment very flexible.</p>
+<p>It is key to find and use the correct HTTP endpoint to interact with a published pipeline. Sending a request over HTTP to a pipeline endpoint will require authentication in the request headers. We will talk more about it later.</p>
+<p>Pipelines can perform several other tasks aside from training a model. Some of these tasks, or steps are:</p>
+<ul>
+<li>Data Preparation</li>
+<li>Validation</li>
+<li>Deployment</li>
+<li>Combined tasks</li>
+</ul>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Définition</p>
+<ul>
+<li><strong>Pipeline endpoint</strong>: The URL of the published Pipeline</li>
+<li><strong>HTTP Headers</strong>: Part of the HTTP specification, where a request can attach extra information, like authentication</li>
+<li>Automation: A core pillar of DevOps which is applicable to Machine Learning</li>
+<li><strong>Batch inference</strong>: The process of doing predictions using parallelism. In a pipeline, it will usually be on a recurring schedule</li>
+<li><strong>HTTP trigger</strong>: With configuration, a service can create an HTTP request based on certain conditions</li>
+<li><strong>Pipeline parameters</strong>: Like variables in a Python script, these can be passed into a script argument</li>
+<li><strong>Publishing a Pipeline</strong>: Allowing external access to a Pipeline over an HTTP endpoint</li>
+<li><strong>Recurring schedule</strong>: A way to schedule pipelines to run at a given interval</li>
+</ul>
+</div>
+<h3 id="documentation">Documentation</h3>
+<ul>
+<li><a href="https://docs.microsoft.com/en-us/python/api/azureml-pipeline-core/azureml.pipeline.core.pipeline_endpoint.pipelineendpoint?view=azure-ml-py">PipelineEndpoint Class</a>.</li>
+<li><a href="https://docs.microsoft.com/en-us/azure/machine-learning/how-to-create-machine-learning-pipelines">Create and run machine learning pipelines with Azure Machine Learning SDK</a></li>
+<li>
+<p><a href="https://docs.microsoft.com/en-us/azure/machine-learning/concept-ml-pipelines">What are Azure Machine Learning pipelines?</a></p>
+</li>
+<li>
+<p><a href="https://thenewstack.io/tutorial-create-training-and-inferencing-pipelines-with-azure-ml-designer/">Tutorial: Create Training and Inferencing Pipelines with Azure ML Designer</a></p>
+</li>
+<li><a href="https://thenewstack.io/build-repeatable-ml-workflows-with-azure-machine-learning-pipelines/">Build Repeatable ML Workflows with Azure Machine Learning Pipelines</a></li>
+<li><a href="https://thenewstack.io/tutorial-build-an-end-to-end-azure-ml-pipeline-with-the-python-sdk/">Tutorial: Build an End-to-End Azure ML Pipeline with the Python SDK</a></li>
+<li><a href="https://thenewstack.io/tutorial-train-machine-learning-models-with-automated-ml-feature-of-azure-ml/">Tutorial: Train Machine Learning Models with Automated ML Feature of Azure ML</a></li>
+</ul>
+<h4 id="best-practices-for-azure-machine-learning-pipelines"><a href="https://stackoverflow.com/questions/61391963/best-practices-for-azure-machine-learning-pipelines">Best Practices for Azure Machine Learning Pipelines</a></h4>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Rephrasing of the StackOverflow answer, go check it for complete anwsers.</p>
+</div>
+<p>Most of the time, a pipeline has at least 4 steps.</p>
+<ul>
+<li>Input data</li>
+<li>Data transformation step</li>
+<li>Model Training step</li>
+<li>Model scoring step</li>
+</ul>
+<p>There are a bunch of things that are completely unclear from the documentation and the examples and I'm struggling to fully grasp the concept.</p>
+<ol>
+<li>When I look at <code>batch scoring</code> examples, it is implemented as a Pipeline Step. This raises the question:</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Does this mean that the <code>predicting part</code> is part of the same pipeline as the <code>training part</code>, or should there be separate 2 separate pipelines for this ?</p>
+</div>
+<p>Making 1 pipeline that combines both steps seems odd to me, because you don't want to run your predicting part every time you change something to the training part (and vice versa).</p>
+<p>A pipeline architecture depends on if:</p>
+<ul>
+<li>you need to predict live (else batch prediction is sufficient), and</li>
+<li>your data is already transformed and ready for scoring.</li>
+</ul>
+<p>If you need live scoring, you should deploy your model. If batch scoring, is fine. You could either have:</p>
+<ul>
+<li>a training pipeline at the end of which you register a model that is then used in a scoring pipeline, or</li>
+<li>have one pipeline that can be configured to do either using script arguments.</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><strong>From March 2021.</strong> PipelineData is no longer a preferred way: <a href="https://docs.microsoft.com/en-us/python/api/azureml-pipeline-core/azureml.pipeline.core.pipelinedata?view=azure-ml-py">"PipelineData use DataReference underlying which is no longer the recommended approach for data access and delivery, please use OutputFileDatasetConfig instead"</a>.</p>
+</div>
+<p>In the batch scoring examples, the assumption is that there is already a trained model, which could be coming from another pipeline, or in the case of the notebook, it's a pre-trained model not built in a pipeline at all.</p>
+<p>However, <strong>running both training and prediction in the same pipeline is a valid use-case</strong>. Use the <code>allow_reuse</code> param and set to <code>True</code>, which will cache the step output in the pipeline to prevent unnecessary reruns.</p>
+<p>Take a model training step for example, and consider the following input to that step:</p>
+<ul>
+<li>training script</li>
+<li>input data</li>
+<li>additional step params</li>
+</ul>
+<p>If you set <code>allow_reuse=True</code>, and your training script, input data, and other step params are the same as the last time the pipeline ran, it will not rerun that step, it will use the cached output from the last time the pipeline ran. But let's say your data input changed, then the step would rerun.</p>
+<p>In general, pipelines are pretty modular and you can build them how you see fit. You could maintain separate pipelines for training and scoring, or <strong>bundle everything in one pipeline but leverage the automatic caching</strong>.</p>
+<ol>
+<li>What parts should be implemented as a Pipeline Step and what parts shouldn't? Should the creation of the Datastore and Dataset be implemented as a step? Should registering a model be implemented as a step?</li>
+</ol>
+<p>All transformations you do to your data (munging, featurization, training, scoring) should take place inside of <code>PipelineStep</code>'s. The inputs and outputs of which should be <code>PipelineData</code>'s.</p>
+<p>Azure ML artifacts should be:</p>
+<ul>
+<li>created in the pipeline control plane using <code>PipelineData</code>, and</li>
+<li>registered either ad-hoc, as opposed to with every run, or</li>
+<li>when you need to pass artifacts between pipelines.</li>
+</ul>
+<p>In this way <code>PipelineData</code> is the glue that connects pipeline steps directly rather than being indirectly connected with <code>.register()</code> and <code>.download()</code></p>
+<p><code>PipelineData</code>'s are ultimately just ephemeral directories that can also be used as placeholders before steps are run to create and register artifacts.</p>
+<p><code>Dataset</code>'s are abstractions of <code>PipelineData</code>s in that they make things easier to pass to <code>AutoMLStep</code> and <code>HyperDriveStep</code>, and <code>DataDrift</code>.</p>
+<ol>
+<li>What isn't shown anywhere is how to deal with model registry. I create the model in the training step and then write it to the output folder as a pickle file. Then what? How do I get the model in the next step? Should I pass it on as a <code>PipelineData</code> object? Should <code>train.py</code> itself be responsible for registering the trained model?</li>
+</ol>
+<p>During development, I recommend that you don't register your model and that the scoring step receives your model via a PipelineData as a pickled file.</p>
+<p>In production, the scoring step should use a previously registered model. The registration of the new model should be done via comparison of the metrics and then trigger the registration if needed.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span>
+<span class="normal"><a href="#__codelineno-26-2">2</a></span>
+<span class="normal"><a href="#__codelineno-26-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a>http<span class="w"> </span>-A<span class="w"> </span>bearer<span class="w"> </span>-a<span class="w"> </span>xxxxxxxxCPAhdOZ9Ixxxxxxxxx<span class="w"> </span>xxxxxx-bb55-xxxx-9ca8-xxxxxxxx.westeurope.azurecontainer.io/score<span class="w"> </span>&lt;<span class="w"> </span>data.json
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a>
+<a id="__codelineno-26-3" name="__codelineno-26-3"></a>http<span class="w"> </span>-A<span class="w"> </span>bearer<span class="w"> </span>-a<span class="w"> </span>xxxxxxxxCPAhdOZ9Ixxxxxxxxx<span class="w"> </span>xxxxxx-bb55-xxxx-9ca8-xxxxxxxx.westeurope.azurecontainer.io/score<span class="w"> </span>&lt;<span class="w"> </span>data.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>.Results
+</code></pre></div></td></tr></table></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

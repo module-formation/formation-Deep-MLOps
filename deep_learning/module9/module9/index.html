@@ -1,0 +1,3102 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Mathieu Klimczak">
+      
+      
+      
+        <link rel="prev" href="../../module7/Module7_2/">
+      
+      
+        <link rel="next" href="../tp9_elaguage/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.2">
+    
+    
+      
+        <title>Théorie - Arctic Vault</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f56500e0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono+Medium:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono Medium"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../../../stylesheets/mkdocsoad.css">
+    
+      <link rel="stylesheet" href="../../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module9-deployer-son-reseau-de-neurones-sur-de-lembarque" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Arctic Vault" class="md-header__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Arctic Vault
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Théorie
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Basculer en mode sombre"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode sombre" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="deep-orange"  aria-label="Basculer en mode clair"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Basculer en mode clair" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      Accueil
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../module1/Module1/" class="md-tabs__link md-tabs__link--active">
+        Deep Learning
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../mlops/docker/" class="md-tabs__link">
+        MLOps
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../azure_ml/intro/" class="md-tabs__link">
+        AzureML
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../devops/linux/" class="md-tabs__link">
+        DevOps 101
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../az104/az-ad/" class="md-tabs__link">
+        AZ-104
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../ide_vscode/conf/" class="md-tabs__link">
+        Guidelines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../lectures/gradient_centralization/" class="md-tabs__link">
+        Lectures
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Arctic Vault" class="md-nav__button md-logo" aria-label="Arctic Vault" data-md-component="logo">
+      
+  <img src="../../../images/noun_Robot_1955251.svg" alt="logo">
+
+    </a>
+    Arctic Vault
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Accueil
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Deep Learning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deep Learning" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Deep Learning
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Introduction au deep learning, prise en main de Tensorflow et Keras" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction au deep learning, prise en main de Tensorflow et Keras
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/Module1/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module1/tp1/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Les réseaux de neurones convolutifs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les réseaux de neurones convolutifs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Les réseaux de neurones convolutifs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/Module2/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/module2_annexe/" class="md-nav__link">
+        Annexe
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module2/tp2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Preprocessing des données avec l'API tf.data
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Preprocessing des données avec l'API tf.data" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Preprocessing des données avec l'API tf.data
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module3/Module3/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Optimisation et régularisation des réseaux de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Optimisation et régularisation des réseaux de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Optimisation et régularisation des réseaux de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module4/Module4/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module4/Module4_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_5">
+          Personnaliser son réseau de neurones
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Personnaliser son réseau de neurones" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Personnaliser son réseau de neurones
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module5/Module5/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module5/Module5_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_6" type="checkbox" id="__nav_2_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_6">
+          La segmentation d'images
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="La segmentation d'images" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_6">
+          <span class="md-nav__icon md-icon"></span>
+          La segmentation d'images
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module6/module6/" class="md-nav__link">
+        Théorie
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module6/Module6_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_7">
+          Les modèles générateurs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Les modèles générateurs" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_7">
+          <span class="md-nav__icon md-icon"></span>
+          Les modèles générateurs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../module7/Module7_2/" class="md-nav__link">
+        Pratique
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_8">
+          Déployer son réseau de neurones sur de l'embarqué
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Déployer son réseau de neurones sur de l'embarqué" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_8">
+          <span class="md-nav__icon md-icon"></span>
+          Déployer son réseau de neurones sur de l'embarqué
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Théorie
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Théorie
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elagage" class="md-nav__link">
+    Elagage
+  </a>
+  
+    <nav class="md-nav" aria-label="Elagage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#idee" class="md-nav__link">
+    Idée
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methode" class="md-nav__link">
+    Méthode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remarques" class="md-nav__link">
+    Remarques
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#travailler-en-basse-precision" class="md-nav__link">
+    Travailler en basse précision
+  </a>
+  
+    <nav class="md-nav" aria-label="Travailler en basse précision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pourquoi-ca-nous-interesse" class="md-nav__link">
+    Pourquoi ça nous intéresse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pourquoi-ca-marche" class="md-nav__link">
+    Pourquoi ça marche ?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-quantification" class="md-nav__link">
+    La quantification
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#onnx" class="md-nav__link">
+    ONNX
+  </a>
+  
+    <nav class="md-nav" aria-label="ONNX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tf2onnx" class="md-nav__link">
+    tf2ONNX
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tensorrt" class="md-nav__link">
+    TensorRT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-architectures-dediees" class="md-nav__link">
+    Les architectures dédiées
+  </a>
+  
+    <nav class="md-nav" aria-label="Les architectures dédiées">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mobilenet" class="md-nav__link">
+    MobileNet
+  </a>
+  
+    <nav class="md-nav" aria-label="MobileNet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#separable-depthwise-convolutions" class="md-nav__link">
+    Separable DepthWise Convolutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repvgg" class="md-nav__link">
+    RepVGG
+  </a>
+  
+    <nav class="md-nav" aria-label="RepVGG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-fusion-convolution-batchnorm" class="md-nav__link">
+    La fusion Convolution-Batchnorm
+  </a>
+  
+    <nav class="md-nav" aria-label="La fusion Convolution-Batchnorm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etude-de-la-couche-convolutive" class="md-nav__link">
+    Etude de la couche convolutive
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etude-de-la-batchnorm" class="md-nav__link">
+    Etude de la batchnorm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nouveau-tenseur-de-poids" class="md-nav__link">
+    Nouveau tenseur de poids
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nouveau-tenseur-de-biais" class="md-nav__link">
+    Nouveau tenseur de biais
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-via-les-developpements-limites" class="md-nav__link">
+    Vérification via les développements limités
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tp9_elaguage/" class="md-nav__link">
+        Pratique, l'élagage
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tp9_tflite/" class="md-nav__link">
+        Pratique, TFLite
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Module9_TFTRT/" class="md-nav__link">
+        Pratique, TFTRT
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fusion/" class="md-nav__link">
+        Annexe, RepVGG
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bnn/" class="md-nav__link">
+        Les BNN
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_9" type="checkbox" id="__nav_2_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_9">
+          Algèbre tensorielle
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Algèbre tensorielle" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_9">
+          <span class="md-nav__icon md-icon"></span>
+          Algèbre tensorielle
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algebra/algebra/" class="md-nav__link">
+        Les tenseurs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../algebra/attn/" class="md-nav__link">
+        L'attention
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          MLOps
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="MLOps" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          MLOps
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/DVC/" class="md-nav__link">
+        Data versioning
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/mlem/" class="md-nav__link">
+        Model Registry
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/featurestore/" class="md-nav__link">
+        Feature store
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/hydra/" class="md-nav__link">
+        Hydra
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/monitoring/" class="md-nav__link">
+        Monitoring
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/optuna/" class="md-nav__link">
+        Optimisation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mlops/image_fastapi/" class="md-nav__link">
+        REST API
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          AzureML
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AzureML" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          AzureML
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/intro/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson1/" class="md-nav__link">
+        SDK Azure
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson1_project/" class="md-nav__link">
+        HyperDrive et AutoML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson2/" class="md-nav__link">
+        Déployer un modèle
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson3/" class="md-nav__link">
+        Utilisation du modèle déployé
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/lesson4/" class="md-nav__link">
+        Pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/annex1/" class="md-nav__link">
+        Azure et Traefik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../azure_ml/annex2/" class="md-nav__link">
+        Azure et Caddy
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          DevOps 101
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DevOps 101" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          DevOps 101
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/linux/" class="md-nav__link">
+        Linux Basics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/git/" class="md-nav__link">
+        Git
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/shell/" class="md-nav__link">
+        Shell scripts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/network/" class="md-nav__link">
+        Networking
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/applications/" class="md-nav__link">
+        Applications
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/web_server/" class="md-nav__link">
+        Web Servers
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/terminal/" class="md-nav__link">
+        Terminal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/tls_ssl/" class="md-nav__link">
+        SSL et TLS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/docker/" class="md-nav__link">
+        Docker
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/kubernetes/" class="md-nav__link">
+        Kubernetes
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/yaml/" class="md-nav__link">
+        YAML
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/redis/" class="md-nav__link">
+        Redis
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/az_devops/" class="md-nav__link">
+        AzDevOps pipelines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devops/terraform/" class="md-nav__link">
+        Terraform
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          AZ-104
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="AZ-104" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          AZ-104
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../az104/az-ad/" class="md-nav__link">
+        Managing Azure Active Directory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../az104/sub_and_gov/" class="md-nav__link">
+        Subscription and Governance
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Guidelines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guidelines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Guidelines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ide_vscode/conf/" class="md-nav__link">
+        IDE vscode
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_2" type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_2">
+          Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Documentation" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../doc_redaction/mkdocs/" class="md-nav__link">
+        MkDocs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../doc_redaction/diagrammes/" class="md-nav__link">
+        Diagrammes
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_3" type="checkbox" id="__nav_7_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_3">
+          Formating, Linting, Type Hinting
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Formating, Linting, Type Hinting" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_3">
+          <span class="md-nav__icon md-icon"></span>
+          Formating, Linting, Type Hinting
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/format/" class="md-nav__link">
+        Formating
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/lint/" class="md-nav__link">
+        Linting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../format_lint_hint/hint/" class="md-nav__link">
+        Hint
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_4" type="checkbox" id="__nav_7_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_4">
+          Tests
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tests" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          Tests
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../testing/unittests/" class="md-nav__link">
+        Test unitaire
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_5" type="checkbox" id="__nav_7_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_5">
+          CI/CD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="CI/CD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          CI/CD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cicd/precommit/" class="md-nav__link">
+        Pre-commit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_6" type="checkbox" id="__nav_7_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_6">
+          Code quality
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code quality" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_6">
+          <span class="md-nav__icon md-icon"></span>
+          Code quality
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_quality/radon/" class="md-nav__link">
+        Radon
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7_7" type="checkbox" id="__nav_7_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7_7">
+          Code security
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Code security" data-md-level="2">
+        <label class="md-nav__title" for="__nav_7_7">
+          <span class="md-nav__icon md-icon"></span>
+          Code security
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../code_security/bandit/" class="md-nav__link">
+        Bandit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          Lectures
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Lectures" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          Lectures
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../lectures/gradient_centralization/" class="md-nav__link">
+        Gradient Centralization
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#elagage" class="md-nav__link">
+    Elagage
+  </a>
+  
+    <nav class="md-nav" aria-label="Elagage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#idee" class="md-nav__link">
+    Idée
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methode" class="md-nav__link">
+    Méthode
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remarques" class="md-nav__link">
+    Remarques
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#travailler-en-basse-precision" class="md-nav__link">
+    Travailler en basse précision
+  </a>
+  
+    <nav class="md-nav" aria-label="Travailler en basse précision">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pourquoi-ca-nous-interesse" class="md-nav__link">
+    Pourquoi ça nous intéresse
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pourquoi-ca-marche" class="md-nav__link">
+    Pourquoi ça marche ?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-quantification" class="md-nav__link">
+    La quantification
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#onnx" class="md-nav__link">
+    ONNX
+  </a>
+  
+    <nav class="md-nav" aria-label="ONNX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tf2onnx" class="md-nav__link">
+    tf2ONNX
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tensorrt" class="md-nav__link">
+    TensorRT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-architectures-dediees" class="md-nav__link">
+    Les architectures dédiées
+  </a>
+  
+    <nav class="md-nav" aria-label="Les architectures dédiées">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mobilenet" class="md-nav__link">
+    MobileNet
+  </a>
+  
+    <nav class="md-nav" aria-label="MobileNet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#separable-depthwise-convolutions" class="md-nav__link">
+    Separable DepthWise Convolutions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#repvgg" class="md-nav__link">
+    RepVGG
+  </a>
+  
+    <nav class="md-nav" aria-label="RepVGG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#la-fusion-convolution-batchnorm" class="md-nav__link">
+    La fusion Convolution-Batchnorm
+  </a>
+  
+    <nav class="md-nav" aria-label="La fusion Convolution-Batchnorm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etude-de-la-couche-convolutive" class="md-nav__link">
+    Etude de la couche convolutive
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etude-de-la-batchnorm" class="md-nav__link">
+    Etude de la batchnorm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nouveau-tenseur-de-poids" class="md-nav__link">
+    Nouveau tenseur de poids
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nouveau-tenseur-de-biais" class="md-nav__link">
+    Nouveau tenseur de biais
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-via-les-developpements-limites" class="md-nav__link">
+    Vérification via les développements limités
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="module9-deployer-son-reseau-de-neurones-sur-de-lembarque">Module9 : Déployer son réseau de neurones sur de l'embarqué</h1>
+<p>But de l'optimisation des modèles :</p>
+<ul>
+<li>Réduire la taille du modèle.</li>
+<li>Accélérer le temps d'inférence.</li>
+<li>Réduire la consommation énergétique du modèle.</li>
+</ul>
+<p>Quelles sont les différentes façon d'optimiser une modèle ?</p>
+<ul>
+<li>Tous les paramètres contribuent ils à la performance du modèle ? <strong>Pruning</strong></li>
+<li>Réduire sa précision numérique : les paramètres et fonctions d'activations d'un modèle sont le plus souvent représentées en <code>float32</code>. Est-ce nécessaire ? <strong>Quantification</strong></li>
+<li>Toutes les opérations du graphe d'un modèle sont elles nécéssaires durant l'inférence ? <strong>Fusion des couches</strong></li>
+<li>Améliorer les allers-retours entre GPU et CPU.</li>
+</ul>
+<h2 id="elagage">Elagage</h2>
+<div class="admonition info">
+<p class="admonition-title">TLDR</p>
+<p>Une des première alternatives lors de l'optimisation des modèles et de se poser la question des paramètres (ie poids &amp; biais). Tous les paramètres n'ont pas la même importance.</p>
+<p>L'idée ici est qu'un réseau entraîné peut être réduit à un réseau plus petit en supprimant les poids inutiles. En pratique, cela signifie que les pondérations "inutiles" sont fixées à zéro. En mettant les pondérations inutiles à zéro, l'inférence ou la prédiction peut être accélérée.</p>
+<p>De plus, les modèles élagués peuvent être compressés en modèles de taille plus petite, car des pondérations peu nombreuses entraînent des taux de compression plus élevés.</p>
+<p>Dans le cas de modèles créés via Tensoflow, cela se fait via la librairie <strong>Tensorflow model optimization</strong>.</p>
+</div>
+<p>La dernière décennie a montré qu'en général, les grands réseaux de neurones donnent de meilleurs résultats (avec par exemple l'arrivée des architetcures de type ResNet &amp; les connexions résiduelles, qui ont complètement changé les méthodes de création des modèles). Mais les grands modèles d'apprentissage profond ont un coût énorme. Par exemple, pour entraîner le modèle GPT-3 d'OpenAI, qui compte 175 milliards de paramètres (700Go pour des poids en Float32), il faut avoir accès à d'énormes grappes de serveurs dotés de cartes graphiques très puissantes, et les coûts peuvent atteindre plusieurs millions de dollars. En outre, vous avez besoin de centaines de gigaoctets de VRAM et d'un serveur puissant pour exécuter le modèle.</p>
+<p>https://blog.dataiku.com/making-neural-networks-smaller-for-better-deployment-solving-the-size-problem-of-cnns-using-network-pruning-with-keras</p>
+<p>L'élagage des réseaux de neurones est une vieille idée qui remonte à 1990 (avec les travaux de Yan LeCun sur les lésions cérébrales optimales) et avant. L'idée est que parmi les nombreux paramètres du réseau, certains sont redondants et ne contribuent pas beaucoup à la sortie.</p>
+<div class="admonition info">
+<p class="admonition-title">Optimal Brain Damage</p>
+<p><a href="http://yann.lecun.com/exdb/publis/pdf/lecun-90b.pdf">Article</a></p>
+<p>We have used information-theoretic ideas to derive a  class of practical and nearly optimal schemes for adapting the size of a  neural network. By removing unimportant weights from a  network, several improvements can be expected: better generalization, fewer training examples required, and improved speed of learning and/or classification. The basic idea is to use second-derivative information to make a  tradeoff between network complexity and training set error. Experiments confirm the usefulness of the methods on a real-world application.</p>
+</div>
+<p>Si vous pouviez classer les neurones du réseau en fonction de leur contribution, vous pourriez alors supprimer les neurones de rang inférieur du réseau, ce qui permettrait d'obtenir un réseau plus petit et plus rapide.</p>
+<p><strong>L'obtention de réseaux plus rapides/petits est importante pour l'exécution de ces réseaux d'apprentissage profond sur les appareils mobiles.</strong></p>
+<p>Le classement peut être effectué en fonction de la moyenne <span class="arithmatex">\(L_1\)</span>/<span class="arithmatex">\(L_2\)</span> des poids des neurones, de leurs activations moyennes, du nombre de fois où un neurone n'était pas nul sur un ensemble de validation, et d'autres méthodes créatives. Après l'élagage, la précision diminue (pas trop, espérons-le, si le classement est intelligent) et le réseau est généralement entraîné davantage pour récupérer.</p>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Eh bien on n'a qu'à élaguer GPT-3 après son entraînement et il tournera sur un smartphone non ?</p>
+</div>
+<p>Le problème de l'élagage des réseaux de neurones après l'entraînement est qu'il ne réduit pas les coûts de réglage de tous les paramètres excessifs. Même si vous parvenez à comprimer un réseau neuronal formé en une fraction de sa taille d'origine, vous devrez toujours payer les coûts complets de son entraînement.</p>
+<p>La question est de savoir si vous pouvez trouver le sous-réseau optimal sans former le réseau neuronal complet.</p>
+<p>En 2018, Jonathan Frankle et Michael Carbin, deux chercheurs en IA au MIT CSAIL et coauteurs, ont publié un article intitulé <a href="https://arxiv.org/pdf/1803.03635.pdf">"The Lottery Ticket Hypothesis"</a>, qui prouve que pour de nombreux modèles d'apprentissage profond, il existe de petits sous-ensembles qui peuvent être formés avec une précision totale.</p>
+<p>Un autre article <a href="https://arxiv.org/abs/1710.01878">To prune, or not to prune: exploring the efficacy of pruning for model compression</a> montre alors qu'élaguer les réseaux de neurones est généralement pertinent.</p>
+<p>L'éfficacité de l'élagage suggère que la plupart des modèles sont sur-paramétrés et que seul un petit nombre de paramètres possède un impact sur lmes performances du modèle. Les autres paramètres ne faisant que <em>prendre de la place</em>.</p>
+<div class="admonition quote">
+<p class="admonition-title">Citation</p>
+<p><strong>we find large-sparse models to consistently outperform small-dense models and achieve up to 10x reduction in number of non-zero parameters with minimal loss in accuracy.</strong></p>
+</div>
+<p>Les modèles de deep learning sont de plus en plus gros et gourmands en ressources. Si cela ne pose pas de problèmes lorsque que le modèle est hébergé dans des datacenters, cela peut poser un problème lorsque que l'on souhaite le déployer sur des environnements contraints en ressource : IoT, smartphone, MCU.</p>
+<div class="admonition quote">
+<p class="admonition-title">Citation</p>
+<p><strong>Within the realm of model  compression techniques, pruning away (forcing to zero) the less salient connections (parameters) in the neural network has been shown to reduce the number of nonzero parameters in the model with little to no loss in the final model quality.</strong></p>
+</div>
+<h3 id="idee">Idée</h3>
+<p>Transformer les matrices utilisées dans les opérations de produit matriciel ou de convolution en matrice creuse.</p>
+<p>Une matrice creuse est une matrice qui possède beaucoup de zéros.</p>
+<div class="arithmatex">\[
+    \begin{pmatrix}0 &amp; 2 &amp; 3 &amp; 0 &amp; 0 &amp; 6\\ 0 &amp; -1 &amp; 3 &amp; 0 &amp; 0 &amp; 6 \\ 0 &amp; 4 &amp; 3 &amp; 0 &amp; 0 &amp; 8 \\ 0 &amp; 2 &amp; 6 &amp; 9 &amp; 0 &amp; 0\end{pmatrix}
+\]</div>
+<p>L'article cherche à répondre à la qestion suivante :</p>
+<ul>
+<li>Du point de vue de l'inférence, étant donnée une borne maximale pour l'empreinte mémoire du modèle, comment obtenir le plus précis ?</li>
+</ul>
+<p>Deux méthodes sont testées :</p>
+<ul>
+<li>large-sparse : commencer avec un modèle large classique (Inception, ResNet...), mais élagué de façon à obtenir un modèle creux (sparse model) avec un petit nombre de paramètres non-nuls.</li>
+<li>small-dense : entraîner de façon classique un petit modèle avec une taille similaire au modèle large-sparse.</li>
+</ul>
+<div class="admonition quote">
+<p class="admonition-title">Citation</p>
+<p><strong>While pruning focuses on reducing the number of non-zero parameters, in principle, model pruning can be used in conjunction with other techniques to further reduce model size. Quantization techniques aim to reduce the number of bits required to represent each parameter from 32-bit floats to 8 bits or fewer</strong></p>
+</div>
+<h3 id="methode">Méthode</h3>
+<div class="arithmatex">\[
+\begin{align}
+W &amp;=
+\begin{bmatrix}
+    W_{1,1} &amp; W_{1,2} &amp; \cdots &amp; W_{1,n}\\
+    W_{2,1} &amp; W_{2,2} &amp; \cdots &amp; W_{2,n}\\
+    \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+    W_{m,1} &amp; W_{m,2} &amp; \cdots &amp; W_{m,n}\\
+\end{bmatrix} \nonumber\\
+\end{align}
+\]</div>
+<p>Pour chaque couche choisie pour être élaguée, un masque binaire est construit de la même dimension que le tenseur de poids de la couche et il détermine quels poids participent à l'étape de feedforward.</p>
+<p>Les poids sont ordonnés suivant leur valeurs absolues et l'on masque les poids de plus petite valeur absolue jusqu'à ce qu'un certain seuil <span class="arithmatex">\(0 &lt; s &lt;1\)</span> de valeurs masquées soit atteint.</p>
+<p>i.e, au lieu d'avoir l'équation suivante</p>
+<div class="arithmatex">\[
+\mathbf{x}_{2, i} = \sum_{j = 1}^{m} \mathbf{W}_{i, j} \mathbf{x}_{1, j} + \mathbf{b}_{i}
+\]</div>
+<p>durant l'étape de feeforward, on a l'équation suivante</p>
+<div class="arithmatex">\[
+\mathbf{x}_{2, i} = \left( \sum_{j = 1}^{m} (\mathbf{W}_{i, j} \mathbf{M}_{i, j}) \mathbf{x}_{1, j} \right) + (\mathbf{b}_{i} \odot \mathbf{m}_{i}) \\
+\]</div>
+<p>où <span class="arithmatex">\(\mathbf{M}\)</span> et <span class="arithmatex">\(\mathbf{m}\)</span> sont des masques binaires :</p>
+<div class="arithmatex">\[
+\begin{align}
+\mathbf{M}_{i, j} =
+  \begin{cases}
+  0 &amp; \text{if $|\mathbf{W}_{i, j}| &lt; \lambda$} \\
+  1 &amp; \text{sinon} \\
+  \end{cases}
+\end{align}
+\]</div>
+<p>et</p>
+<div class="arithmatex">\[
+\begin{align}
+\mathbf{m}_{i} =
+  \begin{cases}
+  0 &amp; \text{if $|\mathbf{b}_{i}| &lt; \lambda$} \\
+  1 &amp; \text{sinon.} \\
+  \end{cases}
+\end{align}
+\]</div>
+<p>Lors de l'étape de rétropropagation, le gradient passant par les masque binaires seuls les poids non masquées sont mis à jour.</p>
+<h3 id="remarques">Remarques</h3>
+<p>Au fur et à mesure que le taux d'apprentissage baisse, il a été observé que les poids élaguées alors que ce dernier est très petit sont difficilement compensés par les autres. Il est donc important de choisir le bon LRD et de ne pas élaguer tout le long de l'entraînement.</p>
+<div class="admonition quote">
+<p class="admonition-title">Citation</p>
+<p><strong>Also note that since the weights are initialized randomly, the sparsity in the weight tensors does not exhibit any specific structure. Furthermore, the pruning method described here does not depend on any specific property of the network or the constituent layers, and can be extended directly to a wide-range of neural network architectures</strong>.</p>
+</div>
+<h2 id="travailler-en-basse-precision">Travailler en basse précision</h2>
+<p><strong>Les ordinateurs ne peuvent utiliser qu'un nombre fini de bits pour représenter des nombres réels infinis.</strong></p>
+<p>La précision avec laquelle nous pouvons les représenter dépend du nombre de bits que nous utilisons - la virgule flottante 32 bits étant la valeur par défaut pour la plupart des applications, y compris le deep learning. Il s'avère que les DNN peuvent travailler avec des types de données plus petits, avec moins de précision, comme les entiers de 8 bits. En gros, nous essayons de travailler avec une ligne de nombres qui se rapproche de la ligne éparse du bas. Les nombres sont quantifiés, c'est-à-dire discrétisés à certaines valeurs spécifiques, que nous pouvons ensuite représenter en utilisant des entiers au lieu de nombres à virgule flottante.</p>
+<h3 id="pourquoi-ca-nous-interesse">Pourquoi ça nous intéresse</h3>
+<ul>
+<li>L'arithmétique avec une profondeur de bit inférieure est plus rapide, en supposant que le matériel le supporte : sans pousser la réduction de précision trop long, les nouvelles architectures de GPU Nvidia permettent de faire un entraînement mixte des modèles en FP32-FP16. Même si le calcul en virgule flottante n'est pas "plus lent" que le calcul en entier sur les processeurs modernes, les opérations en virgule flottante 32 bits seront presque toujours plus lentes que, par exemple, les entiers 8 bits.</li>
+<li>En passant de 32 bits à 8 bits, nous obtenons (presque) 4x la réduction de la mémoire immédiatement. Des modèles de déploiement plus légers signifient qu'ils accaparent moins d'espace de stockage, qu'ils sont plus faciles à partager sur des bandes passantes plus petites, plus faciles à mettre à jour, etc.</li>
+<li>Des largeurs de bits plus faibles signifient également que nous pouvons condenser plus de données dans les mêmes caches/registres. Cela signifie que nous pouvons réduire la fréquence à laquelle nous accédons aux choses à partir de la RAM, qui consomme généralement beaucoup de temps et d'énergie.</li>
+<li>L'arithmétique à virgule flottante est difficile - c'est pourquoi elle n'est pas toujours prise en charge sur les microcontrôleurs de certains appareils embarqués à très faible puissance, comme les drones, les montres ou les appareils IoT. Le support des nombres entiers, en revanche, est facilement disponible.</li>
+</ul>
+<h3 id="pourquoi-ca-marche">Pourquoi ça marche ?</h3>
+<ol>
+<li>Les réseaux neuronaux sont connus pour être assez robustes au bruit et aux autres petites perturbations une fois formés. Cela signifie que même si nous arrondissons subtilement les chiffres, nous pouvons nous attendre à une réponse raisonnablement précise.</li>
+<li>Les poids et les activations d'une couche particulière ont souvent tendance à se situer dans une petite fourchette, qui peut être estimée à l'avance. Cela signifie que nous n'avons pas besoin de la capacité de stocker des poids allant de <span class="arithmatex">\(10^6\)</span> à <span class="arithmatex">\(10^{-6}\)</span> dans le même type de données, ce qui nous permet de concentrer nos précautions sur moins de bits dans une plage plus petite, disons -3 à +3. Par exemple, une des fonctions d'activations utilisées dans les architecture dédiés est la fonction</li>
+</ol>
+<div class="arithmatex">\[
+    \mathrm{ReLU}6(x) := \min(\max(0,x),6).
+\]</div>
+<div class="admonition info">
+<p class="admonition-title">L'arithmétique en virgule flottante</p>
+<p><img alt="screen" src="../images/FP.svg" /></p>
+<p>Source : <a href="https://arxiv.org/pdf/1412.7024.pdf">Training deep neural networks with low precision multiplications.</a></p>
+</div>
+<h2 id="la-quantification">La quantification</h2>
+<div class="admonition info">
+<p class="admonition-title">Quantification</p>
+<p><img alt="screen" src="../images/quant.svg" /></p>
+<p>Source :<a href="https://arxiv.org/pdf/1712.05877.pdf">Quantization and Training of Neural Networks for Efficient Integer-Arithmetic-Only Inference</a></p>
+<p>Lorsque l'on utilise les méthodes de "Quantization aware training" avec TensorFlow, c'est ce schéma là qui est utilisé.</p>
+</div>
+<p>Contrairement aux nombres à virgule flottante, il n'y a pas de standards pour représenter des nombres à virgules fixes. Le schéma de quantification standard utilisé en deep learning requiert les conditions suivantes.</p>
+<ol>
+<li>La transformation doit être affine, ainsi on a une bijection et on peut retrouver directment les nombres réels en faisant la transformation inverse.</li>
+<li>On doit pouvoir représenter <span class="arithmatex">\(0\)</span>, <code>0.f</code>,  précisément. Si l'on fait une quantification, puis la transformation inverse, et que l'on travaille en 8-bits, <strong>alors <span class="arithmatex">\(2^8 = 256\)</span> nombres retrouveront leur valeur de façon exacte</strong>. Si l'on s'arrange pour que <code>0.f</code> soit une de ces 256 valeurs, alors les auteurs de <a href="https://arxiv.org/pdf/1712.05877.pdf">Quantization and Training of Neural Networks for EfficientInteger-Arithmetic-Only Inference</a> montrent que les DNN ont une précision améliorée par rapport aux autres schémas de quantification. Le <code>0.f</code> ayant une signification précise en Deep Learning : par exemple pour l'enjambement ("padding").</li>
+</ol>
+<p>La quantification en entier 8 bits n'est qu'un des schémas d'optimisation, TensorFlow permet de convertir par exemple en :</p>
+<ul>
+<li>float16</li>
+<li>int16</li>
+<li>int8</li>
+<li>int16 activations et int8 pour les poids.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Technique</th>
+<th align="center">Data requirements</th>
+<th align="center">Size reduction</th>
+<th align="center">Accuracy</th>
+<th align="center">Supported hardware</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Post-training float16 quantization</td>
+<td align="center">No data</td>
+<td align="center">Up to 50%</td>
+<td align="center">Insignificant accuracy loss</td>
+<td align="center">CPU, GPU</td>
+</tr>
+<tr>
+<td align="center">Post-training dynamic range quantization</td>
+<td align="center">No data</td>
+<td align="center">Up to 75%</td>
+<td align="center">Accuracy loss</td>
+<td align="center">CPU, GPU (Android)</td>
+</tr>
+<tr>
+<td align="center">Post-training integer quantization</td>
+<td align="center">Unlabelled representative sample</td>
+<td align="center">Up to 75%</td>
+<td align="center">Smaller accuracy loss</td>
+<td align="center">CPU, GPU (Android), EdgeTPU, Hexagon DSP</td>
+</tr>
+<tr>
+<td align="center">Quantization-aware training</td>
+<td align="center">Labelled training data</td>
+<td align="center">Up to 75%</td>
+<td align="center">Smallest accuracy loss</td>
+<td align="center">CPU, GPU (Android), EdgeTPU, Hexagon DSP</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://www.tensorflow.org/lite/performance/model_optimization#types_of_optimization">Source</a></p>
+<h2 id="onnx">ONNX</h2>
+<p>Il existe de nombreux frameworks pour entraîner un modèle d'apprentissage profond. Les plus populaires sont Tensorflow et PyTorch. Cependant, un modèle entraîné par Tensorflow ne peut pas être utilisé avec PyTorch et vice-versa.</p>
+<p>Fruit d’une collaboration entre AWS, Facebook et Microsoft, ONNX permet le transfert des modèles de deep learning entre différents frameworks.</p>
+<p>ONNX est l'abréviation de Open Neural Network Exchange.</p>
+<p><img alt="onnx" src="../images/onnx-horizontal-color.svg" /></p>
+<div class="admonition quote">
+<p class="admonition-title">Citation</p>
+<p><a href="https://onnx.ai/">ONNX</a> est un format ouvert conçu pour représenter les modèles d'apprentissage automatique. ONNX définit un ensemble commun d'opérateurs - les éléments constitutifs des modèles d'apprentissage automatique et d'apprentissage profond - et un format de fichier commun pour permettre aux développeurs d'IA d'utiliser les modèles avec une variété de cadres, d'outils, de moteurs d'exécution et de compilateurs.</p>
+</div>
+<p>Vous pouvez entraîner votre modèle dans le framework de votre choix, puis le convertir au format ONNX.</p>
+<p>L'énorme avantage d'avoir un format commun est que le logiciel ou le matériel qui charge votre modèle au moment de l'exécution n'a besoin que d'être compatible avec ONNX.</p>
+<p>L'intérêt d'ONNX est l'inter-opérabilité : ONNX supporte un nombre impressionnant de frameworks. L'ensemble des frameworks listés ci-dessous peuvent être utilisés pour entrainer un modèle de machine learning de façon transparente, et ONNX se chargera de convertir ce modèle au format <code>.onnx</code>, qui lui permettra d'être utilisé sur un grand nombre de plate-forme.</p>
+<p><img alt="screen" src="../images/onnx.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Ce qu'il faut retenir</p>
+<p>ONNX est aux modèles d'apprentissage automatique ce que JPEG est aux images ou MPEG aux vidéos.</p>
+</div>
+<h3 id="tf2onnx">tf2ONNX</h3>
+<p><a href="https://github.com/onnx/tensorflow-onnx">Repo Github de tf2onnx</a></p>
+<h2 id="tensorrt">TensorRT</h2>
+<p>TensorRT de NVIDIA est un SDK pour l'inférence d'apprentissage profond de haute performance.</p>
+<p>Il fournit des API pour effectuer l'inférence de modèles pré-entraînés et génère des moteurs d'exécution optimisés pour votre plateforme.</p>
+<p>Cette optimisation s'effectue de différentes manières. Par exemple, TensorRT nous permet d'utiliser l'arithmétique INT8 (entier de 8 bits) ou FP16 (virgule flottante de 16 bits) au lieu de l'habituelle FP32. Cette diminution de la précision arithmétique peut accélérer de manière significative l'inférence avec une diminution minime de la précision du modèle.</p>
+<h2 id="les-architectures-dediees">Les architectures dédiées</h2>
+<h3 id="mobilenet">MobileNet</h3>
+<p>MobileNet est une série d'architectures de CNN, démarrée en 2017 :</p>
+<ul>
+<li><a href="https://arxiv.org/abs/1704.04861">MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications</a></li>
+<li><a href="https://arxiv.org/abs/1801.04381">MobileNetV2: Inverted Residuals and Linear Bottlenecks</a></li>
+<li><a href="https://arxiv.org/abs/1905.02244">Searching for MobileNetV3</a></li>
+</ul>
+<p>Alors que MobileNetV3 utilise les méthodes de "recherche architecturale neuronale" (NAS : Neural Architecture Search), ie un algorithme de deep learning cherche des architectures de deep learning optimale (votre serviteur ici présent n'en connait pas encore assez pour expliquer ça de façon plus claire); les modèles MobileNetV1 et MobileNetV2 reposent principalement sur les couches que l'on appelle les <strong>Separable DepthWise Convolutions</strong>. Ce sont ces nouvelles couches là qui nous intéressent.</p>
+<p>Pour comprendre l'intérêt de ces dernières, il faut se replonger d'abord dans les convolutions classiques.</p>
+<h4 id="separable-depthwise-convolutions">Separable DepthWise Convolutions</h4>
+<p>Lorsque l'on fait de l'analyse numérique, ou de l'algorithmie, une notion très importante est la "compléxité algorithmique" qui détermine un ordre de grandeur du nombre d'opérations (additions et multiplications) nécéssaires pour arriver au résultat voulu. De façon plus général, le coût calculatoire peut être important à prendre en compte.</p>
+<p>Supposons que l'on a en entrée une feature map de dimensions <span class="arithmatex">\((h_{\mathrm{in}}, w_{\mathrm{in}},c_{\mathrm{in}})\)</span>, selon la convention (Height, Width, Channels). Appliquer alors un noyau de convolution de dimensions <span class="arithmatex">\((k,k,c_{\mathrm{in}},c_{\mathrm{out}})\)</span> pour produire une feature map en sortie de dimensions <span class="arithmatex">\((h_{\mathrm{in}}, w_{\mathrm{in}},c_{\mathrm{out}})\)</span> demande le nombre d'opérations suivant.</p>
+<div class="arithmatex">\[
+h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}} \cdot k^{2} \cdot c_{\mathrm{out}}
+\]</div>
+<p>Chaque pixel de la feature map d'entrée est le centre d'un filtre de convolution de taille <span class="arithmatex">\((k,k)\)</span>, comme on a <span class="arithmatex">\(h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}}\)</span> pixels en tout en entrée on a <span class="arithmatex">\(h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}} \cdot k^{2}\)</span> opérations pour <strong>une</strong> feature map en sortie. On souhaite <span class="arithmatex">\(c_{\mathrm{out}}\)</span> feature maps en sortie, donc le coût total est bien le dernier cité.</p>
+<p><img alt="screen" src="../images/conv.svg" /></p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Comme vous le voyez ici, les dimensions spatiales des feature maps (hauteur, largeur) n'ont pas changées. On est donc dans le cas où la convolution ne réduit pas les dimensions spatiales, par exemple dans TensorFlow on a fixé le paramêtre <code>padding="same"</code>.</p>
+</div>
+<p>La différence majeure avec une convolution 2d classique, est qu'une separable depthWise convolution est divisée en deux opérations.</p>
+<ol>
+<li>Une première opération, qui produit une nombre de fature map identique au nombre de feature maps d'entrées.</li>
+<li>Une convolution <span class="arithmatex">\(1\times1\)</span>, qui elle est responsable de générer le nombre de feature maps nécéssaires en sortie.</li>
+</ol>
+<p><img alt="" src="../images/conv1.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Application d'une convolution <span class="arithmatex">\(1\times1\)</span></p>
+<p><img alt="" src="../images/conv1_final.svg" /></p>
+<p>Notons <span class="arithmatex">\(p_{i,j}(F_{k})\)</span> le pixel à la coordonée <span class="arithmatex">\((i,j)\)</span> dans la feature map <span class="arithmatex">\(F_{k}\)</span>.</p>
+<p>Chacun des pixels obtenus dans la feature map en sortie est alors une combinaison linéaire des pixels aux mêmes coordonnées dans les features maps d'entrée. Les coefficients de la combinaison linéaire étant <strong>appris</strong> par le réseau et les mêmes pour tous les pixels de la feature map de sorite, ce sont les coefficients <span class="arithmatex">\((w_{1}^{1}, w_{2}^{1}, w_{3}^{1})\)</span> du filtre de la convolution <span class="arithmatex">\(1\times1\)</span>.</p>
+</div>
+<p><img alt="screen" src="../images/depthwise_conv.svg" /></p>
+<p>On se retrouve donc avec le nombre d'opérations suivant.</p>
+<div class="arithmatex">\[
+h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}} (k^{2} + c_{\mathrm{out}}).
+\]</div>
+<p>Si l'on fait le rapport du nombre d'opérations nécessaires pour ces deux couches, on obtient :</p>
+<div class="arithmatex">\[
+\frac{h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}} (k^{2} + c_{\mathrm{out}})}{h_{\mathrm{in}} \cdot w_{\mathrm{in}} \cdot c_{\mathrm{in}} \cdot k^{2} \cdot c_{\mathrm{out}}} = \frac{1}{k^{2}}+\frac{1}{c_{\mathrm{out}}}
+\]</div>
+<p>Généralement, on a <span class="arithmatex">\(k \geq 3\)</span> et <span class="arithmatex">\(c_{\mathrm{out}} &gt;&gt; 1\)</span>, ce qui nous donne <span class="arithmatex">\(\frac{1}{k^{2}}+\frac{1}{c_{\mathrm{out}}} &lt; 1\)</span>. Ce qui veut dire que pour produire le même nombre de feature maps en sortie, une separable depthwise convolution est beaucoup plus efficace noveau nombre d'opérations.</p>
+<h3 id="repvgg">RepVGG</h3>
+<p><a href="https://arxiv.org/abs/2101.03697">RepVGG: Making VGG-style ConvNets Great Again</a> est un article sorti en Mars 2021 arguant que si les connexions résiduelles des architectures de type ResNet sont très efficaces pour l'entraînement des modèles en leur permettant d'atteindre de très hautes performances, c'est en frein lorsque l'on doit déployer de telles architectures sur de l'embarqué, car les connexions résiduelles consomment de la mémoire inutile lors de l'inférence, et réduisent donc la vitesse d'inférence.</p>
+<p>L'idée de l'article est alors la suivante : <strong>avoir deux topologies de modèles différentes</strong>.</p>
+<ol>
+<li>Une topologie avec des connexions résiduelles et des architectures de types ResNet.</li>
+<li>Une topologie linéaire avec une architecture du style VGG de lors du déploiement du modèle.</li>
+</ol>
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<p>Comment passer d'une architetcure à une autre ?</p>
+</div>
+<p>L'article s'appuie sur une des techniques classiques d'optimisation des modèles : la fusion Convolution-Batchnormalization.</p>
+<div class="admonition quote">
+<p class="admonition-title">Abstract</p>
+<p>We present a simple but powerful architecture of convolutional neural network, which has a VGG-like inference-time body composed of nothing but a stack of <span class="arithmatex">\(3\times3\)</span> convolution and ReLU, while the training-time model has a multi-branch topology. Such decoupling of the training-time and inference-time architecture is realized by a structural re-parameterization technique so that the model is named RepVGG. On ImageNet, RepVGG reaches over <span class="arithmatex">\(80\%\)</span> top-1 accuracy, which is the first time for a plain model, to the best of our knowledge. On NVIDIA 1080Ti GPU, RepVGG models run <span class="arithmatex">\(83\%\)</span> faster than ResNet-<span class="arithmatex">\(50\)</span> or <span class="arithmatex">\(101\%\)</span> faster than ResNet-<span class="arithmatex">\(101\)</span> with higher accuracy and show favorable accuracy-speed trade-off compared to the state-of-the-art models like EfficientNet and RegNet.</p>
+</div>
+<p><img alt="screen" src="../images/repvgg.svg" /></p>
+<p><img alt="screen" src="../images/repvgg2.svg" /></p>
+<h4 id="la-fusion-convolution-batchnorm">La fusion Convolution-Batchnorm</h4>
+<p>La fusion d'une couche de convolution avec une couche de batchnorm ressort les poids et biais d'une nouvelle couche de convolution avec les noyaux de convolutions de même dimension.</p>
+<p>Etant donné le tenseur <span class="arithmatex">\(W\)</span> de poids des noyaux de convolution d'une couche convolutive et le tenseur de <span class="arithmatex">\(4\)</span> paramètres <span class="arithmatex">\(B=(\gamma, \beta, \mu, \sigma)\)</span> d'une couche de batchnormalization, on obtient les nouveaux poids et poids de la nouvelle couche convolutive via les formules suivantes.</p>
+<div class="arithmatex">\[
+\widehat{W}_{:,:,:,j} := \frac{\gamma_{j} \cdot W_{:,:,:,j}}{\sqrt{\sigma_{j} + \epsilon}}
+\]</div>
+<div class="arithmatex">\[
+b_{j} = \beta_{j} - \frac{\mu_{j}\cdot\gamma_{j}}{\sqrt{\sigma_{j} + \epsilon}}
+\]</div>
+<p>On remarque ici que le biais de la nouvelle couche de convolution ne dépend que des paramètres de la couche de batchnorm. <strong>Ce qui est cohérent avec la pratique de ne jamais mettre de biais dans une couche de convolution lorsqu'elle est suivie par une couche de batchnorm</strong>.</p>
+<div class="admonition info">
+<p class="admonition-title">Remarque</p>
+<p>Le <span class="arithmatex">\(\epsilon\)</span> présent ici est pour s'assurer que l'on ne divise jamais pas zéro, dans la pratique il est fixé à <span class="arithmatex">\(0,001\)</span>.</p>
+</div>
+<p>Ce qui nous donne, dans la pratique la fonction suivante.</p>
+<div class="admonition python">
+<p class="admonition-title">Fusion Conv-BN</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># https://scortex.io/batch-norm-folding-an-easy-way-to-improve-your-network-speed/</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="c1"># https://github.com/DingXiaoH/RepVGG/blob/4da799e33c890c624bfb484b2c35abafd327ba40/repvgg.py#L68</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="k">def</span> <span class="nf">fuse_bn_conv</span><span class="p">(</span><span class="n">weights_conv</span><span class="p">,</span> <span class="n">weights_bn</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">0.001</span><span class="p">):</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a>    <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">weights_bn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">weights_bn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a>    <span class="n">beta</span> <span class="o">=</span> <span class="n">weights_bn</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a>    <span class="n">mean</span> <span class="o">=</span> <span class="n">weights_bn</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>    <span class="n">variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">weights_bn</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">weights_bn</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a>    <span class="n">new_weights</span> <span class="o">=</span> <span class="p">(</span><span class="n">weights_conv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">gamma</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>    <span class="n">new_bias</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">-</span> <span class="n">mean</span><span class="o">*</span><span class="n">gamma</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="n">new_bias</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">new_bias</span><span class="p">,</span> <span class="n">weights_bn</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a>    <span class="k">return</span> <span class="n">new_weights</span><span class="p">,</span> <span class="n">new_bias</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="c1"># In the code above, the reshaping is necessary to prevent a mistake if the dimension of the output O was the same as the dimension of the input I.</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<p>Détaillons.</p>
+<p>Pour cela, définissons un modèle dummy qui nous servira pour nos explications.</p>
+<div class="admonition tf">
+<p class="admonition-title">Modèle dummy</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="n">img_shape</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">3</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nb">input</span> <span class="o">=</span> <span class="n">Input</span><span class="p">(</span><span class="n">img_shape</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="n">x</span><span class="o">=</span> <span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a>          <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a>          <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a>          <span class="n">use_bias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a>          <span class="n">kernel_initializer</span><span class="o">=</span><span class="s1">&#39;he_uniform&#39;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a>          <span class="n">name</span><span class="o">=</span><span class="s1">&#39;testing_conv_init&#39;</span><span class="p">)(</span><span class="nb">input</span><span class="p">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="n">x</span><span class="o">=</span> <span class="n">BatchNormalization</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;testing_bn_init&#39;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<h5 id="etude-de-la-couche-convolutive">Etude de la couche convolutive</h5>
+<div class="admonition tf">
+<p class="admonition-title">Modèle dummy</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="n">weights_conv</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s2">&quot;testing_conv_init&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nb">type</span><span class="p">(</span><span class="n">weights_conv</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+list</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nb">len</span><span class="p">(</span><span class="n">weights_conv</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+2</p>
+</div>
+<p>Les poids dans une couche convolutive sont une liste de deux éléments :</p>
+<ul>
+<li><code>weights[0]</code> correspond aux poids des noyaux de convolution,</li>
+<li><code>weights[1]</code> correspond aux biais.</li>
+</ul>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="nb">type</span><span class="p">(</span><span class="n">weights_conv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</code></pre></div></td></tr></table></div>
+numpy.ndarray</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">weights_conv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div></td></tr></table></div>
+(3, 3, 3, 16)</p>
+<p>Les axes du tenseur de poids suivent les dimensions suivantes :</p>
+<ul>
+<li>kernel_size1 : hauteur du kernel,</li>
+<li>kernel_size2 : largeur du kernel,</li>
+<li>channels_in : nombre des feature maps en entrée,</li>
+<li>channels_out : nombres de features maps (filters) en sortie.</li>
+</ul>
+<p><code>channels_out</code> est définie dans la couche convolutive via le paramètres <code>filters</code>, alors que la valeur <code>channels_in</code> est elle directement déterminée par le tenseur en entrée. C'est une différence de TensorFlow par rapport à Pytorch où <code>channels_in</code> et <code>channels_out</code> sont tous les deux des paramètres des couches convolutives.</p>
+<p>Ainsi, si l'on veut voir les poids du noyau de convolution par rapport au canal <span class="arithmatex">\(0\)</span> en la feature map de sortie <span class="arithmatex">\(5\)</span>, on les obtient en regardant :</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="n">weights_conv</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,:,</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+<p>Par défaut, les biais des couches de convolutions sont tous initialisés à zéro.</p>
+<h5 id="etude-de-la-batchnorm">Etude de la batchnorm</h5>
+<div class="admonition tf">
+<p class="admonition-title">Modèle dummy</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="n">weights_bn</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s1">&#39;testing_bn_init&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="nb">type</span><span class="p">(</span><span class="n">weights_bn</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+list</p>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="nb">len</span><span class="p">(</span><span class="n">weights_bn</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+4</p>
+</div>
+<p>Dans une couche de BatchNormalization, on a 4 types de poids.</p>
+<ul>
+<li>Les deux paramètres de scaling <span class="arithmatex">\(\gamma\)</span> et de biais <span class="arithmatex">\(\beta\)</span>.</li>
+<li>Les deux paramètres correspondant à la moyenne <span class="arithmatex">\(\mu\)</span> et la variance <span class="arithmatex">\(\sigma\)</span>.</li>
+</ul>
+<p>Tous ces paramètres ne sont pas entraînables, comme on peut le voir dans la liste suivante.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="p">[(</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">trainable</span><span class="p">)</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s1">&#39;testing_bn_init&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">variables</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="o">[(</span><span class="s1">&#39;testing_bn_init/gamma:0&#39;</span>,<span class="w"> </span>True<span class="o">)</span>,
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w"> </span><span class="o">(</span><span class="s1">&#39;testing_bn_init/beta:0&#39;</span>,<span class="w"> </span>True<span class="o">)</span>,
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w"> </span><span class="o">(</span><span class="s1">&#39;testing_bn_init/moving_mean:0&#39;</span>,<span class="w"> </span>False<span class="o">)</span>,
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w"> </span><span class="o">(</span><span class="s1">&#39;testing_bn_init/moving_variance:0&#39;</span>,<span class="w"> </span>False<span class="o">)]</span>
+</code></pre></div></td></tr></table></div>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="n">backend</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s1">&#39;testing_bn_init&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_weights</span><span class="p">())</span>
+</code></pre></div></td></tr></table></div>
+Les <span class="arithmatex">\(4\)</span> paramètres sont tous des vecteurs de dimension <span class="arithmatex">\(16\)</span>, ce qui correspond au nombre de feature maps en sortie de la couche convolutive.</p>
+<h5 id="nouveau-tenseur-de-poids">Nouveau tenseur de poids</h5>
+<p>Discutons premièrement de la formulation du nouveau tenseur de poids, et voyons pourquoi on modifie la forme de vecteurs <span class="arithmatex">\(\gamma\)</span> et <span class="arithmatex">\(\sigma\)</span>.</p>
+<p><span class="arithmatex">\(W_{:,:,:,j}\)</span> correspond dans la formule au noyau de convolution complet de la <span class="arithmatex">\(j\)</span>-ième feature map de sortie.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="n">weights_conv</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">get_layer</span><span class="p">(</span><span class="s2">&quot;testing_conv_init&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_weights</span><span class="p">()</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="n">weights_conv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="o">(</span><span class="m">3</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">16</span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p>On a <span class="arithmatex">\(16\)</span> noyaux de convolution, chacun de dimensions <span class="arithmatex">\((3,3,3)\)</span>. Par exemple, pour <span class="arithmatex">\(j=1\)</span>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="n">weights_conv</span><span class="p">[</span><span class="mi">0</span><span class="p">][:,:,:,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div></td></tr></table></div>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="o">(</span><span class="m">3</span>,<span class="w"> </span><span class="m">3</span>,<span class="w"> </span><span class="m">3</span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+Les vecteur <span class="arithmatex">\(\gamma\)</span> et <span class="arithmatex">\(\sigma\)</span> étant des vecteurs de dimension <span class="arithmatex">\(16\)</span>, on va les "transformer en tenseur" de dimensions <span class="arithmatex">\((1,1,1,16)\)</span> pour bien faire correspondre le produit suivant chaque axe.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="n">variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">weights_bn</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">weights_bn</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="n">variance</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div></td></tr></table></div>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">16</span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">weights_bn</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">weights_bn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="n">gamma</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div></td></tr></table></div></p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a><span class="o">(</span><span class="m">1</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">1</span>,<span class="w"> </span><span class="m">16</span><span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+<p><img alt="screen" src="../images/fuse_conv_bn.svg" /></p>
+<p>Au final, la formule</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a><span class="n">new_weights</span> <span class="o">=</span> <span class="p">(</span><span class="n">weights_conv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">gamma</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>résume tout cela, tous les tenseurs ayant le mêmbre nombre d'axes, les opérations sont vectorisées et se font axe par axe.</p>
+<h5 id="nouveau-tenseur-de-biais">Nouveau tenseur de biais</h5>
+<p>Le opérations de <code>reshape</code> n'ont pas ajouter de nouveaux scalaires, juste des axes, le calcul du biais se fait alors élément par élément pour tout <span class="arithmatex">\(j\)</span>.</p>
+<h5 id="verification-via-les-developpements-limites">Vérification via les développements limités</h5>
+<p>Créons un tenseur de poids <span class="arithmatex">\(W\)</span> repéresentatif du noyau d'une convolution et un tenseur de poids <span class="arithmatex">\(B=(\gamma, \beta, \mu, \sigma)\)</span> représentatif des coefficients d'une batchnormalization.</p>
+<p>Pour vérifier si tout marche bien, fixons volontairement le tenseur poids comme un tenseur de dimensions <span class="arithmatex">\((3,3,4,5)\)</span>, la dimension du noyau est toujours fixé à <span class="arithmatex">\((3,3)\)</span> dans RepVGG, seules les dimensions <code>channels_in</code> et <code>channels_out</code> peuvent changer.</p>
+<p>Tous les coefficients du tenseur de poids seront fixés à <span class="arithmatex">\(1\)</span>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a><span class="n">conv_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a><span class="n">conv_weights</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div></td></tr></table></div>
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="o">(</span><span class="m">3</span>,3,4,5<span class="o">)</span>
+</code></pre></div></td></tr></table></div>
+La dimension <code>channels_out</code> ayant été fixée à <span class="arithmatex">\(5\)</span>, les vecteurs de la batchnormalization seront tous des vecteurs de dimension <span class="arithmatex">\(5\)</span>. Fixons les coefficients suivants.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
+<span class="normal"><a href="#__codelineno-25-2">2</a></span>
+<span class="normal"><a href="#__codelineno-25-3">3</a></span>
+<span class="normal"><a href="#__codelineno-25-4">4</a></span>
+<span class="normal"><a href="#__codelineno-25-5">5</a></span>
+<span class="normal"><a href="#__codelineno-25-6">6</a></span>
+<span class="normal"><a href="#__codelineno-25-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="k">def</span> <span class="nf">batchnorm_variables</span><span class="p">(</span><span class="n">gamma_coef</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beta_coef</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mu_coef</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sigma_coef</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a>    <span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma_coef</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a>    <span class="n">beta</span> <span class="o">=</span> <span class="n">beta_coef</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a>    <span class="n">mu</span> <span class="o">=</span> <span class="n">mu_coef</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5"></a>    <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma_coef</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
+<a id="__codelineno-25-6" name="__codelineno-25-6"></a>
+<a id="__codelineno-25-7" name="__codelineno-25-7"></a>    <span class="k">return</span> <span class="p">[</span><span class="n">gamma</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="n">conv</span><span class="p">,</span> <span class="n">bn</span> <span class="o">=</span> <span class="n">fuse_bn_conv</span><span class="p">([</span><span class="n">conv_weights</span><span class="p">],</span> <span class="n">batchnorm_variables</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+<p>Par définition, le nouveau tenseur de poids <span class="arithmatex">\(\widehat{W}\)</span> de la convolution résultant de la fusion de l'ancienne convolution et de la batchnorm est donné par formule suivante.</p>
+<div class="arithmatex">\[
+\widehat{W}_{:,:,:,j} := \frac{\gamma_{j} \cdot W_{:,:,:,j}}{\sqrt{\sigma_{j} + \epsilon}}
+\]</div>
+<p>De façon générale, pour <span class="arithmatex">\(\gamma_{j}, \sigma_{j}\)</span>, on a le développement limité suivant.</p>
+<div class="arithmatex">\[
+\widehat{W}_{:,:,:,j} := \frac{\gamma_{j} \cdot W_{:,:,:,j}}{\sqrt{\sigma_{j} + \epsilon}} = \frac{\gamma_{j}}{\sqrt{\sigma_{j}}}\left[1- \frac{1}{2\sigma_{j}}\epsilon + o(\epsilon^{2})\right]W_{:,:,:,j}
+\]</div>
+<p>Dans notre cas, <span class="arithmatex">\(\forall j, \gamma_{j} = 1, \sigma_{j} = 4\)</span> d'où</p>
+<div class="arithmatex">\[
+\widehat{W}_{:,:,:,j} := \frac{W_{:,:,:,j}}{\sqrt{4 + \epsilon}} = \left[\frac{1}{2}- \frac{1}{16}\epsilon + o(\epsilon^{2})\right]W_{:,:,:,j} \simeq \left[\frac{1}{2}- \frac{1}{16}\epsilon\right]W_{:,:,:,j}
+\]</div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span>
+<span class="normal"><a href="#__codelineno-27-2">2</a></span>
+<span class="normal"><a href="#__codelineno-27-3">3</a></span>
+<span class="normal"><a href="#__codelineno-27-4">4</a></span>
+<span class="normal"><a href="#__codelineno-27-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="k">def</span> <span class="nf">compute_scaling_weight_factor</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2"></a>    <span class="k">return</span> <span class="n">gamma</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mf">0.001</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sigma</span><span class="p">))</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3"></a>
+<a id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="n">scale</span> <span class="o">=</span> <span class="n">compute_scaling_weight_factor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5"></a><span class="n">scale</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="n">conv</span><span class="p">[:,:,:,</span><span class="mi">4</span><span class="p">]</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-29-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-29-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-29-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-29-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-29-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-29-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-29-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-29-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-29-10">10</a></span>
+<span class="normal"><a href="#__codelineno-29-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a>array<span class="o">([[[</span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751<span class="o">]</span>,
+<a id="__codelineno-29-2" name="__codelineno-29-2"></a><span class="w">        </span><span class="o">[</span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751<span class="o">]</span>,
+<a id="__codelineno-29-3" name="__codelineno-29-3"></a><span class="w">        </span><span class="o">[</span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751<span class="o">]]</span>,
+<a id="__codelineno-29-4" name="__codelineno-29-4"></a>
+<a id="__codelineno-29-5" name="__codelineno-29-5"></a><span class="w">       </span><span class="o">[[</span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751<span class="o">]</span>,
+<a id="__codelineno-29-6" name="__codelineno-29-6"></a><span class="w">        </span><span class="o">[</span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751<span class="o">]</span>,
+<a id="__codelineno-29-7" name="__codelineno-29-7"></a><span class="w">        </span><span class="o">[</span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751<span class="o">]]</span>,
+<a id="__codelineno-29-8" name="__codelineno-29-8"></a>
+<a id="__codelineno-29-9" name="__codelineno-29-9"></a><span class="w">       </span><span class="o">[[</span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751<span class="o">]</span>,
+<a id="__codelineno-29-10" name="__codelineno-29-10"></a><span class="w">        </span><span class="o">[</span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751<span class="o">]</span>,
+<a id="__codelineno-29-11" name="__codelineno-29-11"></a><span class="w">        </span><span class="o">[</span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751,<span class="w"> </span><span class="m">0</span>.49993751<span class="o">]]])</span>
+</code></pre></div></td></tr></table></div>
+<p>Ce qui correspond bien à l'approximation obtenue par développement limité. On peut par exemple vérifier si <span class="arithmatex">\(\widehat{W}\)</span> est approximativement égal à <code>conv</code> à <span class="arithmatex">\(10^{-3}\)</span> avec la commande <code>np.isclose</code>. Si <code>np.mean(...)</code> <span class="arithmatex">\(&lt; 1\)</span> alors le calcul est faux.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
+<span class="normal"><a href="#__codelineno-30-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="n">conv_weights_real</span> <span class="o">=</span> <span class="n">scale</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="mi">3</span><span class="o">*</span><span class="mi">4</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2"></a><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">conv</span><span class="p">,</span> <span class="n">conv_weights_real</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a><span class="m">1</span>.0
+</code></pre></div></td></tr></table></div>
+<p>Pour le biais, on a la formule suivante.</p>
+<div class="arithmatex">\[
+b_{j} = \beta_{j} - \frac{\mu_{j}\cdot\gamma_{j}}{\sqrt{\sigma_{j} + \epsilon}} = \beta_{j} - \frac{\mu_{j}\cdot\gamma_{j}}{\sqrt{\sigma_{j}}}\left[1- \frac{1}{2\sigma_{j}}\epsilon + o(\epsilon^{2})\right]
+\]</div>
+<p>dans notre cas, on a :</p>
+<ul>
+<li><span class="arithmatex">\(\beta_{j} = 2\)</span>,</li>
+<li><span class="arithmatex">\(\gamma_{j} = 1\)</span>,</li>
+<li><span class="arithmatex">\(\mu_{j} = 1\)</span>,</li>
+<li><span class="arithmatex">\(\sigma_{j} = 4\)</span>.</li>
+</ul>
+<div class="arithmatex">\[
+b_{j} = 2 - \frac{1}{2}\left[1- \frac{1}{8}\epsilon + o(\epsilon^{2})\right] \simeq 2 - \frac{1}{2} - \frac{1}{16}\epsilon
+\]</div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1">1</a></span>
+<span class="normal"><a href="#__codelineno-32-2">2</a></span>
+<span class="normal"><a href="#__codelineno-32-3">3</a></span>
+<span class="normal"><a href="#__codelineno-32-4">4</a></span>
+<span class="normal"><a href="#__codelineno-32-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a><span class="k">def</span> <span class="nf">compute_scaling_bias_factor</span><span class="p">(</span><span class="n">gamma</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2"></a>    <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">mu</span><span class="o">*</span><span class="n">gamma</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma</span><span class="p">)</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3"></a>    <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="mf">0.001</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">sigma</span><span class="p">)</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4"></a>
+<a id="__codelineno-32-5" name="__codelineno-32-5"></a>    <span class="k">return</span> <span class="n">beta</span><span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="n">b</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span>
+<span class="normal"><a href="#__codelineno-33-2">2</a></span>
+<span class="normal"><a href="#__codelineno-33-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a><span class="n">bias_scale</span> <span class="o">=</span> <span class="n">compute_scaling_bias_factor</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2"></a><span class="n">bn_real</span> <span class="o">=</span> <span class="n">bias_scale</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3"></a><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">bn_real</span><span class="p">,</span> <span class="n">bn</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>https://bdtechtalks.com/2020/10/12/deep-learning-neural-network-pruning/</li>
+<li>https://github.com/BenWhetton/keras-surgeon</li>
+<li>https://jacobgil.github.io/deeplearning/pruning-deep-learning</li>
+<li>https://heartbeat.fritz.ai/research-guide-pruning-techniques-for-neural-networks-d9b8440ab10d</li>
+<li>https://blog.dataiku.com/making-neural-networks-smaller-for-better-deployment-solving-the-size-problem-of-cnns-using-network-pruning-with-keras</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Retour en haut de la page
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "navigation.tabs.sticky", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.12658920.min.js", "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5cf534bf.min.js"></script>
+      
+        <script src="../../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
