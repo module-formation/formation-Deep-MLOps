@@ -4,4 +4,4 @@ mkdocs-material==9.0.2
 mkdocstrings==0.19.1
 mkdocstrings-python==0.8.3
 mknotebooks==0.7.1.post0.dev2
-pre-commit==2.21.0
+pre-commit==3.0.4
